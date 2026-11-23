@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Lower Third Web — by Culto em Off</title>
+    <link rel="stylesheet" href="/ui.css" />
+    <link rel="stylesheet" href="/dock.css" />
+    <link rel="icon" type="image/svg+xml" href="/icons/app.svg" />
+  </head>
+  <body>
+    <main class="dock">
+      <header>
+        <div class="brand"><strong>LOWER THIRD</strong></div>
+        <div class="headerActions">
+          <button id="hideAll" class="iconBtn" title="Tirar tudo do ar (nomes, barra, QR e logo)">
+            <img src="/icons/hide.svg" alt="" /></button
+          ><button id="themeToggle" class="iconBtn" title="Tema claro / escuro">
+            <img src="/icons/sun.svg" alt="" /></button
+          ><button
+            id="openSettings"
+            class="iconBtn"
+            title="Configurações: abre no navegador (nomes, cores, modelos, PIX, logo)"
+          >
+            <img src="/icons/settings.svg" alt="" />
+          </button>
+        </div>
+      </header>
+      <section class="panel">
+        <div class="toggles">
+          <button data-el="top" title="Mostra ou esconde a barra superior (logo, hora e recados)">
+            <i></i><span>Barra</span></button
+          ><button data-el="card" title="Mostra ou esconde o cartão do QR Code / PIX">
+            <i></i><span>QR / PIX</span></button
+          ><button data-el="bug" title="Mostra ou esconde o logo no canto da tela">
+            <i></i><span>Logo</span>
+          </button>
+        </div>
+      </section>
+      <section class="panel names">
+        <div class="sectionTitle"><span>Nomes</span><small id="autoHide"></small></div>
+        <div id="items" class="items"></div>
+        <form id="addForm" class="addForm">
+          <input id="addLine1" placeholder="Nome" maxlength="120" autocomplete="off" /><input
+            id="addLine2"
+            placeholder="Cargo ou texto"
+            maxlength="160"
+            autocomplete="off"
+          /><button class="primary" title="Adicionar à lista (Enter)">+</button>
+        </form>
+      </section>
+      <footer>
+        <span>Desenvolvido por</span>
+        <a href="https://www.youtube.com/@CultoemOff" target="_blank" rel="noopener noreferrer"
+          >Culto em Off</a
+        ><span id="appVersion" class="appVersion"></span>
+      </footer>
+    </main>
+    <script type="module" src="/dock.js"></script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Lower Third Web — Configurações</title>
+    <link rel="stylesheet" href="/ui.css" />
+    <link rel="stylesheet" href="/settings.css" />
+    <link rel="icon" type="image/svg+xml" href="/icons/app.svg" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="top">
+        <div class="brand">
+          <img src="/icons/app.svg" alt="" />
+          <div><strong>LOWER THIRD WEB</strong><small>Configurações</small></div>
+        </div>
+        <div class="headerActions">
+          <span id="saved" class="saved"></span>
+          <button id="themeToggle" class="iconBtn" title="Tema claro / escuro">
+            <img src="/icons/sun.svg" alt="" />
+          </button>
+        </div>
+      </header>
+      <nav id="nav" class="nav"></nav>
+      <div class="content">
+        <section id="form" class="form"></section>
+        <aside id="previewPanel" class="panel preview">
+          <div class="sectionTitle">
+            <span>Prévia</span>
+            <span class="previewActions">
+              <button id="replay" title="Mostra de novo a animação de entrada">
+                Repetir animação
+              </button>
+              <button id="onAir" title="Mostra ou esconde este elemento no OBS agora"></button>
+            </span>
+          </div>
+          <div id="previewBox" class="previewBox">
+            <iframe id="preview" title="Prévia"></iframe>
+          </div>
+          <p class="hint">
+            O fundo da prévia simula a imagem da câmera. No OBS o fundo é transparente.
+          </p>
+        </aside>
+      </div>
+      <footer>
+        <span>Desenvolvido por</span>
+        <a href="https://www.youtube.com/@CultoemOff" target="_blank" rel="noopener noreferrer"
+          >Culto em Off</a
+        ><span id="appVersion" class="appVersion"></span>
+      </footer>
+    </div>
+    <datalist id="fontList"></datalist>
+    <script type="module" src="/settings.js"></script>
+  </body>
+</html>

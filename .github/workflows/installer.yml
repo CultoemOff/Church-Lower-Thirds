@@ -1,0 +1,170 @@
+name: Installer
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  windows:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - name: Install dependencies
+        run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Unit tests
+        run: npm test
+      - name: Lint frontend
+        run: npm run lint
+      - name: Check formatting
+        run: npm run format:check
+      - name: Build TypeScript
+        run: npm run build
+      - name: Prepare portable application
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force package\app\dist\web | Out-Null
+          New-Item -ItemType Directory -Force package\runtime | Out-Null
+          Copy-Item -Recurse -Force dist\* package\app\dist\
+          Copy-Item -Recurse -Force src\web\* package\app\dist\web\
+          Copy-Item package.json, package-lock.json package\app\
+          Copy-Item scripts\windows\start-server.vbs, scripts\windows\open-settings.vbs, scripts\windows\stop-server.ps1 package\
+          Copy-Item "$env:ProgramFiles\nodejs\node.exe" package\runtime\node.exe
+          Push-Location package\app
+          npm ci --omit=dev
+          if ($LASTEXITCODE -ne 0) { throw "npm ci failed in the package." }
+          Pop-Location
+      - name: Build installer
+        shell: pwsh
+        run: |
+          $iscc = @(
+            "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe",
+            "$env:ProgramFiles\Inno Setup 6\ISCC.exe"
+          ) | Where-Object { Test-Path $_ } | Select-Object -First 1
+          if (-not $iscc) {
+            choco install innosetup -y --no-progress
+            $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          }
+          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          & $iscc "/DMyAppVersion=$version" installer\Lower-Third-Web.iss
+          if ($LASTEXITCODE -ne 0) { throw "Inno Setup failed." }
+      - name: Installer smoke test (install, run, uninstall)
+        shell: pwsh
+        run: |
+          $exe = "installer\output\Lower-Third-Web-Setup.exe"
+          $dir = Join-Path $env:LOCALAPPDATA 'Programs\Lower Third Web'
+          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          $userKey = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{13D055BB-63D1-484E-820B-004089D86007}_is1'
+          $base = 'http://127.0.0.1:8795'
+
+          $p = Start-Process $exe -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -Wait -PassThru
+          if ($p.ExitCode -ne 0) { throw "Installer exited with $($p.ExitCode)" }
+          $expected = "$dir\runtime\node.exe", "$dir\app\dist\server\index.js", "$dir\app\dist\web\overlay.html",
+            "$dir\start-server.vbs", "$dir\open-settings.vbs", "$dir\stop-server.ps1", "$dir\lower-third-web.ico"
+          $missing = @($expected | Where-Object { -not (Test-Path $_) })
+          if ($missing) { throw "Missing after install: $($missing -join ', ')" }
+          if (-not (Test-Path $userKey)) { throw "Per-user uninstall entry missing" }
+          $lnk = Join-Path ([Environment]::GetFolderPath('Desktop')) 'Lower Third Web.lnk'
+          if (-not (Test-Path $lnk)) { throw "Desktop shortcut not created" }
+
+          # The installer starts the server by itself.
+          $health = $null
+          for ($i = 0; $i -lt 40 -and -not $health; $i++) {
+            Start-Sleep -Milliseconds 500
+            try { $health = Invoke-RestMethod "$base/api/health" } catch {}
+          }
+          if (-not $health) { throw "Installed server did not start" }
+          if ($health.version -ne $version) { throw "Health returned $($health.version), expected $version" }
+
+          foreach ($page in '/dock', '/settings', '/overlay') {
+            $res = Invoke-WebRequest "$base$page" -UseBasicParsing
+            if ($res.StatusCode -ne 200 -or $res.Content -notmatch 'Lower Third Web') { throw "$page did not load" }
+          }
+          foreach ($js in '/dock.js', '/settings.js', '/overlay.js', '/js/common.js', '/js/look.js') {
+            $res = Invoke-WebRequest "$base$js" -UseBasicParsing
+            if ($res.Headers['Content-Type'] -notmatch 'javascript') { throw "$js served as $($res.Headers['Content-Type'])" }
+          }
+          # Settings round trip, PIX code and QR image.
+          $state = Invoke-RestMethod "$base/api/state"
+          $state.config.pix.key = '12.345.678/0001-90'
+          $state.config.pix.name = 'Igreja Teste'
+          $state.config.pix.city = 'Sao Paulo'
+          Invoke-RestMethod "$base/api/config" -Method Put -ContentType 'application/json' -Body ($state.config | ConvertTo-Json -Depth 20) | Out-Null
+          $pix = Invoke-RestMethod "$base/api/pix"
+          if ($pix.payload -notmatch '^000201.*6304[0-9A-F]{4}$') { throw "Unexpected PIX code: $($pix.payload)" }
+          $qr = Invoke-WebRequest "$base/api/qr.svg?kind=pix" -UseBasicParsing
+          if ($qr.Headers['Content-Type'] -notmatch 'svg') { throw "QR served as $($qr.Headers['Content-Type'])" }
+          # Installed fonts (PowerShell + System.Drawing on the user's machine).
+          $fonts = Invoke-RestMethod "$base/api/fonts"
+          if (@($fonts).Count -lt 5 -or 'Arial' -notin $fonts) { throw "Font list looks wrong: $(@($fonts).Count) fonts" }
+          # On air: show the first name, then hide everything.
+          $live = Invoke-RestMethod "$base/api/live/lower/show?item=1" -Method Post
+          if (-not $live.live.lower.on) { throw "Lower third did not go on air" }
+          $live = Invoke-RestMethod "$base/api/live/all/hide" -Method Post
+          if ($live.live.lower.on) { throw "Hide all left the lower third on" }
+          # A page from another site must not be able to send commands.
+          try {
+            Invoke-WebRequest "$base/api/live/top/show" -Method Post -Headers @{ Origin = 'https://example.com' } -UseBasicParsing | Out-Null
+            throw "Foreign origin was accepted"
+          } catch { if ($_.Exception.Message -match 'accepted') { throw } }
+          Write-Host "Installed server v$($health.version) OK; fonts: $(@($fonts).Count)"
+
+          Start-Process "$dir\unins000.exe" -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -Wait
+          for ($i = 0; $i -lt 60 -and ((Test-Path "$dir\runtime\node.exe") -or (Test-Path $userKey)); $i++) { Start-Sleep -Milliseconds 500 }
+          foreach ($f in "$dir\runtime\node.exe", $userKey) {
+            if (Test-Path $f) { throw "Left behind after uninstall: $f" }
+          }
+          try { Invoke-RestMethod "$base/api/health" -TimeoutSec 2 | Out-Null; throw "Server still running after uninstall" } catch { if ($_.Exception.Message -match 'still running') { throw } }
+          Write-Host "Uninstall removed the app and stopped the server."
+      - name: Generate checksum
+        shell: pwsh
+        run: |
+          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          $name = "Lower-Third-Web-Setup-$version.exe"
+          Move-Item installer\output\Lower-Third-Web-Setup.exe "installer\output\$name"
+          $hash = (Get-FileHash "installer\output\$name" -Algorithm SHA256).Hash.ToLower()
+          "$hash *$name" | Set-Content -Encoding ascii installer\output\SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Lower-Third-Web-Setup
+          path: |
+            installer/output/Lower-Third-Web-Setup-*.exe
+            installer/output/SHA256SUMS.txt
+          if-no-files-found: error
+
+  # main publishes a release in this repository; versions like 0.1.0-beta.1 are pre-releases.
+  publish:
+    if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
+    needs: windows
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/download-artifact@v4
+        with:
+          name: Lower-Third-Web-Setup
+          path: out
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(node -p "require('./package.json').version")
+          tag="v$version"
+          flags=()
+          title="Lower Third Web v$version"
+          case "$version" in *-*) flags+=(--prerelease); title="$title (beta)" ;; esac
+          (cd out && tr -d '\r' < SHA256SUMS.txt | sha256sum -c -)
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release edit "$tag" --title "$title" --notes-file installer/BETA-NOTES.md "${flags[@]}"
+          else
+            gh release create "$tag" --target "$GITHUB_SHA" --title "$title" --notes-file installer/BETA-NOTES.md "${flags[@]}"
+          fi
+          gh release upload "$tag" out/*.exe out/SHA256SUMS.txt --clobber
