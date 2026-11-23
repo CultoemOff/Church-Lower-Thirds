@@ -514,4 +514,27 @@ export default {
     'This category is switched off in the settings.',
   'Todas as categorias estão desativadas. Ative alguma nas configurações (engrenagem).':
     'Every category is switched off. Switch one on in the settings (the gear).',
+  Atualizações: 'Updates',
+  'Procurando…': 'Checking…',
+  'Baixando a atualização…': 'Downloading the update…',
+  'Instalando: confirme a permissão do Windows. Esta página volta sozinha quando terminar.':
+    'Installing: confirm the Windows permission prompt. This page comes back by itself when it is done.',
+  'Não foi possível procurar atualizações agora.': 'Could not check for updates right now.',
+  'Nova versão disponível: v{latest} (instalada: v{current}).':
+    'New version available: v{latest} (installed: v{current}).',
+  'Você está na versão mais recente (v{current}).': 'You are on the latest version (v{current}).',
+  'Baixa a nova versão, confere o arquivo e instala. O Windows pede permissão e o programa volta sozinho.':
+    'Downloads the new version, checks the file and installs it. Windows asks for permission and the program comes back by itself.',
+  'Atualizar agora': 'Update now',
+  'Abrir a página de downloads': 'Open the downloads page',
+  'Procurar atualização': 'Check for updates',
+  'Atualização disponível': 'Update available',
+  'Abre a visão geral para atualizar': 'Opens the overview to update',
+  'Atualização disponível: abra as configurações para atualizar':
+    'Update available: open the settings to update',
+  'Não foi possível baixar a atualização. Tente de novo.':
+    'Could not download the update. Try again.',
+  'O programa já está atualizado.': 'The program is already up to date.',
+  'Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.':
+    "Each user of the computer has their own folder and their own settings: one never changes another's.",
 };

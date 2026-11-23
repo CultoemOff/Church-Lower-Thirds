@@ -105,6 +105,12 @@ export default {
     'Esta categoria está desativada nas definições.',
   'Todas as categorias estão desativadas. Ative alguma nas configurações (engrenagem).':
     'Todas as categorias estão desativadas. Ative alguma nas definições (engrenagem).',
+  'Baixa a nova versão, confere o arquivo e instala. O Windows pede permissão e o programa volta sozinho.':
+    'Transfere a nova versão, verifica o ficheiro e instala. O Windows pede permissão e o programa volta sozinho.',
+  'Atualização disponível: abra as configurações para atualizar':
+    'Atualização disponível: abra as definições para atualizar',
+  'Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.':
+    'Cada utilizador do computador tem a sua própria pasta e as suas próprias definições: um não altera o que é do outro.',
   'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui você confere e ajusta a aparência.':
     'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui pode conferir e ajustar o aspeto.',
   'Use o mesmo tamanho do vídeo do seu OBS. Os gráficos se ajustam sozinhos: tudo o que você configurou fica igual em qualquer um deles.':
@@ -115,4 +121,12 @@ export default {
   'Enviar logo': 'Carregar logótipo',
   'Envie o logo da igreja': 'Carregue o logótipo da igreja',
   'Programa ativo': 'Programa ativo',
+  'Você está na versão mais recente (v{current}).': 'Tem a versão mais recente (v{current}).',
+  'Baixando a atualização…': 'A transferir a atualização…',
+  'Procurando…': 'A procurar…',
+  'Instalando: confirme a permissão do Windows. Esta página volta sozinha quando terminar.':
+    'A instalar: confirme a permissão do Windows. Esta página volta sozinha quando terminar.',
+  'Não foi possível baixar a atualização. Tente de novo.':
+    'Não foi possível transferir a atualização. Tente de novo.',
+  'Abrir a página de downloads': 'Abrir a página de transferências',
 };

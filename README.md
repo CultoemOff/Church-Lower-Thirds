@@ -51,6 +51,13 @@ npm run lint && npm run format:check && npm run typecheck
 - `src/web`: páginas sem bundler (`overlay`, `dock`, `settings`).
 - `installer/` e `.github/workflows/installer.yml`: instalador do Windows (Inno Setup). Cada push na `main` publica a versão do `package.json` em Releases; versões com hífen (`0.1.0-beta.1`) saem como pré-lançamento.
 
-Sem instalador (desenvolvimento), os dados ficam em `%APPDATA%\Lower Third Web`.
+## Instalação, usuários e atualização
+
+- O programa fica em `C:\Program Files\Culto em Off\Lower Third Web`, ao lado dos outros programas do Culto em Off (cada um na sua subpasta). Por isso o instalador pede permissão de administrador.
+- **Cada usuário do Windows tem os seus arquivos e configurações.** A pasta escolhida no instalador vale para quem está usando o computador naquele momento; os outros usuários recebem `Documentos\Lower Third Web` no próprio perfil. O que cada conta usa fica anotado em `%APPDATA%\Lower Third Web\location.json` (pasta e porta).
+- Com duas contas abertas ao mesmo tempo, a segunda usa a porta seguinte (8796…). Os arquivos de `OBS Sources` e o `Control Dock.html` de cada conta já apontam para a porta certa.
+- **Atualização:** o painel consulta as Releases deste repositório e mostra "Atualizar agora". O programa baixa o instalador, confere o SHA-256 com o `SHA256SUMS.txt` da release, executa em modo silencioso (o Windows pede permissão) e volta sozinho. Quem usa uma versão final só recebe versões finais; quem usa beta recebe também os betas. As Releases precisam ser públicas para a consulta funcionar.
+
+Sem instalador (desenvolvimento), a pasta dos arquivos é `Documentos/Lower Third Web` e pode ser trocada com `--folder <pasta>` ou `LTW_DATA_DIR`.
 
 As marcas citadas pertencem aos seus donos. Este programa não é afiliado ao OBS Project.

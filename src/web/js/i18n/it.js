@@ -517,4 +517,28 @@ export default {
     'Questa categoria è disattivata nelle impostazioni.',
   'Todas as categorias estão desativadas. Ative alguma nas configurações (engrenagem).':
     'Tutte le categorie sono disattivate. Attivane una nelle impostazioni (ingranaggio).',
+  Atualizações: 'Aggiornamenti',
+  'Procurando…': 'Ricerca…',
+  'Baixando a atualização…': "Download dell'aggiornamento…",
+  'Instalando: confirme a permissão do Windows. Esta página volta sozinha quando terminar.':
+    "Installazione: conferma l'autorizzazione di Windows. Questa pagina torna da sola al termine.",
+  'Não foi possível procurar atualizações agora.':
+    'Impossibile cercare aggiornamenti in questo momento.',
+  'Nova versão disponível: v{latest} (instalada: v{current}).':
+    'Nuova versione disponibile: v{latest} (installata: v{current}).',
+  'Você está na versão mais recente (v{current}).': 'Hai la versione più recente (v{current}).',
+  'Baixa a nova versão, confere o arquivo e instala. O Windows pede permissão e o programa volta sozinho.':
+    "Scarica la nuova versione, controlla il file e installa. Windows chiede l'autorizzazione e il programma riparte da solo.",
+  'Atualizar agora': 'Aggiorna ora',
+  'Abrir a página de downloads': 'Apri la pagina dei download',
+  'Procurar atualização': 'Cerca aggiornamenti',
+  'Atualização disponível': 'Aggiornamento disponibile',
+  'Abre a visão geral para atualizar': 'Apre la panoramica per aggiornare',
+  'Atualização disponível: abra as configurações para atualizar':
+    'Aggiornamento disponibile: apri le impostazioni per aggiornare',
+  'Não foi possível baixar a atualização. Tente de novo.':
+    "Impossibile scaricare l'aggiornamento. Riprova.",
+  'O programa já está atualizado.': 'Il programma è già aggiornato.',
+  'Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.':
+    "Ogni utente del computer ha la propria cartella e le proprie impostazioni: uno non modifica quelle dell'altro.",
 };

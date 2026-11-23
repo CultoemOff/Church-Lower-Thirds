@@ -521,4 +521,29 @@ export default {
     'Diese Kategorie ist in den Einstellungen abgeschaltet.',
   'Todas as categorias estão desativadas. Ative alguma nas configurações (engrenagem).':
     'Alle Kategorien sind abgeschaltet. Bitte eine in den Einstellungen (Zahnrad) einschalten.',
+  Atualizações: 'Aktualisierungen',
+  'Procurando…': 'Suche…',
+  'Baixando a atualização…': 'Aktualisierung wird geladen…',
+  'Instalando: confirme a permissão do Windows. Esta página volta sozinha quando terminar.':
+    'Installation läuft: bitte die Windows-Abfrage bestätigen. Diese Seite kommt danach von selbst zurück.',
+  'Não foi possível procurar atualizações agora.':
+    'Die Suche nach Aktualisierungen ist gerade nicht möglich.',
+  'Nova versão disponível: v{latest} (instalada: v{current}).':
+    'Neue Version verfügbar: v{latest} (installiert: v{current}).',
+  'Você está na versão mais recente (v{current}).':
+    'Die neueste Version ist installiert (v{current}).',
+  'Baixa a nova versão, confere o arquivo e instala. O Windows pede permissão e o programa volta sozinho.':
+    'Lädt die neue Version, prüft die Datei und installiert sie. Windows fragt um Erlaubnis und das Programm startet von selbst neu.',
+  'Atualizar agora': 'Jetzt aktualisieren',
+  'Abrir a página de downloads': 'Download-Seite öffnen',
+  'Procurar atualização': 'Nach Aktualisierung suchen',
+  'Atualização disponível': 'Aktualisierung verfügbar',
+  'Abre a visão geral para atualizar': 'Öffnet die Übersicht zum Aktualisieren',
+  'Atualização disponível: abra as configurações para atualizar':
+    'Aktualisierung verfügbar: zum Aktualisieren die Einstellungen öffnen',
+  'Não foi possível baixar a atualização. Tente de novo.':
+    'Die Aktualisierung konnte nicht geladen werden. Bitte erneut versuchen.',
+  'O programa já está atualizado.': 'Das Programm ist bereits aktuell.',
+  'Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.':
+    'Jeder Benutzer des Computers hat seinen eigenen Ordner und seine eigenen Einstellungen: Keiner ändert die eines anderen.',
 };

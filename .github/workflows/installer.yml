@@ -55,13 +55,22 @@ jobs:
           $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
           & $iscc "/DMyAppVersion=$version" installer\Lower-Third-Web.iss
           if ($LASTEXITCODE -ne 0) { throw "Inno Setup failed." }
+      - name: Setup can be started by the program itself
+        shell: pwsh
+        run: |
+          # The update button starts the installer from a program without administrator
+          # rights; the installer then asks Windows for permission by itself.
+          $text = [Text.Encoding]::ASCII.GetString([IO.File]::ReadAllBytes('installer\output\Lower-Third-Web-Setup.exe'))
+          $level = [regex]::Match($text, 'requestedExecutionLevel\s+level="(\w+)"').Groups[1].Value
+          Write-Host "requestedExecutionLevel: $level"
+          if ($level -notin 'asInvoker', 'requireAdministrator') { throw "Unexpected manifest level: '$level'" }
       - name: Installer smoke test (install, run, uninstall)
         shell: pwsh
         run: |
           $exe = "installer\output\Lower-Third-Web-Setup.exe"
-          $dir = Join-Path $env:LOCALAPPDATA 'Programs\Lower Third Web'
+          $dir = Join-Path $env:ProgramFiles 'Culto em Off\Lower Third Web'
           $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
-          $userKey = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{13D055BB-63D1-484E-820B-004089D86007}_is1'
+          $userKey = 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{13D055BB-63D1-484E-820B-004089D86007}_is1'
           $base = 'http://127.0.0.1:8795'
 
           $p = Start-Process $exe -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -Wait -PassThru
@@ -70,10 +79,14 @@ jobs:
             "$dir\start-server.vbs", "$dir\open-settings.vbs", "$dir\stop-server.ps1", "$dir\lower-third-web.ico"
           $missing = @($expected | Where-Object { -not (Test-Path $_) })
           if ($missing) { throw "Missing after install: $($missing -join ', ')" }
-          if (-not (Test-Path $userKey)) { throw "Per-user uninstall entry missing" }
-          $lnk = Join-Path ([Environment]::GetFolderPath('Desktop')) 'Lower Third Web.lnk'
+          if (-not (Test-Path $userKey)) { throw "Uninstall entry missing" }
+          $run = (Get-ItemProperty 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Run').'Lower Third Web'
+          if ($run -notlike '*Culto em Off\Lower Third Web\start-server.vbs*') { throw "Autostart entry is: $run" }
+          $lnk = Join-Path ([Environment]::GetFolderPath('CommonDesktopDirectory')) 'Lower Third Web.lnk'
           if (-not (Test-Path $lnk)) { throw "Desktop shortcut not created" }
 
+          $note = Get-Content (Join-Path $env:ProgramData 'Culto em Off\Lower Third Web\install.json') -Raw | ConvertFrom-Json
+          if (-not $note.language) { throw "install.json is wrong: $($note | ConvertTo-Json -Compress)" }
           # The installer starts the server by itself.
           $health = $null
           for ($i = 0; $i -lt 40 -and -not $health; $i++) {
@@ -122,6 +135,9 @@ jobs:
             $r = Invoke-RestMethod "$base/api/live/$el/show" -Method Post
             if (-not $r.live.$el.on) { throw "$el did not go on air" }
           }
+          # Update check: answers from GitHub (or says it could not), never crashes the server.
+          try { $u = Invoke-RestMethod "$base/api/update"; Write-Host "Update check: current $($u.current), latest $($u.latest), newer $($u.newer)" }
+          catch { Write-Host "Update check not available yet: $($_.Exception.Message)" }
           # Settings round trip, PIX code and QR image.
           $state = Invoke-RestMethod "$base/api/state"
           $state.config.pix.key = '12.345.678/0001-90'
@@ -146,6 +162,67 @@ jobs:
             throw "Foreign origin was accepted"
           } catch { if ($_.Exception.Message -match 'accepted') { throw } }
           Write-Host "Installed server v$($health.version) OK; fonts: $(@($fonts).Count)"
+
+          # The one-click update runs this same installer with /SILENT: the program comes
+          # back by itself, in the same folder, with the same settings.
+          function Wait-Server {
+            $h = $null
+            for ($i = 0; $i -lt 40 -and -not $h; $i++) {
+              Start-Sleep -Milliseconds 500
+              try { $h = Invoke-RestMethod "$base/api/health" } catch {}
+            }
+            if (-not $h) { throw "Server did not come back" }
+          }
+          $p = Start-Process $exe -ArgumentList '/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -Wait -PassThru
+          if ($p.ExitCode -ne 0) { throw "Update run exited with $($p.ExitCode)" }
+          Wait-Server
+          $after = Invoke-RestMethod "$base/api/info"
+          if ($after.folder -ne $files) { throw "After the update the folder is $($after.folder)" }
+          if ((Invoke-RestMethod "$base/api/state").config.pix.name -ne 'Igreja Teste') { throw "Settings lost by the update" }
+          $mine = Get-Content (Join-Path $env:APPDATA 'Lower Third Web\location.json') -Raw | ConvertFrom-Json
+          if ($mine.folder -ne $files -or $mine.port -ne 8795) { throw "location.json is wrong: $($mine | ConvertTo-Json -Compress)" }
+          # Another folder chosen (accents included): the settings go along.
+          $other = Join-Path $env:RUNNER_TEMP 'Mídia da Igreja\Lower Third'
+          $p = Start-Process $exe -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', "/FILES=`"$other`"" -Wait -PassThru
+          if ($p.ExitCode -ne 0) { throw "Reinstall exited with $($p.ExitCode)" }
+          Wait-Server
+          $after = Invoke-RestMethod "$base/api/info"
+          if ($after.folder -ne $other) { throw "Chosen folder not used: $($after.folder)" }
+          if ((Invoke-RestMethod "$base/api/state").config.pix.name -ne 'Igreja Teste') { throw "Settings did not follow to the new folder" }
+          if (-not (Test-Path (Join-Path $other 'OBS Sources\Names.html'))) { throw "OBS source files missing in the new folder" }
+          Write-Host "Update and folder change keep the settings."
+
+          # The "Update now" button, end to end: the program finds a newer release (a local
+          # stand-in for GitHub offering this same installer as v99), downloads it, checks
+          # the SHA-256, runs it, and comes back by itself.
+          $rel = Join-Path $env:RUNNER_TEMP 'fake-release'
+          New-Item -ItemType Directory -Force $rel | Out-Null
+          Copy-Item $exe (Join-Path $rel 'Lower-Third-Web-Setup-99.0.0.exe')
+          $hash = (Get-FileHash (Join-Path $rel 'Lower-Third-Web-Setup-99.0.0.exe') -Algorithm SHA256).Hash.ToLower()
+          Set-Content (Join-Path $rel 'SHA256SUMS.txt') "$hash *Lower-Third-Web-Setup-99.0.0.exe" -Encoding ascii
+          $assets = @(
+            @{ name = 'Lower-Third-Web-Setup-99.0.0.exe'; browser_download_url = 'http://127.0.0.1:8899/Lower-Third-Web-Setup-99.0.0.exe' },
+            @{ name = 'SHA256SUMS.txt'; browser_download_url = 'http://127.0.0.1:8899/SHA256SUMS.txt' })
+          ConvertTo-Json -Depth 5 @(@{ tag_name = 'v99.0.0'; html_url = 'http://127.0.0.1:8899/'; assets = $assets }) |
+            Set-Content (Join-Path $rel 'releases.json') -Encoding utf8
+          $web = Start-Process python -ArgumentList '-m', 'http.server', '8899', '--bind', '127.0.0.1' -WorkingDirectory $rel -PassThru -WindowStyle Hidden
+          & powershell -NoProfile -ExecutionPolicy Bypass -File "$dir\stop-server.ps1" -AppDir $dir
+          $env:LTW_UPDATE_API = 'http://127.0.0.1:8899/releases.json'
+          $old = Start-Process "$dir\runtime\node.exe" -ArgumentList "`"$dir\app\dist\server\index.js`"" -WorkingDirectory "$dir\app" -PassThru -WindowStyle Hidden
+          $env:LTW_UPDATE_API = $null
+          Wait-Server
+          $u = Invoke-RestMethod "$base/api/update?force=1"
+          if (-not $u.newer -or $u.latest -ne '99.0.0' -or -not $u.canInstall) { throw "Update not offered: $($u | ConvertTo-Json -Compress)" }
+          $r = Invoke-RestMethod "$base/api/update/install" -Method Post -TimeoutSec 120
+          if (-not $r.ok) { throw "Update did not start: $($r | ConvertTo-Json -Compress)" }
+          if (-not $old.WaitForExit(180000)) { throw "The installer never stopped the running program" }
+          Wait-Server
+          for ($i = 0; $i -lt 120 -and (Get-Process -Name 'Lower-Third-Web-Setup*' -ErrorAction SilentlyContinue); $i++) { Start-Sleep -Milliseconds 500 }
+          Wait-Server
+          if ((Invoke-RestMethod "$base/api/info").folder -ne $other) { throw "Folder changed by the in-app update" }
+          if ((Invoke-RestMethod "$base/api/state").config.pix.name -ne 'Igreja Teste') { throw "Settings lost by the in-app update" }
+          Stop-Process -Id $web.Id -Force -ErrorAction SilentlyContinue
+          Write-Host "In-app update: downloaded, verified, installed and back on air."
 
           Start-Process "$dir\unins000.exe" -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -Wait
           for ($i = 0; $i -lt 60 -and ((Test-Path "$dir\runtime\node.exe") -or (Test-Path $userKey)); $i++) { Start-Sleep -Milliseconds 500 }

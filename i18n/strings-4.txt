@@ -1,0 +1,101 @@
+Atualizações
+Updates
+Actualizaciones
+Aggiornamenti
+Aktualisierungen
+
+Procurando…
+Checking…
+Buscando…
+Ricerca…
+Suche…
+
+Baixando a atualização…
+Downloading the update…
+Descargando la actualización…
+Download dell'aggiornamento…
+Aktualisierung wird geladen…
+
+Instalando: confirme a permissão do Windows. Esta página volta sozinha quando terminar.
+Installing: confirm the Windows permission prompt. This page comes back by itself when it is done.
+Instalando: confirme el permiso de Windows. Esta página vuelve sola al terminar.
+Installazione: conferma l'autorizzazione di Windows. Questa pagina torna da sola al termine.
+Installation läuft: bitte die Windows-Abfrage bestätigen. Diese Seite kommt danach von selbst zurück.
+
+Não foi possível procurar atualizações agora.
+Could not check for updates right now.
+No se pudo buscar actualizaciones ahora.
+Impossibile cercare aggiornamenti in questo momento.
+Die Suche nach Aktualisierungen ist gerade nicht möglich.
+
+Nova versão disponível: v{latest} (instalada: v{current}).
+New version available: v{latest} (installed: v{current}).
+Nueva versión disponible: v{latest} (instalada: v{current}).
+Nuova versione disponibile: v{latest} (installata: v{current}).
+Neue Version verfügbar: v{latest} (installiert: v{current}).
+
+Você está na versão mais recente (v{current}).
+You are on the latest version (v{current}).
+Tiene la versión más reciente (v{current}).
+Hai la versione più recente (v{current}).
+Die neueste Version ist installiert (v{current}).
+
+Baixa a nova versão, confere o arquivo e instala. O Windows pede permissão e o programa volta sozinho.
+Downloads the new version, checks the file and installs it. Windows asks for permission and the program comes back by itself.
+Descarga la nueva versión, verifica el archivo e instala. Windows pide permiso y el programa vuelve solo.
+Scarica la nuova versione, controlla il file e installa. Windows chiede l'autorizzazione e il programma riparte da solo.
+Lädt die neue Version, prüft die Datei und installiert sie. Windows fragt um Erlaubnis und das Programm startet von selbst neu.
+
+Atualizar agora
+Update now
+Actualizar ahora
+Aggiorna ora
+Jetzt aktualisieren
+
+Abrir a página de downloads
+Open the downloads page
+Abrir la página de descargas
+Apri la pagina dei download
+Download-Seite öffnen
+
+Procurar atualização
+Check for updates
+Buscar actualización
+Cerca aggiornamenti
+Nach Aktualisierung suchen
+
+Atualização disponível
+Update available
+Actualización disponible
+Aggiornamento disponibile
+Aktualisierung verfügbar
+
+Abre a visão geral para atualizar
+Opens the overview to update
+Abre el resumen para actualizar
+Apre la panoramica per aggiornare
+Öffnet die Übersicht zum Aktualisieren
+
+Atualização disponível: abra as configurações para atualizar
+Update available: open the settings to update
+Actualización disponible: abra los ajustes para actualizar
+Aggiornamento disponibile: apri le impostazioni per aggiornare
+Aktualisierung verfügbar: zum Aktualisieren die Einstellungen öffnen
+
+Não foi possível baixar a atualização. Tente de novo.
+Could not download the update. Try again.
+No se pudo descargar la actualización. Inténtelo de nuevo.
+Impossibile scaricare l'aggiornamento. Riprova.
+Die Aktualisierung konnte nicht geladen werden. Bitte erneut versuchen.
+
+O programa já está atualizado.
+The program is already up to date.
+El programa ya está actualizado.
+Il programma è già aggiornato.
+Das Programm ist bereits aktuell.
+
+Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.
+Each user of the computer has their own folder and their own settings: one never changes another's.
+Cada usuario del equipo tiene su propia carpeta y sus propios ajustes: uno no cambia lo del otro.
+Ogni utente del computer ha la propria cartella e le proprie impostazioni: uno non modifica quelle dell'altro.
+Jeder Benutzer des Computers hat seinen eigenen Ordner und seine eigenen Einstellungen: Keiner ändert die eines anderen.

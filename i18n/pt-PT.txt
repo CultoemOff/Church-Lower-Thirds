@@ -33,3 +33,27 @@ Carregue o logótipo da igreja
 
 Programa ativo
 Programa ativo
+
+Você está na versão mais recente (v{current}).
+Tem a versão mais recente (v{current}).
+
+Baixando a atualização…
+A transferir a atualização…
+
+Procurando…
+A procurar…
+
+Instalando: confirme a permissão do Windows. Esta página volta sozinha quando terminar.
+A instalar: confirme a permissão do Windows. Esta página volta sozinha quando terminar.
+
+Baixa a nova versão, confere o arquivo e instala. O Windows pede permissão e o programa volta sozinho.
+Transfere a nova versão, verifica o ficheiro e instala. O Windows pede permissão e o programa volta sozinho.
+
+Não foi possível baixar a atualização. Tente de novo.
+Não foi possível transferir a atualização. Tente de novo.
+
+Abrir a página de downloads
+Abrir a página de transferências
+
+Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.
+Cada utilizador do computador tem a sua própria pasta e as suas próprias definições: um não altera o que é do outro.

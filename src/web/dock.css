@@ -414,3 +414,18 @@ footer {
 .pane.onlyExtra .listWrap {
   display: none;
 }
+
+#openSettings.hasUpdate {
+  position: relative;
+}
+#openSettings.hasUpdate::after {
+  content: '';
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f0a52a;
+  box-shadow: 0 0 0 2px var(--panel);
+}

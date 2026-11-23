@@ -10,10 +10,15 @@ AppId={{13D055BB-63D1-484E-820B-004089D86007}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
-DefaultDirName={localappdata}\Programs\Lower Third Web
-DefaultGroupName=Lower Third Web
-; Per-user install: no administrator password needed.
-PrivilegesRequired=lowest
+; Every Culto em Off program lives in its own subfolder of Program Files\Culto em Off.
+DefaultDirName={autopf}\Culto em Off\Lower Third Web
+DefaultGroupName=Culto em Off
+; Program Files needs administrator rights. The program itself is shared by every account
+; of the computer; each account keeps its own settings and files.
+PrivilegesRequired=admin
+; Always this folder, next to the other Culto em Off programs.
+DisableDirPage=yes
+UsePreviousAppDir=no
 OutputDir=output
 OutputBaseFilename=Lower-Third-Web-Setup
 Compression=lzma2
@@ -38,37 +43,37 @@ Name: "de"; MessagesFile: "compiler:Languages\German.isl"
 [CustomMessages]
 ptbr.FolderTitle=Pasta dos seus arquivos
 ptbr.FolderSub=Onde ficam as configurações e os arquivos para o OBS Studio?
-ptbr.FolderHelp=O Lower Third Web guarda nesta pasta as suas configurações, os nomes, as imagens e os arquivos que você adiciona como fonte no OBS Studio.%n%nO ideal é escolher um lugar fácil de achar na hora de apontar no OBS e que entre no seu backup, como Documentos ou uma pasta sincronizada (OneDrive, Google Drive).
+ptbr.FolderHelp=O Lower Third Web guarda nesta pasta as suas configurações, os nomes, as imagens e os arquivos que você adiciona como fonte no OBS Studio.%n%nO ideal é escolher um lugar fácil de achar na hora de apontar no OBS e que entre no seu backup, como Documentos ou uma pasta sincronizada (OneDrive, Google Drive).%n%nCada usuário do Windows tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.
 ptbr.Shortcuts=Atalhos:
 ptbr.DesktopIcon=Criar atalho na área de trabalho
 ptbr.OpenSettings=Abrir o Lower Third Web (com o passo a passo do OBS)
 ptpt.FolderTitle=Pasta dos seus ficheiros
 ptpt.FolderSub=Onde ficam as definições e os ficheiros para o OBS Studio?
-ptpt.FolderHelp=O Lower Third Web guarda nesta pasta as suas definições, os nomes, as imagens e os ficheiros que adiciona como fonte no OBS Studio.%n%nO ideal é escolher um local fácil de encontrar quando o indicar no OBS e que faça parte da sua cópia de segurança, como Documentos ou uma pasta sincronizada (OneDrive, Google Drive).
+ptpt.FolderHelp=O Lower Third Web guarda nesta pasta as suas definições, os nomes, as imagens e os ficheiros que adiciona como fonte no OBS Studio.%n%nO ideal é escolher um local fácil de encontrar quando o indicar no OBS e que faça parte da sua cópia de segurança, como Documentos ou uma pasta sincronizada (OneDrive, Google Drive).%n%nCada utilizador do Windows tem a sua própria pasta e as suas próprias definições: um não altera o que é do outro.
 ptpt.Shortcuts=Atalhos:
 ptpt.DesktopIcon=Criar atalho no ambiente de trabalho
 ptpt.OpenSettings=Abrir o Lower Third Web (com o passo a passo do OBS)
 es.FolderTitle=Carpeta de sus archivos
 es.FolderSub=¿Dónde se guardan los ajustes y los archivos para OBS Studio?
-es.FolderHelp=Lower Third Web guarda en esta carpeta sus ajustes, los nombres, las imágenes y los archivos que se añaden como fuente en OBS Studio.%n%nLo ideal es elegir un lugar fácil de encontrar al indicarlo en OBS y que entre en su copia de seguridad, como Documentos o una carpeta sincronizada (OneDrive, Google Drive).
+es.FolderHelp=Lower Third Web guarda en esta carpeta sus ajustes, los nombres, las imágenes y los archivos que se añaden como fuente en OBS Studio.%n%nLo ideal es elegir un lugar fácil de encontrar al indicarlo en OBS y que entre en su copia de seguridad, como Documentos o una carpeta sincronizada (OneDrive, Google Drive).%n%nCada usuario de Windows tiene su propia carpeta y sus propios ajustes: uno no cambia lo del otro.
 es.Shortcuts=Accesos directos:
 es.DesktopIcon=Crear acceso directo en el escritorio
 es.OpenSettings=Abrir Lower Third Web (con el paso a paso de OBS)
 en.FolderTitle=Folder for your files
 en.FolderSub=Where should the settings and the files for OBS Studio be kept?
-en.FolderHelp=Lower Third Web keeps your settings, names, images and the files you add as sources in OBS Studio in this folder.%n%nIdeally choose a place that is easy to find when you point OBS at it and that is part of your backups, such as Documents or a synced folder (OneDrive, Google Drive).
+en.FolderHelp=Lower Third Web keeps your settings, names, images and the files you add as sources in OBS Studio in this folder.%n%nIdeally choose a place that is easy to find when you point OBS at it and that is part of your backups, such as Documents or a synced folder (OneDrive, Google Drive).%n%nEach Windows user has their own folder and their own settings: one never changes another's.
 en.Shortcuts=Shortcuts:
 en.DesktopIcon=Create a desktop shortcut
 en.OpenSettings=Open Lower Third Web (with the OBS step by step)
 it.FolderTitle=Cartella dei tuoi file
 it.FolderSub=Dove tenere le impostazioni e i file per OBS Studio?
-it.FolderHelp=Lower Third Web conserva in questa cartella le impostazioni, i nomi, le immagini e i file da aggiungere come sorgente in OBS Studio.%n%nL'ideale è scegliere un posto facile da trovare quando lo si indica in OBS e incluso nel backup, come Documenti o una cartella sincronizzata (OneDrive, Google Drive).
+it.FolderHelp=Lower Third Web conserva in questa cartella le impostazioni, i nomi, le immagini e i file da aggiungere come sorgente in OBS Studio.%n%nL'ideale è scegliere un posto facile da trovare quando lo si indica in OBS e incluso nel backup, come Documenti o una cartella sincronizzata (OneDrive, Google Drive).%n%nOgni utente di Windows ha la propria cartella e le proprie impostazioni: uno non modifica quelle dell'altro.
 it.Shortcuts=Collegamenti:
 it.DesktopIcon=Crea un collegamento sul desktop
 it.OpenSettings=Apri Lower Third Web (con la guida passo passo per OBS)
 de.FolderTitle=Ordner für Ihre Dateien
 de.FolderSub=Wo sollen die Einstellungen und die Dateien für OBS Studio liegen?
-de.FolderHelp=Lower Third Web legt in diesem Ordner Ihre Einstellungen, die Namen, die Bilder und die Dateien ab, die in OBS Studio als Quelle hinzugefügt werden.%n%nAm besten einen Ort wählen, der in OBS leicht zu finden ist und zur Datensicherung gehört, etwa Dokumente oder ein synchronisierter Ordner (OneDrive, Google Drive).
+de.FolderHelp=Lower Third Web legt in diesem Ordner Ihre Einstellungen, die Namen, die Bilder und die Dateien ab, die in OBS Studio als Quelle hinzugefügt werden.%n%nAm besten einen Ort wählen, der in OBS leicht zu finden ist und zur Datensicherung gehört, etwa Dokumente oder ein synchronisierter Ordner (OneDrive, Google Drive).%n%nJeder Windows-Benutzer hat seinen eigenen Ordner und seine eigenen Einstellungen: Keiner ändert die eines anderen.
 de.Shortcuts=Verknüpfungen:
 de.DesktopIcon=Desktop-Verknüpfung erstellen
 de.OpenSettings=Lower Third Web öffnen (mit der Schritt-für-Schritt-Anleitung für OBS)
@@ -87,35 +92,89 @@ Name: "{autodesktop}\Lower Third Web"; Filename: "{sys}\wscript.exe"; Parameters
 Name: "{group}\Lower Third Web"; Filename: "{sys}\wscript.exe"; Parameters: """{app}\open-settings.vbs"""; WorkingDir: "{app}"; IconFilename: "{app}\lower-third-web.ico"
 
 [Registry]
-; Starts with Windows, hidden, so the OBS dock and the browser sources always find it.
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "Lower Third Web"; ValueData: """{sys}\wscript.exe"" ""{app}\start-server.vbs"""; Flags: uninsdeletevalue
+; Starts with Windows for whoever logs in, hidden, so the OBS dock and the browser sources
+; always find it. Each account runs its own copy with its own settings.
+Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "Lower Third Web"; ValueData: """{sys}\wscript.exe"" ""{app}\start-server.vbs"""; Flags: uninsdeletevalue
 
 [UninstallRun]
 Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\stop-server.ps1"" -AppDir ""{app}"""; Flags: runhidden waituntilterminated; RunOnceId: "StopLowerThirdServer"
 
 [Run]
 ; Always start the server (silent installs too); opening the page is optional.
-Filename: "{sys}\wscript.exe"; Parameters: """{app}\start-server.vbs"""; Flags: nowait
-Filename: "{sys}\wscript.exe"; Parameters: """{app}\open-settings.vbs"""; Flags: nowait postinstall skipifsilent; Description: "{cm:OpenSettings}"
+; runasoriginaluser: started as the person at the computer, not as the administrator whose
+; password was typed, so the settings land in the right account.
+Filename: "{sys}\wscript.exe"; Parameters: """{app}\start-server.vbs"" ""{code:FilesFolderArg}"""; Flags: nowait runasoriginaluser
+Filename: "{sys}\wscript.exe"; Parameters: """{app}\open-settings.vbs"""; Flags: nowait postinstall skipifsilent runasoriginaluser; Description: "{cm:OpenSettings}"
 
 [Code]
 var
   FilesPage: TInputDirWizardPage;
 
-{ The person's own folder: settings, names, images and the OBS source files. Asked once and
-  remembered on upgrades. Uninstalling never removes it. }
+function FromCodes(S: String): String;
+var
+  P: Integer;
+begin
+  Result := '';
+  S := Trim(S) + ' ';
+  while S <> '' do
+  begin
+    P := Pos(' ', S);
+    if P > 1 then Result := Result + Chr(StrToIntDef(Copy(S, 1, P - 1), 63));
+    Delete(S, 1, P);
+  end;
+end;
+
+{ Setup runs elevated, maybe with another person's administrator password, so "my
+  Documents" here could be the administrator's. What belongs to the person at the computer
+  (their Documents, the folder they already use) is asked from a process started as that
+  person. The answer comes back as character codes, so accents survive any code page. }
+procedure AskOriginalUser(var Docs, Current: String);
+var
+  OutFile, Cmd: String;
+  Lines: TArrayOfString;
+  Code: Integer;
+begin
+  Docs := ExpandConstant('{userdocs}');
+  Current := '';
+  OutFile := ExpandConstant('{commondocs}\lower-third-web-setup.txt');
+  DeleteFile(OutFile);
+  Cmd := '-NoProfile -ExecutionPolicy Bypass -Command "' +
+    '$codes = { param($t) (([string]$t).ToCharArray() | ForEach-Object { [int]$_ }) -join '' '' }; ' +
+    '$c = ''''; try { $c = (Get-Content -Raw -Encoding UTF8 (Join-Path $env:APPDATA ''Lower Third Web\location.json'') | ConvertFrom-Json).folder } catch {}; ' +
+    'Set-Content -Encoding ASCII -Path ''' + OutFile + ''' -Value @((& $codes ([Environment]::GetFolderPath(''MyDocuments''))), (& $codes $c))"';
+  if ExecAsOriginalUser('powershell.exe', Cmd, '', SW_HIDE, ewWaitUntilTerminated, Code) and
+    LoadStringsFromFile(OutFile, Lines) then
+  begin
+    if (GetArrayLength(Lines) > 0) and (FromCodes(Lines[0]) <> '') then Docs := FromCodes(Lines[0]);
+    if GetArrayLength(Lines) > 1 then Current := FromCodes(Lines[1]);
+  end;
+  DeleteFile(OutFile);
+end;
+
+{ The person's own folder: settings, names, images and the OBS source files. Each Windows
+  account has its own; the page starts on the folder this account already uses.
+  Uninstalling never removes it. }
 procedure InitializeWizard;
+var
+  Docs, Current: String;
 begin
   FilesPage := CreateInputDirPage(wpSelectDir,
     ExpandConstant('{cm:FolderTitle}'), ExpandConstant('{cm:FolderSub}'),
     ExpandConstant('{cm:FolderHelp}'), False, 'Lower Third Web');
   FilesPage.Add('');
-  FilesPage.Values[0] := GetPreviousData('FilesDir', ExpandConstant('{userdocs}\Lower Third Web'));
+  AskOriginalUser(Docs, Current);
+  if Current = '' then Current := AddBackslash(Docs) + 'Lower Third Web';
+  { /FILES="D:\Folder" on the command line, for unattended installs. }
+  if ExpandConstant('{param:FILES}') <> '' then Current := ExpandConstant('{param:FILES}');
+  FilesPage.Values[0] := Current;
 end;
 
-procedure RegisterPreviousData(PreviousDataKey: Integer);
+{ Handed to the server started for the person at the computer (see [Run]). No trailing
+  backslash: it would swallow the closing quote of the argument. }
+function FilesFolderArg(Param: String): String;
 begin
-  SetPreviousData(PreviousDataKey, 'FilesDir', FilesPage.Values[0]);
+  Result := RemoveBackslashUnlessRoot(FilesPage.Values[0]);
+  if (Result <> '') and (Result[Length(Result)] = '\') then Result := Result + '.';
 end;
 
 function LanguageCode: String;
@@ -123,13 +182,6 @@ begin
   Result := ActiveLanguage;
   if Result = 'ptbr' then Result := 'pt-BR'
   else if Result = 'ptpt' then Result := 'pt-PT';
-end;
-
-function JsonText(const S: String): String;
-begin
-  Result := S;
-  StringChangeEx(Result, '\', '\\', True);
-  StringChangeEx(Result, '"', '\"', True);
 end;
 
 function PrepareToInstall(var NeedsRestart: Boolean): String;
@@ -143,17 +195,15 @@ begin
     '', SW_HIDE, ewWaitUntilTerminated, Code);
 end;
 
-{ The program reads install.json when it starts: where the files go and the language
-  chosen here (used for the sample texts of a first installation). }
+{ Machine-wide note, readable by every account: the language chosen here, used for the
+  sample texts of a first run. The files folder is created by the program itself, running
+  as the person at the computer, so it belongs to them. }
 procedure CurStepChanged(CurStep: TSetupStep);
 var
   Dir: String;
 begin
   if CurStep <> ssInstall then Exit;
-  ForceDirectories(FilesPage.Values[0]);
-  Dir := ExpandConstant('{userappdata}\Lower Third Web');
+  Dir := ExpandConstant('{commonappdata}\Culto em Off\Lower Third Web');
   ForceDirectories(Dir);
-  { UTF-8, so folders with accents ("Usuário", "Área de Trabalho") survive. }
-  SaveStringsToUTF8File(Dir + '\install.json',
-    ['{"folder": "' + JsonText(FilesPage.Values[0]) + '", "language": "' + LanguageCode + '"}'], False);
+  SaveStringsToUTF8File(Dir + '\install.json', ['{"language": "' + LanguageCode + '"}'], False);
 end;

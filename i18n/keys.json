@@ -444,5 +444,22 @@
   "O olho desativa uma categoria que a igreja não usa: ela some do painel do OBS e não vai ao ar.",
   "Esta categoria está desativada: não aparece no painel do OBS nem vai ao ar.",
   "Esta categoria está desativada nas configurações.",
-  "Todas as categorias estão desativadas. Ative alguma nas configurações (engrenagem)."
+  "Todas as categorias estão desativadas. Ative alguma nas configurações (engrenagem).",
+  "Atualizações",
+  "Procurando…",
+  "Baixando a atualização…",
+  "Instalando: confirme a permissão do Windows. Esta página volta sozinha quando terminar.",
+  "Não foi possível procurar atualizações agora.",
+  "Nova versão disponível: v{latest} (instalada: v{current}).",
+  "Você está na versão mais recente (v{current}).",
+  "Baixa a nova versão, confere o arquivo e instala. O Windows pede permissão e o programa volta sozinho.",
+  "Atualizar agora",
+  "Abrir a página de downloads",
+  "Procurar atualização",
+  "Atualização disponível",
+  "Abre a visão geral para atualizar",
+  "Atualização disponível: abra as configurações para atualizar",
+  "Não foi possível baixar a atualização. Tente de novo.",
+  "O programa já está atualizado.",
+  "Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro."
 ]

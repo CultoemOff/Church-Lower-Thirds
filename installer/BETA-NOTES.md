@@ -23,7 +23,7 @@ Gráficos para o OBS Studio numa única fonte de navegador, controlados por um p
 
 ### Como instalar no OBS
 
-1. O instalador pergunta onde deixar a pasta dos seus arquivos (por padrão, `Documentos\Lower Third Web`). Escolha um lugar fácil de achar e que entre no seu backup.
+1. O instalador pergunta onde deixar a pasta dos seus arquivos (por padrão, `Documentos\Lower Third Web`). Escolha um lugar fácil de achar e que entre no seu backup. O programa em si fica em `C:\Program Files\Culto em Off\Lower Third Web` (o Windows pede permissão de administrador) e cada usuário do Windows tem a sua própria pasta e as suas próprias configurações.
 2. No OBS, adicione uma fonte de Navegador, marque "Arquivo local" e escolha um arquivo da pasta `OBS Sources`: `All Elements.html` (tudo) ou um por elemento (`Names.html`, `Corner Badge.html`, `Ticker.html`, `QR Card.html`, `Schedule.html`, `Social.html`, `Logo.html`). Os arquivos `(Vertical)` são para vídeo 9:16.
 3. Dock: menu Docks → Docks de navegador personalizados → `http://127.0.0.1:8795/dock`.
 
@@ -32,3 +32,7 @@ A página "OBS e atalhos" traz o passo a passo, os tamanhos e os endereços para
 ---
 
 **Beta for testing — Windows only.** Names, top bar, scrolling bottom bar, PIX/QR card, weekly schedule, social networks and logo for OBS Studio in one browser source, with a tabbed dock and a separate settings page.
+
+### Atualizações
+
+O painel de configurações avisa quando há versão nova e atualiza com um clique em **Atualizar agora**: baixa, confere o arquivo, instala e volta sozinho, mantendo a pasta e as configurações. No painel do OBS, a engrenagem ganha um ponto laranja quando há atualização.

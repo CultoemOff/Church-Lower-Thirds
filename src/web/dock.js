@@ -734,6 +734,13 @@ $('#hideAll').onclick = () => command('/api/live/all/hide');
 $('#openSettings').onclick = () => command('/api/open-settings');
 
 autoLocalize();
+// A quiet check: the gear gets a dot when a new version can be installed from the settings.
+api('/api/update').then((u) => {
+  if (!u.newer) return;
+  const gear = $('#openSettings');
+  gear.classList.add('hasUpdate');
+  gear.title = 'Atualização disponível: abra as configurações para atualizar';
+});
 connect((e) => {
   if (e.config) {
     config = e.config;

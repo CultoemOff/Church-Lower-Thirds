@@ -520,4 +520,27 @@ export default {
     'Esta categoría está desactivada en los ajustes.',
   'Todas as categorias estão desativadas. Ative alguma nas configurações (engrenagem).':
     'Todas las categorías están desactivadas. Active alguna en los ajustes (engranaje).',
+  Atualizações: 'Actualizaciones',
+  'Procurando…': 'Buscando…',
+  'Baixando a atualização…': 'Descargando la actualización…',
+  'Instalando: confirme a permissão do Windows. Esta página volta sozinha quando terminar.':
+    'Instalando: confirme el permiso de Windows. Esta página vuelve sola al terminar.',
+  'Não foi possível procurar atualizações agora.': 'No se pudo buscar actualizaciones ahora.',
+  'Nova versão disponível: v{latest} (instalada: v{current}).':
+    'Nueva versión disponible: v{latest} (instalada: v{current}).',
+  'Você está na versão mais recente (v{current}).': 'Tiene la versión más reciente (v{current}).',
+  'Baixa a nova versão, confere o arquivo e instala. O Windows pede permissão e o programa volta sozinho.':
+    'Descarga la nueva versión, verifica el archivo e instala. Windows pide permiso y el programa vuelve solo.',
+  'Atualizar agora': 'Actualizar ahora',
+  'Abrir a página de downloads': 'Abrir la página de descargas',
+  'Procurar atualização': 'Buscar actualización',
+  'Atualização disponível': 'Actualización disponible',
+  'Abre a visão geral para atualizar': 'Abre el resumen para actualizar',
+  'Atualização disponível: abra as configurações para atualizar':
+    'Actualización disponible: abra los ajustes para actualizar',
+  'Não foi possível baixar a atualização. Tente de novo.':
+    'No se pudo descargar la actualización. Inténtelo de nuevo.',
+  'O programa já está atualizado.': 'El programa ya está actualizado.',
+  'Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.':
+    'Cada usuario del equipo tiene su propia carpeta y sus propios ajustes: uno no cambia lo del otro.',
 };

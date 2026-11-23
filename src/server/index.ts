@@ -1,13 +1,15 @@
 import express, { type Request, type Response } from 'express';
 import { createServer } from 'node:http';
 import { createHash } from 'node:crypto';
-import { execFile } from 'node:child_process';
-import { existsSync, readFileSync } from 'node:fs';
+import { execFile, spawn } from 'node:child_process';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { homedir, userInfo } from 'node:os';
 import { cp, mkdir, readFile, readdir, rename, writeFile } from 'node:fs/promises';
-import { dirname, extname, join } from 'node:path';
+import { dirname, extname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { WebSocketServer } from 'ws';
-import { appDataDir } from './paths.js';
+import { appDataDir, installInfoFile, ownerId, userFilesFolder } from './paths.js';
+import { checkForUpdate, downloadVerifiedSetup } from './updater.js';
 import { installedFonts } from './fonts.js';
 import { pixPayload, validPixPayload } from './pix.js';
 import { qrSvg } from './qr.js';
@@ -38,41 +40,56 @@ const appVersion: string = (() => {
 })();
 const webDir = [join(here, '..', 'web'), join(here, 'web')].find((d) => existsSync(d))!;
 // The installer asks where the person's files should live (settings, images and the OBS
-// source files), somewhere easy to back up, and leaves the answer in install.json.
-const install: { folder?: string; language?: string } = (() => {
+// source files), somewhere easy to back up, and hands the answer to the server it starts
+// (--folder). Every account of the computer has its own folder, remembered in its own
+// profile, so one person's settings never touch another's.
+const readJson = (file: string) => {
   try {
-    return JSON.parse(
-      readFileSync(join(appDataDir(), 'install.json'), 'utf8').replace(/^\uFEFF/, ''),
-    );
+    return JSON.parse(readFileSync(file, 'utf8').replace(/^\uFEFF/, ''));
   } catch {
     return {};
   }
-})();
-const userFolder = process.env.LTW_DATA_DIR
-  ? process.env.LTW_DATA_DIR
-  : install.folder || appDataDir();
-const dataDir =
-  process.env.LTW_DATA_DIR || (install.folder ? join(install.folder, 'Data') : appDataDir());
+};
+const argument = (name: string) => {
+  const i = process.argv.indexOf(`--${name}`);
+  return i > 1 ? process.argv[i + 1] : undefined;
+};
+const install: { language?: string } = readJson(installInfoFile());
+const locationFile = join(appDataDir(), 'location.json');
+const previousFolder: string | undefined = readJson(locationFile).folder;
+const userFolder =
+  process.env.LTW_DATA_DIR || userFilesFolder(argument('folder'), previousFolder, homedir());
+const owner = ownerId(userInfo().username, homedir());
+const remember = (port: number) => {
+  if (process.env.LTW_DATA_DIR) return;
+  try {
+    mkdirSync(appDataDir(), { recursive: true });
+    writeFileSync(locationFile, JSON.stringify({ folder: userFolder, port }));
+  } catch {
+    // Everything still works for this run; it is simply worked out again next time.
+  }
+};
+const dataDir = process.env.LTW_DATA_DIR || join(userFolder, 'Data');
 const mediaDir = join(dataDir, 'media');
 let sourcesDir = '';
 const configFile = join(dataDir, 'config.json');
-const port = Number(process.env.PORT) || 8795;
-const baseUrl = `http://127.0.0.1:${port}`;
+const defaultPort = Number(process.env.PORT) || 8795;
+let port = defaultPort;
+let baseUrl = `http://127.0.0.1:${port}`;
 
 let config: Config = cleanConfig({});
 let live: Live = liveDefaults();
 
 async function loadStore() {
-  // Versions before the folder question kept everything in AppData: bring it along once.
+  // Another folder chosen in the installer: the settings and images go along.
   if (
-    dataDir !== appDataDir() &&
+    previousFolder &&
+    !process.env.LTW_DATA_DIR &&
+    resolve(previousFolder) !== resolve(userFolder) &&
     !existsSync(configFile) &&
-    existsSync(join(appDataDir(), 'config.json'))
+    existsSync(join(previousFolder, 'Data', 'config.json'))
   )
-    await cp(appDataDir(), dataDir, {
-      recursive: true,
-      filter: (src) => !src.endsWith('install.json'),
-    }).catch(() => {});
+    await cp(join(previousFolder, 'Data'), dataDir, { recursive: true }).catch(() => {});
   await mkdir(mediaDir, { recursive: true });
   if (!existsSync(configFile)) {
     config = firstConfig(install.language || '');
@@ -130,7 +147,7 @@ const fail = (r: Response, e: unknown, status = 400) =>
   r.status(status).json({ error: (e as Error).message || String(e) });
 
 app.get('/api/health', (_q, r) =>
-  r.json({ ok: true, app: 'lower-third-web', version: appVersion }),
+  r.json({ ok: true, app: 'lower-third-web', version: appVersion, owner }),
 );
 app.get('/api/state', (_q, r) => r.json(state()));
 
@@ -369,6 +386,54 @@ app.post('/api/open-settings', (_q, r) => {
   r.json({ ok: true, url });
 });
 
+// ---- In-app update ----
+const canInstallUpdates = process.platform === 'win32';
+app.get('/api/update', async (q, r) => {
+  try {
+    r.json({
+      ...(await checkForUpdate(appVersion, q.query.force === '1')),
+      canInstall: canInstallUpdates,
+    });
+  } catch (e) {
+    fail(r, e, 502);
+  }
+});
+// Downloads the installer, checks its SHA-256 and runs it. The installer stops this server,
+// replaces the files and starts the new version; the panels reconnect by themselves.
+let installing: Promise<string> | undefined;
+app.post('/api/update/install', async (_q, r) => {
+  if (!canInstallUpdates)
+    return void r.status(501).json({ error: 'Automatic install is only available on Windows' });
+  try {
+    const info = await checkForUpdate(appVersion, true);
+    if (!info.newer) return void r.status(409).json({ error: 'Already up to date', ...info });
+    installing ??= downloadVerifiedSetup(info).finally(() => (installing = undefined));
+    const setup = await installing;
+    // Started through the Windows shell (Start-Process), which is what shows the permission
+    // prompt. /SILENT: after that, only the progress window. The path travels in an
+    // environment variable so no quoting can break on a profile name with spaces.
+    spawn(
+      'powershell.exe',
+      [
+        '-NoProfile',
+        '-WindowStyle',
+        'Hidden',
+        '-Command',
+        "Start-Process -FilePath $env:LTW_SETUP -ArgumentList '/SILENT','/SUPPRESSMSGBOXES','/NORESTART'",
+      ],
+      {
+        env: { ...process.env, LTW_SETUP: setup },
+        detached: true,
+        stdio: 'ignore',
+        windowsHide: true,
+      },
+    ).unref();
+    r.json({ ok: true, version: info.latest });
+  } catch (e) {
+    fail(r, e, 502);
+  }
+});
+
 // Where the person's files are, for the settings page.
 app.get('/api/info', (_q, r) =>
   r.json({
@@ -403,19 +468,52 @@ app.get('/', (_q, r) => r.redirect('/settings'));
 app.use(express.static(webDir, { extensions: ['html'] }));
 
 await loadStore();
-server.on('error', (e: NodeJS.ErrnoException) => {
-  console.error(
-    e.code === 'EADDRINUSE'
-      ? `Port ${port} is in use: Lower Third Web is probably already running.`
-      : e.message,
-  );
-  process.exit(1);
-});
-server.listen(port, '127.0.0.1', async () => {
-  sourcesDir = await writeSourceFiles(userFolder, baseUrl).catch((e) => {
-    console.error(`Could not write the OBS source files: ${(e as Error).message}`);
-    return '';
+// Who answers on a port: this same account (the program is already running: nothing to do),
+// another account logged in at the same time, or some other program. In the last two cases
+// this account gets the next port; its OBS source files and its dock file point to it.
+async function ownerOf(p: number) {
+  try {
+    const r = await fetch(`http://127.0.0.1:${p}/api/health`, {
+      signal: AbortSignal.timeout(1500),
+    });
+    const h = (await r.json()) as { app?: string; owner?: string };
+    return h.app === 'lower-third-web' ? h.owner || 'unknown' : undefined;
+  } catch {
+    return undefined;
+  }
+}
+const listen = (p: number): Promise<number> =>
+  new Promise((ok, fail) => {
+    const onError = async (e: NodeJS.ErrnoException) => {
+      server.off('listening', onListening);
+      if (e.code !== 'EADDRINUSE') return fail(e);
+      if ((await ownerOf(p)) === owner) {
+        console.log(`Lower Third Web is already running: http://127.0.0.1:${p}/settings`);
+        process.exit(0);
+      }
+      if (p < defaultPort + 9) ok(listen(p + 1));
+      else fail(e);
+    };
+    const onListening = () => {
+      server.off('error', onError);
+      ok(p);
+    };
+    server.once('error', onError);
+    server.once('listening', onListening);
+    server.listen(p, '127.0.0.1');
   });
-  console.log(`Lower Third Web — by Culto em Off: ${baseUrl}/settings`);
-  console.log(`Persistent data: ${configFile}`);
+wss.on('error', () => {});
+try {
+  port = await listen(defaultPort);
+} catch (e) {
+  console.error((e as Error).message);
+  process.exit(1);
+}
+baseUrl = `http://127.0.0.1:${port}`;
+remember(port);
+sourcesDir = await writeSourceFiles(userFolder, baseUrl).catch((e) => {
+  console.error(`Could not write the OBS source files: ${(e as Error).message}`);
+  return '';
 });
+console.log(`Lower Third Web — by Culto em Off: ${baseUrl}/settings`);
+console.log(`Persistent data: ${configFile}`);

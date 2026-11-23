@@ -37,7 +37,9 @@ let config = null,
   viewItem = '',
   saveTimer = 0,
   installedFonts = [],
-  obsVertical = false;
+  obsVertical = false,
+  update = null,
+  updateState = '';
 
 const NAMES = {
   classic: 'Clássico',
@@ -799,6 +801,59 @@ async function checkPix() {
 }
 const pages = {
   home: () => {
+    const updates = () => {
+      const u = update;
+      const text =
+        updateState === 'checking'
+          ? t('Procurando…')
+          : updateState === 'downloading'
+            ? t('Baixando a atualização…')
+            : updateState === 'installing'
+              ? t(
+                  'Instalando: confirme a permissão do Windows. Esta página volta sozinha quando terminar.',
+                )
+              : updateState === 'failed'
+                ? t('Não foi possível procurar atualizações agora.')
+                : !u
+                  ? ''
+                  : u.newer
+                    ? t('Nova versão disponível: v{latest} (instalada: v{current}).', {
+                        latest: u.latest,
+                        current: u.current,
+                      })
+                    : t('Você está na versão mais recente (v{current}).', { current: u.current });
+      const busy = ['checking', 'downloading', 'installing'].includes(updateState);
+      return card(
+        'Atualizações',
+        h(
+          'div',
+          { class: 'step' + (u?.newer ? ' attention' : u && !updateState ? ' done' : '') },
+          h('i', { class: 'mark' }, u?.newer ? '↑' : '✓'),
+          h('span', { 'data-raw': '' }, text),
+          u?.newer && u.canInstall
+            ? h(
+                'button',
+                {
+                  class: 'primary',
+                  disabled: busy,
+                  title:
+                    'Baixa a nova versão, confere o arquivo e instala. O Windows pede permissão e o programa volta sozinho.',
+                  onclick: installUpdate,
+                },
+                'Atualizar agora',
+              )
+            : null,
+          u?.newer && !u.canInstall
+            ? h(
+                'a',
+                { href: u.page, target: '_blank', rel: 'noopener' },
+                h('button', {}, 'Abrir a página de downloads'),
+              )
+            : null,
+          h('button', { disabled: busy, onclick: () => checkUpdate(true) }, 'Procurar atualização'),
+        ),
+      );
+    };
     const done = (ok, text, action, pageId) =>
       h(
         'div',
@@ -902,6 +957,7 @@ const pages = {
           ),
         ),
       ),
+      updates(),
       info?.folder
         ? card(
             'Seus arquivos',
@@ -917,6 +973,9 @@ const pages = {
             ),
             hint(
               'Esta pasta guarda as configurações, os nomes, as imagens e os arquivos das fontes do OBS. Copie a pasta inteira para fazer backup.',
+            ),
+            hint(
+              'Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.',
             ),
           )
         : null,
@@ -1851,6 +1910,28 @@ function renderMoved() {
     row = $('#form .fillRow.moved');
   row?.replaceWith(fresh.querySelector('.fillRow.moved'));
 }
+// ---- Updates ----
+async function checkUpdate(force = false) {
+  if (force) {
+    updateState = 'checking';
+    if (page === 'home') renderForm();
+  }
+  const r = await api(`/api/update${force ? '?force=1' : ''}`);
+  updateState = r.error ? (force ? 'failed' : '') : '';
+  if (!r.error) update = r;
+  $('#updatePill').classList.toggle('hidden', !update?.newer);
+  if (page === 'home' && config) renderForm();
+}
+async function installUpdate() {
+  updateState = 'downloading';
+  renderForm();
+  const r = await api('/api/update/install', { method: 'POST' });
+  if (r.error) {
+    updateState = '';
+    toast(friendly(r.error));
+  } else updateState = 'installing';
+  renderForm();
+}
 function go(id) {
   page = localStorage.ltwPage = id;
   renderNav();
@@ -1971,6 +2052,11 @@ $('#language').onchange = async (e) => {
   useLanguage(config.language);
 };
 autoLocalize();
+$('#updatePill').onclick = () => {
+  go('home');
+  document.querySelector('.step.attention')?.scrollIntoView({ block: 'center' });
+};
+checkUpdate();
 connect(
   (e) => {
     renderVersion(e.version);
