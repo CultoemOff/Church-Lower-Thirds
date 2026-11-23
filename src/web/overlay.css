@@ -676,68 +676,51 @@ img:not([src]) {
 }
 
 /* =====================================================================
-   TOP BAR
+   CORNER BADGE: logo, name, message, "AO VIVO", time
    ===================================================================== */
-.top {
-  align-items: flex-start;
-  justify-content: center;
-}
-.top .scaler {
-  transform-origin: 50% 0;
-  width: calc(100% / var(--scale));
-  flex: none;
-}
 .top .box {
   display: flex;
   align-items: center;
-  gap: 34px;
   color: var(--t1);
-  --h: 92px;
-  height: var(--h);
+  --h: 62px;
 }
-.top .brandp,
-.top .clockp,
-.top .qr {
+.top .part {
   display: none;
-  flex: none;
-}
-.top .has-brand .brandp {
-  display: flex;
   align-items: center;
-  gap: 18px;
+  height: var(--h);
+  flex: none;
+  white-space: nowrap;
+}
+.top .has-logo .logo,
+.top .has-name .name,
+.top .has-msg .msg,
+.top .has-live .live,
+.top .has-clock .clock {
+  display: flex;
 }
 .top .logo img {
   display: block;
-  height: calc(var(--h) * 0.7);
-  max-width: 260px;
+  height: calc(var(--h) - 18px);
+  max-width: 200px;
   object-fit: contain;
 }
 .top .name {
-  font-size: 30px;
+  font-size: 25px;
   font-weight: var(--w1);
   letter-spacing: -0.01em;
-  white-space: nowrap;
-}
-.top .msgp {
-  flex: 1;
-  min-width: 0;
-  display: none;
-  justify-content: center;
-}
-.top .has-msg .msgp {
-  display: flex;
 }
 .top .msg {
-  width: 100%;
-  text-align: center;
-  font-size: 28px;
+  font-size: 23px;
   font-weight: 500;
   color: var(--t2);
-  white-space: nowrap;
+  max-width: 620px;
   overflow: hidden;
 }
 .top .msg span {
   display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
   transition:
     opacity 0.36s ease,
     transform 0.36s ease;
@@ -746,218 +729,177 @@ img:not([src]) {
   opacity: 0;
   transform: translateY(-0.5em);
 }
-.top .box:not(.has-msg) .brandp {
-  margin-right: auto;
+.top .live {
+  gap: 9px;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #fff;
 }
-.top .has-clock .clockp {
-  display: flex;
+.top .live i {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #fff;
+  animation: live-dot 1.6s ease-in-out infinite;
+}
+@keyframes live-dot {
+  50% {
+    opacity: 0.25;
+    transform: scale(0.8);
+  }
+}
+.top .clock {
   flex-direction: column;
+  justify-content: center;
   align-items: flex-end;
   line-height: 1;
 }
 .top .time {
-  font-size: 40px;
+  font-size: 28px;
   font-weight: var(--w1);
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.01em;
 }
 .top .date {
   display: none;
-  font-size: 17px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--t2);
-  margin-top: 5px;
+  margin-top: 4px;
 }
 .top .has-date .date {
   display: block;
 }
-.top .has-qr .qr {
-  display: block;
-  background: #fff;
-  padding: 6px;
-  border-radius: 10px;
-}
-.top .qr img {
-  display: block;
-  width: calc(var(--h) - 28px);
-  height: calc(var(--h) - 28px);
-}
-
-/* --- full: edge to edge --- */
-.top[data-template='full'] .box,
-.top[data-template='large'] .box,
-.top[data-template='slim'] .box {
-  background: var(--fill);
-  padding: 0 64px;
-  border-bottom: 6px solid transparent;
-  border-image: var(--accent) 1;
-  box-sizing: content-box;
-}
-/* --- large: more room, QR fits well --- */
-.top[data-template='large'] .box {
-  --h: 148px;
-  gap: 44px;
-}
-.top[data-template='large'] .name {
-  font-size: 42px;
-}
-.top[data-template='large'] .msg {
-  font-size: 36px;
-}
-.top[data-template='large'] .time {
-  font-size: 62px;
-}
-.top[data-template='large'] .date {
-  font-size: 21px;
-}
-/* --- slim --- */
-.top[data-template='slim'] .box {
-  --h: 54px;
-  gap: 26px;
-  padding: 0 44px;
-  border-bottom-width: 4px;
-}
-.top[data-template='slim'] .name {
-  font-size: 22px;
-}
-.top[data-template='slim'] .msg {
-  font-size: 21px;
-}
-.top[data-template='slim'] .time {
-  font-size: 26px;
-}
-.top[data-template='slim'] .date,
-.top[data-template='slim'] .qr {
-  display: none;
-}
-/* --- floating: rounded bar away from the edges --- */
-.top[data-template='floating'] {
-  padding: var(--margin);
-}
-.top[data-template='floating'] .scaler {
-  width: calc(100% / var(--scale));
-}
-.top[data-template='floating'] .box {
-  --h: 86px;
+/* --- bar: one rounded strip, parts divided by thin lines --- */
+.top[data-template='bar'] .box,
+.top[data-template='liquid'] .box {
   background: var(--fill);
   border-radius: var(--radius);
-  padding: 0 40px 0 30px;
-  border: 1.5px solid rgba(255, 255, 255, 0.22);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
   overflow: hidden;
+  border: 1.5px solid rgba(255, 255, 255, 0.16);
 }
-.top[data-template='floating'] .box::after {
+.top[data-template='bar'] .box::after {
   content: '';
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 5px;
+  height: 4px;
   background: var(--accent);
 }
-/* --- islands: three separate capsules --- */
-.top[data-template='islands'] {
-  padding: var(--margin);
+.top[data-template='bar'] .part,
+.top[data-template='liquid'] .part {
+  padding: 0 20px;
 }
-.top[data-template='islands'] .box {
-  --h: 76px;
-  gap: 18px;
+.top[data-template='bar'] .part + .part,
+.top[data-template='liquid'] .part + .part {
+  box-shadow: -1.5px 0 0 rgba(255, 255, 255, 0.16);
 }
-.top[data-template='islands'] .brandp,
-.top[data-template='islands'] .msg,
-.top[data-template='islands'] .clockp {
+.top[data-template='bar'] .logo {
+  padding: 0 14px 0 16px;
+}
+.top[data-template='bar'] .logo + .name {
+  box-shadow: none;
+  padding-left: 2px;
+}
+.top[data-template='bar'] .live {
+  background: #e5383b;
+  box-shadow: none !important;
+}
+.top[data-template='bar'] .live + .part {
+  box-shadow: none;
+}
+/* --- pills: every part its own capsule --- */
+.top[data-template='pills'] .box {
+  gap: 10px;
+  --h: 54px;
+}
+.top[data-template='pills'] .part {
   background: var(--fill);
-  border-radius: min(var(--radius), 38px);
-  height: var(--h);
-  padding: 0 30px;
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: min(var(--radius), 27px);
+  padding: 0 22px;
+  border: 1.5px solid rgba(255, 255, 255, 0.16);
 }
-.top[data-template='islands'] .clockp {
-  justify-content: center;
-  background: var(--accent);
+.top[data-template='pills'] .logo {
+  padding: 0 12px;
+}
+.top[data-template='pills'] .live {
+  background: #e5383b;
   border-color: transparent;
+}
+.top[data-template='pills'] .clock {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: transparent;
+}
+.top[data-template='pills'] .clock .date {
   color: var(--on-accent);
 }
-.top[data-template='islands'] .clockp .date {
-  color: var(--on-accent);
-  opacity: 0.85;
-}
-.top[data-template='islands'] .msg {
-  width: auto;
-  max-width: 100%;
-  display: flex;
+/* --- stack: a small card, logo and name on top, live and time under --- */
+.top[data-template='stack'] .box {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-}
-.top[data-template='islands'] .name {
-  font-size: 26px;
-}
-.top[data-template='islands'] .time {
-  font-size: 34px;
-}
-.top[data-template='islands'] .msg {
-  font-size: 25px;
-}
-.top[data-template='islands'] .qr {
-  align-self: flex-start;
-}
-.top[data-template='islands'] .qr img {
-  width: 104px;
-  height: 104px;
-}
-/* --- tab: a tab hanging from the top, message on a second tab --- */
-.top[data-template='tab'] .box {
-  --h: 78px;
-  flex-wrap: wrap;
-  justify-content: center;
-  height: auto;
-  width: fit-content;
-  max-width: 1500px;
-  margin: 0 auto;
-  gap: 0 30px;
+  gap: 4px 14px;
   background: var(--fill);
-  padding: 0 46px;
-  border-radius: 0 0 var(--radius) var(--radius);
-  border-top: 6px solid transparent;
-  border-image: none;
-  position: relative;
+  border-radius: var(--radius);
+  padding: 12px 20px 14px 14px;
+  border-left: 7px solid transparent;
+  border-image: var(--accent) 1;
+  --h: 38px;
 }
-.top[data-template='tab'] .box::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 6px;
-  background: var(--accent);
+.top[data-template='stack'] .logo {
+  grid-row: span 2;
+  --h: 82px;
 }
-.top[data-template='tab'] .brandp,
-.top[data-template='tab'] .clockp {
-  height: var(--h);
+.top[data-template='stack'] .logo img {
+  height: 70px;
 }
-.top[data-template='tab'] .clockp {
-  justify-content: center;
+.top[data-template='stack'] .name {
+  grid-column: 2 / -1;
+  font-size: 27px;
 }
-.top[data-template='tab'] .time {
-  font-size: 36px;
+.top[data-template='stack'] .msg {
+  grid-column: 2 / -1;
+  --h: 30px;
+  max-width: 460px;
 }
-.top[data-template='tab'] .msgp {
-  order: 5;
-  flex: 0 0 100%;
-  margin: 0 -46px;
-  flex-basis: calc(100% + 92px);
-  background: var(--accent);
-  border-radius: 0 0 var(--radius) var(--radius);
-  padding: 8px 30px 9px;
+.top[data-template='stack'] .live {
+  grid-column: 2;
+  justify-self: start;
+  background: #e5383b;
+  border-radius: 8px;
+  padding: 0 12px;
+  --h: 32px;
+  font-size: 16px;
 }
-.top[data-template='tab'] .msg {
-  color: var(--on-accent);
-  font-size: 23px;
-  font-weight: 600;
+.top[data-template='stack'] .clock {
+  grid-column: 3;
+  --h: 32px;
 }
-.top[data-template='tab'] .qr {
-  margin: 8px 0;
+.top[data-template='stack'] .box:not(.has-live) .clock {
+  grid-column: 2;
+  justify-self: start;
+}
+/* --- liquid --- */
+.top[data-template='liquid'] .box {
+  border-radius: 999px;
+  padding: 0 8px;
+}
+.top[data-template='liquid'] .live {
+  background: #e5383b;
+  --h: 40px;
+  align-self: center;
+  border-radius: 999px;
+  padding: 0 16px;
+  margin: 0 12px;
+  box-shadow: inset 0 1.5px 1px rgba(255, 255, 255, 0.45) !important;
+  text-shadow: none;
+}
+.top[data-template='liquid'] .live + .part {
+  box-shadow: none;
 }
 
 /* =====================================================================
@@ -1750,14 +1692,6 @@ img:not([src]) {
   margin: -6px -30px -6px 26px;
   border-radius: 22px;
 }
-.top[data-template='liquid'] {
-  padding: var(--margin);
-}
-.top[data-template='liquid'] .box {
-  --h: 84px;
-  border-radius: 999px;
-  padding: 0 44px 0 26px;
-}
 .card[data-template='liquid'] .box {
   border-radius: calc(var(--radius) + 18px);
   overflow: hidden;
@@ -1806,6 +1740,60 @@ img:not([src]) {
   box-shadow:
     inset 0 2px 1px rgba(255, 255, 255, 0.8),
     inset 0 -10px 16px -8px rgba(0, 0, 0, 0.2);
+}
+
+/* =====================================================================
+   FREE PLACEMENT (dragged in the layout editor) and the editor itself
+   ===================================================================== */
+.el[data-free] {
+  display: block;
+  padding: 0;
+}
+.el[data-free] > .scaler {
+  position: absolute;
+  left: var(--fx);
+  top: var(--fy);
+  transform-origin: 0 0 !important;
+  max-width: none;
+}
+.editHandle {
+  display: none;
+}
+.edit .el {
+  visibility: visible;
+}
+.edit .el *,
+.edit .el .box {
+  animation-name: none !important;
+}
+.edit .ticker .run {
+  animation: none !important;
+}
+.edit .el:not(.fixed) > .scaler {
+  pointer-events: auto;
+  cursor: move;
+  outline: 2px dashed rgba(255, 255, 255, 0.75);
+  outline-offset: 6px;
+  touch-action: none;
+}
+.edit .el.dragging > .scaler,
+.edit .el:not(.fixed) > .scaler:hover {
+  outline-color: #4f7cff;
+  outline-style: solid;
+}
+.edit .el:not(.fixed) .editHandle {
+  display: block;
+  position: absolute;
+  right: -16px;
+  bottom: -16px;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: #4f7cff;
+  border: 3px solid #fff;
+  cursor: nwse-resize;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 /* Settings preview: a neutral "camera" background so transparency and shadows show */

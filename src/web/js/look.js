@@ -57,7 +57,7 @@ export const LOWER_TEMPLATES = [
   'news',
   'stack',
 ];
-export const TOP_TEMPLATES = ['full', 'large', 'slim', 'floating', 'islands', 'tab', 'liquid'];
+export const TOP_TEMPLATES = ['bar', 'pills', 'stack', 'liquid'];
 export const CARD_TEMPLATES = ['vertical', 'horizontal', 'ticket', 'frame', 'liquid'];
 export const ANIMATIONS = ['slide', 'rise', 'fade', 'wipe', 'zoom', 'blur', 'bounce', 'flip'];
 export const SHADOWS = ['none', 'soft', 'hard', 'glow'];

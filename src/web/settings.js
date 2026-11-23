@@ -45,6 +45,8 @@ const NAMES = {
   news: 'Telejornal',
   stack: 'Cartões',
   liquid: 'Vidro líquido',
+  bar: 'Barra',
+  pills: 'Cápsulas',
   card: 'Cartão',
   banner: 'Faixa larga',
   center: 'Painel central',
@@ -74,12 +76,13 @@ const NAMES = {
 const PAGES = [
   ['brand', 'Geral e PIX'],
   ['lower', 'Nomes'],
-  ['top', 'Barra superior'],
+  ['top', 'Selo superior'],
   ['ticker', 'Barra inferior'],
   ['card', 'Cartão QR / PIX'],
   ['agenda', 'Agenda'],
   ['social', 'Redes sociais'],
   ['bug', 'Logo'],
+  ['layout', 'Posições na tela'],
   ['obs', 'OBS e atalhos'],
   ['backup', 'Backup'],
 ];
@@ -178,7 +181,7 @@ const THEMES = [
     radius: 22,
     templates: {
       lower: 'glass',
-      top: 'floating',
+      top: 'bar',
       ticker: 'floating',
       card: 'horizontal',
       agenda: 'card',
@@ -512,6 +515,23 @@ const PLACES = [
 const place = (el) =>
   card(
     'Posição e tamanho',
+    config[el].free
+      ? h(
+          'p',
+          { class: 'hint' },
+          'Este elemento foi arrastado para um lugar próprio na aba "Posições na tela". ',
+          h(
+            'button',
+            {
+              onclick: () => {
+                set(`${el}.free`, false);
+                renderForm();
+              },
+            },
+            'Voltar ao lugar padrão',
+          ),
+        )
+      : null,
     grid(
       select(`${el}.position`, 'Lugar na tela', PLACES),
       range(`${el}.size`, 'Tamanho', 50, 200, '%'),
@@ -1013,7 +1033,9 @@ const pages = {
       grid(
         check('top.showLogo', 'Logo da igreja'),
         check('top.showName', 'Nome da igreja'),
-        check('top.showClock', 'Relógio', { rerender: true }),
+        check('top.showLive', 'Selo "AO VIVO"', { rerender: true }),
+        config.top.showLive ? textInput('top.liveText', 'Texto do selo', { max: 20 }) : null,
+        check('top.showClock', 'Horário', { rerender: true }),
         ...(config.top.showClock
           ? [
               check('top.showDate', 'Data embaixo da hora'),
@@ -1021,60 +1043,40 @@ const pages = {
               check('top.clock12h', 'Formato 12 horas'),
             ]
           : []),
-        check('top.showQr', 'QR Code', {
-          rerender: true,
-          tip: 'Fica melhor nos modelos Barra grande e Ilhas.',
-        }),
-        ...(config.top.showQr ? qrChoice('top') : []),
+        check('top.showMessages', 'Recados (texto que se reveza)', { rerender: true }),
       ),
+      hint('Cada parte liga e desliga sozinha, aqui ou na aba "Superior" do painel do OBS.'),
     ),
-    card(
-      'Recados',
-      grid(
-        check('top.showMessages', 'Mostrar recados'),
-        select('top.order', 'Ordem', [
-          ['sequence', 'Na sequência'],
-          ['random', 'Aleatória'],
-        ]),
-        range('top.interval', 'Trocar a cada', 3, 60, ' s'),
-        field(
-          'Recados (um por linha)',
-          h('textarea', {
-            rows: 6,
-            value: config.top.messages.join('\n'),
-            oninput: (e) =>
-              set(
-                'top.messages',
-                e.target.value
-                  .split('\n')
-                  .map((l) => l.trim())
-                  .filter(Boolean),
-              ),
-          }),
-          { wide: true },
-        ),
-      ),
-    ),
-    card(
-      'Cores e texto',
-      grid(
-        fill('top.fill', 'Cor da barra'),
-        fill('top.accent', 'Cor de destaque'),
-        color('top.text', 'Texto principal'),
-        color('top.text2', 'Texto dos recados'),
-        font('top.font', 'Fonte'),
-        select('top.weight', 'Peso do texto', WEIGHTS),
-      ),
-    ),
-    card(
-      'Tamanho',
-      grid(
-        range('top.size', 'Tamanho', 60, 180, '%'),
-        range('top.margin', 'Distância das bordas', 0, 120, ' px', {
-          tip: 'Vale para os modelos Flutuante e Ilhas.',
-        }),
-      ),
-    ),
+    config.top.showMessages
+      ? card(
+          'Recados',
+          grid(
+            select('top.order', 'Ordem', [
+              ['sequence', 'Na sequência'],
+              ['random', 'Aleatória'],
+            ]),
+            range('top.interval', 'Trocar a cada', 3, 60, ' s'),
+            field(
+              'Recados (um por linha)',
+              h('textarea', {
+                rows: 5,
+                value: config.top.messages.join('\n'),
+                oninput: (e) =>
+                  set(
+                    'top.messages',
+                    e.target.value
+                      .split('\n')
+                      .map((l) => l.trim())
+                      .filter(Boolean),
+                  ),
+              }),
+              { wide: true },
+            ),
+          ),
+        )
+      : null,
+    colors('top', { fill: 'Cor do selo', text: 'Nome e horário', text2: 'Recados e data' }),
+    place('top'),
     effects('top'),
   ],
 
@@ -1309,6 +1311,54 @@ const pages = {
     effects('bug', { radius: false }),
   ],
 
+  layout: () => {
+    const LABELS = {
+      lower: 'Nomes',
+      top: 'Selo superior',
+      card: 'Cartão QR / PIX',
+      agenda: 'Agenda',
+      social: 'Redes sociais',
+      bug: 'Logo',
+    };
+    const moved = Object.keys(LABELS).filter((el) => config[el].free);
+    return [
+      card(
+        'Arraste para posicionar',
+        h(
+          'div',
+          { class: 'previewBox editor' },
+          h('iframe', { src: '/overlay?preview=all&edit=1', title: 'Editor de posições' }),
+        ),
+        hint(
+          'Arraste cada elemento para onde ele deve aparecer. Para aumentar ou diminuir, arraste o quadradinho azul do canto. A posição vale na hora, também no OBS.',
+        ),
+        hint(
+          'A barra inferior e os modelos de largura total (Telejornal, Faixa larga e Painel central) não se movem.',
+        ),
+        h('div', { style: 'height:8px' }),
+        h(
+          'div',
+          { class: 'fillRow' },
+          moved.length
+            ? h('span', { class: 'hint' }, 'Voltar ao lugar padrão:')
+            : h('span', { class: 'hint' }, 'Nenhum elemento foi movido ainda.'),
+          ...moved.map((el) =>
+            h(
+              'button',
+              {
+                onclick: () => {
+                  set(`${el}.free`, false);
+                  renderForm();
+                },
+              },
+              LABELS[el],
+            ),
+          ),
+        ),
+      ),
+    ];
+  },
+
   obs: () => {
     const base = location.origin;
     const copy = (text) =>
@@ -1341,7 +1391,32 @@ const pages = {
           ),
         ),
         h('div', { style: 'height:8px' }),
+        h('span', { class: 'hint' }, 'Tudo numa fonte só:'),
         copy(base + '/overlay'),
+        h('div', { style: 'height:10px' }),
+        h(
+          'span',
+          { class: 'hint' },
+          'Ou uma fonte para cada elemento, para separar por cena (todas com 1920 × 1080):',
+        ),
+        h(
+          'table',
+          { class: 'apiTable' },
+          ...[
+            ['Nomes', 'lower'],
+            ['Selo superior', 'top'],
+            ['Barra inferior', 'ticker'],
+            ['Cartão QR / PIX', 'card'],
+            ['Agenda', 'agenda'],
+            ['Redes sociais', 'social'],
+            ['Logo', 'bug'],
+          ].map(([label, el]) =>
+            h('tr', {}, h('td', {}, label), h('td', {}, copy(`${base}/overlay?only=${el}`))),
+          ),
+        ),
+        hint(
+          'Use a fonte única ou as separadas, não as duas na mesma cena: o elemento apareceria duas vezes. Dá para juntar elementos numa fonte, por exemplo ?only=lower,ticker.',
+        ),
       ),
       card(
         '2. O painel (dock)',
@@ -1369,7 +1444,7 @@ const pages = {
           ),
           row('Próximo nome da lista', '/api/live/lower/show?item=next'),
           row('Esconder o nome', '/api/live/lower/hide'),
-          row('Barra superior', '/api/live/top/toggle'),
+          row('Selo superior', '/api/live/top/toggle'),
           row('Cartão QR / PIX', '/api/live/card/toggle'),
           row('Barra inferior', '/api/live/ticker/toggle'),
           row('Agenda', '/api/live/agenda/toggle'),
@@ -1441,6 +1516,11 @@ function renderOnAir() {
   b.classList.toggle('on', on);
   b.textContent = on ? 'No ar: esconder' : 'Mostrar no OBS';
 }
+function renderMoved() {
+  const fresh = pages.layout()[0],
+    row = $('#form .card > .fillRow');
+  row?.replaceWith(fresh.querySelector(':scope > .fillRow'));
+}
 function renderNav() {
   $('#nav').replaceChildren(
     ...PAGES.map(([id, label]) =>
@@ -1465,6 +1545,8 @@ function renderForm() {
   if (!pages[page]) page = 'brand';
   if (!config.lower.items.some((i) => i.id === viewItem))
     viewItem = config.lower.items[0]?.id || '';
+  // The layout editor keeps its iframe while elements are being dragged.
+  if (page === 'layout' && $('#form .editor iframe')) return renderMoved();
   $('#form').replaceChildren(...pages[page]().filter(Boolean));
   if (page === 'brand') checkPix();
 }
@@ -1489,6 +1571,19 @@ api('/api/fonts').then((fonts) => {
   if (!Array.isArray(fonts)) return;
   installedFonts = fonts;
   if (config && !$('#form').contains(document.activeElement)) renderForm();
+});
+addEventListener('message', (e) => {
+  const m = e.data;
+  if (
+    e.origin !== location.origin ||
+    m?.source !== 'ltw-edit' ||
+    m.type !== 'place' ||
+    !config?.[m.el]
+  )
+    return;
+  Object.assign(config[m.el], { free: true, x: m.x, y: m.y, size: m.size });
+  save();
+  if (page === 'layout') renderMoved();
 });
 connect((e) => {
   renderVersion(e.version);

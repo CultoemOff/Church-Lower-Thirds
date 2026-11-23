@@ -5,7 +5,7 @@ Lower thirds e overlays para o OBS Studio, numa única fonte de navegador. Progr
 ## O que tem
 
 - **Nomes** (lower third): 11 modelos; texto escrito na hora ou salvo numa lista; logo e QR Code opcionais em cada item.
-- **Barra superior**: 7 modelos, com logo, nome da igreja, relógio, data, recados e QR Code.
+- **Selo superior**: 4 modelos, num canto da tela, com logo, nome da igreja, "AO VIVO", horário e recados; cada parte é opcional.
 - **Barra inferior**: 4 modelos, com texto rolando o tempo todo. Os nomes sobem sozinhos quando ela está no ar.
 - **Cartão QR / PIX**: 5 modelos. PIX pela chave da igreja (BR Code estático) ou pelo "copia e cola" do banco; QR Code de qualquer link.
 - **Agenda**: 4 modelos; mostra um dia por vez e sai depois do último.
@@ -19,7 +19,8 @@ Lower thirds e overlays para o OBS Studio, numa única fonte de navegador. Progr
 
 | O quê | Endereço |
 |---|---|
-| Fonte de navegador do OBS (1920 × 1080) | `http://127.0.0.1:8795/overlay` |
+| Fonte de navegador do OBS (1920 × 1080), todos os elementos | `http://127.0.0.1:8795/overlay` |
+| Fonte de um elemento só (`lower`, `top`, `ticker`, `card`, `agenda`, `social`, `bug`) | `http://127.0.0.1:8795/overlay?only=lower` |
 | Dock do OBS | `http://127.0.0.1:8795/dock` |
 | Configurações | `http://127.0.0.1:8795/settings` |
 

@@ -36,7 +36,7 @@ export const LOWER_TEMPLATES = [
   'stack',
   'liquid',
 ];
-export const TOP_TEMPLATES = ['full', 'large', 'slim', 'floating', 'islands', 'tab', 'liquid'];
+export const TOP_TEMPLATES = ['bar', 'pills', 'stack', 'liquid'];
 export const CARD_TEMPLATES = ['vertical', 'horizontal', 'ticket', 'frame', 'liquid'];
 export const TICKER_TEMPLATES = ['full', 'floating', 'minimal', 'liquid'];
 export const AGENDA_TEMPLATES = ['card', 'banner', 'center', 'liquid'];
@@ -77,6 +77,9 @@ export const ANIMATIONS = ['slide', 'rise', 'fade', 'wipe', 'zoom', 'blur', 'bou
 export const SHADOWS = ['none', 'soft', 'hard', 'glow'];
 const CORNERS = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
 const PLACES = [...CORNERS, 'top-center', 'bottom-center', 'center-left', 'center-right', 'center'];
+
+/** Free placement: where the element was dragged to (top-left corner, 1920x1080 stage). */
+const free = () => ({ free: false, x: 0, y: 0 });
 
 export const newId = () => randomBytes(5).toString('hex');
 
@@ -122,6 +125,7 @@ export function defaults() {
       position: 'left',
       marginX: 90,
       marginY: 90,
+      ...free(),
       /** Name typed in the dock and shown at once, without saving it to the list */
       quick: { id: 'quick', line1: '', line2: '', logo: true, qr: 'none', qrText: '' } as LowerItem,
       items: [
@@ -143,8 +147,9 @@ export function defaults() {
         },
       ] as LowerItem[],
     },
+    // The corner badge: logo, church name, a message, "AO VIVO" and the time, each optional.
     top: {
-      template: 'full',
+      template: 'bar',
       fill: fill('#0f172a', '#1e293b', 90),
       accent: fill('#2463eb', '#22d3ee', 90),
       text: '#ffffff',
@@ -158,22 +163,24 @@ export function defaults() {
       shadowStrength: 50,
       animation: 'slide',
       duration: 700,
-      margin: 28,
+      position: 'top-left',
+      marginX: 50,
+      marginY: 40,
+      ...free(),
       showLogo: true,
       showName: true,
+      showLive: true,
+      liveText: 'AO VIVO',
       showClock: true,
       clock12h: false,
       clockSeconds: false,
       showDate: false,
-      showMessages: true,
+      showMessages: false,
       messages: ['Seja bem-vindo!', 'Culto ao vivo', 'Inscreva-se no canal e ative o sininho'],
       /** A message typed in the dock: shown alone until cleared ('' = rotate the list) */
       pinned: '',
       order: 'sequence',
       interval: 8,
-      showQr: false,
-      qr: 'pix',
-      qrText: '',
     },
     card: {
       template: 'vertical',
@@ -193,6 +200,7 @@ export function defaults() {
       position: 'bottom-right',
       marginX: 70,
       marginY: 70,
+      ...free(),
       title: 'Dízimos e ofertas',
       subtitle: 'Aponte a câmera do celular',
       showKey: true,
@@ -249,6 +257,7 @@ export function defaults() {
       position: 'center-right',
       marginX: 80,
       marginY: 80,
+      ...free(),
       title: 'Programação',
       showLogo: true,
       /** Seconds each day stays on screen */
@@ -279,6 +288,7 @@ export function defaults() {
       position: 'bottom-right',
       marginX: 80,
       marginY: 90,
+      ...free(),
       prefix: 'Siga-nos no',
       items: [
         { id: 'rede1', network: 'instagram', label: 'Instagram', handle: '@suaigreja', icon: '' },
@@ -290,8 +300,8 @@ export function defaults() {
       size: 150,
       opacity: 90,
       marginX: 60,
-      // Below a full-width top bar, so the two can be on air together.
-      marginY: 130,
+      marginY: 50,
+      ...free(),
       shadow: 'soft',
       shadowStrength: 40,
       animation: 'fade',
@@ -360,6 +370,8 @@ const RANGES: Record<string, [number, number]> = {
   interval: [2, 600],
   speed: [20, 600],
   seconds: [2, 120],
+  x: [-400, 1900],
+  y: [-300, 1060],
   weight: [100, 900],
   weight1: [100, 900],
   weight2: [100, 900],
@@ -376,6 +388,7 @@ const CHOICES: Record<string, string[]> = {
   shadow: SHADOWS,
   'lower.position': ['left', 'center', 'right'],
   'card.position': PLACES,
+  'top.position': PLACES,
   'agenda.position': PLACES,
   'social.position': PLACES,
   'bug.position': CORNERS,

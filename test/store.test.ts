@@ -194,3 +194,18 @@ test('agenda days, social networks and saved QR cards are cleaned', () => {
   assert.equal(resolveSocial(c, live, '2')?.handle, 'igreja.org');
   assert.equal(resolveSocial(c, live, '7'), undefined);
 });
+
+test('dragged elements keep their place inside the screen; the corner badge has its own models', () => {
+  const c = cleanConfig({
+    lower: { free: true, x: 5000, y: -900 },
+    top: { template: 'full', position: 'bottom-right', showLive: false, liveText: 'NO AR' },
+    bug: { free: 'yes', x: 12.6 },
+  });
+  assert.deepEqual([c.lower.free, c.lower.x, c.lower.y], [true, 1900, -300]);
+  assert.equal(c.top.template, 'bar');
+  assert.deepEqual(
+    [c.top.position, c.top.showLive, c.top.liveText],
+    ['bottom-right', false, 'NO AR'],
+  );
+  assert.deepEqual([c.bug.free, c.bug.x], [false, 13]);
+});

@@ -6,6 +6,11 @@ const stage = document.getElementById('stage');
 const params = new URLSearchParams(location.search);
 // ?preview=lower: the settings page shows one element, always on, over a sample background.
 const preview = params.get('preview');
+// ?only=lower (or lower,card): one OBS source per element; without it, every element.
+const only = params.get('only')?.split(',');
+// ?edit=1: the settings page's layout editor. Everything is shown, still, and can be
+// dragged to a new place or resized by its corner.
+const edit = params.get('edit') === '1';
 const roots = Object.fromEntries(
   [...document.querySelectorAll('.el')].map((e) => [e.dataset.el, e]),
 );
@@ -22,6 +27,7 @@ function fit() {
 addEventListener('resize', fit);
 fit();
 if (preview) document.documentElement.classList.add('preview');
+if (edit) document.documentElement.classList.add('edit');
 
 const setVars = (node, vars) => {
   for (const [k, v] of Object.entries(vars)) node.style.setProperty('--' + k, v);
@@ -47,13 +53,25 @@ function common(el, c, side) {
     radius: (c.radius ?? 0) + 'px',
   });
   if (c.fill) root.style.setProperty('--fill-glass', fillCss(c.fill, (c.opacity ?? 100) * 0.3));
+  place(el);
+}
+
+/** Dragged elements sit where they were dropped; the others follow their "place" setting. */
+const FULL_WIDTH = { lower: ['news'], agenda: ['banner', 'center'] };
+const canMove = (el) => 'free' in config[el] && !FULL_WIDTH[el]?.includes(config[el].template);
+function place(el) {
+  const c = config[el],
+    root = roots[el],
+    on = canMove(el) && c.free;
+  root.toggleAttribute('data-free', on);
+  if (on) setVars(root, { fx: c.x + 'px', fy: c.y + 'px' });
 }
 
 // ---- Lower third ----
 function lowerItem() {
   const items = config.lower.items;
   const quick = config.lower.quick;
-  if (preview === 'lower')
+  if (preview === 'lower' || edit)
     return items.find((i) => i.id === params.get('item')) || items[0] || quick;
   return live.lower.item === 'quick' ? quick : items.find((i) => i.id === live.lower.item);
 }
@@ -102,14 +120,18 @@ function renderLower() {
   return [item.id, item.line1, item.line2, item.logo, item.qr, item.qrText].join('|');
 }
 
-// ---- Top bar ----
+// ---- Corner badge: logo, name, message, "AO VIVO", time ----
 let messageIndex = -1,
   messageTimer = 0,
   messageKey = '';
+const topMessages = () => {
+  const c = config.top;
+  return c.pinned ? [c.pinned] : c.showMessages ? c.messages : [];
+};
 function nextMessage(first = false) {
   const c = config.top,
     span = $('top', '.msg span'),
-    list = c.pinned ? [c.pinned] : c.showMessages ? c.messages : [];
+    list = topMessages();
   if (!list.length) return void (span.textContent = '');
   if (c.order === 'random' && list.length > 1) {
     let n;
@@ -117,15 +139,8 @@ function nextMessage(first = false) {
     while (n === messageIndex);
     messageIndex = n;
   } else messageIndex = (messageIndex + 1) % list.length;
-  const put = () => {
-    span.textContent = list[messageIndex];
-    // Long sentences shrink to fit instead of being cut.
-    span.style.fontSize = '';
-    const room = span.parentElement.clientWidth;
-    if (room && span.scrollWidth > room)
-      span.style.fontSize = Math.max(0.55, room / span.scrollWidth) + 'em';
-  };
-  if (first || list.length === 1) return put();
+  const put = () => (span.textContent = list[messageIndex]);
+  if (first === true || list.length === 1) return put();
   span.classList.add('swap');
   setTimeout(() => {
     put();
@@ -135,14 +150,16 @@ function nextMessage(first = false) {
 function tick() {
   if (!config) return;
   const c = config.top,
-    now = new Date();
-  $('top', '.time').textContent = now.toLocaleTimeString('pt-BR', {
-    hour: '2-digit',
-    minute: '2-digit',
-    second: c.clockSeconds ? '2-digit' : undefined,
-    hour12: c.clock12h,
-  });
-  $('ticker', '.time').textContent = $('top', '.time').textContent;
+    now = new Date(),
+    time = (seconds) =>
+      now.toLocaleTimeString('pt-BR', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: seconds ? '2-digit' : undefined,
+        hour12: c.clock12h,
+      });
+  $('top', '.time').textContent = time(c.clockSeconds);
+  $('ticker', '.time').textContent = time(false);
   $('top', '.date').textContent = now
     .toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: 'short' })
     .replace(/\./g, '');
@@ -153,7 +170,8 @@ function renderTop() {
     root = roots.top,
     box = $('top', '.box');
   root.dataset.template = c.template;
-  common('top', c, 'top');
+  root.dataset.pos = c.position;
+  common('top', c, sideOf(c.position));
   setVars(root, {
     fill: fillCss(c.fill, c.opacity),
     accent: fillCss(c.accent),
@@ -162,35 +180,23 @@ function renderTop() {
     t1: c.text,
     t2: c.text2,
     w1: c.weight,
-    margin: c.margin + 'px',
+    mx: c.marginX + 'px',
+    my: c.marginY + 'px',
   });
   const logo = c.showLogo && config.brand.logo,
-    qr = !c.showQr
-      ? ''
-      : c.qr === 'pix'
-        ? qrUrl('pix', '', { stamp: pixStamp })
-        : c.qrText
-          ? qrUrl('url', c.qrText)
-          : '';
+    name = c.showName ? config.brand.name : '',
+    messages = topMessages();
   setImage($('top', '.logo img'), logo || '');
-  setImage($('top', '.qr img'), qr);
-  $('top', '.name').textContent = c.showName ? config.brand.name : '';
+  $('top', '.name').textContent = name;
+  $('top', '.live b').textContent = c.liveText;
   box.classList.toggle('has-logo', !!logo);
-  box.classList.toggle('has-name', c.showName && !!config.brand.name);
-  box.classList.toggle('has-brand', !!logo || (c.showName && !!config.brand.name));
+  box.classList.toggle('has-name', !!name);
+  box.classList.toggle('has-msg', messages.length > 0);
+  box.classList.toggle('has-live', c.showLive && !!c.liveText);
   box.classList.toggle('has-clock', c.showClock);
   box.classList.toggle('has-date', c.showClock && c.showDate);
-  box.classList.toggle('has-msg', !!c.pinned || (c.showMessages && c.messages.length > 0));
-  box.classList.toggle('has-qr', !!qr);
   tick();
-  const key = JSON.stringify([
-    c.pinned,
-    c.showMessages,
-    c.messages,
-    c.order,
-    c.interval,
-    c.template,
-  ]);
+  const key = JSON.stringify([messages, c.order, c.interval]);
   if (key !== messageKey) {
     messageKey = key;
     messageIndex = -1;
@@ -198,7 +204,7 @@ function renderTop() {
     nextMessage(true);
     messageTimer = setInterval(nextMessage, c.interval * 1000);
   }
-  return 'top';
+  return logo || name || messages.length || (c.showLive && c.liveText) || c.showClock ? 'top' : '';
 }
 
 // ---- QR card ----
@@ -423,7 +429,7 @@ function renderSocial() {
   const c = config.social,
     root = roots.social,
     item =
-      preview === 'social'
+      preview === 'social' || edit
         ? c.items.find((i) => i.id === params.get('item')) || c.items[0]
         : c.items.find((i) => i.id === live.social.item);
   root.dataset.template = c.template;
@@ -464,7 +470,11 @@ const render = {
   social: renderSocial,
 };
 const onShow = { agenda: startAgenda };
-const wanted = (el) => (preview ? preview === el : !!live[el].on);
+const wanted = (el) => {
+  if (only && !only.includes(el)) return false;
+  if (edit) return true;
+  return preview ? preview === el : !!live[el].on;
+};
 
 /** Brings one element to the state asked: in, out, or out-and-in when its content changed. */
 function sync(el) {
@@ -503,7 +513,10 @@ function sync(el) {
 }
 function apply() {
   if (!config || !live) return;
-  for (const el of Object.keys(roots)) sync(el);
+  for (const el of Object.keys(roots)) {
+    sync(el);
+    if (edit) roots[el].classList.toggle('fixed', !canMove(el));
+  }
 }
 function replay(el) {
   const s = shown[el];
@@ -515,6 +528,62 @@ addEventListener('message', (e) => {
   if (e.origin === location.origin && e.data?.type === 'replay' && roots[e.data.el])
     replay(e.data.el);
 });
+
+// ---- Layout editor: drag to move, drag the corner to resize ----
+const SIZE_LIMITS = { bug: [40, 500] };
+function enableEdit() {
+  const tell = (message) => parent.postMessage({ source: 'ltw-edit', ...message }, location.origin);
+  for (const [el, root] of Object.entries(roots)) {
+    const scaler = root.querySelector('.scaler');
+    const handle = document.createElement('div');
+    handle.className = 'editHandle';
+    scaler.append(handle);
+    const spot = () => {
+      const s = stage.getBoundingClientRect(),
+        r = scaler.getBoundingClientRect(),
+        k = s.width / 1920;
+      return { k, x: (r.left - s.left) / k, y: (r.top - s.top) / k, w: r.width / k };
+    };
+    scaler.addEventListener('pointerdown', (down) => {
+      if (!config || !canMove(el)) return;
+      down.preventDefault();
+      scaler.setPointerCapture(down.pointerId);
+      const start = spot(),
+        resizing = down.target === handle,
+        size0 = config[el].size ?? 100,
+        [min, max] = SIZE_LIMITS[el] || [40, 250];
+      // From here on the element is placed by its top-left corner, where it is now.
+      let x = Math.round(start.x),
+        y = Math.round(start.y),
+        size = size0;
+      root.setAttribute('data-free', '');
+      setVars(root, { fx: x + 'px', fy: y + 'px' });
+      root.classList.add('dragging');
+      const move = (e) => {
+        const dx = (e.clientX - down.clientX) / start.k,
+          dy = (e.clientY - down.clientY) / start.k;
+        if (resizing) {
+          size = Math.round(Math.min(max, Math.max(min, (size0 * (start.w + dx)) / start.w)));
+          if (el === 'bug') root.style.setProperty('--w', size + 'px');
+          else root.style.setProperty('--scale', size / 100);
+        } else {
+          x = Math.round(Math.min(1880, Math.max(-300, start.x + dx)));
+          y = Math.round(Math.min(1040, Math.max(-200, start.y + dy)));
+          setVars(root, { fx: x + 'px', fy: y + 'px' });
+        }
+      };
+      const up = () => {
+        scaler.removeEventListener('pointermove', move);
+        root.classList.remove('dragging');
+        tell({ type: 'place', el, x, y, size });
+      };
+      scaler.addEventListener('pointermove', move);
+      scaler.addEventListener('pointerup', up, { once: true });
+      scaler.addEventListener('pointercancel', up, { once: true });
+    });
+  }
+}
+if (edit) enableEdit();
 
 function connect() {
   const ws = new WebSocket(`ws://${location.host}/ws`);

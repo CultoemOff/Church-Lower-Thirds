@@ -30,7 +30,7 @@ $('#themeToggle').onclick = () => applyTheme(toggleTheme());
 const TABS = [
   ['lower', 'Nomes', 'Nomes e legendas (lower third)'],
   ['card', 'QR / PIX', 'Cartão com QR Code do PIX ou de um link'],
-  ['top', 'Superior', 'Barra superior: logo, hora e recados'],
+  ['top', 'Superior', 'Selo no canto da tela: logo, nome, AO VIVO, horário e recados'],
   ['ticker', 'Inferior', 'Barra inferior: texto rolando o tempo todo'],
   ['agenda', 'Agenda', 'Dias e horários dos cultos, um dia de cada vez'],
   ['social', 'Redes', 'Redes sociais: "Siga-nos no…"'],
@@ -336,7 +336,7 @@ function buildCard() {
 }
 
 // ---------- Top bar and bottom bar: a text now, and the list that rotates ----------
-function buildTexts(el, { label, tip, extra = [], listTitle, hint }) {
+function buildTexts(el, { label, tip, extra = [], parts = [], listTitle, hint }) {
   const text = input(hint, 200);
   const pinNow = async (value) => {
     const r = await patch({ [`${el}.pinned`]: value });
@@ -351,6 +351,24 @@ function buildTexts(el, { label, tip, extra = [], listTitle, hint }) {
         'div',
         { class: 'editor' },
         h('div', { class: extra.length ? 'pair' : '' }, toggleButton(el, label, tip), ...extra),
+        parts.length
+          ? h(
+              'div',
+              { class: 'parts', title: 'O que aparece no selo' },
+              parts.map(([path, name]) =>
+                h(
+                  'label',
+                  {},
+                  h('input', {
+                    type: 'checkbox',
+                    'data-part': path,
+                    onchange: (e) => patch({ [path]: e.target.checked }),
+                  }),
+                  name,
+                ),
+              ),
+            )
+          : null,
         text,
         h(
           'div',
@@ -384,6 +402,8 @@ function buildTexts(el, { label, tip, extra = [], listTitle, hint }) {
     ],
     refresh(root) {
       const c = config[el];
+      for (const box of root.querySelectorAll('[data-part]'))
+        box.checked = !!c[box.dataset.part.split('.')[1]];
       pinned.classList.toggle('hidden', !c.pinned);
       pinned.replaceChildren(
         h('span', { title: c.pinned }, 'Fixo: ', h('b', {}, c.pinned)),
@@ -616,9 +636,22 @@ const BUILD = {
   card: buildCard,
   top: () =>
     buildTexts('top', {
-      label: 'Barra superior',
-      tip: 'Mostra ou esconde a barra superior',
-      extra: [toggleButton('bug', 'Logo', 'Mostra ou esconde o logo no canto da tela')],
+      label: 'Selo superior',
+      tip: 'Mostra ou esconde o selo do canto da tela',
+      extra: [
+        toggleButton(
+          'bug',
+          'Logo solto',
+          'Mostra ou esconde o logo sozinho em outro canto da tela',
+        ),
+      ],
+      parts: [
+        ['top.showLogo', 'Logo'],
+        ['top.showName', 'Nome'],
+        ['top.showLive', 'Ao vivo'],
+        ['top.showClock', 'Hora'],
+        ['top.showMessages', 'Recados'],
+      ],
       listTitle: 'Recados',
       hint: 'Recado para mostrar agora',
     }),

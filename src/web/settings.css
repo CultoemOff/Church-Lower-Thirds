@@ -457,3 +457,18 @@ table.apiTable {
   object-fit: cover;
   border-radius: 6px;
 }
+
+.content.noPreview:has(.previewBox.editor) {
+  grid-template-columns: minmax(0, 1fr);
+}
+.previewBox.editor iframe {
+  pointer-events: auto;
+}
+.apiTable .copyRow code {
+  font-size: 11.5px;
+  padding: 6px 8px;
+}
+.apiTable .copyRow button {
+  padding: 5px 9px;
+  font-size: 11px;
+}

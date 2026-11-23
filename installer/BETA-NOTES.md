@@ -6,12 +6,14 @@ Gráficos para o OBS Studio numa única fonte de navegador, controlados por um p
 
 - **Nomes** (lower third): 11 modelos. Dá para escrever o nome e a legenda na hora, ou salvar numa lista e mostrar com um clique.
 - **QR / PIX**: cartão com o QR Code do PIX da igreja ou de qualquer link, com lista de QR Codes salvos. 5 modelos.
-- **Superior**: barra com logo, nome da igreja, relógio e recados que se revezam. 7 modelos.
+- **Superior**: selo num canto da tela com logo, nome da igreja, "AO VIVO", horário e recados; cada parte liga e desliga sozinha. 4 modelos.
 - **Inferior**: barra com texto rolando o tempo todo. 4 modelos.
 - **Agenda**: dias e horários dos cultos, um dia de cada vez, saindo depois do último. 4 modelos.
 - **Redes**: "Siga-nos no Instagram" e o @, com um clique. 3 modelos.
 - **Logo** no canto da tela.
 - **Tempo na tela** único, escolhido no próprio painel.
+- **Posições na tela**: arraste cada elemento para onde quiser e redimensione pelo canto.
+- **Uma fonte por elemento** ou uma com todos (`/overlay?only=lower`, `top`, `ticker`, `card`, `agenda`, `social`, `bug`).
 - Dois temas completos (Céu noturno e Vidro líquido), cores com degradê, 18 fontes gratuitas incluídas e todas as fontes instaladas no PC, 8 animações, sombras e transparência.
 - As configurações avançadas abrem numa página à parte no navegador, com prévia ao vivo.
 
