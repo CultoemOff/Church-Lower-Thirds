@@ -408,3 +408,9 @@ footer {
   padding: 0;
   accent-color: var(--accent);
 }
+
+/* The tab's own category is switched off, but one of its extras (the loose logo) is on */
+.pane.onlyExtra .editor > :not(:first-child),
+.pane.onlyExtra .listWrap {
+  display: none;
+}

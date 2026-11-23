@@ -209,3 +209,18 @@ test('dragged elements keep their place inside the screen; the corner badge has 
   );
   assert.deepEqual([c.bug.free, c.bug.x], [false, 13]);
 });
+
+test('a category switched off cannot stay on air', () => {
+  const c = cleanConfig({
+    enabled: { ticker: false, social: 'no' },
+    social: { items: [{ id: 'rede', handle: '@x' }] },
+  });
+  assert.equal(c.enabled.ticker, false);
+  assert.equal(c.enabled.social, true);
+  assert.equal(c.enabled.lower, true);
+  const live = cleanLive(
+    { ticker: { on: true }, top: { on: true }, social: { on: true, item: 'rede' } },
+    c,
+  );
+  assert.deepEqual([live.ticker.on, live.top.on, live.social.on], [false, true, true]);
+});

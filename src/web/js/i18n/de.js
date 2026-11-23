@@ -507,4 +507,18 @@ export default {
   Automático: 'Automatisch',
   Link: 'Link',
   Logo: 'Logo',
+  'Categoria ativa. Clique para desativar: ela sai do painel do OBS e da tela.':
+    'Kategorie aktiv. Klicken zum Abschalten: sie verschwindet aus dem OBS-Dock und aus dem Bild.',
+  'Categoria desativada. Clique para ativar e voltar a aparecer no painel do OBS.':
+    'Kategorie abgeschaltet. Klicken zum Einschalten, damit sie wieder im OBS-Dock erscheint.',
+  Desativada: 'Abgeschaltet',
+  Ativar: 'Einschalten',
+  'O olho desativa uma categoria que a igreja não usa: ela some do painel do OBS e não vai ao ar.':
+    'Das Auge schaltet eine Kategorie ab, die die Gemeinde nicht nutzt: sie verschwindet aus dem OBS-Dock und kann nicht ins Bild.',
+  'Esta categoria está desativada: não aparece no painel do OBS nem vai ao ar.':
+    'Diese Kategorie ist abgeschaltet: sie erscheint nicht im OBS-Dock und kann nicht ins Bild.',
+  'Esta categoria está desativada nas configurações.':
+    'Diese Kategorie ist in den Einstellungen abgeschaltet.',
+  'Todas as categorias estão desativadas. Ative alguma nas configurações (engrenagem).':
+    'Alle Kategorien sind abgeschaltet. Bitte eine in den Einstellungen (Zahnrad) einschalten.',
 };

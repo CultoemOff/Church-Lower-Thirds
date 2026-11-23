@@ -436,5 +436,13 @@
   "Manuscritas",
   "Automático",
   "Link",
-  "Logo"
+  "Logo",
+  "Categoria ativa. Clique para desativar: ela sai do painel do OBS e da tela.",
+  "Categoria desativada. Clique para ativar e voltar a aparecer no painel do OBS.",
+  "Desativada",
+  "Ativar",
+  "O olho desativa uma categoria que a igreja não usa: ela some do painel do OBS e não vai ao ar.",
+  "Esta categoria está desativada: não aparece no painel do OBS nem vai ao ar.",
+  "Esta categoria está desativada nas configurações.",
+  "Todas as categorias estão desativadas. Ative alguma nas configurações (engrenagem)."
 ]

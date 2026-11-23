@@ -138,6 +138,7 @@ app.put('/api/config', async (q, r) => {
   try {
     config = cleanConfig(q.body);
     live = cleanLive(live, config);
+    for (const e of ELEMENTS) if (!live[e].on) clearTimeout(timers.get(e));
     await saveStore();
     sendConfig(String(q.headers['x-client'] || ''));
     r.json({ ok: true, config });
@@ -166,6 +167,7 @@ app.post('/api/patch', async (q, r) => {
     }
     config = cleanConfig(next);
     live = cleanLive(live, config);
+    for (const e of ELEMENTS) if (!live[e].on) clearTimeout(timers.get(e));
     await saveStore();
     sendConfig(String(q.headers['x-client'] || ''));
     r.json({ ok: true, config });
@@ -234,6 +236,8 @@ function liveCommand(q: Request, r: Response) {
   if (!ELEMENTS.includes(el)) return void r.status(404).json({ error: 'Unknown element' });
   if (!['show', 'hide', 'toggle'].includes(action))
     return void r.status(400).json({ error: 'Use show, hide or toggle' });
+  if (action !== 'hide' && !config.enabled[el])
+    return void r.status(409).json({ error: 'This category is disabled in the settings' });
   if (el === 'lower' || el === 'social') {
     const ref = String(q.query.item ?? q.body?.item ?? '') || undefined;
     const item = el === 'lower' ? resolveItem(config, live, ref) : resolveSocial(config, live, ref);
@@ -347,6 +351,7 @@ app.post('/api/restore', async (q, r) => {
         await writeFile(join(mediaDir, name), Buffer.from(String(data), 'base64'));
     config = cleanConfig(q.body.config);
     live = cleanLive(live, config);
+    for (const e of ELEMENTS) if (!live[e].on) clearTimeout(timers.get(e));
     await saveStore();
     sendConfig();
     r.json({ ok: true });

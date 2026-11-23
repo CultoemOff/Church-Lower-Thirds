@@ -85,7 +85,7 @@ body {
   flex: none;
   opacity: 0.85;
 }
-.nav button span {
+.nav button > span:not(.eye) {
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -752,4 +752,64 @@ table.apiTable {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);
+}
+
+/* The eye that switches a category on or off (like a source in OBS) */
+.eye {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  color: var(--muted);
+  cursor: pointer;
+}
+.eye svg {
+  width: 17px;
+  height: 17px;
+  opacity: 1;
+}
+.eye:hover {
+  background: var(--panel2);
+  color: var(--text);
+}
+.eye.closed {
+  color: var(--danger);
+}
+.nav button.off > span:not(.eye),
+.nav button.off > svg {
+  opacity: 0.45;
+}
+.nav button .eye {
+  margin: -4px -4px -4px 0;
+}
+.nav button:not(:hover):not(.off) .eye {
+  opacity: 0.55;
+}
+.tileHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.tile.disabled {
+  border-style: dashed;
+}
+.tile.disabled b,
+.tile.disabled .state {
+  opacity: 0.55;
+}
+.offNote {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-color: var(--danger);
+  font-size: 12.5px;
+}
+.offNote span:not(.eye) {
+  flex: 1;
+}
+.offNote button {
+  padding: 6px 14px;
 }

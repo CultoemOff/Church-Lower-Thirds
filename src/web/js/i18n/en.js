@@ -500,4 +500,18 @@ export default {
   Automático: 'Automatic',
   Link: 'Link',
   Logo: 'Logo',
+  'Categoria ativa. Clique para desativar: ela sai do painel do OBS e da tela.':
+    'Category in use. Click to switch it off: it leaves the OBS dock and the screen.',
+  'Categoria desativada. Clique para ativar e voltar a aparecer no painel do OBS.':
+    'Category switched off. Click to switch it on and show it in the OBS dock again.',
+  Desativada: 'Switched off',
+  Ativar: 'Switch on',
+  'O olho desativa uma categoria que a igreja não usa: ela some do painel do OBS e não vai ao ar.':
+    'The eye switches off a category the church does not use: it leaves the OBS dock and cannot go on air.',
+  'Esta categoria está desativada: não aparece no painel do OBS nem vai ao ar.':
+    'This category is switched off: it does not show in the OBS dock and cannot go on air.',
+  'Esta categoria está desativada nas configurações.':
+    'This category is switched off in the settings.',
+  'Todas as categorias estão desativadas. Ative alguma nas configurações (engrenagem).':
+    'Every category is switched off. Switch one on in the settings (the gear).',
 };

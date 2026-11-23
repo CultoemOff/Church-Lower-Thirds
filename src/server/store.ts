@@ -98,6 +98,16 @@ export function defaults() {
     language: 'auto',
     /** Size typed in OBS for the browser sources (the graphics scale to any of them). */
     output: { horizontal: '1920x1080', vertical: '1080x1920' },
+    /** Categories switched off here leave the OBS dock and cannot go on air. */
+    enabled: {
+      lower: true,
+      top: true,
+      ticker: true,
+      card: true,
+      agenda: true,
+      social: true,
+      bug: true,
+    },
     /** How long names and the QR card stay on screen, in seconds (0 = until hidden). */
     timing: { autoHide: 0 },
     pix: {
@@ -523,16 +533,20 @@ export function cleanLive(raw: unknown, config: Config): Live {
   const r = (raw && typeof raw === 'object' ? raw : {}) as Partial<Live>;
   const item = String(r.lower?.item ?? '');
   const exists = !!findItem(config, item);
+  const ok = config.enabled;
   return {
-    lower: { on: !!r.lower?.on && exists, item: exists ? item : '' },
-    top: { on: !!r.top?.on },
-    card: { on: !!r.card?.on },
-    bug: { on: !!r.bug?.on },
-    ticker: { on: !!r.ticker?.on },
-    agenda: { on: !!r.agenda?.on && config.agenda.days.length > 0 },
+    lower: { on: ok.lower && !!r.lower?.on && exists, item: exists ? item : '' },
+    top: { on: ok.top && !!r.top?.on },
+    card: { on: ok.card && !!r.card?.on },
+    bug: { on: ok.bug && !!r.bug?.on },
+    ticker: { on: ok.ticker && !!r.ticker?.on },
+    agenda: { on: ok.agenda && !!r.agenda?.on && config.agenda.days.length > 0 },
     social: (() => {
       const found = config.social.items.some((i) => i.id === r.social?.item);
-      return { on: !!r.social?.on && found, item: found ? String(r.social?.item) : '' };
+      return {
+        on: ok.social && !!r.social?.on && found,
+        item: found ? String(r.social?.item) : '',
+      };
     })(),
   };
 }

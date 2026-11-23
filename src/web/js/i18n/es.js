@@ -506,4 +506,18 @@ export default {
   Automático: 'Automático',
   Link: 'Enlace',
   Logo: 'Logo',
+  'Categoria ativa. Clique para desativar: ela sai do painel do OBS e da tela.':
+    'Categoría activa. Clic para desactivarla: sale del panel de OBS y de la pantalla.',
+  'Categoria desativada. Clique para ativar e voltar a aparecer no painel do OBS.':
+    'Categoría desactivada. Clic para activarla y que vuelva a aparecer en el panel de OBS.',
+  Desativada: 'Desactivada',
+  Ativar: 'Activar',
+  'O olho desativa uma categoria que a igreja não usa: ela some do painel do OBS e não vai ao ar.':
+    'El ojo desactiva una categoría que la iglesia no usa: desaparece del panel de OBS y no sale al aire.',
+  'Esta categoria está desativada: não aparece no painel do OBS nem vai ao ar.':
+    'Esta categoría está desactivada: no aparece en el panel de OBS ni sale al aire.',
+  'Esta categoria está desativada nas configurações.':
+    'Esta categoría está desactivada en los ajustes.',
+  'Todas as categorias estão desativadas. Ative alguma nas configurações (engrenagem).':
+    'Todas las categorías están desactivadas. Active alguna en los ajustes (engranaje).',
 };

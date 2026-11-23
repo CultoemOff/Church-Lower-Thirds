@@ -57,6 +57,7 @@ const ERRORS = [
   [/Not a Lower Third Web backup/, 'Esse arquivo não é um backup do Lower Third Web.'],
   [/QR text is too long/, 'O texto do QR Code é longo demais.'],
   [/QR text is empty/, 'O QR Code está sem texto.'],
+  [/category is disabled/, 'Esta categoria está desativada nas configurações.'],
   [/Agenda is empty/, 'A agenda está vazia: adicione um dia.'],
   [/Unknown setting/, 'Esta versão do painel não combina com o programa: recarregue o painel.'],
   [/HTTP 413|too large/i, 'Arquivo grande demais (máximo de 8 MB).'],

@@ -14,6 +14,8 @@ import {
   AGENDA_TEMPLATES,
   ANIMATIONS,
   CARD_TEMPLATES,
+  EYE,
+  EYE_OFF,
   fillCss,
   LOWER_TEMPLATES,
   NETWORKS,
@@ -812,11 +814,45 @@ const pages = {
           'div',
           { class: 'tiles' },
           ELEMENTS.map((el) => {
-            const on = !!live?.[el]?.on;
+            const on = !!live?.[el]?.on,
+              enabled = config.enabled[el];
+            if (!enabled)
+              return h(
+                'div',
+                { class: 'tile disabled' },
+                h(
+                  'div',
+                  { class: 'tileHead' },
+                  h('b', {}, PAGES.find(([id]) => id === el)[1]),
+                  eye(el),
+                ),
+                h('span', { class: 'state' }, h('i'), 'Desativada'),
+                h(
+                  'div',
+                  { class: 'tileActions' },
+                  h(
+                    'button',
+                    {
+                      onclick: () => {
+                        set(`enabled.${el}`, true);
+                        renderNav();
+                        renderForm();
+                      },
+                    },
+                    'Ativar',
+                  ),
+                  h('button', { onclick: () => go(el) }, 'Ajustar'),
+                ),
+              );
             return h(
               'div',
               { class: 'tile' + (on ? ' on' : '') },
-              h('b', {}, PAGES.find(([id]) => id === el)[1]),
+              h(
+                'div',
+                { class: 'tileHead' },
+                h('b', {}, PAGES.find(([id]) => id === el)[1]),
+                eye(el),
+              ),
               h('span', { class: 'state' }, h('i'), on ? 'No ar' : 'Fora do ar'),
               h(
                 'div',
@@ -839,6 +875,9 @@ const pages = {
         ),
         hint(
           'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui você confere e ajusta a aparência.',
+        ),
+        hint(
+          'O olho desativa uma categoria que a igreja não usa: ela some do painel do OBS e não vai ao ar.',
         ),
       ),
       card(
@@ -1819,6 +1858,26 @@ function go(id) {
   setPreview();
   scrollTo(0, 0);
 }
+/** The OBS-style eye: switches a whole category on or off. */
+function eye(el) {
+  const on = config.enabled[el];
+  const b = h('span', {
+    class: 'eye' + (on ? '' : ' closed'),
+    role: 'button',
+    tabindex: '0',
+    title: on
+      ? 'Categoria ativa. Clique para desativar: ela sai do painel do OBS e da tela.'
+      : 'Categoria desativada. Clique para ativar e voltar a aparecer no painel do OBS.',
+    onclick: (e) => {
+      e.stopPropagation();
+      set(`enabled.${el}`, !on);
+      renderNav();
+      renderForm();
+    },
+  });
+  b.innerHTML = on ? EYE : EYE_OFF;
+  return b;
+}
 function renderNav() {
   const nodes = [];
   let group = '';
@@ -1832,6 +1891,10 @@ function renderNav() {
     b.innerHTML = icon;
     b.append(h('span', {}, label));
     if (live?.[id]?.on) b.append(h('i', { class: 'liveDot', title: 'No ar' }));
+    if (ELEMENTS.includes(id)) {
+      b.classList.toggle('off', !config.enabled[id]);
+      b.append(eye(id));
+    }
     nodes.push(b);
   }
   $('#nav').replaceChildren(...nodes);
@@ -1846,7 +1909,32 @@ function renderForm() {
     viewItem = config.lower.items[0]?.id || '';
   // The layout editor keeps its iframe while elements are being dragged.
   if (page === 'layout' && $('#form .editor iframe')) return renderMoved();
-  $('#form').replaceChildren(...pages[page]().filter(Boolean));
+  const off =
+    ELEMENTS.includes(page) && !config.enabled[page]
+      ? h(
+          'section',
+          { class: 'card offNote' },
+          eye(page),
+          h(
+            'span',
+            {},
+            'Esta categoria está desativada: não aparece no painel do OBS nem vai ao ar.',
+          ),
+          h(
+            'button',
+            {
+              class: 'primary',
+              onclick: () => {
+                set(`enabled.${page}`, true);
+                renderNav();
+                renderForm();
+              },
+            },
+            'Ativar',
+          ),
+        )
+      : null;
+  $('#form').replaceChildren(...[off, ...pages[page]()].filter(Boolean));
   if (page === 'brand') checkPix();
 }
 $('#replay').onclick = () => {

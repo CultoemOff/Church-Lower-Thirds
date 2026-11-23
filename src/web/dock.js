@@ -674,8 +674,11 @@ const BUILD = {
 
 function refresh() {
   if (!config || !live) return;
+  // Categories switched off in the settings (the eye) are not offered here.
+  const tabs = TABS.filter(([id]) => config.enabled[id] || (id === 'top' && config.enabled.bug));
+  if (!tabs.some(([id]) => id === tab)) tab = tabs[0]?.[0] || '';
   $('#tabs').replaceChildren(
-    ...TABS.map(([id, label, title]) =>
+    ...tabs.map(([id, label, title]) =>
       h(
         'button',
         {
@@ -693,14 +696,23 @@ function refresh() {
       ),
     ),
   );
-  if (!BUILD[tab]) tab = 'lower';
-  built[tab] ??= BUILD[tab]();
   const pane = $('#pane');
+  if (!tab) {
+    pane.dataset.tab = '';
+    pane.replaceChildren(
+      empty('Todas as categorias estão desativadas. Ative alguma nas configurações (engrenagem).'),
+    );
+    return;
+  }
+  built[tab] ??= BUILD[tab]();
   if (pane.dataset.tab !== tab) {
     pane.dataset.tab = tab;
     pane.replaceChildren(...built[tab].pane);
   }
   built[tab].refresh(pane);
+  pane.classList.toggle('onlyExtra', !config.enabled[tab]);
+  for (const b of pane.querySelectorAll('[data-toggle]'))
+    b.classList.toggle('hidden', !config.enabled[b.dataset.toggle]);
   for (const b of pane.querySelectorAll('[data-toggle]'))
     b.classList.toggle('on', !!live[b.dataset.toggle].on);
   const time = $('#autoHide'),

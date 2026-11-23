@@ -99,6 +99,12 @@ export default {
     'Código PIX inválido: copie de novo o "PIX copia e cola" da aplicação do banco.',
   'Digite um nome ou um texto.': 'Escreva um nome ou um texto.',
   'Arquivo grande demais (máximo de 8 MB).': 'Ficheiro grande demais (máximo de 8 MB).',
+  'Categoria ativa. Clique para desativar: ela sai do painel do OBS e da tela.':
+    'Categoria ativa. Clique para desativar: ela sai do painel do OBS e do ecrã.',
+  'Esta categoria está desativada nas configurações.':
+    'Esta categoria está desativada nas definições.',
+  'Todas as categorias estão desativadas. Ative alguma nas configurações (engrenagem).':
+    'Todas as categorias estão desativadas. Ative alguma nas definições (engrenagem).',
   'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui você confere e ajusta a aparência.':
     'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui pode conferir e ajustar o aspeto.',
   'Use o mesmo tamanho do vídeo do seu OBS. Os gráficos se ajustam sozinhos: tudo o que você configurou fica igual em qualquer um deles.':
