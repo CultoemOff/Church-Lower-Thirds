@@ -17,13 +17,17 @@ Gráficos para o OBS Studio numa única fonte de navegador, controlados por um p
 - Dois temas completos (Céu noturno e Vidro líquido), cores com degradê, 18 fontes gratuitas incluídas e todas as fontes instaladas no PC, 8 animações, sombras e transparência.
 - As configurações avançadas abrem numa página à parte no navegador, com prévia ao vivo.
 
+- **Idiomas**: português (Brasil e Portugal), espanhol, inglês, italiano e alemão, nos painéis e no instalador.
+- **Fonte vertical** (9:16) para Shorts, Reels e TikTok, com posições próprias, e escolha das resoluções mais comuns.
+- **Página de administração** com menu lateral, visão geral do que está no ar e primeiros passos.
+
 ### Como instalar no OBS
 
-1. Instale e abra o Lower Third Web (atalho na área de trabalho).
-2. Fonte de navegador: `http://127.0.0.1:8795/overlay`, 1920 × 1080.
+1. O instalador pergunta onde deixar a pasta dos seus arquivos (por padrão, `Documentos\Lower Third Web`). Escolha um lugar fácil de achar e que entre no seu backup.
+2. No OBS, adicione uma fonte de Navegador, marque "Arquivo local" e escolha um arquivo da pasta `OBS Sources`: `All Elements.html` (tudo) ou um por elemento (`Names.html`, `Corner Badge.html`, `Ticker.html`, `QR Card.html`, `Schedule.html`, `Social.html`, `Logo.html`). Os arquivos `(Vertical)` são para vídeo 9:16.
 3. Dock: menu Docks → Docks de navegador personalizados → `http://127.0.0.1:8795/dock`.
 
-A aba "OBS e atalhos" das configurações traz o passo a passo e os endereços para Stream Deck e Companion.
+A página "OBS e atalhos" traz o passo a passo, os tamanhos e os endereços para Stream Deck e Companion.
 
 ---
 

@@ -79,7 +79,10 @@ const CORNERS = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
 const PLACES = [...CORNERS, 'top-center', 'bottom-center', 'center-left', 'center-right', 'center'];
 
 /** Free placement: where the element was dragged to (top-left corner, 1920x1080 stage). */
-const free = () => ({ free: false, x: 0, y: 0 });
+const free = () => ({ free: false, x: 0, y: 0, vfree: false, vx: 0, vy: 0 });
+export const LANGUAGES = ['pt-BR', 'pt-PT', 'es', 'en', 'it', 'de'];
+export const RESOLUTIONS = ['1280x720', '1920x1080', '2560x1440', '3840x2160'];
+export const VERTICAL_RESOLUTIONS = ['720x1280', '1080x1920', '1440x2560', '2160x3840'];
 
 export const newId = () => randomBytes(5).toString('hex');
 
@@ -91,6 +94,10 @@ export function defaults() {
       /** Font of every element that does not choose its own ('' = system font) */
       font: '',
     },
+    /** Language of the panels and of dates on screen: 'auto' follows the computer. */
+    language: 'auto',
+    /** Size typed in OBS for the browser sources (the graphics scale to any of them). */
+    output: { horizontal: '1920x1080', vertical: '1080x1920' },
     /** How long names and the QR card stay on screen, in seconds (0 = until hidden). */
     timing: { autoHide: 0 },
     pix: {
@@ -372,6 +379,8 @@ const RANGES: Record<string, [number, number]> = {
   seconds: [2, 120],
   x: [-400, 1900],
   y: [-300, 1060],
+  vx: [-400, 1060],
+  vy: [-300, 1900],
   weight: [100, 900],
   weight1: [100, 900],
   weight2: [100, 900],
@@ -393,6 +402,9 @@ const CHOICES: Record<string, string[]> = {
   'social.position': PLACES,
   'bug.position': CORNERS,
   'pix.mode': ['key', 'payload'],
+  language: ['auto', ...LANGUAGES],
+  horizontal: RESOLUTIONS,
+  vertical: VERTICAL_RESOLUTIONS,
   order: ['sequence', 'random'],
   qr: ['pix', 'url'],
   type: ['solid', 'gradient'],
@@ -557,4 +569,122 @@ export function resolveSocial(config: Config, live: Live, ref: string | undefine
   return (
     items.find((i) => i.id === ref) ?? (Number.isInteger(n) && n >= 1 ? items[n - 1] : undefined)
   );
+}
+
+/** Sample texts of a new installation, in the language chosen in the installer. */
+const SAMPLES: Record<string, Record<string, unknown>> = {
+  en: {
+    church: 'Church Name',
+    person: ['Pastor John Smith', 'Senior pastor'],
+    giving: ['Tithes and offerings', 'Point your phone camera at the QR code'],
+    top: ['Welcome!', 'Live service', 'Subscribe to the channel'],
+    live: 'LIVE',
+    card: ['Tithes and offerings', 'Point your phone camera'],
+    ticker: [
+      'Sunday celebration service at 6 pm',
+      'Bible study on Wednesdays at 7:30 pm',
+      'Follow the church on social media',
+    ],
+    label: 'Notices',
+    agenda: 'Schedule',
+    days: [
+      ['Sunday', '9 am · Sunday School\n6 pm · Celebration Service'],
+      ['Wednesday', '7:30 pm · Bible Study'],
+      ['Saturday', '7:30 pm · Youth Service'],
+    ],
+    social: 'Follow us on',
+    handle: '@yourchurch',
+  },
+  es: {
+    church: 'Nombre de la Iglesia',
+    person: ['Pr. Juan Silva', 'Pastor principal'],
+    giving: ['Diezmos y ofrendas', 'Apunte la cámara del móvil al código QR'],
+    top: ['¡Bienvenidos!', 'Culto en vivo', 'Suscríbase al canal'],
+    live: 'EN VIVO',
+    card: ['Diezmos y ofrendas', 'Apunte la cámara del móvil'],
+    ticker: [
+      'Culto de celebración los domingos a las 18 h',
+      'Estudio bíblico los miércoles a las 19:30',
+      'Siga a la iglesia en las redes sociales',
+    ],
+    label: 'Avisos',
+    agenda: 'Programación',
+    days: [
+      ['Domingo', '9 h · Escuela Bíblica\n18 h · Culto de Celebración'],
+      ['Miércoles', '19:30 · Estudio Bíblico'],
+      ['Sábado', '19:30 · Culto de Jóvenes'],
+    ],
+    social: 'Síganos en',
+    handle: '@suiglesia',
+  },
+  it: {
+    church: 'Nome della Chiesa',
+    person: ['Past. Giovanni Rossi', 'Pastore'],
+    giving: ['Decime e offerte', 'Inquadra il codice QR con il telefono'],
+    top: ['Benvenuti!', 'Culto in diretta', 'Iscriviti al canale'],
+    live: 'IN DIRETTA',
+    card: ['Decime e offerte', 'Inquadra con il telefono'],
+    ticker: [
+      'Culto di celebrazione la domenica alle 18',
+      'Studio biblico il mercoledì alle 19:30',
+      'Segui la chiesa sui social',
+    ],
+    label: 'Avvisi',
+    agenda: 'Programma',
+    days: [
+      ['Domenica', '9:00 · Scuola Biblica\n18:00 · Culto di Celebrazione'],
+      ['Mercoledì', '19:30 · Studio Biblico'],
+      ['Sabato', '19:30 · Culto dei Giovani'],
+    ],
+    social: 'Seguici su',
+    handle: '@latuachiesa',
+  },
+  de: {
+    church: 'Name der Gemeinde',
+    person: ['Pastor Johannes Schmidt', 'Hauptpastor'],
+    giving: ['Zehnten und Spenden', 'Handykamera auf den QR-Code richten'],
+    top: ['Herzlich willkommen!', 'Gottesdienst live', 'Kanal abonnieren'],
+    live: 'LIVE',
+    card: ['Zehnten und Spenden', 'Handykamera darauf richten'],
+    ticker: [
+      'Gottesdienst sonntags um 18 Uhr',
+      'Bibelstunde mittwochs um 19:30 Uhr',
+      'Folgt der Gemeinde in den sozialen Medien',
+    ],
+    label: 'Hinweise',
+    agenda: 'Programm',
+    days: [
+      ['Sonntag', '9 Uhr · Sonntagsschule\n18 Uhr · Gottesdienst'],
+      ['Mittwoch', '19:30 Uhr · Bibelstunde'],
+      ['Samstag', '19:30 Uhr · Jugendgottesdienst'],
+    ],
+    social: 'Folgt uns auf',
+    handle: '@eure_gemeinde',
+  },
+};
+
+/** The configuration of a first run: defaults with the sample texts in `language`. */
+export function firstConfig(language: string): Config {
+  const c = defaults();
+  if (LANGUAGES.includes(language)) c.language = language;
+  const t = SAMPLES[language] as Record<string, never> | undefined;
+  if (!t) return c;
+  const pair = (v: unknown) => v as [string, string];
+  c.brand.name = t.church;
+  [c.lower.items[0].line1, c.lower.items[0].line2] = pair(t.person);
+  [c.lower.items[1].line1, c.lower.items[1].line2] = pair(t.giving);
+  c.top.messages = t.top;
+  c.top.liveText = t.live;
+  [c.card.title, c.card.subtitle] = pair(t.card);
+  c.ticker.messages = t.ticker;
+  c.ticker.label = t.label;
+  c.agenda.title = t.agenda;
+  c.agenda.days = (t.days as [string, string][]).map(([day, lines], i) => ({
+    id: `dia${i + 1}`,
+    day,
+    lines,
+  }));
+  c.social.prefix = t.social;
+  for (const item of c.social.items) item.handle = t.handle;
+  return cleanConfig(c);
 }

@@ -15,14 +15,28 @@ Lower thirds e overlays para o OBS Studio, numa única fonte de navegador. Progr
 - **Painel** com abas para o dock do OBS, responsivo (alto e estreito ou largo e baixo), com o tempo na tela. As configurações avançadas ficam numa página à parte, com prévia ao vivo.
 - Endereços HTTP para Stream Deck e Companion, sem plugin. Backup num arquivo.
 
-## Endereços
+## Fontes do OBS
 
-| O quê | Endereço |
-|---|---|
-| Fonte de navegador do OBS (1920 × 1080), todos os elementos | `http://127.0.0.1:8795/overlay` |
-| Fonte de um elemento só (`lower`, `top`, `ticker`, `card`, `agenda`, `social`, `bug`) | `http://127.0.0.1:8795/overlay?only=lower` |
-| Dock do OBS | `http://127.0.0.1:8795/dock` |
-| Configurações | `http://127.0.0.1:8795/settings` |
+O programa escreve na pasta escolhida na instalação (`Documentos\Lower Third Web\OBS Sources`) um arquivo HTML por fonte, com nomes em inglês iguais em todo computador. Cada arquivo só espera o programa e abre o endereço correspondente:
+
+| Arquivo | Endereço | Elemento |
+|---|---|---|
+| `All Elements.html` | `/source/all` | todos |
+| `Names.html` | `/source/names` | nomes (lower third) |
+| `Corner Badge.html` | `/source/badge` | selo superior |
+| `Ticker.html` | `/source/ticker` | barra inferior |
+| `QR Card.html` | `/source/qr-card` | cartão QR / PIX |
+| `Schedule.html` | `/source/schedule` | agenda |
+| `Social.html` | `/source/social` | redes sociais |
+| `Logo.html` | `/source/logo` | logo |
+
+Os arquivos `… (Vertical).html` abrem o mesmo endereço com `?layout=vertical` (palco de 1080 × 1920). Painel do OBS: `http://127.0.0.1:8795/dock`. Administração: `http://127.0.0.1:8795/settings`.
+
+A pasta `Data`, ao lado de `OBS Sources`, guarda `config.json` e as imagens.
+
+## Idiomas
+
+Os textos do código são em português do Brasil. As traduções ficam em `i18n/strings-*.txt` (cinco linhas por texto: pt-BR, inglês, espanhol, italiano, alemão) e `i18n/pt-PT.txt`; `npm run i18n` gera `src/web/js/i18n/*.js`.
 
 ## Desenvolvimento
 
@@ -37,6 +51,6 @@ npm run lint && npm run format:check && npm run typecheck
 - `src/web`: páginas sem bundler (`overlay`, `dock`, `settings`).
 - `installer/` e `.github/workflows/installer.yml`: instalador do Windows (Inno Setup). Cada push na `main` publica a versão do `package.json` em Releases; versões com hífen (`0.1.0-beta.1`) saem como pré-lançamento.
 
-Os dados ficam em `%APPDATA%\Lower Third Web`.
+Sem instalador (desenvolvimento), os dados ficam em `%APPDATA%\Lower Third Web`.
 
 As marcas citadas pertencem aos seus donos. Este programa não é afiliado ao OBS Project.

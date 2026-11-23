@@ -1,0 +1,35 @@
+Salve aqui o PIX e os links que você mais usa.
+Guarde aqui o PIX e as ligações que mais usa.
+
+No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui você confere e ajusta a aparência.
+No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui pode conferir e ajustar o aspeto.
+
+0 = ficam na tela até você esconder. O mesmo tempo pode ser trocado no painel do OBS.
+0 = ficam no ecrã até os esconder. O mesmo tempo pode ser alterado no painel do OBS.
+
+Use o mesmo tamanho do vídeo do seu OBS. Os gráficos se ajustam sozinhos: tudo o que você configurou fica igual em qualquer um deles.
+Use o mesmo tamanho do vídeo do seu OBS. Os gráficos ajustam-se sozinhos: tudo o que configurou fica igual em qualquer um deles.
+
+"All Elements" mostra tudo numa fonte só. Os outros arquivos mostram um elemento cada, para você separar por cena. Não use os dois na mesma cena: o elemento apareceria duas vezes.
+"All Elements" mostra tudo numa só fonte. Os outros ficheiros mostram um elemento cada, para separar por cena. Não use os dois na mesma cena: o elemento apareceria duas vezes.
+
+Encaixe o painel onde preferir: ele se ajusta a um espaço alto ou largo. A engrenagem dele abre esta página.
+Encaixe o painel onde preferir: ajusta-se a um espaço alto ou largo. A roda dentada abre esta página.
+
+Nada salvo ainda. Escreva acima e clique em "Salvar na lista".
+Ainda não há nada guardado. Escreva acima e clique em "Guardar na lista".
+
+Recados (texto que se reveza)
+Avisos (texto que vai alternando)
+
+Seus arquivos
+Os seus ficheiros
+
+Enviar logo
+Carregar logótipo
+
+Envie o logo da igreja
+Carregue o logótipo da igreja
+
+Programa ativo
+Programa ativo

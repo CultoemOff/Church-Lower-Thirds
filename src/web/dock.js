@@ -10,6 +10,7 @@ import {
   toggleTheme,
 } from './js/common.js';
 import { NETWORKS, SOCIAL_ICONS } from './js/look.js';
+import { autoLocalize, t, useLanguage } from './js/i18n.js';
 
 // The panel that lives in an OBS dock. Each tab has the text fields on top (or on the left
 // in a wide dock), to type and show at once, and the saved list to show with one click.
@@ -139,8 +140,9 @@ function buildLower() {
           ? h(
               'span',
               {},
-              'No ar: ',
-              h('b', {}, config.lower.quick.line1 || config.lower.quick.line2),
+              'No ar:',
+              ' ',
+              h('b', { 'data-raw': '' }, config.lower.quick.line1 || config.lower.quick.line2),
               ' · ',
               h(
                 'a',
@@ -166,7 +168,7 @@ function buildLower() {
             h('i'),
             h(
               'span',
-              { class: 'txt' },
+              { class: 'txt', 'data-raw': '' },
               h('b', {}, item.line1 || item.line2),
               item.line1 && item.line2 ? h('small', {}, item.line2) : null,
             ),
@@ -316,9 +318,9 @@ function buildCard() {
             h('i'),
             h(
               'span',
-              { class: 'txt' },
+              { class: 'txt', 'data-raw': '' },
               h('b', {}, s.title || s.qrText),
-              h('small', {}, s.qr === 'pix' ? 'PIX da igreja' : s.qrText),
+              h('small', {}, s.qr === 'pix' ? t('PIX da igreja') : s.qrText),
             ),
             h('span', { class: 'tag' }, s.qr === 'pix' ? 'PIX' : 'LINK'),
             mini(
@@ -406,7 +408,7 @@ function buildTexts(el, { label, tip, extra = [], parts = [], listTitle, hint })
         box.checked = !!c[box.dataset.part.split('.')[1]];
       pinned.classList.toggle('hidden', !c.pinned);
       pinned.replaceChildren(
-        h('span', { title: c.pinned }, 'Fixo: ', h('b', {}, c.pinned)),
+        h('span', { 'data-raw': '' }, t('Fixo:') + ' ', h('b', {}, c.pinned)),
         h(
           'button',
           { title: 'Volta a mostrar os textos da lista', onclick: () => pinNow('') },
@@ -426,7 +428,7 @@ function buildTexts(el, { label, tip, extra = [], parts = [], listTitle, hint })
               onclick: () => pinNow(c.pinned === m ? '' : m),
             },
             h('i'),
-            h('span', { class: 'txt' }, h('b', {}, m)),
+            h('span', { class: 'txt', 'data-raw': '' }, h('b', {}, m)),
             mini('✎', 'Editar: leva o texto para o campo acima e tira da lista', () => {
               text.value = m;
               patch({ [`${el}.messages`]: c.messages.filter((_, j) => j !== i) });
@@ -452,7 +454,7 @@ function buildAgenda() {
     lines = h('textarea', {
       rows: 3,
       maxlength: 400,
-      placeholder: 'Horários, um por linha\n9h · Escola Bíblica\n18h · Culto',
+      placeholder: 'Horários, um por linha',
     });
   const save = h(
     'button',
@@ -497,7 +499,7 @@ function buildAgenda() {
       save.textContent = editing.agenda ? 'Salvar alteração' : 'Adicionar dia';
       cancel.classList.toggle('hidden', !editing.agenda);
       root.querySelector('.sectionTitle small').textContent = a.days.length
-        ? `${a.seconds} s por dia${a.loop ? ' · repete' : ''}`
+        ? t('{n} s por dia', { n: a.seconds }) + (a.loop ? ' · ' + t('repete') : '')
         : '';
       const move = (i, d) => {
         const days = [...a.days];
@@ -521,7 +523,7 @@ function buildAgenda() {
             },
             h(
               'span',
-              { class: 'txt' },
+              { class: 'txt', 'data-raw': '' },
               h('b', {}, d.day),
               h('small', {}, d.lines.replace(/\n/g, '  |  ')),
             ),
@@ -593,8 +595,12 @@ function buildSocial() {
     ],
     refresh(root) {
       const s = config.social;
-      root.querySelector('[data-note]').textContent =
-        `Na tela aparece: "${s.prefix} Instagram" e o @. O texto e o modelo ficam nas configurações.`;
+      root.querySelector('[data-note]').textContent = t(
+        'Na tela aparece: "{prefix} Instagram" e o @. O texto e o modelo ficam nas configurações.',
+        {
+          prefix: s.prefix,
+        },
+      );
       nets.replaceChildren(
         ...s.items.map((item) => {
           const on = live.social.on && live.social.item === item.id;
@@ -607,15 +613,15 @@ function buildSocial() {
               class: 'net' + (on ? ' on' : ''),
               title: on
                 ? 'No ar: clique para esconder'
-                : `Mostrar na tela: ${s.prefix} ${item.label} ${item.handle}`,
+                : `${t('Mostrar na tela:')} ${s.prefix} ${item.label} ${item.handle}`,
               onclick: () => command(`/api/live/social/toggle?item=${item.id}`),
             },
             ico,
             h(
               'span',
-              { class: 'txt' },
+              { class: 'txt', 'data-raw': '' },
               h('b', {}, item.handle),
-              h('small', {}, item.label || 'Rede'),
+              h('small', {}, item.label || t('Rede')),
             ),
             mini(
               '×',
@@ -704,7 +710,7 @@ function refresh() {
     time.dataset.key = options.join();
     time.replaceChildren(
       ...options.map((s) =>
-        h('option', { value: s }, s === 0 ? 'Fica' : s >= 120 ? `${s / 60} min` : `${s} s`),
+        h('option', { value: s }, s === 0 ? t('Fica') : s >= 120 ? `${s / 60} min` : `${s} s`),
       ),
     );
   }
@@ -715,8 +721,12 @@ $('#autoHide').onchange = (e) => patch({ 'timing.autoHide': Number(e.target.valu
 $('#hideAll').onclick = () => command('/api/live/all/hide');
 $('#openSettings').onclick = () => command('/api/open-settings');
 
+autoLocalize();
 connect((e) => {
-  if (e.config) config = e.config;
+  if (e.config) {
+    config = e.config;
+    useLanguage(config.language);
+  }
   if (e.live) live = e.live;
   renderVersion(e.version);
   refresh();

@@ -1,4 +1,5 @@
 // Shared by the dock and the settings page.
+import { t } from './i18n.js';
 export const $ = (sel, root = document) => root.querySelector(sel);
 export const clientId = Math.random().toString(36).slice(2);
 
@@ -33,12 +34,12 @@ export async function api(path, { method = 'GET', body, raw, type } = {}) {
 
 let toastTimer = 0;
 export function toast(text) {
-  let t = $('.toast');
-  if (!t) document.body.append((t = h('div', { class: 'toast', role: 'status' })));
-  t.textContent = text;
-  t.classList.remove('hidden');
+  let box = $('.toast');
+  if (!box) document.body.append((box = h('div', { class: 'toast', role: 'status' })));
+  box.textContent = t(text);
+  box.classList.remove('hidden');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.add('hidden'), 3200);
+  toastTimer = setTimeout(() => box.classList.add('hidden'), 3200);
 }
 
 // Messages the server sends in English, shown in Portuguese.
@@ -80,10 +81,11 @@ export function renderVersion(v) {
 }
 
 /** Live connection: calls onState({config, live, version, origin}) on every change. */
-export function connect(onState) {
+export function connect(onState, onStatus = () => {}) {
   let version = '';
   (function open() {
     const ws = new WebSocket(`ws://${location.host}/ws`);
+    ws.onopen = () => onStatus(true);
     ws.onmessage = (m) => {
       const e = JSON.parse(m.data);
       // After an update the new server greets with another version: load the new UI.
@@ -91,7 +93,10 @@ export function connect(onState) {
       version = e.version || version;
       onState(e);
     };
-    ws.onclose = () => setTimeout(open, 1500);
+    ws.onclose = () => {
+      onStatus(false);
+      setTimeout(open, 1500);
+    };
     ws.onerror = () => ws.close();
   })();
 }

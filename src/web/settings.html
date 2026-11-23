@@ -3,53 +3,61 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Lower Third Web — Configurações</title>
+    <title>Lower Third Web</title>
     <link rel="stylesheet" href="/fonts/fonts.css" />
     <link rel="stylesheet" href="/ui.css" />
     <link rel="stylesheet" href="/settings.css" />
     <link rel="icon" type="image/svg+xml" href="/icons/app.svg" />
   </head>
   <body>
-    <div class="page">
-      <header class="top">
-        <div class="brand">
+    <div class="app">
+      <aside class="side">
+        <div class="sideBrand">
           <img src="/icons/app.svg" alt="" />
-          <div><strong>LOWER THIRD WEB</strong><small>Configurações</small></div>
+          <div><strong>LOWER THIRD WEB</strong><small>by Culto em Off</small></div>
         </div>
-        <div class="headerActions">
-          <span id="saved" class="saved"></span>
-          <button id="themeToggle" class="iconBtn" title="Tema claro / escuro">
-            <img src="/icons/sun.svg" alt="" />
-          </button>
+        <nav id="nav" class="nav"></nav>
+        <div class="sideFoot">
+          <span id="conn" class="conn"><i></i><span>Conectando…</span></span>
+          <span id="appVersion" class="appVersion"></span>
         </div>
-      </header>
-      <nav id="nav" class="nav"></nav>
-      <div class="content">
-        <section id="form" class="form"></section>
-        <aside id="previewPanel" class="panel preview">
-          <div class="sectionTitle">
-            <span>Prévia</span>
-            <span class="previewActions">
-              <button id="replay" title="Mostra de novo a animação de entrada">
-                Repetir animação
-              </button>
-              <button id="onAir" title="Mostra ou esconde este elemento no OBS agora"></button>
-            </span>
+      </aside>
+      <div class="main">
+        <header class="bar">
+          <div class="pageHead">
+            <h1 id="pageTitle"></h1>
+            <p id="pageDesc"></p>
           </div>
-          <div id="previewBox" class="previewBox">
-            <iframe id="preview" title="Prévia"></iframe>
+          <div class="barActions">
+            <span id="saved" class="saved"></span>
+            <select id="language" title="Idioma dos painéis"></select>
+            <button id="themeToggle" class="iconBtn" title="Tema claro / escuro">
+              <img src="/icons/sun.svg" alt="" />
+            </button>
           </div>
-          <p class="hint">
-            O fundo da prévia simula a imagem da câmera. No OBS o fundo é transparente.
-          </p>
-        </aside>
+        </header>
+        <div class="content">
+          <section id="form" class="form"></section>
+          <aside id="previewPanel" class="panel preview">
+            <div class="sectionTitle">
+              <span>Prévia</span>
+              <span class="previewActions">
+                <span id="orient" class="seg small"></span>
+                <button id="replay" title="Mostra de novo a animação de entrada">
+                  Repetir animação
+                </button>
+                <button id="onAir" title="Mostra ou esconde este elemento no OBS agora"></button>
+              </span>
+            </div>
+            <div id="previewBox" class="previewBox">
+              <iframe id="preview" title="Prévia"></iframe>
+            </div>
+            <p class="hint">
+              O fundo da prévia simula a imagem da câmera. No OBS o fundo é transparente.
+            </p>
+          </aside>
+        </div>
       </div>
-      <footer>
-        <span>Desenvolvido por</span>
-        <a href="https://www.youtube.com/@CultoemOff" target="_blank" rel="noopener noreferrer"
-          >Culto em Off</a
-        ><span id="appVersion" class="appVersion"></span>
-      </footer>
     </div>
     <script type="module" src="/settings.js"></script>
   </body>

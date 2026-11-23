@@ -83,6 +83,25 @@ jobs:
           if (-not $health) { throw "Installed server did not start" }
           if ($health.version -ne $version) { throw "Health returned $($health.version), expected $version" }
 
+          # The folder chosen in the installer (Documents by default) gets the settings and
+          # the OBS source files, with the same English names on every computer.
+          $files = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'Lower Third Web'
+          $info = Invoke-RestMethod "$base/api/info"
+          if ($info.folder -ne $files) { throw "Files folder is $($info.folder), expected $files" }
+          foreach ($f in 'Data\config.json', 'OBS Sources\All Elements.html', 'OBS Sources\Names.html', 'OBS Sources\Corner Badge.html',
+            'OBS Sources\Ticker.html', 'OBS Sources\QR Card.html', 'OBS Sources\Schedule.html', 'OBS Sources\Social.html',
+            'OBS Sources\Logo.html', 'OBS Sources\Names (Vertical).html', 'OBS Sources\Read me.txt') {
+            if (-not (Test-Path (Join-Path $files $f))) { throw "Missing in the files folder: $f" }
+          }
+          if ((Get-Content (Join-Path $files 'OBS Sources\Names.html') -Raw) -notmatch '/source/names') { throw "Names.html does not open the names source" }
+          foreach ($page in '/source/all', '/source/names', '/source/badge?layout=vertical') {
+            $res = Invoke-WebRequest "$base$page" -UseBasicParsing
+            if ($res.StatusCode -ne 200) { throw "$page did not load" }
+          }
+          foreach ($js in '/js/i18n.js', '/js/i18n/en.js', '/js/i18n/de.js') {
+            $res = Invoke-WebRequest "$base$js" -UseBasicParsing
+            if ($res.Headers['Content-Type'] -notmatch 'javascript') { throw "$js served as $($res.Headers['Content-Type'])" }
+          }
           foreach ($page in '/dock', '/settings', '/overlay') {
             $res = Invoke-WebRequest "$base$page" -UseBasicParsing
             if ($res.StatusCode -ne 200 -or $res.Content -notmatch 'Lower Third Web') { throw "$page did not load" }

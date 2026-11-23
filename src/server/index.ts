@@ -3,7 +3,7 @@ import { createServer } from 'node:http';
 import { createHash } from 'node:crypto';
 import { execFile } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
-import { mkdir, readFile, readdir, rename, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readFile, readdir, rename, writeFile } from 'node:fs/promises';
 import { dirname, extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { WebSocketServer } from 'ws';
@@ -11,10 +11,12 @@ import { appDataDir } from './paths.js';
 import { installedFonts } from './fonts.js';
 import { pixPayload, validPixPayload } from './pix.js';
 import { qrSvg } from './qr.js';
+import { SOURCES, sourceFileName, writeSourceFiles } from './sources.js';
 import {
   cleanConfig,
   cleanLive,
   ELEMENTS,
+  firstConfig,
   liveDefaults,
   newId,
   resolveItem,
@@ -35,8 +37,24 @@ const appVersion: string = (() => {
   return '0.0.0';
 })();
 const webDir = [join(here, '..', 'web'), join(here, 'web')].find((d) => existsSync(d))!;
-const dataDir = process.env.LTW_DATA_DIR || appDataDir();
+// The installer asks where the person's files should live (settings, images and the OBS
+// source files), somewhere easy to back up, and leaves the answer in install.json.
+const install: { folder?: string; language?: string } = (() => {
+  try {
+    return JSON.parse(
+      readFileSync(join(appDataDir(), 'install.json'), 'utf8').replace(/^\uFEFF/, ''),
+    );
+  } catch {
+    return {};
+  }
+})();
+const userFolder = process.env.LTW_DATA_DIR
+  ? process.env.LTW_DATA_DIR
+  : install.folder || appDataDir();
+const dataDir =
+  process.env.LTW_DATA_DIR || (install.folder ? join(install.folder, 'Data') : appDataDir());
 const mediaDir = join(dataDir, 'media');
+let sourcesDir = '';
 const configFile = join(dataDir, 'config.json');
 const port = Number(process.env.PORT) || 8795;
 const baseUrl = `http://127.0.0.1:${port}`;
@@ -45,7 +63,22 @@ let config: Config = cleanConfig({});
 let live: Live = liveDefaults();
 
 async function loadStore() {
+  // Versions before the folder question kept everything in AppData: bring it along once.
+  if (
+    dataDir !== appDataDir() &&
+    !existsSync(configFile) &&
+    existsSync(join(appDataDir(), 'config.json'))
+  )
+    await cp(appDataDir(), dataDir, {
+      recursive: true,
+      filter: (src) => !src.endsWith('install.json'),
+    }).catch(() => {});
   await mkdir(mediaDir, { recursive: true });
+  if (!existsSync(configFile)) {
+    config = firstConfig(install.language || '');
+    await saveStore();
+    return;
+  }
   try {
     const saved = JSON.parse(await readFile(configFile, 'utf8'));
     config = cleanConfig(saved.config);
@@ -331,6 +364,34 @@ app.post('/api/open-settings', (_q, r) => {
   r.json({ ok: true, url });
 });
 
+// Where the person's files are, for the settings page.
+app.get('/api/info', (_q, r) =>
+  r.json({
+    version: appVersion,
+    baseUrl,
+    folder: userFolder,
+    sourcesDir,
+    sources: SOURCES.map((s) => ({
+      slug: s.slug,
+      element: s.element,
+      file: sourceFileName(s.file, false),
+      verticalFile: sourceFileName(s.file, true),
+    })),
+  }),
+);
+app.post('/api/open-folder', (_q, r) => {
+  const dir = sourcesDir || userFolder;
+  if (process.platform === 'win32') execFile('explorer.exe', [dir], () => {});
+  else execFile(process.platform === 'darwin' ? 'open' : 'xdg-open', [dir], () => {});
+  r.json({ ok: true, folder: dir });
+});
+// One address per element, with the same English names as the source files.
+app.get('/source/:slug', (q, r) =>
+  SOURCES.some((s) => s.slug === q.params.slug)
+    ? r.sendFile(join(webDir, 'overlay.html'))
+    : r.status(404).send('Unknown source'),
+);
+
 for (const page of ['dock', 'settings', 'overlay'])
   app.get(`/${page}`, (_q, r) => r.sendFile(join(webDir, `${page}.html`)));
 app.get('/', (_q, r) => r.redirect('/settings'));
@@ -345,7 +406,11 @@ server.on('error', (e: NodeJS.ErrnoException) => {
   );
   process.exit(1);
 });
-server.listen(port, '127.0.0.1', () => {
+server.listen(port, '127.0.0.1', async () => {
+  sourcesDir = await writeSourceFiles(userFolder, baseUrl).catch((e) => {
+    console.error(`Could not write the OBS source files: ${(e as Error).message}`);
+    return '';
+  });
   console.log(`Lower Third Web — by Culto em Off: ${baseUrl}/settings`);
   console.log(`Persistent data: ${configFile}`);
 });

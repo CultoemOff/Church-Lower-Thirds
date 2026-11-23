@@ -9,10 +9,11 @@
     "start": "tsx src/server/index.ts",
     "typecheck": "tsc --noEmit",
     "build": "tsc",
-    "format": "prettier --write src test .github",
-    "format:check": "prettier --check src test .github",
+    "format": "prettier --write src test scripts .github",
+    "format:check": "prettier --check src test scripts .github",
     "test": "node --import tsx --test test/*.test.ts",
-    "lint": "eslint src/web"
+    "lint": "eslint src/web",
+    "i18n": "node scripts/build-i18n.mjs && prettier --write src/web/js/i18n"
   },
   "dependencies": {
     "express": "^5.1.0",

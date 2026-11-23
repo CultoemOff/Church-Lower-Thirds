@@ -1796,6 +1796,50 @@ img:not([src]) {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
+/* =====================================================================
+   VERTICAL LAYOUT (?layout=vertical): a 1080x1920 stage for Shorts, Reels, TikTok
+   ===================================================================== */
+.vertical .stage {
+  width: 1080px;
+  height: 1920px;
+}
+.vertical .top[data-template='pills'] .box {
+  flex-wrap: wrap;
+  max-width: 980px;
+}
+.vertical .top .msg {
+  max-width: 360px;
+}
+.vertical .agenda[data-template='banner'] .box {
+  min-width: 0;
+  max-width: 1000px;
+}
+.vertical .agenda[data-template='banner'] .day {
+  flex-wrap: wrap;
+  gap: 10px 26px;
+}
+.vertical .agenda[data-template='banner'] .dots {
+  display: none;
+}
+.vertical .agenda[data-template='center'] .box {
+  width: 940px;
+}
+.vertical .lower[data-template='news'] .box {
+  padding-left: calc(40px * var(--scale));
+  padding-right: calc(40px * var(--scale));
+}
+.vertical .lower[data-template='news'] .side {
+  display: none;
+}
+.vertical .lower .l1,
+.vertical .lower .l2 {
+  white-space: normal;
+  max-width: 760px;
+}
+.vertical .card[data-template='horizontal'] .box {
+  max-width: 940px;
+}
+
 /* Settings preview: a neutral "camera" background so transparency and shadows show */
 .preview body {
   background:

@@ -1,13 +1,29 @@
 import { fillCss, fontCss, onColor, qrUrl, rgba, shadowCss, SOCIAL_ICONS } from './js/look.js';
 
-// The browser source page. Everything is laid out on a 1920x1080 stage and scaled to the
-// source size, so the same settings look the same at 720p, 1080p or 4K.
+// The browser source page. Everything is laid out on a 1920x1080 stage (1080x1920 with
+// ?layout=vertical) and scaled to the source size, so the same settings look the same at
+// 720p, 1080p or 4K.
 const stage = document.getElementById('stage');
 const params = new URLSearchParams(location.search);
 // ?preview=lower: the settings page shows one element, always on, over a sample background.
 const preview = params.get('preview');
 // ?only=lower (or lower,card): one OBS source per element; without it, every element.
-const only = params.get('only')?.split(',');
+// /source/names, /source/badge… are the same thing with the names of the source files.
+const SLUGS = {
+  all: '',
+  names: 'lower',
+  badge: 'top',
+  ticker: 'ticker',
+  'qr-card': 'card',
+  schedule: 'agenda',
+  social: 'social',
+  logo: 'bug',
+};
+const slug = location.pathname.match(/^\/source\/([\w-]+)/)?.[1];
+const only = (slug ? SLUGS[slug] : params.get('only'))?.split(',').filter(Boolean);
+const vertical = params.get('layout') === 'vertical';
+const W = vertical ? 1080 : 1920,
+  H = vertical ? 1920 : 1080;
 // ?edit=1: the settings page's layout editor. Everything is shown, still, and can be
 // dragged to a new place or resized by its corner.
 const edit = params.get('edit') === '1';
@@ -21,13 +37,14 @@ let config = null,
 const shown = { lower: {}, top: {}, card: {}, bug: {}, ticker: {}, agenda: {}, social: {} };
 
 function fit() {
-  const s = Math.min(innerWidth / 1920, innerHeight / 1080) || 1;
+  const s = Math.min(innerWidth / W, innerHeight / H) || 1;
   stage.style.transform = `scale(${s})`;
 }
 addEventListener('resize', fit);
 fit();
 if (preview) document.documentElement.classList.add('preview');
 if (edit) document.documentElement.classList.add('edit');
+if (vertical) document.documentElement.classList.add('vertical');
 
 const setVars = (node, vars) => {
   for (const [k, v] of Object.entries(vars)) node.style.setProperty('--' + k, v);
@@ -62,9 +79,9 @@ const canMove = (el) => 'free' in config[el] && !FULL_WIDTH[el]?.includes(config
 function place(el) {
   const c = config[el],
     root = roots[el],
-    on = canMove(el) && c.free;
+    on = canMove(el) && (vertical ? c.vfree : c.free);
   root.toggleAttribute('data-free', on);
-  if (on) setVars(root, { fx: c.x + 'px', fy: c.y + 'px' });
+  if (on) setVars(root, { fx: (vertical ? c.vx : c.x) + 'px', fy: (vertical ? c.vy : c.y) + 'px' });
 }
 
 // ---- Lower third ----
@@ -147,12 +164,14 @@ function nextMessage(first = false) {
     span.classList.remove('swap');
   }, 380);
 }
+const LOCALES = { 'pt-BR': 'pt-BR', 'pt-PT': 'pt-PT', es: 'es', en: 'en-US', it: 'it', de: 'de' };
+const locale = () => LOCALES[config.language] || navigator.language || 'pt-BR';
 function tick() {
   if (!config) return;
   const c = config.top,
     now = new Date(),
     time = (seconds) =>
-      now.toLocaleTimeString('pt-BR', {
+      now.toLocaleTimeString(locale(), {
         hour: '2-digit',
         minute: '2-digit',
         second: seconds ? '2-digit' : undefined,
@@ -161,7 +180,7 @@ function tick() {
   $('top', '.time').textContent = time(c.clockSeconds);
   $('ticker', '.time').textContent = time(false);
   $('top', '.date').textContent = now
-    .toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: 'short' })
+    .toLocaleDateString(locale(), { weekday: 'short', day: '2-digit', month: 'short' })
     .replace(/\./g, '');
 }
 setInterval(tick, 1000);
@@ -471,7 +490,7 @@ const render = {
 };
 const onShow = { agenda: startAgenda };
 const wanted = (el) => {
-  if (only && !only.includes(el)) return false;
+  if (only?.length && !only.includes(el)) return false;
   if (edit) return true;
   return preview ? preview === el : !!live[el].on;
 };
@@ -541,7 +560,7 @@ function enableEdit() {
     const spot = () => {
       const s = stage.getBoundingClientRect(),
         r = scaler.getBoundingClientRect(),
-        k = s.width / 1920;
+        k = s.width / W;
       return { k, x: (r.left - s.left) / k, y: (r.top - s.top) / k, w: r.width / k };
     };
     scaler.addEventListener('pointerdown', (down) => {
@@ -567,15 +586,15 @@ function enableEdit() {
           if (el === 'bug') root.style.setProperty('--w', size + 'px');
           else root.style.setProperty('--scale', size / 100);
         } else {
-          x = Math.round(Math.min(1880, Math.max(-300, start.x + dx)));
-          y = Math.round(Math.min(1040, Math.max(-200, start.y + dy)));
+          x = Math.round(Math.min(W - 40, Math.max(-300, start.x + dx)));
+          y = Math.round(Math.min(H - 40, Math.max(-200, start.y + dy)));
           setVars(root, { fx: x + 'px', fy: y + 'px' });
         }
       };
       const up = () => {
         scaler.removeEventListener('pointermove', move);
         root.classList.remove('dragging');
-        tell({ type: 'place', el, x, y, size });
+        tell({ type: 'place', el, x, y, size, vertical });
       };
       scaler.addEventListener('pointermove', move);
       scaler.addEventListener('pointerup', up, { once: true });

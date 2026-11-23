@@ -23,15 +23,19 @@ import {
   TOP_TEMPLATES,
 } from './js/look.js';
 import { BUNDLED_FONTS } from './js/fonts.js';
+import { autoLocalize, LANGUAGES, t, useLanguage } from './js/i18n.js';
 
 // Global settings, opened in the normal browser so the OBS dock can stay small.
 // Every change is saved at once and shows in the preview and in OBS.
 let config = null,
   live = null,
-  page = localStorage.ltwPage || 'brand',
+  page = localStorage.ltwPage || 'home',
+  info = null,
+  vertical = false,
   viewItem = '',
   saveTimer = 0,
-  installedFonts = [];
+  installedFonts = [],
+  obsVertical = false;
 
 const NAMES = {
   classic: 'Clássico',
@@ -73,18 +77,104 @@ const NAMES = {
   hard: 'Dura',
   glow: 'Brilho',
 };
+const svg = (d) =>
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+// [id, name, group, what the page is for, icon]
 const PAGES = [
-  ['brand', 'Geral e PIX'],
-  ['lower', 'Nomes'],
-  ['top', 'Selo superior'],
-  ['ticker', 'Barra inferior'],
-  ['card', 'Cartão QR / PIX'],
-  ['agenda', 'Agenda'],
-  ['social', 'Redes sociais'],
-  ['bug', 'Logo'],
-  ['layout', 'Posições na tela'],
-  ['obs', 'OBS e atalhos'],
-  ['backup', 'Backup'],
+  [
+    'home',
+    'Visão geral',
+    '',
+    'O que está no ar agora e os primeiros passos.',
+    svg('<path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/>'),
+  ],
+  [
+    'brand',
+    'Geral e PIX',
+    'Igreja',
+    'Nome, logo, idioma, temas, tempo na tela e a chave PIX.',
+    svg('<path d="M12 3v5M9.500 5.500h5M6 21V11l6-3 6 3v10M4 21h16M10 21v-5h4v5"/>'),
+  ],
+  [
+    'lower',
+    'Nomes',
+    'Elementos',
+    'O lower third: nome e legenda de quem está falando.',
+    svg('<rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 16.500h7M3 8h8"/>'),
+  ],
+  [
+    'top',
+    'Selo superior',
+    'Elementos',
+    'Selo num canto da tela com logo, nome, AO VIVO e horário.',
+    svg(
+      '<rect x="3" y="4" width="13" height="6" rx="3"/><circle cx="6.500" cy="7" r="1" fill="currentColor"/><path d="M3 20h18" opacity=".35"/>',
+    ),
+  ],
+  [
+    'ticker',
+    'Barra inferior',
+    'Elementos',
+    'Texto rolando o tempo todo na parte de baixo.',
+    svg(
+      '<rect x="3" y="15" width="18" height="5" rx="2"/><path d="M7 17.500h3M13 17.500h5M3 9h18" opacity=".8"/>',
+    ),
+  ],
+  [
+    'card',
+    'Cartão QR / PIX',
+    'Elementos',
+    'Cartão com o QR Code do PIX ou de um link.',
+    svg(
+      '<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/>',
+    ),
+  ],
+  [
+    'agenda',
+    'Agenda',
+    'Elementos',
+    'Dias e horários dos cultos, um dia de cada vez.',
+    svg('<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/>'),
+  ],
+  [
+    'social',
+    'Redes sociais',
+    'Elementos',
+    '"Siga-nos no…" com o @ da igreja.',
+    svg(
+      '<circle cx="12" cy="12" r="3.600"/><path d="M15.600 8.400v5a2.400 2.400 0 0 0 4.900 0V12a8.500 8.500 0 1 0-3.300 6.700"/>',
+    ),
+  ],
+  [
+    'bug',
+    'Logo',
+    'Elementos',
+    'O logo sozinho num canto da tela.',
+    svg('<circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/>'),
+  ],
+  [
+    'layout',
+    'Posições na tela',
+    'Tela',
+    'Arraste cada elemento para o lugar e ajuste o tamanho.',
+    svg(
+      '<path d="M12 3v18M3 12h18M12 3l-2.500 2.500M12 3l2.500 2.500M12 21l-2.500-2.500M12 21l2.500-2.500M3 12l2.500-2.500M3 12l2.500 2.500M21 12l-2.500-2.500M21 12l-2.500 2.500"/>',
+    ),
+  ],
+  [
+    'obs',
+    'OBS e atalhos',
+    'Instalação',
+    'Fontes de navegador, painel do OBS, resoluções e atalhos.',
+    svg('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.500"/>'),
+  ],
+  [
+    'backup',
+    'Backup',
+    'Instalação',
+    'Salvar e restaurar tudo num arquivo.',
+    svg('<path d="M12 4v11M7.500 10.500L12 15l4.500-4.500M5 19h14"/>'),
+  ],
 ];
 const ELEMENTS = ['lower', 'top', 'ticker', 'card', 'agenda', 'social', 'bug'];
 const WEIGHTS = [
@@ -210,33 +300,33 @@ const THEMES = [
     },
   },
 ];
-function applyTheme(t) {
+function applyTheme(look) {
   const c = structuredClone;
-  config.brand.font = t.font;
+  config.brand.font = look.font;
   for (const el of ['lower', 'top', 'ticker', 'card', 'agenda', 'social']) {
     const e = config[el],
       // The white card and pill keep dark text; everything else sits on the dark color.
-      light = t.light && (el === 'card' || el === 'social') ? t.light : null;
+      light = look.light && (el === 'card' || el === 'social') ? look.light : null;
     Object.assign(e, {
-      template: t.templates[el],
-      fill: c(light?.fill || t.dark),
-      accent: c(t.accent),
-      opacity: light ? 100 : t.opacity,
-      radius: t.radius,
+      template: look.templates[el],
+      fill: c(light?.fill || look.dark),
+      accent: c(look.accent),
+      opacity: light ? 100 : look.opacity,
+      radius: look.radius,
       font: '',
       shadow: 'soft',
     });
-    if (el === 'lower') Object.assign(e, { fill2: c(t.dark), text1: t.t1, text2: t.t2 });
+    if (el === 'lower') Object.assign(e, { fill2: c(look.dark), text1: look.t1, text2: look.t2 });
     else
       Object.assign(
         e,
-        { text: light?.text || t.t1 },
-        'text2' in e ? { text2: light?.text2 || t.t2 } : {},
+        { text: light?.text || look.t1 },
+        'text2' in e ? { text2: light?.text2 || look.t2 } : {},
       );
   }
   save();
   renderForm();
-  toast(`Tema "${t.name}" aplicado a todos os elementos.`);
+  toast(t('Tema "{name}" aplicado a todos os elementos.', { name: t(look.name) }));
 }
 
 const get = (path) => path.split('.').reduce((o, k) => o?.[k], config);
@@ -346,7 +436,7 @@ function font(path, label) {
   const groups = [...new Set(BUNDLED_FONTS.map(([, g]) => g))].map((g) =>
     h(
       'optgroup',
-      { label: `Fontes do programa · ${g}` },
+      { label: `${t('Fontes do programa')} · ${t(g)}` },
       BUNDLED_FONTS.filter(([, x]) => x === g).map(([f]) =>
         h('option', { value: f, selected: f === value }, f),
       ),
@@ -515,7 +605,7 @@ const PLACES = [
 const place = (el) =>
   card(
     'Posição e tamanho',
-    config[el].free
+    config[el].free || config[el].vfree
       ? h(
           'p',
           { class: 'hint' },
@@ -524,6 +614,7 @@ const place = (el) =>
             'button',
             {
               onclick: () => {
+                config[el].vfree = false;
                 set(`${el}.free`, false);
                 renderForm();
               },
@@ -705,6 +796,94 @@ async function checkPix() {
   );
 }
 const pages = {
+  home: () => {
+    const done = (ok, text, action, pageId) =>
+      h(
+        'div',
+        { class: 'step' + (ok ? ' done' : '') },
+        h('i', { class: 'mark' }, '✓'),
+        h('span', {}, text),
+        h('button', { onclick: () => go(pageId) }, action),
+      );
+    return [
+      card(
+        'No ar agora',
+        h(
+          'div',
+          { class: 'tiles' },
+          ELEMENTS.map((el) => {
+            const on = !!live?.[el]?.on;
+            return h(
+              'div',
+              { class: 'tile' + (on ? ' on' : '') },
+              h('b', {}, PAGES.find(([id]) => id === el)[1]),
+              h('span', { class: 'state' }, h('i'), on ? 'No ar' : 'Fora do ar'),
+              h(
+                'div',
+                { class: 'tileActions' },
+                h(
+                  'button',
+                  {
+                    class: on ? '' : 'primary',
+                    onclick: async () => {
+                      const r = await api(`/api/live/${el}/toggle`, { method: 'POST' });
+                      if (r.error) toast(friendly(r.error));
+                    },
+                  },
+                  on ? 'Esconder' : 'Mostrar',
+                ),
+                h('button', { onclick: () => go(el) }, 'Ajustar'),
+              ),
+            );
+          }),
+        ),
+        hint(
+          'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui você confere e ajusta a aparência.',
+        ),
+      ),
+      card(
+        'Primeiros passos',
+        h(
+          'div',
+          { class: 'steps2' },
+          done(
+            config.brand.name && config.brand.name !== 'Nome da Igreja',
+            'Escreva o nome da igreja',
+            'Abrir',
+            'brand',
+          ),
+          done(!!config.brand.logo, 'Envie o logo da igreja', 'Abrir', 'brand'),
+          done(!!(config.pix.key || config.pix.payload), 'Cadastre a chave PIX', 'Abrir', 'brand'),
+          done(false, 'Adicione as fontes e o painel no OBS', 'Ver como', 'obs'),
+          done(
+            Object.values(config).some((e) => e?.free || e?.vfree),
+            'Arraste os elementos para o lugar',
+            'Abrir',
+            'layout',
+          ),
+        ),
+      ),
+      info?.folder
+        ? card(
+            'Seus arquivos',
+            h(
+              'div',
+              { class: 'copyRow' },
+              h('code', { 'data-raw': '' }, info.folder),
+              h(
+                'button',
+                { onclick: () => api('/api/open-folder', { method: 'POST' }) },
+                'Abrir a pasta',
+              ),
+            ),
+            hint(
+              'Esta pasta guarda as configurações, os nomes, as imagens e os arquivos das fontes do OBS. Copie a pasta inteira para fazer backup.',
+            ),
+          )
+        : null,
+    ];
+  },
+
   brand: () => [
     card(
       'Igreja',
@@ -758,12 +937,12 @@ const pages = {
       h(
         'div',
         { class: 'palettes' },
-        THEMES.map((t) =>
+        THEMES.map((look) =>
           h(
             'button',
-            { type: 'button', title: t.hint, onclick: () => applyTheme(t) },
-            h('i', { style: `background:${t.swatch}` }),
-            t.name,
+            { type: 'button', title: look.hint, onclick: () => applyTheme(look) },
+            h('i', { style: `background:${look.swatch}` }),
+            look.name,
           ),
         ),
       ),
@@ -1092,7 +1271,7 @@ const pages = {
         check('card.showLogo', 'Logo da igreja'),
         check('card.qrRound', 'QR Code com pontos arredondados'),
       ),
-      hint('Para o PIX, a chave e o texto ao lado do QR Code ficam na aba "Igreja e PIX".'),
+      hint('Para o PIX, a chave e o texto ao lado do QR Code ficam na aba "Geral e PIX".'),
     ),
     card(
       'Cores e texto',
@@ -1296,7 +1475,7 @@ const pages = {
       ? null
       : card(
           'Logo',
-          hint('Envie o logo da igreja na aba "Igreja e PIX" para usar este elemento.', 'bad'),
+          hint('Envie o logo da igreja na aba "Geral e PIX" para usar este elemento.', 'bad'),
         ),
     card(
       'Logo no canto da tela',
@@ -1320,14 +1499,32 @@ const pages = {
       social: 'Redes sociais',
       bug: 'Logo',
     };
-    const moved = Object.keys(LABELS).filter((el) => config[el].free);
+    const key = vertical ? 'vfree' : 'free';
+    const moved = Object.keys(LABELS).filter((el) => config[el][key]);
     return [
       card(
         'Arraste para posicionar',
         h(
           'div',
-          { class: 'previewBox editor' },
-          h('iframe', { src: '/overlay?preview=all&edit=1', title: 'Editor de posições' }),
+          { class: 'fillRow' },
+          h(
+            'div',
+            { class: 'seg' },
+            ...orientButtons(() => {
+              $('#form').replaceChildren();
+              renderForm();
+            }),
+          ),
+          h('span', { class: 'hint' }, 'Cada formato guarda as próprias posições.'),
+        ),
+        h('div', { style: 'height:10px' }),
+        h(
+          'div',
+          { class: 'previewBox editor' + (vertical ? ' tall' : '') },
+          h('iframe', {
+            src: '/overlay?preview=all&edit=1' + (vertical ? '&layout=vertical' : ''),
+            title: 'Editor de posições',
+          }),
         ),
         hint(
           'Arraste cada elemento para onde ele deve aparecer. Para aumentar ou diminuir, arraste o quadradinho azul do canto. A posição vale na hora, também no OBS.',
@@ -1338,16 +1535,18 @@ const pages = {
         h('div', { style: 'height:8px' }),
         h(
           'div',
-          { class: 'fillRow' },
-          moved.length
-            ? h('span', { class: 'hint' }, 'Voltar ao lugar padrão:')
-            : h('span', { class: 'hint' }, 'Nenhum elemento foi movido ainda.'),
+          { class: 'fillRow moved' },
+          h(
+            'span',
+            { class: 'hint' },
+            moved.length ? 'Voltar ao lugar padrão:' : 'Nenhum elemento foi movido ainda.',
+          ),
           ...moved.map((el) =>
             h(
               'button',
               {
                 onclick: () => {
-                  set(`${el}.free`, false);
+                  set(`${el}.${key}`, false);
                   renderForm();
                 },
               },
@@ -1368,54 +1567,114 @@ const pages = {
         h('code', {}, text),
         h(
           'button',
-          {
-            onclick: () => navigator.clipboard.writeText(text).then(() => toast('Copiado.')),
-          },
+          { onclick: () => navigator.clipboard.writeText(text).then(() => toast('Copiado.')) },
           'Copiar',
         ),
       );
     const row = (what, path) =>
       h('tr', {}, h('td', {}, what), h('td', {}, h('code', {}, base + path)));
+    const [w, hgt] = (obsVertical ? config.output.vertical : config.output.horizontal).split('x');
+    const size = (path, list) =>
+      h(
+        'select',
+        { onchange: (e) => (set(path, e.target.value), renderForm()) },
+        list.map((r) =>
+          h('option', { value: r, selected: get(path) === r }, r.replace('x', ' × ')),
+        ),
+      );
+    const label = (el) => PAGES.find(([id]) => id === el)?.[1] || 'Todos os elementos';
     return [
       card(
+        'Tamanho das fontes no OBS',
+        grid(
+          field(
+            'Vídeo horizontal (16:9)',
+            size('output.horizontal', ['1280x720', '1920x1080', '2560x1440', '3840x2160']),
+          ),
+          field(
+            'Vídeo vertical (9:16)',
+            size('output.vertical', ['720x1280', '1080x1920', '1440x2560', '2160x3840']),
+          ),
+        ),
+        hint(
+          'Use o mesmo tamanho do vídeo do seu OBS. Os gráficos se ajustam sozinhos: tudo o que você configurou fica igual em qualquer um deles.',
+        ),
+      ),
+      card(
         '1. Os gráficos (fonte de navegador)',
+        h(
+          'div',
+          { class: 'fillRow' },
+          h(
+            'div',
+            { class: 'seg' },
+            ...[
+              [false, 'Horizontal'],
+              [true, 'Vertical'],
+            ].map(([v, text]) =>
+              h(
+                'button',
+                {
+                  type: 'button',
+                  class: obsVertical === v ? 'active' : '',
+                  onclick: () => ((obsVertical = v), renderForm()),
+                },
+                text,
+              ),
+            ),
+          ),
+        ),
+        h('div', { style: 'height:10px' }),
         h(
           'ol',
           { class: 'steps' },
           h('li', {}, 'No OBS, em Fontes, clique em + e escolha Navegador.'),
-          h('li', {}, 'Cole o endereço abaixo, com largura 1920 e altura 1080.'),
           h(
             'li',
             {},
-            'Deixe essa fonte por cima das câmeras. Para aparecer em todas as cenas, coloque-a numa cena própria e adicione essa cena às outras.',
+            'Marque "Arquivo local" e escolha um dos arquivos abaixo. Se preferir, deixe desmarcado e cole o endereço.',
           ),
+          h('li', {}, t('Preencha largura {w} e altura {h}.', { w, h: hgt })),
+          h('li', {}, 'Deixe a fonte por cima das câmeras.'),
         ),
-        h('div', { style: 'height:8px' }),
-        h('span', { class: 'hint' }, 'Tudo numa fonte só:'),
-        copy(base + '/overlay'),
         h('div', { style: 'height:10px' }),
-        h(
-          'span',
-          { class: 'hint' },
-          'Ou uma fonte para cada elemento, para separar por cena (todas com 1920 × 1080):',
-        ),
+        info?.sourcesDir
+          ? h(
+              'div',
+              { class: 'copyRow' },
+              h('code', { 'data-raw': '' }, info.sourcesDir),
+              h(
+                'button',
+                {
+                  class: 'primary',
+                  title: 'Abre a pasta dos arquivos no computador',
+                  onclick: () => api('/api/open-folder', { method: 'POST' }),
+                },
+                'Abrir a pasta',
+              ),
+            )
+          : null,
+        h('div', { style: 'height:8px' }),
         h(
           'table',
           { class: 'apiTable' },
-          ...[
-            ['Nomes', 'lower'],
-            ['Selo superior', 'top'],
-            ['Barra inferior', 'ticker'],
-            ['Cartão QR / PIX', 'card'],
-            ['Agenda', 'agenda'],
-            ['Redes sociais', 'social'],
-            ['Logo', 'bug'],
-          ].map(([label, el]) =>
-            h('tr', {}, h('td', {}, label), h('td', {}, copy(`${base}/overlay?only=${el}`))),
+          h('tr', {}, h('th', {}, 'Elemento'), h('th', {}, 'Arquivo'), h('th', {}, 'Endereço')),
+          ...(info?.sources || []).map((src) =>
+            h(
+              'tr',
+              {},
+              h('td', {}, label(src.element)),
+              h('td', {}, h('code', {}, obsVertical ? src.verticalFile : src.file)),
+              h(
+                'td',
+                {},
+                copy(`${base}/source/${src.slug}${obsVertical ? '?layout=vertical' : ''}`),
+              ),
+            ),
           ),
         ),
         hint(
-          'Use a fonte única ou as separadas, não as duas na mesma cena: o elemento apareceria duas vezes. Dá para juntar elementos numa fonte, por exemplo ?only=lower,ticker.',
+          '"All Elements" mostra tudo numa fonte só. Os outros arquivos mostram um elemento cada, para você separar por cena. Não use os dois na mesma cena: o elemento apareceria duas vezes.',
         ),
       ),
       card(
@@ -1425,7 +1684,11 @@ const pages = {
           { class: 'steps' },
           h('li', {}, 'No OBS, abra o menu Docks → Docks de navegador personalizados.'),
           h('li', {}, 'Dê o nome "Lower Third" e cole o endereço abaixo.'),
-          h('li', {}, 'Encaixe o painel onde preferir. A engrenagem dele abre esta página.'),
+          h(
+            'li',
+            {},
+            'Encaixe o painel onde preferir: ele se ajusta a um espaço alto ou largo. A engrenagem dele abre esta página.',
+          ),
         ),
         h('div', { style: 'height:8px' }),
         copy(base + '/dock'),
@@ -1445,8 +1708,8 @@ const pages = {
           row('Próximo nome da lista', '/api/live/lower/show?item=next'),
           row('Esconder o nome', '/api/live/lower/hide'),
           row('Selo superior', '/api/live/top/toggle'),
-          row('Cartão QR / PIX', '/api/live/card/toggle'),
           row('Barra inferior', '/api/live/ticker/toggle'),
+          row('Cartão QR / PIX', '/api/live/card/toggle'),
           row('Agenda', '/api/live/agenda/toggle'),
           row('Rede social (1 = primeira)', '/api/live/social/toggle?item=1'),
           row('Logo', '/api/live/bug/toggle'),
@@ -1502,10 +1765,38 @@ function setPreview() {
   $('.content').classList.toggle('noPreview', !el);
   $('#previewPanel').classList.toggle('hidden', !el);
   if (!el) return;
-  const src = `/overlay?preview=${el}` + (el === 'lower' && viewItem ? `&item=${viewItem}` : '');
+  const src =
+    `/overlay?preview=${el}` +
+    (el === 'lower' && viewItem ? `&item=${viewItem}` : '') +
+    (vertical ? '&layout=vertical' : '');
   const frame = $('#preview');
   if (frame.getAttribute('src') !== src) frame.setAttribute('src', src);
+  $('#previewBox').classList.toggle('tall', vertical);
+  $('#orient').replaceChildren(...orientButtons(setPreview));
   renderOnAir();
+}
+/** Horizontal (16:9) or vertical (9:16) preview. */
+function orientButtons(after) {
+  return [
+    [false, 'Horizontal'],
+    [true, 'Vertical'],
+  ].map(([v, label]) =>
+    h(
+      'button',
+      {
+        type: 'button',
+        class: vertical === v ? 'active' : '',
+        title: v
+          ? 'Prévia da fonte vertical (9:16), para Shorts, Reels e TikTok'
+          : 'Prévia da fonte horizontal (16:9)',
+        onclick: () => {
+          vertical = v;
+          after();
+        },
+      },
+      label,
+    ),
+  );
 }
 function renderOnAir() {
   const b = $('#onAir'),
@@ -1518,31 +1809,39 @@ function renderOnAir() {
 }
 function renderMoved() {
   const fresh = pages.layout()[0],
-    row = $('#form .card > .fillRow');
-  row?.replaceWith(fresh.querySelector(':scope > .fillRow'));
+    row = $('#form .fillRow.moved');
+  row?.replaceWith(fresh.querySelector('.fillRow.moved'));
+}
+function go(id) {
+  page = localStorage.ltwPage = id;
+  renderNav();
+  renderForm();
+  setPreview();
+  scrollTo(0, 0);
 }
 function renderNav() {
-  $('#nav').replaceChildren(
-    ...PAGES.map(([id, label]) =>
-      h(
-        'button',
-        {
-          class: id === page ? 'active' : '',
-          onclick: () => {
-            page = localStorage.ltwPage = id;
-            renderNav();
-            renderForm();
-            setPreview();
-          },
-        },
-        label,
-      ),
-    ),
-  );
+  const nodes = [];
+  let group = '';
+  for (const [id, label, g, desc, icon] of PAGES) {
+    if (g !== group) nodes.push(h('div', { class: 'group' }, (group = g)));
+    const b = h('button', {
+      class: id === page ? 'active' : '',
+      title: desc,
+      onclick: () => go(id),
+    });
+    b.innerHTML = icon;
+    b.append(h('span', {}, label));
+    if (live?.[id]?.on) b.append(h('i', { class: 'liveDot', title: 'No ar' }));
+    nodes.push(b);
+  }
+  $('#nav').replaceChildren(...nodes);
+  const current = PAGES.find(([id]) => id === page) || PAGES[0];
+  $('#pageTitle').textContent = current[1];
+  $('#pageDesc').textContent = current[3];
 }
 function renderForm() {
   if (!config) return;
-  if (!pages[page]) page = 'brand';
+  if (!pages[page]) page = 'home';
   if (!config.lower.items.some((i) => i.id === viewItem))
     viewItem = config.lower.items[0]?.id || '';
   // The layout editor keeps its iframe while elements are being dragged.
@@ -1572,33 +1871,47 @@ api('/api/fonts').then((fonts) => {
   installedFonts = fonts;
   if (config && !$('#form').contains(document.activeElement)) renderForm();
 });
-addEventListener('message', (e) => {
-  const m = e.data;
-  if (
-    e.origin !== location.origin ||
-    m?.source !== 'ltw-edit' ||
-    m.type !== 'place' ||
-    !config?.[m.el]
-  )
-    return;
-  Object.assign(config[m.el], { free: true, x: m.x, y: m.y, size: m.size });
-  save();
-  if (page === 'layout') renderMoved();
+api('/api/info').then((r) => {
+  if (r.error) return;
+  info = r;
+  if (config && (page === 'home' || page === 'obs')) renderForm();
 });
-connect((e) => {
-  renderVersion(e.version);
-  if (e.live) live = e.live;
-  if (e.type === 'config' && e.origin !== clientId) {
-    // A change made elsewhere (the dock, a restored backup, another tab): show it, unless
-    // the person is typing here right now.
-    config = e.config;
-    if (!$('#form').contains(document.activeElement) || document.activeElement.tagName === 'BUTTON')
+$('#language').replaceChildren(...LANGUAGES.map(([v, label]) => h('option', { value: v }, label)));
+$('#language').onchange = async (e) => {
+  config.language = e.target.value;
+  await api('/api/config', { method: 'PUT', body: config });
+  useLanguage(config.language);
+};
+autoLocalize();
+connect(
+  (e) => {
+    renderVersion(e.version);
+    const liveChanged = e.live && JSON.stringify(e.live) !== JSON.stringify(live);
+    if (e.live) live = e.live;
+    if (e.type === 'config' && e.origin !== clientId) {
+      // A change made elsewhere (the dock, a restored backup, another tab): show it,
+      // unless the person is typing here right now.
+      config = e.config;
+      if (
+        !$('#form').contains(document.activeElement) ||
+        document.activeElement.tagName === 'BUTTON'
+      )
+        renderForm();
+    } else if (e.config && !config) {
+      config = e.config;
+      renderNav();
       renderForm();
-  } else if (e.config && !config) {
-    config = e.config;
-    renderNav();
-    renderForm();
-    setPreview();
-  }
-  renderOnAir();
-});
+      setPreview();
+    } else if (liveChanged && page === 'home') renderForm();
+    if (config) {
+      useLanguage(config.language);
+      $('#language').value = config.language;
+    }
+    if (liveChanged) renderNav();
+    renderOnAir();
+  },
+  (online) => {
+    $('#conn').classList.toggle('ok', online);
+    $('#conn span').textContent = online ? 'Programa ativo' : 'Sem conexão com o programa';
+  },
+);

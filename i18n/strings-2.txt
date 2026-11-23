@@ -1,0 +1,1211 @@
+No ar agora
+On air now
+Al aire ahora
+In onda ora
+Jetzt im Bild
+
+No ar
+On air
+Al aire
+In onda
+Im Bild
+
+Fora do ar
+Off air
+Fuera del aire
+Non in onda
+Nicht im Bild
+
+Ajustar
+Adjust
+Ajustar
+Regola
+Anpassen
+
+No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui você confere e ajusta a aparência.
+Day to day, showing and hiding is done from the dock inside OBS. Here you check and adjust the look.
+En el día a día, quien muestra y oculta es el panel dentro de OBS. Aquí se revisa y ajusta la apariencia.
+Di solito si mostra e si nasconde dal pannello dentro OBS. Qui controlli e regoli l'aspetto.
+Im Alltag wird über das Dock in OBS ein- und ausgeblendet. Hier wird das Aussehen geprüft und angepasst.
+
+Primeiros passos
+First steps
+Primeros pasos
+Primi passi
+Erste Schritte
+
+Escreva o nome da igreja
+Type the church name
+Escriba el nombre de la iglesia
+Scrivi il nome della chiesa
+Namen der Gemeinde eintragen
+
+Abrir
+Open
+Abrir
+Apri
+Öffnen
+
+Envie o logo da igreja
+Upload the church logo
+Suba el logo de la iglesia
+Carica il logo della chiesa
+Logo der Gemeinde hochladen
+
+Cadastre a chave PIX
+Enter the PIX key
+Registre la clave PIX
+Inserisci la chiave PIX
+PIX-Schlüssel eintragen
+
+Adicione as fontes e o painel no OBS
+Add the sources and the dock in OBS
+Añada las fuentes y el panel en OBS
+Aggiungi le sorgenti e il pannello in OBS
+Quellen und Dock in OBS hinzufügen
+
+Ver como
+See how
+Ver cómo
+Vedi come
+So geht's
+
+Arraste os elementos para o lugar
+Drag the elements into place
+Arrastre los elementos a su lugar
+Trascina gli elementi al loro posto
+Elemente an ihren Platz ziehen
+
+Seus arquivos
+Your files
+Sus archivos
+I tuoi file
+Ihre Dateien
+
+Abrir a pasta
+Open the folder
+Abrir la carpeta
+Apri la cartella
+Ordner öffnen
+
+Esta pasta guarda as configurações, os nomes, as imagens e os arquivos das fontes do OBS. Copie a pasta inteira para fazer backup.
+This folder keeps the settings, the names, the images and the OBS source files. Copy the whole folder to back it up.
+Esta carpeta guarda los ajustes, los nombres, las imágenes y los archivos de las fuentes de OBS. Copie la carpeta entera para hacer una copia de seguridad.
+Questa cartella contiene le impostazioni, i nomi, le immagini e i file delle sorgenti di OBS. Copia l'intera cartella per fare un backup.
+Dieser Ordner enthält die Einstellungen, die Namen, die Bilder und die OBS-Quelldateien. Für eine Sicherung den ganzen Ordner kopieren.
+
+Nome da igreja
+Church name
+Nombre de la iglesia
+Nome della chiesa
+Name der Gemeinde
+
+Fonte geral
+General font
+Fuente general
+Carattere generale
+Allgemeine Schrift
+
+Sem logo
+No logo
+Sin logo
+Nessun logo
+Kein Logo
+
+Trocar logo
+Change logo
+Cambiar logo
+Cambia logo
+Logo ändern
+
+Enviar logo
+Upload logo
+Subir logo
+Carica logo
+Logo hochladen
+
+PNG com fundo transparente fica melhor. Até 8 MB.
+A PNG with a transparent background looks best. Up to 8 MB.
+Un PNG con fondo transparente queda mejor. Hasta 8 MB.
+Un PNG con sfondo trasparente rende meglio. Fino a 8 MB.
+Ein PNG mit transparentem Hintergrund sieht am besten aus. Bis 8 MB.
+
+Temas
+Themes
+Temas
+Temi
+Designs
+
+Um tema troca o modelo, as cores e a fonte de todos os elementos de uma vez.
+A theme changes the style, the colors and the font of every element at once.
+Un tema cambia el modelo, los colores y la fuente de todos los elementos a la vez.
+Un tema cambia modello, colori e carattere di tutti gli elementi in una volta.
+Ein Design ändert Vorlage, Farben und Schrift aller Elemente auf einmal.
+
+Tempo na tela
+Time on screen
+Tiempo en pantalla
+Tempo a schermo
+Zeit im Bild
+
+Nomes, QR Code e redes saem sozinhos depois de
+Names, QR code and social networks leave by themselves after
+Nombres, código QR y redes salen solos después de
+Nomi, codice QR e social escono da soli dopo
+Namen, QR-Code und Netzwerke verschwinden von selbst nach
+
+0 = ficam na tela até você esconder. O mesmo tempo pode ser trocado no painel do OBS.
+0 = they stay on screen until you hide them. The same time can be changed in the OBS dock.
+0 = permanecen en pantalla hasta que los oculte. El mismo tiempo se puede cambiar en el panel de OBS.
+0 = restano a schermo finché non li nascondi. Lo stesso tempo si può cambiare dal pannello di OBS.
+0 = sie bleiben im Bild, bis sie ausgeblendet werden. Dieselbe Zeit lässt sich im OBS-Dock ändern.
+
+Cores prontas
+Ready-made colors
+Colores listos
+Colori pronti
+Fertige Farben
+
+Aplica estas cores a todos os elementos
+Applies these colors to every element
+Aplica estos colores a todos los elementos
+Applica questi colori a tutti gli elementi
+Wendet diese Farben auf alle Elemente an
+
+É só um ponto de partida: cada elemento tem as próprias cores, com degradê, na aba dele.
+It is only a starting point: each element has its own colors, with gradients, on its page.
+Es solo un punto de partida: cada elemento tiene sus propios colores, con degradado, en su página.
+È solo un punto di partenza: ogni elemento ha i propri colori, con sfumatura, nella sua pagina.
+Nur ein Ausgangspunkt: jedes Element hat auf seiner Seite eigene Farben, auch mit Verlauf.
+
+Como gerar o QR Code
+How to create the QR code
+Cómo generar el código QR
+Come generare il codice QR
+So entsteht der QR-Code
+
+Pela chave PIX
+From the PIX key
+Con la clave PIX
+Dalla chiave PIX
+Aus dem PIX-Schlüssel
+
+Colar o "PIX copia e cola" do banco
+Paste the bank's "PIX copia e cola" code
+Pegar el "PIX copia e cola" del banco
+Incolla il "PIX copia e cola" della banca
+„PIX Copia e Cola“ der Bank einfügen
+
+Chave PIX
+PIX key
+Clave PIX
+Chiave PIX
+PIX-Schlüssel
+
+CNPJ, e-mail, telefone ou chave aleatória
+CNPJ, e-mail, phone or random key
+CNPJ, correo, teléfono o clave aleatoria
+CNPJ, e-mail, telefono o chiave casuale
+CNPJ, E-Mail, Telefon oder Zufallsschlüssel
+
+Nome do recebedor
+Receiver name
+Nombre del receptor
+Nome del beneficiario
+Name des Empfängers
+
+Como está na conta do banco, até 25 letras.
+As it is on the bank account, up to 25 characters.
+Como figura en la cuenta del banco, hasta 25 letras.
+Come risulta sul conto bancario, fino a 25 caratteri.
+Wie auf dem Bankkonto, bis 25 Zeichen.
+
+Cidade
+City
+Ciudad
+Città
+Stadt
+
+Valor fixo (opcional)
+Fixed amount (optional)
+Importe fijo (opcional)
+Importo fisso (facoltativo)
+Fester Betrag (optional)
+
+Vazio: quem doa escolhe
+Empty: the giver chooses
+Vacío: quien dona elige
+Vuoto: sceglie chi dona
+Leer: die spendende Person wählt
+
+Identificador (opcional)
+Identifier (optional)
+Identificador (opcional)
+Identificativo (facoltativo)
+Kennung (optional)
+
+Ex.: OFERTA
+E.g. OFFERING
+Ej.: OFRENDA
+Es.: OFFERTA
+Z. B. SPENDE
+
+PIX copia e cola
+PIX copy and paste
+PIX copia y pega
+PIX copia e incolla
+PIX „Copia e Cola“
+
+Texto mostrado ao lado do QR Code
+Text shown beside the QR code
+Texto mostrado junto al código QR
+Testo mostrato accanto al codice QR
+Text neben dem QR-Code
+
+Ex.: CNPJ 12.345.678/0001-90
+E.g. CNPJ 12.345.678/0001-90
+Ej.: CNPJ 12.345.678/0001-90
+Es.: CNPJ 12.345.678/0001-90
+Z. B. CNPJ 12.345.678/0001-90
+
+Vazio: mostra a chave.
+Empty: shows the key.
+Vacío: muestra la clave.
+Vuoto: mostra la chiave.
+Leer: zeigt den Schlüssel.
+
+Modelo
+Style
+Modelo
+Modello
+Vorlage
+
+Nomes e textos
+Names and texts
+Nombres y textos
+Nomi e testi
+Namen und Texte
+
+Cargo ou texto
+Role or text
+Cargo o texto
+Ruolo o testo
+Funktion oder Text
+
+Mostra o logo da igreja neste lower third
+Shows the church logo in this lower third
+Muestra el logo de la iglesia en este lower third
+Mostra il logo della chiesa in questo lower third
+Zeigt das Logo der Gemeinde in dieser Bauchbinde
+
+QR Code neste lower third
+QR code in this lower third
+Código QR en este lower third
+Codice QR in questo lower third
+QR-Code in dieser Bauchbinde
+
+Sem QR
+No QR
+Sin QR
+Senza QR
+Ohne QR
+
+QR do PIX
+PIX QR
+QR de PIX
+QR del PIX
+PIX-QR
+
+QR de link
+Link QR
+QR de enlace
+QR di un link
+Link-QR
+
+Ver este na prévia
+See this one in the preview
+Ver este en la vista previa
+Vedi questo nell'anteprima
+Diesen in der Vorschau zeigen
+
+Ver
+View
+Ver
+Vedi
+Ansehen
+
+Subir na lista
+Move up in the list
+Subir en la lista
+Sposta su nella lista
+In der Liste nach oben
+
+Descer na lista
+Move down in the list
+Bajar en la lista
+Sposta giù nella lista
+In der Liste nach unten
+
+Novo nome
+New name
+Nuevo nombre
+Nuovo nome
+Neuer Name
+
+No painel do OBS, um clique no nome mostra ou esconde. Dá para adicionar nomes por lá também.
+In the OBS dock, one click on a name shows or hides it. Names can be added there too.
+En el panel de OBS, un clic en el nombre lo muestra u oculta. También se pueden añadir nombres desde allí.
+Nel pannello di OBS, un clic sul nome lo mostra o lo nasconde. Si possono aggiungere nomi anche da lì.
+Im OBS-Dock blendet ein Klick auf den Namen ihn ein oder aus. Namen lassen sich auch dort hinzufügen.
+
+Cores
+Colors
+Colores
+Colori
+Farben
+
+Cor principal (barra do nome)
+Main color (name bar)
+Color principal (barra del nombre)
+Colore principale (barra del nome)
+Hauptfarbe (Namensbalken)
+
+Segunda cor (barra do cargo)
+Second color (role bar)
+Segundo color (barra del cargo)
+Secondo colore (barra del ruolo)
+Zweite Farbe (Funktionsbalken)
+
+Cor de destaque (detalhes)
+Accent color (details)
+Color de realce (detalles)
+Colore di risalto (dettagli)
+Akzentfarbe (Details)
+
+Texto do nome
+Name text
+Texto del nombre
+Testo del nome
+Text des Namens
+
+Texto do cargo
+Role text
+Texto del cargo
+Testo del ruolo
+Text der Funktion
+
+Cada modelo usa as cores de um jeito: o "Só texto", por exemplo, usa só o destaque e as cores do texto.
+Each style uses the colors in its own way: "Text only", for example, uses just the accent and the text colors.
+Cada modelo usa los colores a su manera: "Solo texto", por ejemplo, usa solo el realce y los colores del texto.
+Ogni modello usa i colori a modo suo: "Solo testo", per esempio, usa solo il risalto e i colori del testo.
+Jede Vorlage nutzt die Farben anders: „Nur Text“ zum Beispiel nur die Akzent- und die Textfarben.
+
+Texto
+Text
+Texto
+Testo
+Text
+
+Peso do nome
+Name weight
+Grosor del nombre
+Spessore del nome
+Stärke des Namens
+
+Peso do cargo
+Role weight
+Grosor del cargo
+Spessore del ruolo
+Stärke der Funktion
+
+Tudo em maiúsculas
+All caps
+Todo en mayúsculas
+Tutto maiuscolo
+Alles in Großbuchstaben
+
+Lado da tela
+Side of the screen
+Lado de la pantalla
+Lato dello schermo
+Bildseite
+
+Esquerda
+Left
+Izquierda
+Sinistra
+Links
+
+Centro
+Center
+Centro
+Centro
+Mitte
+
+Direita
+Right
+Derecha
+Destra
+Rechts
+
+Distância de baixo
+Distance from the bottom
+Distancia desde abajo
+Distanza dal basso
+Abstand nach unten
+
+O que aparece
+What shows
+Qué aparece
+Cosa appare
+Was erscheint
+
+Logo da igreja
+Church logo
+Logo de la iglesia
+Logo della chiesa
+Logo der Gemeinde
+
+Selo "AO VIVO"
+"LIVE" badge
+Sello "EN VIVO"
+Badge "IN DIRETTA"
+„LIVE“-Marke
+
+Texto do selo
+Badge text
+Texto del sello
+Testo del badge
+Text der Marke
+
+Horário
+Time
+Hora
+Ora
+Uhrzeit
+
+Data embaixo da hora
+Date under the time
+Fecha debajo de la hora
+Data sotto l'ora
+Datum unter der Uhrzeit
+
+Mostrar segundos
+Show seconds
+Mostrar segundos
+Mostra i secondi
+Sekunden zeigen
+
+Formato 12 horas
+12-hour format
+Formato de 12 horas
+Formato 12 ore
+12-Stunden-Format
+
+Recados (texto que se reveza)
+Messages (text that takes turns)
+Avisos (texto que se alterna)
+Avvisi (testo che si alterna)
+Hinweise (wechselnder Text)
+
+Cada parte liga e desliga sozinha, aqui ou na aba "Superior" do painel do OBS.
+Each part turns on and off by itself, here or in the "Top" tab of the OBS dock.
+Cada parte se activa y desactiva por separado, aquí o en la pestaña "Superior" del panel de OBS.
+Ogni parte si attiva e disattiva da sola, qui o nella scheda "Alto" del pannello di OBS.
+Jeder Teil lässt sich einzeln ein- und ausschalten, hier oder im Reiter „Oben“ des OBS-Docks.
+
+Ordem
+Order
+Orden
+Ordine
+Reihenfolge
+
+Na sequência
+In sequence
+En secuencia
+In sequenza
+Der Reihe nach
+
+Aleatória
+Random
+Aleatorio
+Casuale
+Zufällig
+
+Trocar a cada
+Change every
+Cambiar cada
+Cambia ogni
+Wechsel alle
+
+Recados (um por linha)
+Messages (one per line)
+Avisos (uno por línea)
+Avvisi (uno per riga)
+Hinweise (einer pro Zeile)
+
+Cor do selo
+Badge color
+Color del sello
+Colore del badge
+Farbe des Badges
+
+Nome e horário
+Name and time
+Nombre y hora
+Nome e ora
+Name und Uhrzeit
+
+Recados e data
+Messages and date
+Avisos y fecha
+Avvisi e data
+Hinweise und Datum
+
+Conteúdo
+Content
+Contenido
+Contenuto
+Inhalt
+
+Mostrar a chave (ou o link) por escrito
+Show the key (or the link) in writing
+Mostrar la clave (o el enlace) por escrito
+Mostra la chiave (o il link) per iscritto
+Schlüssel (oder Link) als Text zeigen
+
+QR Code com pontos arredondados
+QR code with rounded dots
+Código QR con puntos redondeados
+Codice QR con punti arrotondati
+QR-Code mit runden Punkten
+
+Para o PIX, a chave e o texto ao lado do QR Code ficam na aba "Geral e PIX".
+For PIX, the key and the text beside the QR code are on the "General and PIX" page.
+Para PIX, la clave y el texto junto al código QR están en "General y PIX".
+Per il PIX, la chiave e il testo accanto al codice QR sono in "Generale e PIX".
+Für PIX stehen Schlüssel und Text neben dem QR-Code unter „Allgemein und PIX“.
+
+Cor do cartão
+Card color
+Color de la tarjeta
+Colore della scheda
+Farbe der Karte
+
+Peso do título
+Title weight
+Grosor del título
+Spessore del titolo
+Stärke des Titels
+
+Textos (um por linha)
+Texts (one per line)
+Textos (uno por línea)
+Testi (uno per riga)
+Texte (einer pro Zeile)
+
+Velocidade
+Speed
+Velocidad
+Velocità
+Geschwindigkeit
+
+Separador entre os textos
+Separator between the texts
+Separador entre los textos
+Separatore tra i testi
+Trennzeichen zwischen den Texten
+
+Etiqueta à esquerda
+Label on the left
+Etiqueta a la izquierda
+Etichetta a sinistra
+Etikett links
+
+Texto da etiqueta
+Label text
+Texto de la etiqueta
+Testo dell'etichetta
+Text des Etiketts
+
+Relógio à direita
+Clock on the right
+Reloj a la derecha
+Orologio a destra
+Uhr rechts
+
+Com a barra inferior no ar, os nomes e o que estiver embaixo sobem sozinhos para não ficar por cima dela.
+While the bottom bar is on air, the names and whatever sits at the bottom move up by themselves so they do not cover it.
+Con la barra inferior al aire, los nombres y lo que esté abajo suben solos para no quedar encima de ella.
+Con la barra inferiore in onda, i nomi e ciò che sta in basso salgono da soli per non coprirla.
+Solange die untere Leiste im Bild ist, rücken Namen und alles Untere von selbst nach oben, um sie nicht zu verdecken.
+
+Cor da barra
+Bar color
+Color de la barra
+Colore della barra
+Farbe der Leiste
+
+Distância das bordas
+Distance from the edges
+Distancia de los bordes
+Distanza dai bordi
+Abstand zu den Rändern
+
+Vale para os modelos Flutuante e Vidro líquido.
+Applies to the Floating and Liquid glass styles.
+Se aplica a los modelos Flotante y Vidrio líquido.
+Vale per i modelli Flottante e Vetro liquido.
+Gilt für die Vorlagen Schwebend und Flüssiges Glas.
+
+Dias e horários
+Days and times
+Días y horarios
+Giorni e orari
+Tage und Zeiten
+
+Novo dia
+New day
+Nuevo día
+Nuovo giorno
+Neuer Tag
+
+Cada dia fica na tela por
+Each day stays on screen for
+Cada día permanece en pantalla
+Ogni giorno resta a schermo per
+Jeder Tag bleibt im Bild für
+
+Repetir até eu esconder
+Repeat until I hide it
+Repetir hasta que la oculte
+Ripeti finché non lo nascondo
+Wiederholen, bis ich ausblende
+
+Desligado: a agenda sai da tela depois do último dia.
+Off: the schedule leaves the screen after the last day.
+Desactivado: la agenda sale de la pantalla después del último día.
+Disattivato: il programma esce dallo schermo dopo l'ultimo giorno.
+Aus: das Programm verschwindet nach dem letzten Tag.
+
+Dia
+Day
+Día
+Giorno
+Tag
+
+Horários
+Times
+Horarios
+Orari
+Zeiten
+
+Nome da rede
+Network name
+Nombre de la red
+Nome del social
+Name des Netzwerks
+
+@ ou endereço
+@ or address
+@ o dirección
+@ o indirizzo
+@ oder Adresse
+
+Enviar uma imagem para usar como ícone desta rede
+Upload an image to use as this network's icon
+Subir una imagen para usar como icono de esta red
+Carica un'immagine da usare come icona di questo social
+Bild als Symbol für dieses Netzwerk hochladen
+
+Ícone…
+Icon…
+Icono…
+Icona…
+Symbol…
+
+Voltar ao ícone do programa
+Back to the program's icon
+Volver al icono del programa
+Torna all'icona del programma
+Zurück zum Symbol des Programms
+
+Tirar ícone
+Remove icon
+Quitar icono
+Togli icona
+Symbol entfernen
+
+Texto antes do nome da rede
+Text before the network name
+Texto antes del nombre de la red
+Testo prima del nome del social
+Text vor dem Namen des Netzwerks
+
+Siga-nos no
+Follow us on
+Síganos en
+Seguici su
+Folgt uns auf
+
+Os ícones do programa são genéricos (câmera, play, pessoas…), não os logotipos oficiais das redes. Para usar o ícone oficial, envie a imagem em "Ícone…".
+The program's icons are generic (camera, play, people…), not the networks' official logos. To use the official icon, upload the image in "Icon…".
+Los iconos del programa son genéricos (cámara, play, personas…), no los logotipos oficiales de las redes. Para usar el icono oficial, suba la imagen en "Icono…".
+Le icone del programma sono generiche (fotocamera, play, persone…), non i loghi ufficiali dei social. Per usare l'icona ufficiale, carica l'immagine in "Icona…".
+Die Symbole des Programms sind allgemein gehalten (Kamera, Play, Personen…), nicht die offiziellen Logos der Netzwerke. Für das offizielle Symbol das Bild unter „Symbol…“ hochladen.
+
+Texto de cima
+Top text
+Texto de arriba
+Testo sopra
+Text oben
+
+Envie o logo da igreja na aba "Geral e PIX" para usar este elemento.
+Upload the church logo on the "General and PIX" page to use this element.
+Suba el logo de la iglesia en "General y PIX" para usar este elemento.
+Carica il logo della chiesa in "Generale e PIX" per usare questo elemento.
+Logo der Gemeinde unter „Allgemein und PIX“ hochladen, um dieses Element zu nutzen.
+
+Logo no canto da tela
+Logo in a corner of the screen
+Logo en una esquina de la pantalla
+Logo in un angolo dello schermo
+Logo in einer Bildecke
+
+Canto
+Corner
+Esquina
+Angolo
+Ecke
+
+Largura
+Width
+Ancho
+Larghezza
+Breite
+
+Opacidade
+Opacity
+Opacidad
+Opacità
+Deckkraft
+
+Arraste para posicionar
+Drag to position
+Arrastre para posicionar
+Trascina per posizionare
+Zum Platzieren ziehen
+
+Cada formato guarda as próprias posições.
+Each format keeps its own positions.
+Cada formato guarda sus propias posiciones.
+Ogni formato conserva le proprie posizioni.
+Jedes Format merkt sich eigene Positionen.
+
+Editor de posições
+Position editor
+Editor de posiciones
+Editor delle posizioni
+Positions-Editor
+
+Arraste cada elemento para onde ele deve aparecer. Para aumentar ou diminuir, arraste o quadradinho azul do canto. A posição vale na hora, também no OBS.
+Drag each element to where it should appear. To make it bigger or smaller, drag the small blue square at its corner. The position applies at once, in OBS too.
+Arrastre cada elemento adonde debe aparecer. Para agrandar o reducir, arrastre el cuadradito azul de la esquina. La posición se aplica al instante, también en OBS.
+Trascina ogni elemento dove deve apparire. Per ingrandire o ridurre, trascina il quadratino blu nell'angolo. La posizione vale subito, anche in OBS.
+Jedes Element dorthin ziehen, wo es erscheinen soll. Zum Vergrößern oder Verkleinern das blaue Quadrat an der Ecke ziehen. Die Position gilt sofort, auch in OBS.
+
+A barra inferior e os modelos de largura total (Telejornal, Faixa larga e Painel central) não se movem.
+The bottom bar and the full-width styles (Newscast, Wide strip and Center panel) do not move.
+La barra inferior y los modelos de ancho completo (Noticiero, Franja ancha y Panel central) no se mueven.
+La barra inferiore e i modelli a tutta larghezza (Telegiornale, Fascia larga e Pannello centrale) non si spostano.
+Die untere Leiste und die Vorlagen in voller Breite (Nachrichten, Breites Band und Mittelfeld) lassen sich nicht verschieben.
+
+Voltar ao lugar padrão:
+Back to the default place:
+Volver al lugar predeterminado:
+Torna alla posizione predefinita:
+Zurück zum Standardplatz:
+
+Nenhum elemento foi movido ainda.
+No element has been moved yet.
+Ningún elemento se ha movido todavía.
+Nessun elemento è stato ancora spostato.
+Noch kein Element wurde verschoben.
+
+Copiado.
+Copied.
+Copiado.
+Copiato.
+Kopiert.
+
+Copiar
+Copy
+Copiar
+Copia
+Kopieren
+
+Todos os elementos
+All elements
+Todos los elementos
+Tutti gli elementi
+Alle Elemente
+
+Tamanho das fontes no OBS
+Size of the sources in OBS
+Tamaño de las fuentes en OBS
+Dimensione delle sorgenti in OBS
+Größe der Quellen in OBS
+
+Vídeo horizontal (16:9)
+Horizontal video (16:9)
+Vídeo horizontal (16:9)
+Video orizzontale (16:9)
+Querformat (16:9)
+
+Vídeo vertical (9:16)
+Vertical video (9:16)
+Vídeo vertical (9:16)
+Video verticale (9:16)
+Hochformat (9:16)
+
+Use o mesmo tamanho do vídeo do seu OBS. Os gráficos se ajustam sozinhos: tudo o que você configurou fica igual em qualquer um deles.
+Use the same size as the video in your OBS. The graphics adjust by themselves: everything you set up looks the same at any of them.
+Use el mismo tamaño que el vídeo de su OBS. Los gráficos se ajustan solos: todo lo configurado queda igual en cualquiera de ellos.
+Usa la stessa dimensione del video del tuo OBS. La grafica si adatta da sola: tutto ciò che hai impostato resta uguale in ognuna.
+Dieselbe Größe wie das Video in OBS verwenden. Die Grafiken passen sich selbst an: alles Eingestellte sieht in jeder Größe gleich aus.
+
+1. Os gráficos (fonte de navegador)
+1. The graphics (browser source)
+1. Los gráficos (fuente de navegador)
+1. La grafica (sorgente browser)
+1. Die Grafiken (Browserquelle)
+
+Horizontal
+Horizontal
+Horizontal
+Orizzontale
+Querformat
+
+Vertical
+Vertical
+Vertical
+Verticale
+Hochformat
+
+No OBS, em Fontes, clique em + e escolha Navegador.
+In OBS, under Sources, click + and choose Browser.
+En OBS, en Fuentes, haga clic en + y elija Navegador.
+In OBS, in Sorgenti, fai clic su + e scegli Browser.
+In OBS unter Quellen auf + klicken und Browser wählen.
+
+Marque "Arquivo local" e escolha um dos arquivos abaixo. Se preferir, deixe desmarcado e cole o endereço.
+Check "Local file" and choose one of the files below. If you prefer, leave it unchecked and paste the address.
+Marque "Archivo local" y elija uno de los archivos de abajo. Si lo prefiere, déjelo sin marcar y pegue la dirección.
+Seleziona "File locale" e scegli uno dei file qui sotto. Se preferisci, lascialo deselezionato e incolla l'indirizzo.
+„Lokale Datei“ ankreuzen und eine der Dateien unten wählen. Alternativ nicht ankreuzen und die Adresse einfügen.
+
+Preencha largura {w} e altura {h}.
+Set width {w} and height {h}.
+Indique ancho {w} y alto {h}.
+Imposta larghezza {w} e altezza {h}.
+Breite {w} und Höhe {h} eintragen.
+
+Deixe a fonte por cima das câmeras.
+Keep the source above the cameras.
+Deje la fuente por encima de las cámaras.
+Tieni la sorgente sopra le camere.
+Die Quelle über den Kameras anordnen.
+
+Abre a pasta dos arquivos no computador
+Opens the files folder on the computer
+Abre la carpeta de los archivos en el ordenador
+Apre la cartella dei file sul computer
+Öffnet den Dateiordner auf dem Computer
+
+Elemento
+Element
+Elemento
+Elemento
+Element
+
+Arquivo
+File
+Archivo
+File
+Datei
+
+Endereço
+Address
+Dirección
+Indirizzo
+Adresse
+
+"All Elements" mostra tudo numa fonte só. Os outros arquivos mostram um elemento cada, para você separar por cena. Não use os dois na mesma cena: o elemento apareceria duas vezes.
+"All Elements" shows everything in a single source. The other files show one element each, so you can split them by scene. Do not use both in the same scene: the element would show twice.
+"All Elements" muestra todo en una sola fuente. Los otros archivos muestran un elemento cada uno, para separarlos por escena. No use los dos en la misma escena: el elemento aparecería dos veces.
+"All Elements" mostra tutto in un'unica sorgente. Gli altri file mostrano un elemento ciascuno, per separarli per scena. Non usare entrambi nella stessa scena: l'elemento apparirebbe due volte.
+„All Elements“ zeigt alles in einer Quelle. Die anderen Dateien zeigen je ein Element, um sie nach Szenen zu trennen. Nicht beides in derselben Szene nutzen: das Element erschiene doppelt.
+
+2. O painel (dock)
+2. The control panel (dock)
+2. El panel (dock)
+2. Il pannello (dock)
+2. Das Bedienfeld (Dock)
+
+No OBS, abra o menu Docks → Docks de navegador personalizados.
+In OBS, open the Docks menu → Custom Browser Docks.
+En OBS, abra el menú Paneles → Paneles de navegador personalizados.
+In OBS, apri il menu Pannelli → Pannelli browser personalizzati.
+In OBS das Menü Docks → Benutzerdefinierte Browser-Docks öffnen.
+
+Dê o nome "Lower Third" e cole o endereço abaixo.
+Name it "Lower Third" and paste the address below.
+Póngale el nombre "Lower Third" y pegue la dirección de abajo.
+Chiamalo "Lower Third" e incolla l'indirizzo qui sotto.
+„Lower Third“ nennen und die Adresse unten einfügen.
+
+Encaixe o painel onde preferir: ele se ajusta a um espaço alto ou largo. A engrenagem dele abre esta página.
+Dock the panel wherever you like: it adapts to a tall or a wide space. Its gear opens this page.
+Acople el panel donde prefiera: se adapta a un espacio alto o ancho. Su engranaje abre esta página.
+Aggancia il pannello dove preferisci: si adatta a uno spazio alto o largo. Il suo ingranaggio apre questa pagina.
+Das Dock beliebig andocken: es passt sich hohem oder breitem Platz an. Sein Zahnrad öffnet diese Seite.
+
+Stream Deck, Companion e outros
+Stream Deck, Companion and others
+Stream Deck, Companion y otros
+Stream Deck, Companion e altri
+Stream Deck, Companion und andere
+
+Estes endereços mostram e escondem os elementos sem plugin. No Stream Deck, use a ação "Site" com "Acessar em segundo plano".
+These addresses show and hide the elements without a plugin. On the Stream Deck, use the "Website" action with "Access in background".
+Estas direcciones muestran y ocultan los elementos sin plugin. En el Stream Deck, use la acción "Sitio web" con "Acceder en segundo plano".
+Questi indirizzi mostrano e nascondono gli elementi senza plugin. Sullo Stream Deck, usa l'azione "Sito web" con "Accedi in background".
+Diese Adressen blenden die Elemente ohne Plugin ein und aus. Am Stream Deck die Aktion „Website“ mit „Im Hintergrund aufrufen“ nutzen.
+
+Mostrar / esconder um nome (1 = primeiro da lista)
+Show / hide a name (1 = first in the list)
+Mostrar / ocultar un nombre (1 = primero de la lista)
+Mostra / nascondi un nome (1 = primo della lista)
+Einen Namen ein- / ausblenden (1 = erster der Liste)
+
+Próximo nome da lista
+Next name in the list
+Siguiente nombre de la lista
+Nome successivo della lista
+Nächster Name der Liste
+
+Esconder o nome
+Hide the name
+Ocultar el nombre
+Nascondi il nome
+Namen ausblenden
+
+Rede social (1 = primeira)
+Social network (1 = first)
+Red social (1 = primera)
+Social (1 = primo)
+Soziales Netzwerk (1 = erstes)
+
+Troque "toggle" por "show" ou "hide" para só mostrar ou só esconder.
+Replace "toggle" with "show" or "hide" to only show or only hide.
+Cambie "toggle" por "show" o "hide" para solo mostrar o solo ocultar.
+Sostituisci "toggle" con "show" o "hide" per mostrare soltanto o nascondere soltanto.
+„toggle“ durch „show“ oder „hide“ ersetzen, um nur ein- oder nur auszublenden.
+
+O arquivo guarda todas as configurações, os nomes e o logo. Serve para levar tudo para outro computador.
+The file keeps every setting, the names and the logo. Use it to take everything to another computer.
+El archivo guarda todos los ajustes, los nombres y el logo. Sirve para llevar todo a otro ordenador.
+Il file contiene tutte le impostazioni, i nomi e il logo. Serve per portare tutto su un altro computer.
+Die Datei enthält alle Einstellungen, die Namen und das Logo. Damit lässt sich alles auf einen anderen Computer mitnehmen.
+
+Salvar backup
+Save backup
+Guardar copia
+Salva backup
+Sicherung speichern
+
+Esse arquivo não é um backup do Lower Third Web.
+This file is not a Lower Third Web backup.
+Ese archivo no es una copia de seguridad de Lower Third Web.
+Questo file non è un backup di Lower Third Web.
+Diese Datei ist keine Sicherung von Lower Third Web.
+
+Backup restaurado.
+Backup restored.
+Copia restaurada.
+Backup ripristinato.
+Sicherung wiederhergestellt.
+
+Restaurar de um arquivo
+Restore from a file
+Restaurar desde un archivo
+Ripristina da un file
+Aus einer Datei wiederherstellen
+
+Prévia da fonte vertical (9:16), para Shorts, Reels e TikTok
+Preview of the vertical source (9:16), for Shorts, Reels and TikTok
+Vista previa de la fuente vertical (9:16), para Shorts, Reels y TikTok
+Anteprima della sorgente verticale (9:16), per Shorts, Reels e TikTok
+Vorschau der Hochformat-Quelle (9:16), für Shorts, Reels und TikTok
+
+Prévia da fonte horizontal (16:9)
+Preview of the horizontal source (16:9)
+Vista previa de la fuente horizontal (16:9)
+Anteprima della sorgente orizzontale (16:9)
+Vorschau der Querformat-Quelle (16:9)
+
+No ar: esconder
+On air: hide
+Al aire: ocultar
+In onda: nascondi
+Im Bild: ausblenden
+
+Mostrar no OBS
+Show in OBS
+Mostrar en OBS
+Mostra in OBS
+In OBS zeigen
+
+Programa ativo
+Program running
+Programa activo
+Programma attivo
+Programm läuft
+
+Sem conexão com o programa
+No connection to the program
+Sin conexión con el programa
+Nessuna connessione al programma
+Keine Verbindung zum Programm
+
+O programa não está respondendo. Abra o Lower Third Web de novo.
+The program is not responding. Open Lower Third Web again.
+El programa no responde. Abra Lower Third Web de nuevo.
+Il programma non risponde. Apri di nuovo Lower Third Web.
+Das Programm antwortet nicht. Lower Third Web bitte erneut öffnen.
+
+Preencha a chave PIX nas configurações.
+Fill in the PIX key in the settings.
+Complete la clave PIX en los ajustes.
+Inserisci la chiave PIX nelle impostazioni.
+PIX-Schlüssel in den Einstellungen eintragen.
+
+A chave PIX é longa demais.
+The PIX key is too long.
+La clave PIX es demasiado larga.
+La chiave PIX è troppo lunga.
+Der PIX-Schlüssel ist zu lang.
+
+Valor do PIX inválido.
+Invalid PIX amount.
+Importe de PIX no válido.
+Importo PIX non valido.
+Ungültiger PIX-Betrag.
+
+Código PIX inválido: copie de novo o "PIX copia e cola" do aplicativo do banco.
+Invalid PIX code: copy the "PIX copia e cola" again from the bank app.
+Código PIX no válido: copie de nuevo el "PIX copia e cola" de la aplicación del banco.
+Codice PIX non valido: copia di nuovo il "PIX copia e cola" dall'app della banca.
+Ungültiger PIX-Code: „PIX Copia e Cola“ erneut aus der Banking-App kopieren.
+
+Digite um nome ou um texto.
+Type a name or a text.
+Escriba un nombre o un texto.
+Scrivi un nome o un testo.
+Bitte einen Namen oder Text eingeben.
+
+Esse nome não existe mais.
+That name no longer exists.
+Ese nombre ya no existe.
+Quel nome non esiste più.
+Diesen Namen gibt es nicht mehr.
+
+Use uma imagem PNG, JPG, WebP, GIF ou SVG.
+Use a PNG, JPG, WebP, GIF or SVG image.
+Use una imagen PNG, JPG, WebP, GIF o SVG.
+Usa un'immagine PNG, JPG, WebP, GIF o SVG.
+Bitte ein PNG-, JPG-, WebP-, GIF- oder SVG-Bild verwenden.
+
+O texto do QR Code é longo demais.
+The QR code text is too long.
+El texto del código QR es demasiado largo.
+Il testo del codice QR è troppo lungo.
+Der Text für den QR-Code ist zu lang.
+
+O QR Code está sem texto.
+The QR code has no text.
+El código QR no tiene texto.
+Il codice QR è senza testo.
+Der QR-Code hat keinen Text.
+
+A agenda está vazia: adicione um dia.
+The schedule is empty: add a day.
+La agenda está vacía: añada un día.
+Il programma è vuoto: aggiungi un giorno.
+Das Programm ist leer: bitte einen Tag hinzufügen.
+
+Esta versão do painel não combina com o programa: recarregue o painel.
+This version of the panel does not match the program: reload the panel.
+Esta versión del panel no coincide con el programa: recargue el panel.
+Questa versione del pannello non corrisponde al programma: ricarica il pannello.
+Diese Version des Bedienfelds passt nicht zum Programm: bitte neu laden.
+
+Arquivo grande demais (máximo de 8 MB).
+File too large (8 MB maximum).
+Archivo demasiado grande (máximo 8 MB).
+File troppo grande (massimo 8 MB).
+Datei zu groß (höchstens 8 MB).
+
+Site
+Website
+Sitio web
+Sito
+Website
+
+Outra
+Other
+Otra
+Altro
+Anderes
+
+Modernas
+Modern
+Modernas
+Moderni
+Modern
+
+Impacto
+Impact
+Impacto
+Impatto
+Plakativ
+
+Clássicas
+Classic
+Clásicas
+Classici
+Klassisch
+
+Manuscritas
+Handwritten
+Manuscritas
+Calligrafici
+Handschrift
+
+Automático
+Automatic
+Automático
+Automatico
+Automatisch
+
+Link
+Link
+Enlace
+Link
+Link
+
+Logo
+Logo
+Logo
+Logo
+Logo
