@@ -72,9 +72,17 @@ jobs:
           $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
           $userKey = 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{13D055BB-63D1-484E-820B-004089D86007}_is1'
           $base = 'http://127.0.0.1:8795'
+          # Waits for the installer only. Start-Process -Wait would also wait for the server
+          # the installer leaves running, forever.
+          function Run-Setup([string[]]$Arguments) {
+            $p = Start-Process $exe -ArgumentList $Arguments -PassThru
+            $null = $p.Handle
+            if (-not $p.WaitForExit(600000)) { throw "Installer did not finish" }
+            $p.ExitCode
+          }
 
-          $p = Start-Process $exe -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -Wait -PassThru
-          if ($p.ExitCode -ne 0) { throw "Installer exited with $($p.ExitCode)" }
+          $code = Run-Setup '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART'
+          if ($code -ne 0) { throw "Installer exited with $code" }
           $expected = "$dir\runtime\node.exe", "$dir\app\dist\server\index.js", "$dir\app\dist\web\overlay.html",
             "$dir\start-server.vbs", "$dir\open-settings.vbs", "$dir\stop-server.ps1", "$dir\lower-third-web.ico"
           $missing = @($expected | Where-Object { -not (Test-Path $_) })
@@ -173,8 +181,8 @@ jobs:
             }
             if (-not $h) { throw "Server did not come back" }
           }
-          $p = Start-Process $exe -ArgumentList '/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -Wait -PassThru
-          if ($p.ExitCode -ne 0) { throw "Update run exited with $($p.ExitCode)" }
+          $code = Run-Setup '/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART'
+          if ($code -ne 0) { throw "Update run exited with $code" }
           Wait-Server
           $after = Invoke-RestMethod "$base/api/info"
           if ($after.folder -ne $files) { throw "After the update the folder is $($after.folder)" }
@@ -183,8 +191,8 @@ jobs:
           if ($mine.folder -ne $files -or $mine.port -ne 8795) { throw "location.json is wrong: $($mine | ConvertTo-Json -Compress)" }
           # Another folder chosen (accents included): the settings go along.
           $other = Join-Path $env:RUNNER_TEMP 'Mídia da Igreja\Lower Third'
-          $p = Start-Process $exe -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', "/FILES=`"$other`"" -Wait -PassThru
-          if ($p.ExitCode -ne 0) { throw "Reinstall exited with $($p.ExitCode)" }
+          $code = Run-Setup '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', "/FILES=`"$other`""
+          if ($code -ne 0) { throw "Reinstall exited with $code" }
           Wait-Server
           $after = Invoke-RestMethod "$base/api/info"
           if ($after.folder -ne $other) { throw "Chosen folder not used: $($after.folder)" }
