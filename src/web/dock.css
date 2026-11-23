@@ -1,9 +1,14 @@
+/* The OBS dock: works tall and narrow, or wide and short. */
+html,
+body {
+  height: 100%;
+}
 .dock {
   width: 100%;
-  max-width: 560px;
-  margin: auto;
+  height: 100%;
   padding: 8px;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 7px;
 }
 header {
@@ -12,6 +17,7 @@ header {
   align-items: center;
   gap: 8px;
   min-height: 32px;
+  flex: none;
 }
 .brand {
   min-width: 0;
@@ -19,67 +25,196 @@ header {
 }
 .headerActions {
   display: flex;
-  gap: 6px;
+  gap: 5px;
   flex: none;
 }
-.toggles {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 5px;
+.timeSelect {
+  height: 32px;
+  padding: 0 4px 0 8px;
+  font-size: 11px;
+  font-weight: 700;
+  max-width: 92px;
 }
-.toggles button {
-  height: 36px;
-  background: var(--panel2);
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(74px, 1fr));
+  gap: 4px;
+  flex: none;
+}
+.tabs button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
+  gap: 6px;
+  height: 30px;
+  padding: 0 6px;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  background: var(--panel);
   min-width: 0;
-  padding: 0 6px;
 }
-.toggles span {
+.tabs button span {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.toggles i,
-.item i {
+.tabs button.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.tabs i,
+.item > i,
+.toggle > i {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: var(--muted);
   flex: none;
 }
-.toggles button.on,
-.item.on {
+.tabs i {
+  display: none;
+}
+.tabs button.on i {
+  display: block;
+  background: var(--live);
+  box-shadow: 0 0 0 2px #fff6;
+}
+.pane {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 7px;
+}
+.editor {
+  display: grid;
+  gap: 5px;
+  align-content: start;
+  min-width: 0;
+}
+.editor input,
+.editor textarea,
+.editor select {
+  width: 100%;
+  min-width: 0;
+  padding: 7px 8px;
+  font-size: 12px;
+}
+.pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 5px;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.actions button {
+  flex: 1 1 auto;
+  padding: 7px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  background: var(--panel2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  min-height: 34px;
+}
+.toggle.on,
+.item.on,
+.net.on {
   border-color: var(--live);
   background: var(--live);
   color: #fff;
 }
-.toggles button.on i,
-.item.on i {
+.toggle.on > i,
+.item.on > i {
   background: #fff;
   box-shadow: 0 0 0 3px #fff4;
+}
+.seg {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  overflow: hidden;
+}
+.seg button {
+  border: 0;
+  border-radius: 0;
+  padding: 6px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--panel2);
+}
+.seg button.active {
+  background: var(--accent);
+  color: #fff;
+}
+.note {
+  font-size: 10px;
+  line-height: 1.35;
+  color: var(--muted);
+}
+.pinned {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  background: var(--soft);
+  border: 1px solid var(--accent);
+  border-radius: 9px;
+  padding: 5px 5px 5px 9px;
+}
+.pinned span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pinned button {
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  flex: none;
+}
+.listWrap {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 .items {
   display: grid;
   gap: 4px;
-  max-height: calc(100vh - 215px);
-  min-height: 40px;
+  align-content: start;
   overflow-y: auto;
+  min-height: 0;
+  flex: 1;
 }
 .item {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
   text-align: left;
   background: var(--panel2);
-  padding: 6px 6px 6px 10px;
-  min-height: 40px;
+  padding: 5px 5px 5px 10px;
+  min-height: 38px;
   width: 100%;
 }
 .item .txt {
@@ -104,6 +239,9 @@ header {
 .item.on small {
   color: #fffc;
 }
+.item.editing {
+  border-color: var(--accent);
+}
 .item .tag {
   font-size: 8px;
   font-weight: 800;
@@ -114,28 +252,38 @@ header {
   opacity: 0.75;
   flex: none;
 }
-.item .del {
+.mini {
   flex: none;
   width: 24px;
   height: 24px;
   border-radius: 7px;
   display: grid;
   place-items: center;
-  font-size: 15px;
+  font-size: 13px;
   line-height: 1;
   color: var(--muted);
   opacity: 0;
 }
-.item:hover .del,
-.item .del:focus-visible {
+.item:hover .mini,
+.net:hover .mini,
+.mini:focus-visible {
   opacity: 1;
 }
-.item .del:hover {
-  background: var(--danger);
+.mini:hover {
+  background: var(--accent);
   color: #fff;
 }
-.item.on .del {
+.mini.del:hover {
+  background: var(--danger);
+}
+.item.on .mini,
+.net.on .mini {
   color: #fff;
+}
+@media (hover: none) {
+  .mini {
+    opacity: 1;
+  }
 }
 .empty {
   color: var(--muted);
@@ -143,38 +291,92 @@ header {
   text-align: center;
   padding: 10px 6px;
 }
-.addForm {
+/* Social networks: small icon buttons */
+.nets {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 34px;
-  gap: 4px;
-  margin-top: 6px;
+  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  gap: 5px;
+  align-content: start;
+  overflow-y: auto;
+  min-height: 0;
+  flex: 1;
 }
-.addForm input {
+.net {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--panel2);
+  padding: 5px 4px 5px 7px;
+  min-height: 38px;
+  text-align: left;
   min-width: 0;
-  padding: 7px 8px;
-  font-size: 12px;
 }
-.addForm button {
-  padding: 0;
-  font-size: 18px;
-  line-height: 1;
+.net .ico {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  display: grid;
+  place-items: center;
 }
-@media (max-width: 250px) {
-  .addForm {
-    grid-template-columns: minmax(0, 1fr) 34px;
+.net .ico svg,
+.net .ico img {
+  width: 22px;
+  height: 22px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.net .txt {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  line-height: 1.2;
+}
+.net b,
+.net small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.net b {
+  font-size: 11.5px;
+}
+.net small {
+  font-size: 9px;
+  opacity: 0.7;
+}
+/* Wide dock (under the preview, for example): editor on the left, list on the right */
+@media (min-width: 560px) {
+  .pane {
+    grid-template-columns: minmax(220px, 1fr) minmax(0, 1.35fr);
+    grid-template-rows: minmax(0, 1fr);
   }
-  .addForm #addLine2 {
-    grid-column: 1;
-    grid-row: 2;
+  .editor {
+    overflow-y: auto;
   }
-  .toggles button {
-    font-size: 9px;
-    gap: 4px;
+  .tabs {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }
-@media (max-height: 300px) {
+/* Short docks: no footer, tighter rows */
+@media (max-height: 330px) {
   footer {
     display: none;
+  }
+  .dock {
+    gap: 5px;
+    padding: 6px;
+  }
+}
+@media (max-width: 250px) {
+  .pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .brand {
+    display: none;
+  }
+  .headerActions {
+    flex: 1;
+    justify-content: space-between;
   }
 }
 :root.inObs header .brand {
@@ -182,4 +384,7 @@ header {
 }
 :root.inObs footer {
   display: none;
+}
+footer {
+  flex: none;
 }

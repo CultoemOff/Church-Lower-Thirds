@@ -175,7 +175,8 @@ img:not([src]) {
    ===================================================================== */
 .lower {
   align-items: flex-end;
-  padding: 0 var(--mx) var(--my);
+  padding: 0 var(--mx) calc(var(--my) + var(--lift, 0px));
+  transition: padding 0.5s ease;
 }
 .lower[data-pos='left'] {
   justify-content: flex-start;
@@ -592,7 +593,7 @@ img:not([src]) {
 
 /* --- news: edge-to-edge bar with the church name on the right --- */
 .lower[data-template='news'] {
-  padding: 0 0 var(--my);
+  padding: 0 0 calc(var(--my) + var(--lift, 0px));
 }
 .lower[data-template='news'] .scaler {
   width: 100%;
@@ -1266,6 +1267,545 @@ img:not([src]) {
   max-height: 400px;
   object-fit: contain;
   opacity: var(--alpha);
+}
+
+/* =====================================================================
+   PLACED ELEMENTS (agenda, social): nine places on the screen
+   ===================================================================== */
+.placed {
+  padding: var(--my) var(--mx);
+  transition: padding 0.5s ease;
+}
+.placed[data-pos^='top'] {
+  align-items: flex-start;
+}
+.placed[data-pos^='bottom'],
+.card[data-pos^='bottom'] {
+  align-items: flex-end;
+  padding-bottom: calc(var(--my) + var(--lift, 0px));
+}
+.placed[data-pos^='center'] {
+  align-items: center;
+}
+.placed[data-pos$='left'] {
+  justify-content: flex-start;
+}
+.placed[data-pos$='right'] {
+  justify-content: flex-end;
+}
+.placed[data-pos$='center'],
+.placed[data-pos='center'],
+.card[data-pos$='-center'] {
+  justify-content: center;
+}
+.placed[data-pos='top-left'] .scaler {
+  transform-origin: 0 0;
+}
+.placed[data-pos='top-center'] .scaler,
+.card[data-pos='top-center'] .scaler {
+  transform-origin: 50% 0;
+}
+.placed[data-pos='top-right'] .scaler {
+  transform-origin: 100% 0;
+}
+.placed[data-pos='center-left'] .scaler {
+  transform-origin: 0 50%;
+}
+.placed[data-pos='center-right'] .scaler {
+  transform-origin: 100% 50%;
+}
+.placed[data-pos='bottom-left'] .scaler {
+  transform-origin: 0 100%;
+}
+.placed[data-pos='bottom-center'] .scaler,
+.card[data-pos='bottom-center'] .scaler {
+  transform-origin: 50% 100%;
+}
+.placed[data-pos='bottom-right'] .scaler {
+  transform-origin: 100% 100%;
+}
+
+/* =====================================================================
+   BOTTOM BAR (ticker)
+   ===================================================================== */
+.ticker {
+  align-items: flex-end;
+  justify-content: center;
+}
+.ticker .scaler {
+  transform-origin: 50% 100%;
+  width: calc(100% / var(--scale));
+  flex: none;
+}
+.ticker .box {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  color: var(--t1);
+  background: var(--fill);
+  overflow: hidden;
+}
+.ticker .logo,
+.ticker .label,
+.ticker .time {
+  display: none;
+  flex: none;
+}
+.ticker .has-logo .logo {
+  display: block;
+  padding: 0 6px 0 22px;
+}
+.ticker .logo img {
+  display: block;
+  height: 44px;
+  max-width: 160px;
+  object-fit: contain;
+}
+.ticker .has-label .label {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  padding: 0 30px 0 34px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
+  position: relative;
+  z-index: 1;
+}
+.ticker .track {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 40px,
+    #000 calc(100% - 40px),
+    transparent
+  );
+  mask-image: linear-gradient(90deg, transparent, #000 40px, #000 calc(100% - 40px), transparent);
+}
+.ticker .run {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 28px;
+  font-weight: var(--w1);
+  will-change: transform;
+}
+.ticker .run i {
+  font-style: normal;
+  margin: 0 30px;
+  background: var(--accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 900;
+}
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.ticker .has-clock .time {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  padding: 0 34px 0 26px;
+  font-size: 28px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  border-left: 2px solid rgba(255, 255, 255, 0.18);
+}
+.ticker[data-template='full'] .box::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  background: var(--accent);
+  z-index: 2;
+}
+.ticker[data-template='floating'],
+.ticker[data-template='liquid'] {
+  padding: var(--margin);
+}
+.ticker[data-template='floating'] .box {
+  border-radius: var(--radius);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+}
+.ticker[data-template='minimal'] {
+  padding-bottom: 14px;
+}
+.ticker[data-template='minimal'] .box {
+  background: none;
+}
+.ticker[data-template='minimal'] .run {
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.6),
+    0 3px 18px rgba(0, 0, 0, 0.55);
+}
+.ticker[data-template='minimal'] .has-label .label {
+  clip-path: none;
+  align-self: center;
+  padding: 8px 20px;
+  border-radius: 999px;
+  margin-left: 40px;
+}
+
+/* =====================================================================
+   AGENDA
+   ===================================================================== */
+.agenda .box {
+  width: 430px;
+  color: var(--t1);
+  background: var(--fill);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.agenda .head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 26px;
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.agenda .logo {
+  display: none;
+}
+.agenda .has-logo .logo {
+  display: block;
+}
+.agenda .logo img {
+  display: block;
+  height: 46px;
+  max-width: 130px;
+  object-fit: contain;
+}
+.agenda .title {
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.agenda .day {
+  padding: 24px 28px 14px;
+  min-height: 190px;
+  transition:
+    opacity 0.42s ease,
+    transform 0.42s ease;
+}
+.agenda .day.swap {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.agenda .dname {
+  font-size: 46px;
+  line-height: 1.05;
+  font-weight: var(--w1);
+  letter-spacing: -0.01em;
+}
+.agenda .dlines {
+  margin-top: 14px;
+  display: grid;
+  gap: 8px;
+  font-size: 26px;
+  line-height: 1.25;
+  font-weight: 500;
+  color: var(--t2);
+}
+.agenda .dots {
+  display: flex;
+  gap: 8px;
+  padding: 6px 28px 22px;
+}
+.agenda .dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 9px;
+  background: var(--t2);
+  opacity: 0.35;
+  transition: all 0.4s ease;
+}
+.agenda .dots i.on {
+  width: 30px;
+  opacity: 1;
+  background: var(--accent);
+}
+/* banner: a wide strip near the bottom, day on the left, services in a row */
+.agenda[data-template='banner'] .box {
+  width: auto;
+  min-width: 1100px;
+  max-width: 1700px;
+  flex-direction: row;
+  align-items: stretch;
+}
+.agenda[data-template='banner'] .head {
+  padding: 18px 40px 18px 28px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 24px) 100%, 0 100%);
+}
+.agenda[data-template='banner'] .day {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  padding: 18px 30px 18px 22px;
+}
+.agenda[data-template='banner'] .dname {
+  font-size: 40px;
+  white-space: nowrap;
+}
+.agenda[data-template='banner'] .dlines {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 30px;
+  font-size: 25px;
+}
+.agenda[data-template='banner'] .dots {
+  align-items: center;
+  padding: 0 30px 0 0;
+}
+/* center: a big panel in the middle of the screen */
+.agenda[data-template='center'] .box {
+  width: 900px;
+  text-align: center;
+}
+.agenda[data-template='center'] .head {
+  justify-content: center;
+  padding: 24px 30px;
+}
+.agenda[data-template='center'] .title {
+  font-size: 32px;
+}
+.agenda[data-template='center'] .logo img {
+  height: 60px;
+}
+.agenda[data-template='center'] .day {
+  padding: 44px 40px 24px;
+  min-height: 330px;
+}
+.agenda[data-template='center'] .dname {
+  font-size: 84px;
+}
+.agenda[data-template='center'] .dlines {
+  font-size: 38px;
+  gap: 12px;
+  margin-top: 24px;
+}
+.agenda[data-template='center'] .dots {
+  justify-content: center;
+  padding-bottom: 30px;
+}
+
+/* =====================================================================
+   SOCIAL NETWORKS
+   ===================================================================== */
+.social .box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: var(--t1);
+  background: var(--fill);
+  border-radius: 999px;
+  padding: 12px 44px 12px 12px;
+}
+.social .icon {
+  width: 92px;
+  height: 92px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.social .icon svg {
+  width: 52px;
+  height: 52px;
+}
+.social .icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.social .prefix {
+  font-size: 23px;
+  font-weight: 500;
+  color: var(--t2);
+  white-space: nowrap;
+}
+.social .handle {
+  font-size: 42px;
+  line-height: 1.1;
+  font-weight: var(--w1);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.social.in .icon {
+  animation: icon-pop calc(var(--dur) * 1.1) cubic-bezier(0.3, 1.6, 0.5, 1) both;
+  animation-delay: calc(var(--dur) * 0.3);
+}
+@keyframes icon-pop {
+  from {
+    transform: scale(0.4) rotate(-25deg);
+    opacity: 0;
+  }
+}
+.social[data-template='card'] .box {
+  flex-direction: column;
+  text-align: center;
+  gap: 12px;
+  border-radius: var(--radius);
+  padding: 0 34px 26px;
+  margin-top: 46px;
+}
+.social[data-template='card'] .icon {
+  margin-top: -46px;
+  border: 6px solid transparent;
+  background:
+    var(--accent) padding-box,
+    var(--fill) border-box;
+  width: 104px;
+  height: 104px;
+}
+
+/* =====================================================================
+   LIQUID GLASS (every element): clear, rounded, bright rim, soft depth
+   ===================================================================== */
+.el[data-template='liquid'] .scaler {
+  /* The glass draws its own shadow, so the blur behind it keeps working. */
+  filter: none;
+}
+.lower[data-template='liquid'] .box,
+.top[data-template='liquid'] .box,
+.card[data-template='liquid'] .box,
+.ticker[data-template='liquid'] .box,
+.agenda[data-template='liquid'] .box,
+.social[data-template='liquid'] .box {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(255, 255, 255, 0.1) 36%,
+      rgba(255, 255, 255, 0.05) 62%,
+      rgba(255, 255, 255, 0.24) 100%
+    ),
+    var(--fill-glass);
+  border: 1.5px solid rgba(255, 255, 255, 0.58);
+  box-shadow:
+    inset 0 2px 1px rgba(255, 255, 255, 0.85),
+    inset 0 -2px 2px rgba(255, 255, 255, 0.28),
+    inset 10px 0 20px -12px rgba(255, 255, 255, 0.5),
+    inset -10px 0 20px -12px rgba(255, 255, 255, 0.32),
+    inset 0 -20px 30px -14px rgba(0, 0, 0, 0.2),
+    0 18px 44px -8px rgba(0, 0, 0, 0.38),
+    0 2px 6px rgba(0, 0, 0, 0.18);
+  -webkit-backdrop-filter: blur(22px) saturate(1.7);
+  backdrop-filter: blur(22px) saturate(1.7);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.28);
+}
+.lower[data-template='liquid'] .box {
+  border-radius: 999px;
+  padding: 14px 52px 14px 14px;
+  align-items: center;
+}
+.lower[data-template='liquid'] .box:not(.has-logo) {
+  padding-left: 40px;
+}
+.lower[data-template='liquid'] .logo {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  margin-right: 22px;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    inset 0 2px 1px rgba(255, 255, 255, 0.8),
+    inset 0 -10px 16px -8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+.lower[data-template='liquid'] .logo img {
+  height: 60px;
+  max-width: 64px;
+}
+.lower[data-template='liquid'] .l1 {
+  font-size: 40px;
+}
+.lower[data-template='liquid'] .l2 {
+  font-size: 24px;
+  margin-top: 2px;
+}
+.lower[data-template='liquid'] .qr {
+  margin: -6px -30px -6px 26px;
+  border-radius: 22px;
+}
+.top[data-template='liquid'] {
+  padding: var(--margin);
+}
+.top[data-template='liquid'] .box {
+  --h: 84px;
+  border-radius: 999px;
+  padding: 0 44px 0 26px;
+}
+.card[data-template='liquid'] .box {
+  border-radius: calc(var(--radius) + 18px);
+  overflow: hidden;
+}
+.card[data-template='liquid'] .band {
+  display: none;
+}
+.card[data-template='liquid'] .qrw {
+  border-radius: 26px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+}
+.card[data-template='liquid'] .key {
+  background: rgba(255, 255, 255, 0.24);
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  color: var(--t1);
+  box-shadow: inset 0 1.5px 1px rgba(255, 255, 255, 0.7);
+}
+.ticker[data-template='liquid'] .box {
+  border-radius: 999px;
+}
+.ticker[data-template='liquid'] .has-label .label {
+  clip-path: none;
+  align-self: center;
+  margin-left: 9px;
+  padding: 9px 22px;
+  border-radius: 999px;
+  box-shadow: inset 0 1.5px 1px rgba(255, 255, 255, 0.5);
+  text-shadow: none;
+}
+.agenda[data-template='liquid'] .box {
+  border-radius: calc(var(--radius) + 16px);
+}
+.agenda[data-template='liquid'] .head {
+  background: none;
+  color: var(--t1);
+  padding-bottom: 0;
+}
+.agenda[data-template='liquid'] .title {
+  font-size: 21px;
+  opacity: 0.85;
+}
+.social[data-template='liquid'] .icon {
+  background: rgba(255, 255, 255, 0.22);
+  color: var(--t1);
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    inset 0 2px 1px rgba(255, 255, 255, 0.8),
+    inset 0 -10px 16px -8px rgba(0, 0, 0, 0.2);
 }
 
 /* Settings preview: a neutral "camera" background so transparency and shadows show */

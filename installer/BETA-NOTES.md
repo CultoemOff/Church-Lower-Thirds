@@ -2,14 +2,18 @@
 
 ### O que é
 
-Lower thirds e overlays para o OBS Studio, numa única fonte de navegador:
+Gráficos para o OBS Studio numa única fonte de navegador, controlados por um painel com abas:
 
-- **Lower third** com 10 modelos, nome e cargo, logo da igreja e QR Code (PIX ou link).
-- **Barra superior** com 6 modelos (cheia, grande, fina, flutuante, ilhas, aba): logo, nome da igreja, relógio, recados que se revezam (na sequência ou aleatórios) e QR Code.
-- **Cartão QR / PIX** com 4 modelos. O QR do PIX é gerado pela chave da igreja ou pelo "copia e cola" do banco.
+- **Nomes** (lower third): 11 modelos. Dá para escrever o nome e a legenda na hora, ou salvar numa lista e mostrar com um clique.
+- **QR / PIX**: cartão com o QR Code do PIX da igreja ou de qualquer link, com lista de QR Codes salvos. 5 modelos.
+- **Superior**: barra com logo, nome da igreja, relógio e recados que se revezam. 7 modelos.
+- **Inferior**: barra com texto rolando o tempo todo. 4 modelos.
+- **Agenda**: dias e horários dos cultos, um dia de cada vez, saindo depois do último. 4 modelos.
+- **Redes**: "Siga-nos no Instagram" e o @, com um clique. 3 modelos.
 - **Logo** no canto da tela.
-- Cores com **degradê**, qualquer **fonte instalada** no PC, 8 animações, sombras e transparência.
-- **Painel pequeno** para o dock do OBS; as configurações abrem numa página à parte no navegador, com prévia ao vivo.
+- **Tempo na tela** único, escolhido no próprio painel.
+- Dois temas completos (Céu noturno e Vidro líquido), cores com degradê, 18 fontes gratuitas incluídas e todas as fontes instaladas no PC, 8 animações, sombras e transparência.
+- As configurações avançadas abrem numa página à parte no navegador, com prévia ao vivo.
 
 ### Como instalar no OBS
 
@@ -21,4 +25,4 @@ A aba "OBS e atalhos" das configurações traz o passo a passo e os endereços p
 
 ---
 
-**Beta for testing — Windows only.** Lower thirds, top bar, PIX/QR card and logo for OBS Studio in one browser source, with a small dock and a separate settings page.
+**Beta for testing — Windows only.** Names, top bar, scrolling bottom bar, PIX/QR card, weekly schedule, social networks and logo for OBS Studio in one browser source, with a tabbed dock and a separate settings page.

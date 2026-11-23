@@ -18,6 +18,7 @@ import {
   liveDefaults,
   newId,
   resolveItem,
+  resolveSocial,
   type Config,
   type ElementName,
   type Live,
@@ -48,8 +49,11 @@ async function loadStore() {
   try {
     const saved = JSON.parse(await readFile(configFile, 'utf8'));
     config = cleanConfig(saved.config);
-    // The top bar and the logo come back as they were; names and the QR card start hidden.
-    live = cleanLive({ top: saved.live?.top, bug: saved.live?.bug }, config);
+    // The bars and the logo come back as they were; names and the QR card start hidden.
+    live = cleanLive(
+      { top: saved.live?.top, bug: saved.live?.bug, ticker: saved.live?.ticker },
+      config,
+    );
   } catch {
     // first run, or an unreadable file: start from the defaults
   }
@@ -109,6 +113,34 @@ app.put('/api/config', async (q, r) => {
   }
 });
 
+// The dock changes a few values at a time (the text on air, a saved list, the time on
+// screen) without sending the whole configuration: { "top.pinned": "…", "timing.autoHide": 10 }.
+// Only existing settings can be set, and everything is validated like a full save.
+app.post('/api/patch', async (q, r) => {
+  try {
+    const next = structuredClone(config) as unknown as Record<string, unknown>;
+    for (const [path, value] of Object.entries(q.body || {})) {
+      const keys = path.split('.');
+      const last = keys.pop()!;
+      let node: unknown = next;
+      for (const k of keys)
+        node = Object.hasOwn((node ?? {}) as object, k)
+          ? (node as Record<string, unknown>)[k]
+          : undefined;
+      if (!node || typeof node !== 'object' || Array.isArray(node) || !Object.hasOwn(node, last))
+        throw new Error(`Unknown setting: ${path}`);
+      (node as Record<string, unknown>)[last] = value;
+    }
+    config = cleanConfig(next);
+    live = cleanLive(live, config);
+    await saveStore();
+    sendConfig(String(q.headers['x-client'] || ''));
+    r.json({ ok: true, config });
+  } catch (e) {
+    fail(r, e);
+  }
+});
+
 // ---- Names: the dock adds and removes them without touching the rest of the settings ----
 app.post('/api/lower/items', async (q, r) => {
   const next = cleanConfig({
@@ -130,7 +162,7 @@ app.delete('/api/lower/items/:id', async (q, r) => {
   if (items.length === config.lower.items.length)
     return void r.status(404).json({ error: 'Name not found' });
   config = { ...config, lower: { ...config.lower, items } };
-  if (live.lower.item === q.params.id) live.lower = { on: false, item: '' };
+  live = cleanLive(live, config);
   await saveStore();
   sendConfig();
   r.json({ ok: true });
@@ -140,9 +172,14 @@ app.delete('/api/lower/items/:id', async (q, r) => {
 const timers = new Map<ElementName, NodeJS.Timeout>();
 function setOn(el: ElementName, on: boolean, item?: string) {
   clearTimeout(timers.get(el));
-  if (el === 'lower') live.lower = { on, item: item ?? live.lower.item };
+  if (el === 'lower' || el === 'social') live[el] = { on, item: item ?? live[el].item };
   else live[el] = { on };
-  const seconds = el === 'lower' ? config.lower.autoHide : el === 'card' ? config.card.autoHide : 0;
+  // Names, the QR card and social networks come and go: one time on screen for all of
+  // them. The agenda leaves after its last day, unless it is set to repeat.
+  let seconds = 0;
+  if (el === 'lower' || el === 'card' || el === 'social') seconds = config.timing.autoHide;
+  else if (el === 'agenda' && !config.agenda.loop)
+    seconds = config.agenda.days.length * config.agenda.seconds;
   if (on && seconds > 0)
     timers.set(
       el,
@@ -151,7 +188,7 @@ function setOn(el: ElementName, on: boolean, item?: string) {
         sendLive();
       }, seconds * 1000),
     );
-  if (el === 'top' || el === 'bug') saveStore().catch(() => {});
+  if (el === 'top' || el === 'bug' || el === 'ticker') saveStore().catch(() => {});
 }
 function liveCommand(q: Request, r: Response) {
   const el = String(q.params.element) as ElementName,
@@ -164,15 +201,19 @@ function liveCommand(q: Request, r: Response) {
   if (!ELEMENTS.includes(el)) return void r.status(404).json({ error: 'Unknown element' });
   if (!['show', 'hide', 'toggle'].includes(action))
     return void r.status(400).json({ error: 'Use show, hide or toggle' });
-  if (el === 'lower') {
+  if (el === 'lower' || el === 'social') {
     const ref = String(q.query.item ?? q.body?.item ?? '') || undefined;
-    const item = resolveItem(config, live, ref);
+    const item = el === 'lower' ? resolveItem(config, live, ref) : resolveSocial(config, live, ref);
     if (action !== 'hide' && !item) return void r.status(404).json({ error: 'Name not found' });
-    const same = live.lower.on && item?.id === live.lower.item;
-    // Toggling another name while one is on air switches to it.
-    const on = action === 'show' || (action === 'toggle' && !(same || (!ref && live.lower.on)));
-    setOn('lower', on, on ? item!.id : undefined);
-  } else setOn(el, action === 'show' || (action === 'toggle' && !live[el].on));
+    const same = live[el].on && item?.id === live[el].item;
+    // Toggling another one while one is on air switches to it.
+    const on = action === 'show' || (action === 'toggle' && !(same || (!ref && live[el].on)));
+    setOn(el, on, on ? item!.id : undefined);
+  } else {
+    if (el === 'agenda' && action !== 'hide' && !config.agenda.days.length)
+      return void r.status(404).json({ error: 'Agenda is empty' });
+    setOn(el, action === 'show' || (action === 'toggle' && !live[el].on));
+  }
   sendLive();
   r.json({ ok: true, live });
 }

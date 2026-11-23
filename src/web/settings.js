@@ -11,13 +11,18 @@ import {
   toggleTheme,
 } from './js/common.js';
 import {
+  AGENDA_TEMPLATES,
   ANIMATIONS,
   CARD_TEMPLATES,
   fillCss,
   LOWER_TEMPLATES,
+  NETWORKS,
   SHADOWS,
+  SOCIAL_TEMPLATES,
+  TICKER_TEMPLATES,
   TOP_TEMPLATES,
 } from './js/look.js';
+import { BUNDLED_FONTS } from './js/fonts.js';
 
 // Global settings, opened in the normal browser so the OBS dock can stay small.
 // Every change is saved at once and shows in the preview and in OBS.
@@ -25,7 +30,8 @@ let config = null,
   live = null,
   page = localStorage.ltwPage || 'brand',
   viewItem = '',
-  saveTimer = 0;
+  saveTimer = 0,
+  installedFonts = [];
 
 const NAMES = {
   classic: 'Clássico',
@@ -38,6 +44,10 @@ const NAMES = {
   neon: 'Neon',
   news: 'Telejornal',
   stack: 'Cartões',
+  liquid: 'Vidro líquido',
+  card: 'Cartão',
+  banner: 'Faixa larga',
+  center: 'Painel central',
   full: 'Barra cheia',
   large: 'Barra grande',
   slim: 'Barra fina',
@@ -62,15 +72,18 @@ const NAMES = {
   glow: 'Brilho',
 };
 const PAGES = [
-  ['brand', 'Igreja e PIX'],
-  ['lower', 'Lower third'],
+  ['brand', 'Geral e PIX'],
+  ['lower', 'Nomes'],
   ['top', 'Barra superior'],
+  ['ticker', 'Barra inferior'],
   ['card', 'Cartão QR / PIX'],
+  ['agenda', 'Agenda'],
+  ['social', 'Redes sociais'],
   ['bug', 'Logo'],
   ['obs', 'OBS e atalhos'],
   ['backup', 'Backup'],
 ];
-const ELEMENTS = ['lower', 'top', 'card', 'bug'];
+const ELEMENTS = ['lower', 'top', 'ticker', 'card', 'agenda', 'social', 'bug'];
 const WEIGHTS = [
   [300, 'Leve'],
   [400, 'Normal'],
@@ -149,6 +162,79 @@ const PALETTES = [
     '#cffafe',
   ],
 ];
+
+// Complete looks: models, colors and font for every element at once.
+const THEMES = [
+  {
+    name: 'Céu noturno',
+    hint: 'Azul-noite translúcido, detalhes em azul-céu, cantos bem arredondados',
+    swatch: 'linear-gradient(120deg, #020617, #0f172a 60%, #7dd3fc 60%)',
+    font: 'Outfit',
+    dark: grad('#020617', '#0f172a', 120),
+    accent: grad('#7dd3fc', '#38bdf8', 90),
+    t1: '#ffffff',
+    t2: '#cbd5e1',
+    opacity: 82,
+    radius: 22,
+    templates: {
+      lower: 'glass',
+      top: 'floating',
+      ticker: 'floating',
+      card: 'horizontal',
+      agenda: 'card',
+      social: 'pill',
+    },
+    light: { fill: solid('#ffffff'), text: '#020617', text2: '#334155' },
+  },
+  {
+    name: 'Vidro líquido',
+    hint: 'Vidro claro e arredondado, com brilho nas bordas',
+    swatch: 'linear-gradient(135deg, #ffffffcc, #ffffff33 45%, #9ec5ff55 70%, #ffffffaa)',
+    font: 'Inter',
+    dark: solid('#ffffff'),
+    accent: grad('#0a84ff', '#5ac8fa', 135),
+    t1: '#ffffff',
+    t2: '#f1f5f9',
+    opacity: 100,
+    radius: 26,
+    templates: {
+      lower: 'liquid',
+      top: 'liquid',
+      ticker: 'liquid',
+      card: 'liquid',
+      agenda: 'liquid',
+      social: 'liquid',
+    },
+  },
+];
+function applyTheme(t) {
+  const c = structuredClone;
+  config.brand.font = t.font;
+  for (const el of ['lower', 'top', 'ticker', 'card', 'agenda', 'social']) {
+    const e = config[el],
+      // The white card and pill keep dark text; everything else sits on the dark color.
+      light = t.light && (el === 'card' || el === 'social') ? t.light : null;
+    Object.assign(e, {
+      template: t.templates[el],
+      fill: c(light?.fill || t.dark),
+      accent: c(t.accent),
+      opacity: light ? 100 : t.opacity,
+      radius: t.radius,
+      font: '',
+      shadow: 'soft',
+    });
+    if (el === 'lower') Object.assign(e, { fill2: c(t.dark), text1: t.t1, text2: t.t2 });
+    else
+      Object.assign(
+        e,
+        { text: light?.text || t.t1 },
+        'text2' in e ? { text2: light?.text2 || t.t2 } : {},
+      );
+  }
+  save();
+  renderForm();
+  toast(`Tema "${t.name}" aplicado a todos os elementos.`);
+}
 
 const get = (path) => path.split('.').reduce((o, k) => o?.[k], config);
 function set(path, value) {
@@ -245,31 +331,61 @@ const color = (path, label, { tip } = {}) =>
     h('input', { type: 'color', value: get(path), oninput: (e) => set(path, e.target.value) }),
     { tip },
   );
+/** Fonts shipped with the app first, then every font installed on this computer. */
 function font(path, label) {
+  const value = get(path),
+    bundled = new Set(BUNDLED_FONTS.map(([f]) => f));
   const sample = h(
     'span',
-    { style: `font-family:"${get(path)}",system-ui;font-size:15px` },
-    get(path) ? 'Aa Bb Cc 123' : '',
+    { class: 'fontSample', style: `font-family:"${value}",system-ui` },
+    value ? 'Aa Bb Cc 123' : '',
   );
+  const groups = [...new Set(BUNDLED_FONTS.map(([, g]) => g))].map((g) =>
+    h(
+      'optgroup',
+      { label: `Fontes do programa · ${g}` },
+      BUNDLED_FONTS.filter(([, x]) => x === g).map(([f]) =>
+        h('option', { value: f, selected: f === value }, f),
+      ),
+    ),
+  );
+  const installed = installedFonts.filter((f) => !bundled.has(f));
+  const known = !value || bundled.has(value) || installed.includes(value);
   return field(
     label,
     h(
       'div',
       { class: 'fillRow' },
-      h('input', {
-        list: 'fontList',
-        value: get(path),
-        placeholder: path === 'brand.font' ? 'Fonte do sistema' : 'Usar a fonte geral',
-        style: 'flex:1;min-width:140px',
-        oninput: (e) => {
-          set(path, e.target.value);
-          sample.style.fontFamily = `"${e.target.value}",system-ui`;
-          sample.textContent = e.target.value ? 'Aa Bb Cc 123' : '';
+      h(
+        'select',
+        {
+          style: 'flex:1;min-width:150px',
+          onchange: (e) => {
+            set(path, e.target.value);
+            sample.style.fontFamily = `"${e.target.value}",system-ui`;
+            sample.textContent = e.target.value ? 'Aa Bb Cc 123' : '';
+          },
         },
-      }),
+        h(
+          'option',
+          { value: '', selected: !value },
+          path === 'brand.font' ? 'Fonte do sistema' : 'Usar a fonte geral',
+        ),
+        known ? null : h('option', { value, selected: true }, value),
+        ...groups,
+        installed.length
+          ? h(
+              'optgroup',
+              { label: 'Instaladas neste computador' },
+              installed.map((f) => h('option', { value: f, selected: f === value }, f)),
+            )
+          : null,
+      ),
       sample,
     ),
-    { tip: 'Qualquer fonte instalada neste computador: escolha na lista ou digite o nome dela.' },
+    {
+      tip: 'Primeiro as fontes que vêm com o programa; depois, todas as instaladas neste computador.',
+    },
   );
 }
 /** One color or a two-color gradient with an angle. */
@@ -385,6 +501,97 @@ const POSITIONS = [
   ['bottom-left', 'Embaixo, à esquerda'],
   ['bottom-right', 'Embaixo, à direita'],
 ];
+const PLACES = [
+  ...POSITIONS,
+  ['top-center', 'Em cima, no centro'],
+  ['bottom-center', 'Embaixo, no centro'],
+  ['center-left', 'No meio, à esquerda'],
+  ['center-right', 'No meio, à direita'],
+  ['center', 'No centro da tela'],
+];
+const place = (el) =>
+  card(
+    'Posição e tamanho',
+    grid(
+      select(`${el}.position`, 'Lugar na tela', PLACES),
+      range(`${el}.size`, 'Tamanho', 50, 200, '%'),
+      range(`${el}.marginX`, 'Distância da lateral', 0, 400, ' px'),
+      range(`${el}.marginY`, 'Distância de cima / de baixo', 0, 400, ' px'),
+    ),
+  );
+const colors = (el, labels = {}) =>
+  card(
+    'Cores e texto',
+    grid(
+      fill(`${el}.fill`, labels.fill || 'Cor de fundo'),
+      fill(`${el}.accent`, 'Cor de destaque'),
+      color(`${el}.text`, labels.text || 'Texto principal'),
+      `text2` in config[el] ? color(`${el}.text2`, labels.text2 || 'Texto de apoio') : null,
+      font(`${el}.font`, 'Fonte'),
+      select(`${el}.weight`, 'Peso do texto', WEIGHTS),
+    ),
+  );
+/** Rows with a remove button and an "add" button under them. */
+function rows(path, blank, draw) {
+  const items = get(path);
+  return [
+    h(
+      'div',
+      { class: 'rows' },
+      items.map((item, i) => {
+        const change = (patch) => {
+          Object.assign(item, patch);
+          save();
+        };
+        const move = (d) => {
+          [items[i], items[i + d]] = [items[i + d], items[i]];
+          save();
+          renderForm();
+        };
+        return h(
+          'div',
+          { class: 'row wideRow' },
+          ...draw(item, change),
+          h(
+            'div',
+            { class: 'mini' },
+            h('button', { title: 'Subir', disabled: i === 0, onclick: () => move(-1) }, '↑'),
+            h(
+              'button',
+              { title: 'Descer', disabled: i === items.length - 1, onclick: () => move(1) },
+              '↓',
+            ),
+            h(
+              'button',
+              {
+                title: 'Remover',
+                onclick: () => {
+                  items.splice(i, 1);
+                  save();
+                  renderForm();
+                },
+              },
+              '×',
+            ),
+          ),
+        );
+      }),
+    ),
+    h('div', { style: 'height:8px' }),
+    h(
+      'button',
+      {
+        class: 'primary',
+        onclick: () => {
+          items.push({ id: Math.random().toString(36).slice(2, 10), ...blank });
+          save();
+          renderForm();
+        },
+      },
+      '+ Adicionar',
+    ),
+  ];
+}
 const effects = (el, { radius = true } = {}) =>
   card(
     'Efeitos e animação',
@@ -524,6 +731,30 @@ const pages = {
             : null,
           hint('PNG com fundo transparente fica melhor. Até 8 MB.'),
         ),
+      ),
+    ),
+    card(
+      'Temas',
+      h(
+        'div',
+        { class: 'palettes' },
+        THEMES.map((t) =>
+          h(
+            'button',
+            { type: 'button', title: t.hint, onclick: () => applyTheme(t) },
+            h('i', { style: `background:${t.swatch}` }),
+            t.name,
+          ),
+        ),
+      ),
+      hint('Um tema troca o modelo, as cores e a fonte de todos os elementos de uma vez.'),
+    ),
+    card(
+      'Tempo na tela',
+      grid(
+        range('timing.autoHide', 'Nomes, QR Code e redes saem sozinhos depois de', 0, 120, ' s', {
+          tip: '0 = ficam na tela até você esconder. O mesmo tempo pode ser trocado no painel do OBS.',
+        }),
       ),
     ),
     card(
@@ -770,9 +1001,6 @@ const pages = {
         range('lower.size', 'Tamanho', 50, 200, '%'),
         range('lower.marginX', 'Distância da lateral', 0, 400, ' px'),
         range('lower.marginY', 'Distância de baixo', 0, 400, ' px'),
-        range('lower.autoHide', 'Esconder sozinho depois de', 0, 60, ' s', {
-          tip: '0 = fica na tela até você esconder.',
-        }),
       ),
     ),
     effects('lower'),
@@ -878,22 +1106,187 @@ const pages = {
     card(
       'Posição e tamanho',
       grid(
-        select('card.position', 'Lugar na tela', [
-          ...POSITIONS,
-          ['center-left', 'No meio, à esquerda'],
-          ['center-right', 'No meio, à direita'],
-          ['center', 'No centro'],
-        ]),
+        select('card.position', 'Lugar na tela', PLACES),
         range('card.size', 'Tamanho', 50, 200, '%'),
         range('card.marginX', 'Distância da lateral', 0, 400, ' px'),
         range('card.marginY', 'Distância de cima / de baixo', 0, 400, ' px'),
-        range('card.autoHide', 'Esconder sozinho depois de', 0, 300, ' s', {
-          tip: '0 = fica na tela até você esconder.',
-          step: 5,
-        }),
       ),
     ),
     effects('card'),
+  ],
+
+  ticker: () => [
+    card('Modelo', chips('ticker.template', TICKER_TEMPLATES)),
+    card(
+      'Textos que rolam',
+      grid(
+        field(
+          'Textos (um por linha)',
+          h('textarea', {
+            rows: 6,
+            value: config.ticker.messages.join('\n'),
+            oninput: (e) =>
+              set(
+                'ticker.messages',
+                e.target.value
+                  .split('\n')
+                  .map((l) => l.trim())
+                  .filter(Boolean),
+              ),
+          }),
+          { wide: true },
+        ),
+        range('ticker.speed', 'Velocidade', 40, 300, ' px/s', { step: 5 }),
+        textInput('ticker.separator', 'Separador entre os textos', { max: 3 }),
+        check('ticker.showLabel', 'Etiqueta à esquerda', { rerender: true }),
+        config.ticker.showLabel
+          ? textInput('ticker.label', 'Texto da etiqueta', { max: 24 })
+          : null,
+        check('ticker.showLogo', 'Logo da igreja'),
+        check('ticker.showClock', 'Relógio à direita'),
+      ),
+      hint(
+        'Com a barra inferior no ar, os nomes e o que estiver embaixo sobem sozinhos para não ficar por cima dela.',
+      ),
+    ),
+    colors('ticker', { fill: 'Cor da barra', text: 'Texto' }),
+    card(
+      'Tamanho',
+      grid(
+        range('ticker.size', 'Tamanho', 60, 180, '%'),
+        range('ticker.margin', 'Distância das bordas', 0, 120, ' px', {
+          tip: 'Vale para os modelos Flutuante e Vidro líquido.',
+        }),
+      ),
+    ),
+    effects('ticker'),
+  ],
+
+  agenda: () => [
+    card('Modelo', chips('agenda.template', AGENDA_TEMPLATES)),
+    card(
+      'Dias e horários',
+      ...rows('agenda.days', { day: 'Novo dia', lines: '' }, (d, change) => [
+        h('input', {
+          value: d.day,
+          placeholder: 'Dia (ex.: Domingo)',
+          maxlength: 40,
+          oninput: (e) => change({ day: e.target.value }),
+        }),
+        h('textarea', {
+          rows: 2,
+          value: d.lines,
+          placeholder: 'Horários, um por linha',
+          maxlength: 400,
+          oninput: (e) => change({ lines: e.target.value }),
+        }),
+      ]),
+      h('div', { style: 'height:12px' }),
+      grid(
+        textInput('agenda.title', 'Título', { max: 40 }),
+        range('agenda.seconds', 'Cada dia fica na tela por', 3, 30, ' s'),
+        check('agenda.loop', 'Repetir até eu esconder', {
+          tip: 'Desligado: a agenda sai da tela depois do último dia.',
+        }),
+        check('agenda.showLogo', 'Logo da igreja'),
+      ),
+    ),
+    colors('agenda', { text: 'Dia', text2: 'Horários' }),
+    ['banner', 'center'].includes(config.agenda.template)
+      ? card(
+          'Tamanho',
+          grid(
+            range('agenda.size', 'Tamanho', 50, 200, '%'),
+            range('agenda.marginY', 'Distância de baixo', 0, 400, ' px'),
+          ),
+        )
+      : place('agenda'),
+    effects('agenda'),
+  ],
+
+  social: () => [
+    card('Modelo', chips('social.template', SOCIAL_TEMPLATES)),
+    card(
+      'Redes',
+      ...rows(
+        'social.items',
+        { network: 'instagram', label: 'Instagram', handle: '@suaigreja', icon: '' },
+        (item, change) => [
+          h(
+            'select',
+            {
+              onchange: (e) => {
+                change({
+                  network: e.target.value,
+                  label:
+                    e.target.value === 'other'
+                      ? item.label
+                      : NETWORKS.find(([n]) => n === e.target.value)[1],
+                });
+                renderForm();
+              },
+            },
+            NETWORKS.map(([v, l]) => h('option', { value: v, selected: item.network === v }, l)),
+          ),
+          h('input', {
+            value: item.label,
+            placeholder: 'Nome da rede',
+            maxlength: 30,
+            oninput: (e) => change({ label: e.target.value }),
+          }),
+          h('input', {
+            value: item.handle,
+            placeholder: '@ ou endereço',
+            maxlength: 80,
+            oninput: (e) => change({ handle: e.target.value }),
+          }),
+          h(
+            'label',
+            { class: 'iconPick', title: 'Enviar uma imagem para usar como ícone desta rede' },
+            item.icon ? h('img', { src: item.icon, alt: '' }) : 'Ícone…',
+            h('input', {
+              type: 'file',
+              class: 'hidden',
+              accept: 'image/png,image/jpeg,image/webp,image/svg+xml',
+              onchange: async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const r = await api('/api/media', { method: 'POST', raw: file, type: file.type });
+                if (r.error) return toast(friendly(r.error));
+                change({ icon: r.url });
+                renderForm();
+              },
+            }),
+          ),
+          item.icon
+            ? h(
+                'button',
+                {
+                  title: 'Voltar ao ícone do programa',
+                  onclick: () => {
+                    change({ icon: '' });
+                    renderForm();
+                  },
+                },
+                'Tirar ícone',
+              )
+            : null,
+        ],
+      ),
+      h('div', { style: 'height:12px' }),
+      grid(
+        textInput('social.prefix', 'Texto antes do nome da rede', {
+          max: 40,
+          placeholder: 'Siga-nos no',
+        }),
+      ),
+      hint(
+        'Os ícones do programa são genéricos (câmera, play, pessoas…), não os logotipos oficiais das redes. Para usar o ícone oficial, envie a imagem em "Ícone…".',
+      ),
+    ),
+    colors('social', { text: 'O @', text2: 'Texto de cima' }),
+    place('social'),
+    effects('social'),
   ],
 
   bug: () => [
@@ -978,6 +1371,9 @@ const pages = {
           row('Esconder o nome', '/api/live/lower/hide'),
           row('Barra superior', '/api/live/top/toggle'),
           row('Cartão QR / PIX', '/api/live/card/toggle'),
+          row('Barra inferior', '/api/live/ticker/toggle'),
+          row('Agenda', '/api/live/agenda/toggle'),
+          row('Rede social (1 = primeira)', '/api/live/social/toggle?item=1'),
           row('Logo', '/api/live/bug/toggle'),
           row('Tirar tudo do ar', '/api/live/all/hide'),
         ),
@@ -1083,15 +1479,16 @@ $('#onAir').onclick = async () => {
   );
   if (r.error) toast(friendly(r.error));
 };
-function applyTheme(t = theme()) {
+function applyUiTheme(t = theme()) {
   $('#themeToggle img').src = t === 'dark' ? '/icons/sun.svg' : '/icons/moon.svg';
 }
-applyTheme();
-$('#themeToggle').onclick = () => applyTheme(toggleTheme());
+applyUiTheme();
+$('#themeToggle').onclick = () => applyUiTheme(toggleTheme());
 
 api('/api/fonts').then((fonts) => {
-  if (Array.isArray(fonts))
-    $('#fontList').replaceChildren(...fonts.map((f) => h('option', { value: f })));
+  if (!Array.isArray(fonts)) return;
+  installedFonts = fonts;
+  if (config && !$('#form').contains(document.activeElement)) renderForm();
 });
 connect((e) => {
   renderVersion(e.version);

@@ -34,12 +34,49 @@ export const LOWER_TEMPLATES = [
   'neon',
   'news',
   'stack',
+  'liquid',
 ];
-export const TOP_TEMPLATES = ['full', 'large', 'slim', 'floating', 'islands', 'tab'];
-export const CARD_TEMPLATES = ['vertical', 'horizontal', 'ticket', 'frame'];
+export const TOP_TEMPLATES = ['full', 'large', 'slim', 'floating', 'islands', 'tab', 'liquid'];
+export const CARD_TEMPLATES = ['vertical', 'horizontal', 'ticket', 'frame', 'liquid'];
+export const TICKER_TEMPLATES = ['full', 'floating', 'minimal', 'liquid'];
+export const AGENDA_TEMPLATES = ['card', 'banner', 'center', 'liquid'];
+export const SOCIAL_TEMPLATES = ['pill', 'card', 'liquid'];
+export const NETWORKS = [
+  'instagram',
+  'youtube',
+  'facebook',
+  'tiktok',
+  'whatsapp',
+  'x',
+  'site',
+  'other',
+];
+/** One day of the church's week: "Domingo" + its services, one per line. */
+export interface AgendaDay {
+  id: string;
+  day: string;
+  lines: string;
+}
+export interface SocialItem {
+  id: string;
+  network: string;
+  label: string;
+  handle: string;
+  /** Optional image the church uploads to use instead of the built-in generic icon */
+  icon: string;
+}
+/** A QR card saved in the dock to show again with one click. */
+export interface SavedCard {
+  id: string;
+  title: string;
+  subtitle: string;
+  qr: 'pix' | 'url';
+  qrText: string;
+}
 export const ANIMATIONS = ['slide', 'rise', 'fade', 'wipe', 'zoom', 'blur', 'bounce', 'flip'];
 export const SHADOWS = ['none', 'soft', 'hard', 'glow'];
 const CORNERS = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
+const PLACES = [...CORNERS, 'top-center', 'bottom-center', 'center-left', 'center-right', 'center'];
 
 export const newId = () => randomBytes(5).toString('hex');
 
@@ -51,6 +88,8 @@ export function defaults() {
       /** Font of every element that does not choose its own ('' = system font) */
       font: '',
     },
+    /** How long names and the QR card stay on screen, in seconds (0 = until hidden). */
+    timing: { autoHide: 0 },
     pix: {
       mode: 'key',
       key: '',
@@ -83,7 +122,8 @@ export function defaults() {
       position: 'left',
       marginX: 90,
       marginY: 90,
-      autoHide: 0,
+      /** Name typed in the dock and shown at once, without saving it to the list */
+      quick: { id: 'quick', line1: '', line2: '', logo: true, qr: 'none', qrText: '' } as LowerItem,
       items: [
         {
           id: 'exemplo1',
@@ -127,6 +167,8 @@ export function defaults() {
       showDate: false,
       showMessages: true,
       messages: ['Seja bem-vindo!', 'Culto ao vivo', 'Inscreva-se no canal e ative o sininho'],
+      /** A message typed in the dock: shown alone until cleared ('' = rotate the list) */
+      pinned: '',
       order: 'sequence',
       interval: 8,
       showQr: false,
@@ -158,7 +200,90 @@ export function defaults() {
       qr: 'pix',
       qrText: '',
       qrRound: false,
-      autoHide: 0,
+      saved: [] as SavedCard[],
+    },
+    ticker: {
+      template: 'full',
+      fill: fill('#0f172a', '#1e293b', 90),
+      accent: fill('#2463eb', '#22d3ee', 90),
+      text: '#ffffff',
+      font: '',
+      weight: 600,
+      size: 100,
+      radius: 18,
+      opacity: 92,
+      shadow: 'soft',
+      shadowStrength: 40,
+      animation: 'slide',
+      duration: 700,
+      margin: 28,
+      /** Pixels per second */
+      speed: 110,
+      showLabel: true,
+      label: 'Avisos',
+      showLogo: false,
+      showClock: false,
+      separator: '•',
+      messages: [
+        'Culto de celebração aos domingos, às 18h',
+        'Estudo bíblico às quartas, às 19h30',
+        'Siga a igreja nas redes sociais',
+      ],
+      pinned: '',
+    },
+    agenda: {
+      template: 'card',
+      fill: fill('#0f172a', '#1e293b', 160),
+      accent: fill('#2463eb', '#22d3ee', 90),
+      text: '#ffffff',
+      text2: '#cbd5e1',
+      font: '',
+      weight: 800,
+      size: 100,
+      radius: 24,
+      opacity: 94,
+      shadow: 'soft',
+      shadowStrength: 60,
+      animation: 'rise',
+      duration: 700,
+      position: 'center-right',
+      marginX: 80,
+      marginY: 80,
+      title: 'Programação',
+      showLogo: true,
+      /** Seconds each day stays on screen */
+      seconds: 7,
+      /** false: leaves the screen after the last day */
+      loop: false,
+      days: [
+        { id: 'dia1', day: 'Domingo', lines: '9h · Escola Bíblica\n18h · Culto de Celebração' },
+        { id: 'dia2', day: 'Quarta-feira', lines: '19h30 · Estudo Bíblico' },
+        { id: 'dia3', day: 'Sábado', lines: '19h30 · Culto de Jovens' },
+      ] as AgendaDay[],
+    },
+    social: {
+      template: 'pill',
+      fill: fill('#ffffff'),
+      accent: fill('#db2777', '#f59e0b', 45),
+      text: '#0f172a',
+      text2: '#475569',
+      font: '',
+      weight: 800,
+      size: 100,
+      radius: 22,
+      opacity: 100,
+      shadow: 'soft',
+      shadowStrength: 60,
+      animation: 'bounce',
+      duration: 800,
+      position: 'bottom-right',
+      marginX: 80,
+      marginY: 90,
+      prefix: 'Siga-nos no',
+      items: [
+        { id: 'rede1', network: 'instagram', label: 'Instagram', handle: '@suaigreja', icon: '' },
+        { id: 'rede2', network: 'youtube', label: 'YouTube', handle: '@suaigreja', icon: '' },
+      ] as SocialItem[],
     },
     bug: {
       position: 'top-right',
@@ -175,23 +300,52 @@ export function defaults() {
   };
 }
 export type Config = ReturnType<typeof defaults>;
-export type ElementName = 'lower' | 'top' | 'card' | 'bug';
-export const ELEMENTS: ElementName[] = ['lower', 'top', 'card', 'bug'];
+export type ElementName = 'lower' | 'top' | 'card' | 'bug' | 'ticker' | 'agenda' | 'social';
+export const ELEMENTS: ElementName[] = [
+  'lower',
+  'top',
+  'card',
+  'bug',
+  'ticker',
+  'agenda',
+  'social',
+];
 
 export interface Live {
   lower: { on: boolean; item: string };
   top: { on: boolean };
   card: { on: boolean };
   bug: { on: boolean };
+  ticker: { on: boolean };
+  agenda: { on: boolean };
+  social: { on: boolean; item: string };
 }
 export const liveDefaults = (): Live => ({
   lower: { on: false, item: '' },
   top: { on: false },
   card: { on: false },
   bug: { on: false },
+  ticker: { on: false },
+  agenda: { on: false },
+  social: { on: false, item: '' },
 });
 
 const HEX = /^#[0-9a-f]{6}$/i;
+const MEDIA = /^\/media\/[a-f0-9]{16}\.(png|jpe?g|webp|gif|svg)$/;
+const id = (v: unknown) => (typeof v === 'string' && /^[a-z0-9]{4,20}$/i.test(v) ? v : newId());
+/** A list of records: each cleaned by `one`, empty ones dropped, ids unique. */
+function list<T extends { id: string }>(
+  raw: unknown,
+  def: unknown,
+  max: number,
+  one: (r: Record<string, unknown>) => T | undefined,
+) {
+  const seen = new Set<string>();
+  return (Array.isArray(raw) ? raw : (def as unknown[]))
+    .slice(0, max)
+    .map((r) => (r && typeof r === 'object' ? one(r as Record<string, unknown>) : undefined))
+    .filter((r): r is T => !!r && !seen.has(r.id) && !!seen.add(r.id));
+}
 /** Number limits by field name; anything else keeps its type and is otherwise free. */
 const RANGES: Record<string, [number, number]> = {
   size: [40, 250],
@@ -204,6 +358,8 @@ const RANGES: Record<string, [number, number]> = {
   margin: [0, 300],
   autoHide: [0, 3600],
   interval: [2, 600],
+  speed: [20, 600],
+  seconds: [2, 120],
   weight: [100, 900],
   weight1: [100, 900],
   weight2: [100, 900],
@@ -213,10 +369,15 @@ const CHOICES: Record<string, string[]> = {
   'lower.template': LOWER_TEMPLATES,
   'top.template': TOP_TEMPLATES,
   'card.template': CARD_TEMPLATES,
+  'ticker.template': TICKER_TEMPLATES,
+  'agenda.template': AGENDA_TEMPLATES,
+  'social.template': SOCIAL_TEMPLATES,
   animation: ANIMATIONS,
   shadow: SHADOWS,
   'lower.position': ['left', 'center', 'right'],
-  'card.position': [...CORNERS, 'center-left', 'center-right', 'center'],
+  'card.position': PLACES,
+  'agenda.position': PLACES,
+  'social.position': PLACES,
   'bug.position': CORNERS,
   'pix.mode': ['key', 'payload'],
   order: ['sequence', 'random'],
@@ -228,12 +389,12 @@ const text = (v: unknown, max: number) =>
     .replace(/[\u0000-\u0008\u000b-\u001f]/g, '')
     .slice(0, max);
 
-function cleanItem(raw: unknown): LowerItem | undefined {
+function cleanItem(raw: unknown, allowEmpty = false): LowerItem | undefined {
   if (!raw || typeof raw !== 'object') return;
   const r = raw as Record<string, unknown>;
   const line1 = text(r.line1, 120).trim(),
     line2 = text(r.line2, 160).trim();
-  if (!line1 && !line2) return;
+  if (!line1 && !line2 && !allowEmpty) return;
   return {
     id: typeof r.id === 'string' && /^[a-z0-9]{4,20}$/i.test(r.id) ? r.id : newId(),
     line1,
@@ -250,10 +411,57 @@ function clean(def: unknown, raw: unknown, path: string, key: string): unknown {
     const seen = new Set<string>();
     return (Array.isArray(raw) ? raw : (def as unknown[]))
       .slice(0, 200)
-      .map(cleanItem)
+      .map((i) => cleanItem(i))
       .filter((i): i is LowerItem => !!i && !seen.has(i.id) && !!seen.add(i.id));
   }
-  if (path === 'top.messages')
+  if (path === 'lower.quick')
+    return { ...(cleanItem(raw, true) ?? (def as LowerItem)), id: 'quick' };
+  if (path === 'card.saved') {
+    const seen = new Set<string>();
+    return (Array.isArray(raw) ? raw : [])
+      .slice(0, 60)
+      .map((r): SavedCard | undefined => {
+        if (!r || typeof r !== 'object') return;
+        const c: SavedCard = {
+          id: typeof r.id === 'string' && /^[a-z0-9]{4,20}$/i.test(r.id) ? r.id : newId(),
+          title: text(r.title, 60).trim(),
+          subtitle: text(r.subtitle, 90).trim(),
+          qr: r.qr === 'url' ? 'url' : 'pix',
+          qrText: text(r.qrText, 600).trim(),
+        };
+        return c.title || c.qrText ? c : undefined;
+      })
+      .filter((c): c is SavedCard => !!c && !seen.has(c.id) && !!seen.add(c.id));
+  }
+  if (path === 'agenda.days')
+    return list<AgendaDay>(raw, def, 14, (r) => {
+      const d = {
+        id: id(r.id),
+        day: text(r.day, 40).trim(),
+        lines: text(r.lines, 400)
+          .split(/\r?\n/)
+          .map((l) => l.trim())
+          .filter(Boolean)
+          .slice(0, 6)
+          .join('\n'),
+      };
+      return d.day || d.lines ? d : undefined;
+    });
+  if (path === 'social.items')
+    return list<SocialItem>(raw, def, 12, (r) => {
+      const network = NETWORKS.includes(String(r.network)) ? String(r.network) : 'other';
+      const handle = text(r.handle, 80).trim();
+      return handle
+        ? {
+            id: id(r.id),
+            network,
+            label: text(r.label, 30).trim(),
+            handle,
+            icon: MEDIA.test(String(r.icon)) ? String(r.icon) : '',
+          }
+        : undefined;
+    });
+  if (path === 'top.messages' || path === 'ticker.messages')
     return (Array.isArray(raw) ? raw : (def as unknown[]))
       .slice(0, 60)
       .map((m) => text(m, 200).trim())
@@ -274,8 +482,7 @@ function clean(def: unknown, raw: unknown, path: string, key: string): unknown {
   const choices = CHOICES[path] || CHOICES[key];
   if (choices) return choices.includes(String(raw)) ? String(raw) : def;
   if (typeof def === 'string' && HEX.test(def)) return HEX.test(String(raw)) ? String(raw) : def;
-  if (key === 'logo')
-    return /^\/media\/[a-f0-9]{16}\.(png|jpe?g|webp|gif|svg)$/.test(String(raw)) ? String(raw) : '';
+  if (key === 'logo') return MEDIA.test(String(raw)) ? String(raw) : '';
   if (key === 'font')
     return text(raw, 80)
       .replace(/["';{}<>\\]/g, '')
@@ -288,30 +495,53 @@ export function cleanConfig(raw: unknown): Config {
 }
 
 export function cleanLive(raw: unknown, config: Config): Live {
-  const d = liveDefaults(),
-    r = (raw && typeof raw === 'object' ? raw : {}) as Partial<Live>;
+  const r = (raw && typeof raw === 'object' ? raw : {}) as Partial<Live>;
   const item = String(r.lower?.item ?? '');
+  const exists = !!findItem(config, item);
   return {
-    lower: {
-      on: !!r.lower?.on && config.lower.items.some((i) => i.id === item),
-      item: config.lower.items.some((i) => i.id === item) ? item : d.lower.item,
-    },
+    lower: { on: !!r.lower?.on && exists, item: exists ? item : '' },
     top: { on: !!r.top?.on },
     card: { on: !!r.card?.on },
     bug: { on: !!r.bug?.on },
+    ticker: { on: !!r.ticker?.on },
+    agenda: { on: !!r.agenda?.on && config.agenda.days.length > 0 },
+    social: (() => {
+      const found = config.social.items.some((i) => i.id === r.social?.item);
+      return { on: !!r.social?.on && found, item: found ? String(r.social?.item) : '' };
+    })(),
   };
+}
+
+/** A saved name by id, or the one typed in the dock ("quick") while it has text. */
+export function findItem(config: Config, id: string) {
+  if (id === 'quick') {
+    const q = config.lower.quick;
+    return q.line1 || q.line2 ? q : undefined;
+  }
+  return config.lower.items.find((i) => i.id === id);
 }
 
 /** Which lower third a command means: an id, a 1-based position, or next / prev. */
 export function resolveItem(config: Config, live: Live, ref: string | undefined) {
   const items = config.lower.items;
+  if (ref === 'quick') return findItem(config, 'quick');
   if (!items.length) return undefined;
   const current = items.findIndex((i) => i.id === live.lower.item);
-  if (!ref) return items[Math.max(0, current)];
+  if (!ref) return findItem(config, live.lower.item) ?? items[0];
   if (ref === 'next') return items[(current + 1) % items.length];
   if (ref === 'prev') return items[(current - 1 + items.length) % items.length];
   const byId = items.find((i) => i.id === ref);
   if (byId) return byId;
   const n = Number(ref);
   return Number.isInteger(n) && n >= 1 && n <= items.length ? items[n - 1] : undefined;
+}
+
+/** Which social network a command means: an id, a 1-based position, or the current one. */
+export function resolveSocial(config: Config, live: Live, ref: string | undefined) {
+  const items = config.social.items;
+  if (!ref) return items.find((i) => i.id === live.social.item) ?? items[0];
+  const n = Number(ref);
+  return (
+    items.find((i) => i.id === ref) ?? (Number.isInteger(n) && n >= 1 ? items[n - 1] : undefined)
+  );
 }

@@ -57,7 +57,50 @@ export const LOWER_TEMPLATES = [
   'news',
   'stack',
 ];
-export const TOP_TEMPLATES = ['full', 'large', 'slim', 'floating', 'islands', 'tab'];
-export const CARD_TEMPLATES = ['vertical', 'horizontal', 'ticket', 'frame'];
+export const TOP_TEMPLATES = ['full', 'large', 'slim', 'floating', 'islands', 'tab', 'liquid'];
+export const CARD_TEMPLATES = ['vertical', 'horizontal', 'ticket', 'frame', 'liquid'];
 export const ANIMATIONS = ['slide', 'rise', 'fade', 'wipe', 'zoom', 'blur', 'bounce', 'flip'];
 export const SHADOWS = ['none', 'soft', 'hard', 'glow'];
+export const TICKER_TEMPLATES = ['full', 'floating', 'minimal', 'liquid'];
+export const AGENDA_TEMPLATES = ['card', 'banner', 'center', 'liquid'];
+export const SOCIAL_TEMPLATES = ['pill', 'card', 'liquid'];
+export const NETWORKS = [
+  ['instagram', 'Instagram'],
+  ['youtube', 'YouTube'],
+  ['facebook', 'Facebook'],
+  ['tiktok', 'TikTok'],
+  ['whatsapp', 'WhatsApp'],
+  ['x', 'X'],
+  ['site', 'Site'],
+  ['other', 'Outra'],
+];
+// Generic line icons (camera, play, people…), not the networks' own logos: those are
+// trademarks. A church can upload its own image for each network in the settings.
+const icon = (d) =>
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+export const SOCIAL_ICONS = {
+  instagram: icon(
+    '<path d="M4 8.500h3l1.500-2.500h7L17 8.500h3v10.500H4z"/><circle cx="12" cy="13.500" r="3.300"/>',
+  ),
+  youtube: icon(
+    '<circle cx="12" cy="12" r="9"/><path d="M10 8.500v7l6-3.500z" fill="currentColor"/>',
+  ),
+  facebook: icon(
+    '<circle cx="9" cy="9" r="3"/><path d="M3.500 19c.400-3 2.600-4.800 5.500-4.800s5.100 1.800 5.500 4.800"/><circle cx="17" cy="8" r="2.300"/><path d="M16.500 13.300c2.200.200 3.700 1.600 4 3.700"/>',
+  ),
+  tiktok: icon(
+    '<path d="M9.500 17.500V5l9-1.800v11.300"/><circle cx="7" cy="17.500" r="2.500"/><circle cx="16" cy="14.500" r="2.500"/>',
+  ),
+  whatsapp: icon(
+    '<path d="M4 19.500l1.300-4A7.800 7.800 0 1 1 8.600 18.600z"/><path d="M9 10h6M9 13.300h4"/>',
+  ),
+  x: icon(
+    '<path d="M4 6h10a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3H10l-4 3.500V15H4z"/><path d="M19.500 8.500v5"/>',
+  ),
+  site: icon(
+    '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
+  ),
+  other: icon(
+    '<circle cx="12" cy="12" r="3.600"/><path d="M15.600 8.400v5a2.400 2.400 0 0 0 4.900 0V12a8.500 8.500 0 1 0-3.300 6.700"/>',
+  ),
+};

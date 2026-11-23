@@ -1,4 +1,4 @@
-import { fillCss, fontCss, onColor, qrUrl, rgba, shadowCss } from './js/look.js';
+import { fillCss, fontCss, onColor, qrUrl, rgba, shadowCss, SOCIAL_ICONS } from './js/look.js';
 
 // The browser source page. Everything is laid out on a 1920x1080 stage and scaled to the
 // source size, so the same settings look the same at 720p, 1080p or 4K.
@@ -13,7 +13,7 @@ const $ = (el, sel) => roots[el].querySelector(sel);
 let config = null,
   live = null,
   pixStamp = '';
-const shown = { lower: {}, top: {}, card: {}, bug: {} };
+const shown = { lower: {}, top: {}, card: {}, bug: {}, ticker: {}, agenda: {}, social: {} };
 
 function fit() {
   const s = Math.min(innerWidth / 1920, innerHeight / 1080) || 1;
@@ -46,13 +46,16 @@ function common(el, c, side) {
     shadow: shadowCss(c.shadow, c.shadowStrength, c.accent?.a || '#ffffff'),
     radius: (c.radius ?? 0) + 'px',
   });
+  if (c.fill) root.style.setProperty('--fill-glass', fillCss(c.fill, (c.opacity ?? 100) * 0.3));
 }
 
 // ---- Lower third ----
 function lowerItem() {
   const items = config.lower.items;
-  if (preview === 'lower') return items.find((i) => i.id === params.get('item')) || items[0];
-  return items.find((i) => i.id === live.lower.item);
+  const quick = config.lower.quick;
+  if (preview === 'lower')
+    return items.find((i) => i.id === params.get('item')) || items[0] || quick;
+  return live.lower.item === 'quick' ? quick : items.find((i) => i.id === live.lower.item);
 }
 function renderLower() {
   const c = config.lower,
@@ -106,7 +109,7 @@ let messageIndex = -1,
 function nextMessage(first = false) {
   const c = config.top,
     span = $('top', '.msg span'),
-    list = c.showMessages ? c.messages : [];
+    list = c.pinned ? [c.pinned] : c.showMessages ? c.messages : [];
   if (!list.length) return void (span.textContent = '');
   if (c.order === 'random' && list.length > 1) {
     let n;
@@ -139,6 +142,7 @@ function tick() {
     second: c.clockSeconds ? '2-digit' : undefined,
     hour12: c.clock12h,
   });
+  $('ticker', '.time').textContent = $('top', '.time').textContent;
   $('top', '.date').textContent = now
     .toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: 'short' })
     .replace(/\./g, '');
@@ -176,10 +180,17 @@ function renderTop() {
   box.classList.toggle('has-brand', !!logo || (c.showName && !!config.brand.name));
   box.classList.toggle('has-clock', c.showClock);
   box.classList.toggle('has-date', c.showClock && c.showDate);
-  box.classList.toggle('has-msg', c.showMessages && c.messages.length > 0);
+  box.classList.toggle('has-msg', !!c.pinned || (c.showMessages && c.messages.length > 0));
   box.classList.toggle('has-qr', !!qr);
   tick();
-  const key = JSON.stringify([c.showMessages, c.messages, c.order, c.interval, c.template]);
+  const key = JSON.stringify([
+    c.pinned,
+    c.showMessages,
+    c.messages,
+    c.order,
+    c.interval,
+    c.template,
+  ]);
   if (key !== messageKey) {
     messageKey = key;
     messageIndex = -1;
@@ -257,7 +268,202 @@ function renderBug() {
   return config.brand.logo ? 'bug' : '';
 }
 
-const render = { lower: renderLower, top: renderTop, card: renderCard, bug: renderBug };
+// ---- Bottom bar: text that scrolls all the time ----
+let tickerKey = '';
+function renderTicker() {
+  const c = config.ticker,
+    root = roots.ticker,
+    box = $('ticker', '.box');
+  root.dataset.template = c.template;
+  common('ticker', c, 'bottom');
+  setVars(root, {
+    fill: fillCss(c.fill, c.opacity),
+    'fill-soft': fillCss(c.fill, c.opacity * 0.35),
+    accent: fillCss(c.accent),
+    'accent-a': c.accent.a,
+    'on-accent': onColor(c.accent.type === 'gradient' ? c.accent.b : c.accent.a),
+    t1: c.text,
+    w1: c.weight,
+    margin: c.margin + 'px',
+  });
+  const logo = c.showLogo && config.brand.logo;
+  setImage($('ticker', '.logo img'), logo || '');
+  $('ticker', '.label').textContent = c.label;
+  box.classList.toggle('has-logo', !!logo);
+  box.classList.toggle('has-label', c.showLabel && !!c.label);
+  box.classList.toggle('has-clock', c.showClock);
+  const list = c.pinned ? [c.pinned] : c.messages;
+  const key = JSON.stringify([
+    list,
+    c.separator,
+    c.speed,
+    c.size,
+    c.template,
+    c.font,
+    config.brand.font,
+    c.weight,
+    c.showLabel,
+    c.label,
+    c.showLogo,
+    c.showClock,
+  ]);
+  if (key !== tickerKey) {
+    tickerKey = key;
+    const run = $('ticker', '.run');
+    const one = () =>
+      list.flatMap((t) => {
+        const m = document.createElement('span');
+        m.textContent = t;
+        const sep = document.createElement('i');
+        sep.textContent = c.separator || '•';
+        return [m, sep];
+      });
+    run.style.animation = 'none';
+    run.replaceChildren(...one());
+    // Repeat the messages until they are wider than the screen, then once more: the
+    // strip moves left by exactly one half and starts over, with no visible jump.
+    requestAnimationFrame(() => {
+      const width = run.scrollWidth || 1,
+        times = Math.max(1, Math.ceil(2000 / width));
+      const half = [];
+      for (let i = 0; i < times; i++) half.push(...one());
+      run.replaceChildren(...half, ...half.map((n) => n.cloneNode(true)));
+      run.style.animation = list.length
+        ? `ticker ${(width * times) / c.speed}s linear infinite`
+        : 'none';
+    });
+  }
+  return list.length ? 'ticker' : '';
+}
+/** Names and whatever sits at the bottom move up while the bottom bar is on. */
+function lift() {
+  const on = roots.ticker.classList.contains('in');
+  const h = on
+    ? ($('ticker', '.box').offsetHeight + 14) * (config.ticker.size / 100) +
+      (roots.ticker.dataset.template === 'full' ? 0 : config.ticker.margin)
+    : 0;
+  stage.style.setProperty('--lift', Math.round(h) + 'px');
+}
+
+// ---- Agenda: one day at a time, fading to the next ----
+let agendaIndex = 0,
+  agendaTimer = 0;
+function showDay() {
+  const days = config.agenda.days,
+    d = days[agendaIndex % days.length];
+  if (!d) return;
+  $('agenda', '.dname').textContent = d.day;
+  $('agenda', '.dlines').replaceChildren(
+    ...d.lines
+      .split('\n')
+      .map((l) => Object.assign(document.createElement('div'), { textContent: l })),
+  );
+  [...roots.agenda.querySelectorAll('.dots i')].forEach((dot, i) =>
+    dot.classList.toggle('on', i === agendaIndex % days.length),
+  );
+}
+function startAgenda() {
+  clearInterval(agendaTimer);
+  agendaIndex = 0;
+  showDay();
+  const day = $('agenda', '.day');
+  agendaTimer = setInterval(() => {
+    const days = config.agenda.days;
+    // On air the server hides it after the last day; the preview keeps going round.
+    if (agendaIndex + 1 >= days.length && !config.agenda.loop && !preview)
+      return clearInterval(agendaTimer);
+    day.classList.add('swap');
+    setTimeout(() => {
+      agendaIndex = (agendaIndex + 1) % days.length;
+      showDay();
+      day.classList.remove('swap');
+    }, 450);
+  }, config.agenda.seconds * 1000);
+}
+const sideOf = (pos) =>
+  pos.endsWith('left')
+    ? 'left'
+    : pos.endsWith('right')
+      ? 'right'
+      : pos.startsWith('top')
+        ? 'top'
+        : 'bottom';
+function renderAgenda() {
+  const c = config.agenda,
+    root = roots.agenda;
+  root.dataset.template = c.template;
+  root.dataset.pos =
+    c.template === 'banner' ? 'bottom-center' : c.template === 'center' ? 'center' : c.position;
+  common('agenda', c, c.template === 'banner' ? 'bottom' : sideOf(c.position));
+  setVars(root, {
+    fill: fillCss(c.fill, c.opacity),
+    'fill-soft': fillCss(c.fill, c.opacity * 0.35),
+    accent: fillCss(c.accent),
+    'accent-a': c.accent.a,
+    'on-accent': onColor(c.accent.type === 'gradient' ? c.accent.b : c.accent.a),
+    t1: c.text,
+    t2: c.text2,
+    w1: c.weight,
+    mx: c.marginX + 'px',
+    my: c.marginY + 'px',
+  });
+  const logo = c.showLogo && config.brand.logo;
+  setImage($('agenda', '.logo img'), logo || '');
+  $('agenda', '.title').textContent = c.title;
+  $('agenda', '.box').classList.toggle('has-logo', !!logo);
+  const dots = $('agenda', '.dots');
+  if (dots.children.length !== c.days.length)
+    dots.replaceChildren(...c.days.map(() => document.createElement('i')));
+  showDay();
+  return c.days.length ? JSON.stringify([c.days, c.seconds, c.loop]) : '';
+}
+
+// ---- Social networks ----
+function renderSocial() {
+  const c = config.social,
+    root = roots.social,
+    item =
+      preview === 'social'
+        ? c.items.find((i) => i.id === params.get('item')) || c.items[0]
+        : c.items.find((i) => i.id === live.social.item);
+  root.dataset.template = c.template;
+  root.dataset.pos = c.position;
+  common('social', c, sideOf(c.position));
+  setVars(root, {
+    fill: fillCss(c.fill, c.opacity),
+    'fill-soft': fillCss(c.fill, c.opacity * 0.35),
+    accent: fillCss(c.accent),
+    'accent-a': c.accent.a,
+    'on-accent': onColor(c.accent.type === 'gradient' ? c.accent.b : c.accent.a),
+    t1: c.text,
+    t2: c.text2,
+    w1: c.weight,
+    mx: c.marginX + 'px',
+    my: c.marginY + 'px',
+  });
+  if (!item) return '';
+  const icon = $('social', '.icon');
+  const key = [item.id, item.network, item.label, item.handle, item.icon, c.prefix].join('|');
+  if (icon.dataset.key !== key) {
+    icon.dataset.key = key;
+    if (item.icon) icon.replaceChildren(Object.assign(new Image(), { src: item.icon, alt: '' }));
+    else icon.innerHTML = SOCIAL_ICONS[item.network] || SOCIAL_ICONS.other;
+  }
+  $('social', '.prefix').textContent = [c.prefix, item.label].filter(Boolean).join(' ');
+  $('social', '.handle').textContent = item.handle;
+  return key;
+}
+
+const render = {
+  lower: renderLower,
+  top: renderTop,
+  card: renderCard,
+  bug: renderBug,
+  ticker: renderTicker,
+  agenda: renderAgenda,
+  social: renderSocial,
+};
+const onShow = { agenda: startAgenda };
 const wanted = (el) => (preview ? preview === el : !!live[el].on);
 
 /** Brings one element to the state asked: in, out, or out-and-in when its content changed. */
@@ -287,7 +493,9 @@ function sync(el) {
     void root.offsetWidth; // restart the animation
     root.classList.add('in');
     s.on = true;
+    onShow[el]?.();
   }
+  if (el === 'ticker') lift();
   if (s.again) {
     s.again = false;
     sync(el);
