@@ -582,7 +582,15 @@ export function defaults() {
 export interface Profile {
   id: string;
   name: string;
-  look: Record<string, Record<string, unknown>>;
+  /**
+   * What the profile holds. With `full`, everything that belongs to a church or an event:
+   * its name and logo, the look, the names, offerings, texts, schedule, networks, the way
+   * of giving and the order of service. Without it, only the look (profiles from before
+   * this, and the ones that come in a shared file): the rest is taken from whatever is in
+   * use the first time the profile is used, and from then on it is the profile's own.
+   */
+  look: Record<string, unknown>;
+  full: boolean;
 }
 export type Config = ReturnType<typeof defaults>;
 export type ElementName =
@@ -856,7 +864,8 @@ export function cleanConfig(raw: unknown): Config {
         id: typeof p.id === 'string' && /^[a-z0-9]{4,20}$/i.test(p.id) ? p.id : newId(),
         name,
         // Checked like the settings themselves.
-        look: takeLook(clean(defaults(), p.look, '', '') as Config),
+        look: (p.full === true ? takeData : takeLook)(clean(defaults(), p.look, '', '') as Config),
+        full: p.full === true,
       };
     })
     .filter((p, i, all): p is Profile => !!p && all.findIndex((o) => o?.id === p.id) === i);
@@ -886,7 +895,8 @@ export function cleanConfig(raw: unknown): Config {
 }
 
 // ---- Service profiles ----
-// What is NOT part of a look: the texts and lists, which are the same in every profile.
+// The look is one part of a profile; these are the texts and lists of each element, which
+// a shared file leaves out (they are the church's own).
 const CONTENT: Record<ElementName, string[]> = {
   lower: ['items', 'quick'],
   top: ['messages', 'pinned', 'liveText', 'order', 'interval'],
@@ -910,17 +920,38 @@ export function takeLook(config: Config): Profile['look'] {
     );
   return look;
 }
+// Everything a profile keeps apart from the others. What stays the same for the whole
+// program: the language, the sizes of the OBS sources, the custom models (a library the
+// profiles point at) and the list of profiles itself.
+const PROFILE_PARTS = [
+  'brand',
+  'enabled',
+  'timing',
+  'theme',
+  'pix',
+  'giving',
+  ...ELEMENTS,
+  'rundown',
+] as const;
+/** All the data of the profile in use, as it is now. */
+export function takeData(config: Config): Profile['look'] {
+  return Object.fromEntries(PROFILE_PARTS.map((part) => [part, structuredClone(config[part])]));
+}
+/** Puts on what a profile holds; the parts it does not have stay as they are. */
 function putLook(config: Config, look: Profile['look']) {
-  const c = config as unknown as Record<string, Record<string, unknown>>;
-  for (const [part, values] of Object.entries(structuredClone(look)))
-    if (c[part] && values) Object.assign(c[part], values);
+  const c = config as unknown as Record<string, unknown>;
+  for (const part of PROFILE_PARTS) {
+    const values = structuredClone(look[part]);
+    if (Array.isArray(values)) c[part] = values;
+    else if (values && typeof values === 'object') Object.assign(c[part] as object, values);
+  }
 }
 /** The name the first profile starts with; the person renames it as they like. */
 const FIRST_PROFILE = 'Perfil 1';
 /** There is always at least one profile, and the one in use is one of them. */
 function withProfiles(config: Config): Config {
   if (!config.profiles.length)
-    config.profiles = [{ id: 'padrao', name: FIRST_PROFILE, look: takeLook(config) }];
+    config.profiles = [{ id: 'padrao', name: FIRST_PROFILE, look: takeData(config), full: true }];
   if (!config.profiles.some((p) => p.id === config.profile)) config.profile = config.profiles[0].id;
   return config;
 }
@@ -933,28 +964,28 @@ export function findProfile(config: Config, ref: string) {
     (/^\d+$/.test(r) ? config.profiles[Number(r) - 1] : undefined)
   );
 }
-/** Changes to another profile: the look in use is put away first, then the other is put on. */
+/** Changes to another profile: what is in use is put away first, then the other is put on. */
 export function useProfile(config: Config, ref: string): Config {
   const target = findProfile(config, ref);
   if (!target) throw new Error('Profile not found');
   if (target.id === config.profile) return config;
   const next = structuredClone(config);
   const current = next.profiles.find((p) => p.id === next.profile);
-  if (current) current.look = takeLook(next);
+  if (current) Object.assign(current, { look: takeData(next), full: true });
   putLook(next, next.profiles.find((p) => p.id === target.id)!.look);
   next.profile = target.id;
   return cleanConfig(next);
 }
-/** A new profile with the look in use, which becomes the one in use. */
+/** A new profile, a copy of everything in use, which becomes the one in use. */
 export function addProfile(config: Config, name: unknown): Config {
   const clean = text(name, 40).trim();
   if (!clean) throw new Error('Type a name for the profile');
   if (config.profiles.length >= 30) throw new Error('Too many profiles');
   const next = structuredClone(config);
   const current = next.profiles.find((p) => p.id === next.profile);
-  if (current) current.look = takeLook(next);
+  if (current) Object.assign(current, { look: takeData(next), full: true });
   const id = newId();
-  next.profiles.push({ id, name: clean, look: takeLook(next) });
+  next.profiles.push({ id, name: clean, look: takeData(next), full: true });
   next.profile = id;
   return cleanConfig(next);
 }
@@ -1247,9 +1278,10 @@ export function importProfile(
     throw new Error('This file has no profile in it');
   if (config.profiles.length >= 30) throw new Error('Too many profiles');
   let next = structuredClone(config);
-  const look = structuredClone(file.look) as Profile['look'];
+  // Only the look travels: the names, texts and the way of giving are each church's own.
+  const look = takeLook(clean(defaults(), file.look, '', '') as Config);
   // Its custom model comes along under a new id; without one, the look points at none.
-  const theme = (look.theme ??= {});
+  const theme = look.theme as { custom: string };
   theme.custom = '';
   if (file.model?.css) {
     const [withModel, id] = importModel(next, file.model.name, file.model.css);
@@ -1264,6 +1296,7 @@ export function importProfile(
       'Perfil',
     ),
     look,
+    full: false,
   });
   return cleanConfig(next);
 }
@@ -1271,7 +1304,9 @@ export function importProfile(
 export function exportProfile(config: Config, ref: string) {
   const p = findProfile(config, ref);
   if (!p) throw new Error('Profile not found');
-  const look = p.id === config.profile ? takeLook(config) : p.look;
+  const look = takeLook(
+    p.id === config.profile ? config : (clean(defaults(), p.look, '', '') as Config),
+  );
   const id = (look.theme as { custom?: string } | undefined)?.custom;
   const model = config.customModels.find((m) => m.id === id);
   return { name: p.name, look, model: model ? { name: model.name, css: model.css } : null };

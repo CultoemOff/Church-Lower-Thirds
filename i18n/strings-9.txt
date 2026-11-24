@@ -592,11 +592,11 @@ Perfil
 Profilo
 Profil
 
-Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Crie e ajuste os perfis nas configurações.
-Service profile: changes the style, the colors, the fonts and the logo at once. Create and adjust the profiles in the settings.
-Perfil de culto: cambia de una vez el modelo, los colores, las fuentes y el logo. Cree y ajuste los perfiles en la configuración.
-Profilo del culto: cambia in una volta il modello, i colori, i caratteri e il logo. Crea e regola i profili nelle impostazioni.
-Gottesdienst-Profil: wechselt Vorlage, Farben, Schriften und Logo auf einmal. Profile werden in den Einstellungen angelegt und angepasst.
+Perfil: troca de uma vez tudo o que é de uma igreja ou de um evento (nome, logo, aparência, nomes e textos). Crie e ajuste os perfis nas configurações.
+Profile: changes at once everything that belongs to a church or an event (name, logo, look, names and texts). Create and adjust profiles in the settings.
+Perfil: cambia de una vez todo lo que es de una iglesia o de un evento (nombre, logo, apariencia, nombres y textos). Cree y ajuste los perfiles en los ajustes.
+Profilo: cambia in una volta tutto ciò che appartiene a una chiesa o a un evento (nome, logo, aspetto, nomi e testi). Crea e regola i profili nelle impostazioni.
+Profil: wechselt auf einmal alles, was zu einer Gemeinde oder Veranstaltung gehört (Name, Logo, Aussehen, Namen und Texte). Profile legen Sie in den Einstellungen an.
 
 Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo
 Service profile: changes the style, the colors, the fonts and the logo at once
@@ -622,11 +622,11 @@ Nombre del nuevo perfil (p. ej.: Culto de mujeres, Navidad)
 Nome del nuovo profilo (es.: Culto delle donne, Natale)
 Name des neuen Profils (z. B. Frauengottesdienst, Weihnachten)
 
-Perfil "{name}" criado com a aparência atual.
-Profile "{name}" created with the current look.
-Perfil "{name}" creado con la apariencia actual.
-Profilo "{name}" creato con l’aspetto attuale.
-Profil „{name}“ mit dem aktuellen Aussehen angelegt.
+Perfil "{name}" criado como cópia do atual.
+Profile "{name}" created as a copy of the current one.
+Perfil "{name}" creado como copia del actual.
+Profilo "{name}" creato come copia di quello attuale.
+Profil „{name}“ als Kopie des aktuellen angelegt.
 
 Perfis de culto
 Service profiles
@@ -676,11 +676,11 @@ Borrar
 Elimina
 Löschen
 
-Cria um perfil com a aparência que está em uso agora e passa a usá-lo
-Creates a profile with the look in use now and changes to it
-Crea un perfil con la apariencia que está en uso ahora y pasa a usarlo
-Crea un profilo con l’aspetto in uso ora e passa a usarlo
-Legt ein Profil mit dem jetzt verwendeten Aussehen an und wechselt dorthin
+Cria um perfil como cópia de tudo o que está em uso agora e passa a usá-lo
+Creates a profile as a copy of everything in use now and starts using it
+Crea un perfil como copia de todo lo que está en uso ahora y pasa a usarlo
+Crea un profilo come copia di tutto ciò che è in uso ora e inizia a usarlo
+Legt ein Profil als Kopie von allem aktuell Verwendeten an und verwendet es
 
 Salvar como novo perfil
 Save as a new profile
@@ -688,11 +688,11 @@ Guardar como perfil nuevo
 Salva come nuovo profilo
 Als neues Profil speichern
 
-Para um perfil novo: salve com um nome e depois escolha o modelo, as cores e o logo dele.
-For a new profile: save it with a name and then choose its style, colors and logo.
-Para un perfil nuevo: guárdelo con un nombre y después elija su modelo, colores y logo.
-Per un nuovo profilo: salvalo con un nome e poi scegli il suo modello, i colori e il logo.
-Für ein neues Profil: mit einem Namen speichern und dann Vorlage, Farben und Logo dafür wählen.
+Para um perfil novo: salve com um nome e depois troque o que for diferente nele (nome da igreja, logo, nomes, cores).
+For a new profile: save it with a name and then change what is different in it (church name, logo, names, colors).
+Para un perfil nuevo: guárdelo con un nombre y después cambie lo que sea distinto en él (nombre de la iglesia, logo, nombres, colores).
+Per un nuovo profilo: salvalo con un nome e poi cambia ciò che è diverso (nome della chiesa, logo, nomi, colori).
+Für ein neues Profil: unter einem Namen speichern und dann ändern, was darin anders ist (Gemeindename, Logo, Namen, Farben).
 
 Esse perfil não existe mais.
 That profile no longer exists.
@@ -988,11 +988,11 @@ Perfil {n}
 Profilo {n}
 Profil {n}
 
-Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Aqui também se cria, renomeia e exclui.
-Service profile: changes the style, colors, fonts and logo at once. This is also where profiles are created, renamed and deleted.
-Perfil de culto: cambia de una vez el modelo, los colores, las fuentes y el logo. Aquí también se crean, renombran y eliminan.
-Profilo di culto: cambia in una volta modello, colori, caratteri e logo. Qui si creano, rinominano ed eliminano anche i profili.
-Gottesdienstprofil: wechselt Vorlage, Farben, Schriften und Logo auf einmal. Hier werden Profile auch angelegt, umbenannt und gelöscht.
+Perfil: troca de uma vez tudo o que é de uma igreja ou de um evento (nome, logo, aparência, nomes e textos). Aqui também se cria, renomeia e exclui.
+Profile: changes at once everything that belongs to a church or an event (name, logo, look, names and texts). This is also where profiles are created, renamed and deleted.
+Perfil: cambia de una vez todo lo que es de una iglesia o de un evento (nombre, logo, apariencia, nombres y textos). Aquí también se crean, renombran y eliminan.
+Profilo: cambia in una volta tutto ciò che appartiene a una chiesa o a un evento (nome, logo, aspetto, nomi e testi). Qui si creano, rinominano ed eliminano anche i profili.
+Profil: wechselt auf einmal alles, was zu einer Gemeinde oder Veranstaltung gehört (Name, Logo, Aussehen, Namen und Texte). Hier werden Profile auch angelegt, umbenannt und gelöscht.
 
 Perfil em uso
 Profile in use
@@ -1024,17 +1024,17 @@ El último perfil no se puede eliminar
 L’ultimo profilo non può essere eliminato
 Das letzte Profil kann nicht gelöscht werden
 
-Excluir este perfil. Os nomes, avisos e contribuições não são apagados.
-Deletes this profile. Names, notices and giving are not deleted.
-Elimina este perfil. Los nombres, avisos y contribuciones no se borran.
-Elimina questo profilo. Nomi, avvisi e contributi non vengono cancellati.
-Löscht dieses Profil. Namen, Hinweise und Spenden bleiben erhalten.
+Excluir este perfil, com os nomes, textos e contribuições que ele guarda.
+Deletes this profile, with the names, texts and giving it holds.
+Elimina este perfil, con los nombres, textos y contribuciones que guarda.
+Elimina questo profilo, con i nomi, i testi e i contributi che contiene.
+Löscht dieses Profil samt seinen Namen, Texten und Spendenangaben.
 
-Excluir o perfil "{name}"?
-Delete the profile "{name}"?
-¿Eliminar el perfil "{name}"?
-Eliminare il profilo "{name}"?
-Profil „{name}“ löschen?
+Excluir o perfil "{name}"? Os nomes e textos dele também são apagados.
+Delete the profile "{name}"? Its names and texts are deleted too.
+¿Eliminar el perfil "{name}"? Sus nombres y textos también se borran.
+Eliminare il profilo "{name}"? Anche i suoi nomi e testi vengono eliminati.
+Profil „{name}“ löschen? Seine Namen und Texte werden ebenfalls gelöscht.
 
 Novo perfil
 New profile
@@ -1042,23 +1042,23 @@ Nuevo perfil
 Nuovo profilo
 Neues Profil
 
-Cada perfil guarda uma aparência completa: modelo, cores, fontes e logo.
-Each profile keeps a complete look: style, colors, fonts and logo.
-Cada perfil guarda una apariencia completa: modelo, colores, fuentes y logo.
-Ogni profilo conserva un aspetto completo: modello, colori, caratteri e logo.
-Jedes Profil speichert ein komplettes Aussehen: Vorlage, Farben, Schriften und Logo.
+Cada perfil guarda tudo separado: nome da igreja, logo, aparência, nomes, ofertas e textos.
+Each profile keeps everything apart: church name, logo, look, names, offerings and texts.
+Cada perfil guarda todo por separado: nombre de la iglesia, logo, apariencia, nombres, ofrendas y textos.
+Ogni profilo conserva tutto separatamente: nome della chiesa, logo, aspetto, nomi, offerte e testi.
+Jedes Profil hält alles getrennt: Gemeindename, Logo, Aussehen, Namen, Spenden und Texte.
 
-Perfil criado com a aparência atual. Dê um nome a ele.
-Profile created with the current look. Give it a name.
-Perfil creado con la apariencia actual. Póngale un nombre.
-Profilo creato con l’aspetto attuale. Dagli un nome.
-Profil mit dem aktuellen Aussehen angelegt. Geben Sie ihm einen Namen.
+Perfil criado como cópia do atual. Dê um nome a ele.
+Profile created as a copy of the current one. Give it a name.
+Perfil creado como copia del actual. Póngale un nombre.
+Profilo creato come copia di quello attuale. Dagli un nome.
+Profil als Kopie des aktuellen angelegt. Geben Sie ihm einen Namen.
 
-Cada perfil guarda uma aparência completa: modelo, cores, fontes, logo, posições e o que o selo mostra. Troque, crie, renomeie e exclua perfis no seletor do alto desta página; a troca também está no painel do OBS. Os nomes, avisos, agenda e contribuições são os mesmos em todos.
-Each profile keeps a complete look: style, colors, fonts, logo, positions and what the badge shows. Change, create, rename and delete profiles in the selector at the top of this page; changing is also in the OBS panel. Names, notices, schedule and giving are the same in all of them.
-Cada perfil guarda una apariencia completa: modelo, colores, fuentes, logo, posiciones y lo que muestra el sello. Cambie, cree, renombre y elimine perfiles en el selector de la parte superior de esta página; el cambio también está en el panel de OBS. Los nombres, avisos, agenda y contribuciones son los mismos en todos.
-Ogni profilo conserva un aspetto completo: modello, colori, caratteri, logo, posizioni e ciò che mostra il badge. Cambia, crea, rinomina ed elimina i profili nel selettore in alto in questa pagina; il cambio è anche nel pannello di OBS. Nomi, avvisi, agenda e contributi sono gli stessi in tutti.
-Jedes Profil speichert ein komplettes Aussehen: Vorlage, Farben, Schriften, Logo, Positionen und was das Emblem zeigt. Profile wechseln, anlegen, umbenennen und löschen Sie in der Auswahl oben auf dieser Seite; der Wechsel ist auch im OBS-Panel möglich. Namen, Hinweise, Termine und Spenden sind in allen gleich.
+Cada perfil é um conjunto completo e separado: nome da igreja, logo, modelo, cores, nomes, ofertas, avisos, agenda, redes, contribuição e roteiro. Um perfil novo nasce como cópia do que está em uso. Troque, crie, renomeie e exclua perfis no seletor do alto desta página; a troca também está no painel do OBS. O idioma e os modelos próprios valem para todos.
+Each profile is a complete, separate set: church name, logo, style, colors, names, offerings, notices, schedule, networks, giving and rundown. A new profile starts as a copy of what is in use. Change, create, rename and delete profiles in the selector at the top of this page; changing is also in the OBS panel. The language and the custom styles are the same for all.
+Cada perfil es un conjunto completo y separado: nombre de la iglesia, logo, modelo, colores, nombres, ofrendas, avisos, agenda, redes, contribución y guion. Un perfil nuevo nace como copia de lo que está en uso. Cambie, cree, renombre y elimine perfiles en el selector de la parte superior de esta página; el cambio también está en el panel de OBS. El idioma y los modelos propios valen para todos.
+Ogni profilo è un insieme completo e separato: nome della chiesa, logo, modello, colori, nomi, offerte, avvisi, agenda, social, contributi e scaletta. Un nuovo profilo nasce come copia di ciò che è in uso. Cambia, crea, rinomina ed elimina i profili nel selettore in alto in questa pagina; il cambio è anche nel pannello di OBS. La lingua e i modelli personali valgono per tutti.
+Jedes Profil ist ein vollständiger, eigener Satz: Gemeindename, Logo, Vorlage, Farben, Namen, Spenden, Hinweise, Termine, Netzwerke, Spendenweg und Ablauf. Ein neues Profil beginnt als Kopie des Verwendeten. Profile wechseln, anlegen, umbenennen und löschen Sie in der Auswahl oben auf dieser Seite; der Wechsel ist auch im OBS-Panel möglich. Sprache und eigene Vorlagen gelten für alle.
 
 Sobre
 About

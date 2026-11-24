@@ -65,8 +65,8 @@ export default {
     'Coloque em ordem o que vai ao ar durante o culto: o nome de quem fala, as ofertas, um comentário, a agenda. No painel do OBS, a separador "Roteiro" mostra a lista e um botão "Próximo": a cada clique entra o passo seguinte e o anterior sai. Os passos apontam para o que já está guardado (nomes, ofertas, comentários, redes).',
   'O programa cria as fontes de navegador direto no OBS, na cena que está aberta, com o endereço e o tamanho certos. No OBS, abra Ferramentas → Configurações do servidor WebSocket, marque "Ativar servidor WebSocket" e clique em "Mostrar informações de conexão" para ver a senha.':
     'O programa cria as fontes de navegador direto no OBS, na cena que está aberta, com o endereço e o tamanho certos. No OBS, abra Ferramentas → Definições do servidor WebSocket, marque "Ativar servidor WebSocket" e clique em "Mostrar informações de conexão" para ver a senha.',
-  'Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja':
-    'Guarda a aparência deste perfil num ficheiro (com o logótipo e o modelo próprio), para levar a outra igreja',
+  'Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja. Os nomes, os textos e a contribuição não vão no arquivo.':
+    'Guarda a aparência deste perfil num ficheiro (com o logótipo e o modelo próprio), para levar a outra igreja. Os nomes, os textos e a contribuição não vão no ficheiro.',
   'Importar perfil de um arquivo': 'Importar perfil de um ficheiro',
   'O OBS não respondeu. Confira se ele está aberto e se o servidor WebSocket está ativado (Ferramentas → Configurações do servidor WebSocket).':
     'O OBS não respondeu. Confira se ele está aberto e se o servidor WebSocket está ativado (Ferramentas → Definições do servidor WebSocket).',
@@ -170,8 +170,8 @@ export default {
   'Arquivo grande demais.': 'Ficheiro demasiado grande.',
   'O Windows deste computador não deixou o programa abrir o instalador sozinho (é comum em computadores de empresa). Baixe o instalador e abra-o você mesmo: as configurações são mantidas.':
     'O Windows deste computador não deixou o programa abrir o instalador sozinho (é comum em computadores de empresa). Transfira o instalador e abra-o: as configurações são mantidas.',
-  'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Crie e ajuste os perfis nas configurações.':
-    'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Crie e ajuste os perfis nas definições.',
+  'Perfil: troca de uma vez tudo o que é de uma igreja ou de um evento (nome, logo, aparência, nomes e textos). Crie e ajuste os perfis nas configurações.':
+    'Perfil: troca de uma vez tudo o que é de uma igreja ou de um evento (nome, logótipo, aparência, nomes e textos). Crie e ajuste os perfis nas definições.',
   'Salvar como novo perfil': 'Guardar como novo perfil',
   'Fixar: o que for mostrado nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
     'Fixar: o que for mostrado nesta separador fica no ecrã até esconder, mesmo quando o tempo acabar',
@@ -233,8 +233,6 @@ export default {
   Telefone: 'Telefone',
   'Faixa inclinada e letras altas, no estilo das transmissões esportivas':
     'Faixa inclinada e letras altas, no estilo das transmissões desportivas',
-  'Para um perfil novo: salve com um nome e depois escolha o modelo, as cores e o logo dele.':
-    'Para um perfil novo: guarde com um nome e depois escolha o modelo, as cores e o logótipo.',
   'A atualização foi baixada. Abriu uma janela do Church Lower Thirds neste computador (pode estar atrás desta): clique em OK nela e depois autorize a instalação quando o Windows pedir.':
     'A atualização foi transferida. Abriu-se uma janela do Church Lower Thirds neste computador (pode estar atrás desta): clique em OK e depois autorize a instalação quando o Windows pedir.',
   'Abre a pasta com o instalador que o programa já baixou e conferiu':
@@ -250,11 +248,6 @@ export default {
     'Projeto criado por Jonas Silva, criador do Culto em Off: um projeto dedicado a partilhar conhecimento, ferramentas e soluções para áudio, vídeo, transmissão e tecnologia em igrejas.',
   Excluir: 'Eliminar',
   'O último perfil não pode ser excluído': 'O último perfil não pode ser eliminado',
-  'Excluir este perfil. Os nomes, avisos e contribuições não são apagados.':
-    'Eliminar este perfil. Os nomes, avisos e contribuições não são apagados.',
-  'Excluir o perfil "{name}"?': 'Eliminar o perfil "{name}"?',
-  'Cada perfil guarda uma aparência completa: modelo, cores, fontes e logo.':
-    'Cada perfil guarda uma aparência completa: modelo, cores, tipos de letra e logótipo.',
   'Nenhuma regra pôde ser usada. Confira se colou só o código CSS.':
     'Nenhuma regra pôde ser usada. Confirme se colou só o código CSS.',
   'Linhas ignoradas ({n}): o modelo não pode buscar nada na internet.':
@@ -272,4 +265,8 @@ export default {
   'Há modelos demais: exclua um antes de importar outro.':
     'Há modelos a mais: elimine um antes de importar outro.',
   'Modelo "{name}" excluído.': 'Modelo "{name}" eliminado.',
+  'Excluir este perfil, com os nomes, textos e contribuições que ele guarda.':
+    'Eliminar este perfil, com os nomes, textos e contribuições que guarda.',
+  'Excluir o perfil "{name}"? Os nomes e textos dele também são apagados.':
+    'Eliminar o perfil "{name}"? Os nomes e textos dele também são apagados.',
 };

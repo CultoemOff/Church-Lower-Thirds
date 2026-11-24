@@ -360,8 +360,8 @@ export default {
     'Das Bedienfeld (Dock) wird weiterhin von Hand hinzugefügt: OBS lässt Programme keine Docks anlegen. Die Adresse steht direkt darunter.',
   Simples: 'Einfach',
   Avançado: 'Erweitert',
-  'Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja':
-    'Speichert das Aussehen dieses Profils in einer Datei (mit Logo und eigener Vorlage), zum Weitergeben an eine andere Gemeinde',
+  'Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja. Os nomes, os textos e a contribuição não vão no arquivo.':
+    'Speichert das Aussehen dieses Profils in einer Datei (mit Logo und eigener Vorlage), zum Weitergeben an eine andere Gemeinde. Namen, Texte und Spendenangaben kommen nicht in die Datei.',
   'Importar perfil de um arquivo': 'Profil aus einer Datei importieren',
   Desfazer: 'Rückgängig',
   'O OBS não respondeu. Confira se ele está aberto e se o servidor WebSocket está ativado (Ferramentas → Configurações do servidor WebSocket).':
@@ -1000,8 +1000,8 @@ export default {
     'Windows hat auf diesem Computer nicht zugelassen, dass das Programm das Installationsprogramm selbst öffnet (auf Firmencomputern üblich). Laden Sie es herunter und öffnen Sie es selbst: Die Einstellungen bleiben erhalten.',
   'Culto padrão': 'Normaler Gottesdienst',
   Perfil: 'Profil',
-  'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Crie e ajuste os perfis nas configurações.':
-    'Gottesdienst-Profil: wechselt Vorlage, Farben, Schriften und Logo auf einmal. Profile werden in den Einstellungen angelegt und angepasst.',
+  'Perfil: troca de uma vez tudo o que é de uma igreja ou de um evento (nome, logo, aparência, nomes e textos). Crie e ajuste os perfis nas configurações.':
+    'Profil: wechselt auf einmal alles, was zu einer Gemeinde oder Veranstaltung gehört (Name, Logo, Aussehen, Namen und Texte). Profile legen Sie in den Einstellungen an.',
   'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo':
     'Gottesdienst-Profil: wechselt Vorlage, Farben, Schriften und Logo auf einmal',
   'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As cores que a igreja já escolheu continuam ao trocar de modelo. As figuras mostram cada modelo como ele vai ficar, com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.':
@@ -1009,8 +1009,8 @@ export default {
   'Trocar de perfil de culto (pelo nome)': 'Gottesdienst-Profil wechseln (nach Name)',
   'Nome do novo perfil (ex.: Culto de mulheres, Natal)':
     'Name des neuen Profils (z. B. Frauengottesdienst, Weihnachten)',
-  'Perfil "{name}" criado com a aparência atual.':
-    'Profil „{name}“ mit dem aktuellen Aussehen angelegt.',
+  'Perfil "{name}" criado como cópia do atual.':
+    'Profil „{name}“ als Kopie des aktuellen angelegt.',
   'Perfis de culto': 'Gottesdienst-Profile',
   'Cada perfil guarda uma aparência completa: modelo, cores, fontes, logo, posições e o que o selo mostra. Troque de perfil aqui, no alto desta página ou no painel do OBS. Os nomes, avisos, agenda e contribuições são os mesmos em todos.':
     'Jedes Profil bewahrt ein vollständiges Aussehen: Vorlage, Farben, Schriften, Logo, Positionen und was das Eck-Emblem zeigt. Wechseln Sie das Profil hier, oben auf dieser Seite oder im OBS-Dock. Namen, Hinweise, Programm und Spenden sind in allen gleich.',
@@ -1021,11 +1021,11 @@ export default {
     'Löscht dieses Profil. Namen, Hinweise und Spenden werden nicht gelöscht.',
   'Apagar o perfil "{name}"?': 'Profil „{name}“ löschen?',
   Apagar: 'Löschen',
-  'Cria um perfil com a aparência que está em uso agora e passa a usá-lo':
-    'Legt ein Profil mit dem jetzt verwendeten Aussehen an und wechselt dorthin',
+  'Cria um perfil como cópia de tudo o que está em uso agora e passa a usá-lo':
+    'Legt ein Profil als Kopie von allem aktuell Verwendeten an und verwendet es',
   'Salvar como novo perfil': 'Als neues Profil speichern',
-  'Para um perfil novo: salve com um nome e depois escolha o modelo, as cores e o logo dele.':
-    'Für ein neues Profil: mit einem Namen speichern und dann Vorlage, Farben und Logo dafür wählen.',
+  'Para um perfil novo: salve com um nome e depois troque o que for diferente nele (nome da igreja, logo, nomes, cores).':
+    'Für ein neues Profil: unter einem Namen speichern und dann ändern, was darin anders ist (Gemeindename, Logo, Namen, Farben).',
   'Esse perfil não existe mais.': 'Dieses Profil gibt es nicht mehr.',
   'Escreva um nome para o perfil.': 'Geben Sie einen Namen für das Profil ein.',
   'O último perfil não pode ser apagado.': 'Das letzte Profil kann nicht gelöscht werden.',
@@ -1094,23 +1094,24 @@ export default {
     'Solange er fixiert ist, wechseln die Hinweise der Liste nicht.',
   'Perfil 1': 'Profil 1',
   'Perfil {n}': 'Profil {n}',
-  'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Aqui também se cria, renomeia e exclui.':
-    'Gottesdienstprofil: wechselt Vorlage, Farben, Schriften und Logo auf einmal. Hier werden Profile auch angelegt, umbenannt und gelöscht.',
+  'Perfil: troca de uma vez tudo o que é de uma igreja ou de um evento (nome, logo, aparência, nomes e textos). Aqui também se cria, renomeia e exclui.':
+    'Profil: wechselt auf einmal alles, was zu einer Gemeinde oder Veranstaltung gehört (Name, Logo, Aussehen, Namen und Texte). Hier werden Profile auch angelegt, umbenannt und gelöscht.',
   'Perfil em uso': 'Profil in Verwendung',
   'Usar este perfil': 'Dieses Profil verwenden',
   Renomear: 'Umbenennen',
   Excluir: 'Löschen',
   'O último perfil não pode ser excluído': 'Das letzte Profil kann nicht gelöscht werden',
-  'Excluir este perfil. Os nomes, avisos e contribuições não são apagados.':
-    'Löscht dieses Profil. Namen, Hinweise und Spenden bleiben erhalten.',
-  'Excluir o perfil "{name}"?': 'Profil „{name}“ löschen?',
+  'Excluir este perfil, com os nomes, textos e contribuições que ele guarda.':
+    'Löscht dieses Profil samt seinen Namen, Texten und Spendenangaben.',
+  'Excluir o perfil "{name}"? Os nomes e textos dele também são apagados.':
+    'Profil „{name}“ löschen? Seine Namen und Texte werden ebenfalls gelöscht.',
   'Novo perfil': 'Neues Profil',
-  'Cada perfil guarda uma aparência completa: modelo, cores, fontes e logo.':
-    'Jedes Profil speichert ein komplettes Aussehen: Vorlage, Farben, Schriften und Logo.',
-  'Perfil criado com a aparência atual. Dê um nome a ele.':
-    'Profil mit dem aktuellen Aussehen angelegt. Geben Sie ihm einen Namen.',
-  'Cada perfil guarda uma aparência completa: modelo, cores, fontes, logo, posições e o que o selo mostra. Troque, crie, renomeie e exclua perfis no seletor do alto desta página; a troca também está no painel do OBS. Os nomes, avisos, agenda e contribuições são os mesmos em todos.':
-    'Jedes Profil speichert ein komplettes Aussehen: Vorlage, Farben, Schriften, Logo, Positionen und was das Emblem zeigt. Profile wechseln, anlegen, umbenennen und löschen Sie in der Auswahl oben auf dieser Seite; der Wechsel ist auch im OBS-Panel möglich. Namen, Hinweise, Termine und Spenden sind in allen gleich.',
+  'Cada perfil guarda tudo separado: nome da igreja, logo, aparência, nomes, ofertas e textos.':
+    'Jedes Profil hält alles getrennt: Gemeindename, Logo, Aussehen, Namen, Spenden und Texte.',
+  'Perfil criado como cópia do atual. Dê um nome a ele.':
+    'Profil als Kopie des aktuellen angelegt. Geben Sie ihm einen Namen.',
+  'Cada perfil é um conjunto completo e separado: nome da igreja, logo, modelo, cores, nomes, ofertas, avisos, agenda, redes, contribuição e roteiro. Um perfil novo nasce como cópia do que está em uso. Troque, crie, renomeie e exclua perfis no seletor do alto desta página; a troca também está no painel do OBS. O idioma e os modelos próprios valem para todos.':
+    'Jedes Profil ist ein vollständiger, eigener Satz: Gemeindename, Logo, Vorlage, Farben, Namen, Spenden, Hinweise, Termine, Netzwerke, Spendenweg und Ablauf. Ein neues Profil beginnt als Kopie des Verwendeten. Profile wechseln, anlegen, umbenennen und löschen Sie in der Auswahl oben auf dieser Seite; der Wechsel ist auch im OBS-Panel möglich. Sprache und eigene Vorlagen gelten für alle.',
   Sobre: 'Über',
   'Quem faz o Church Lower Thirds e onde encontrar o Culto em Off.':
     'Wer Church Lower Thirds macht und wo Culto em Off zu finden ist.',

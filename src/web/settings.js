@@ -4204,10 +4204,13 @@ function renderProfiles() {
           title:
             config.profiles.length < 2
               ? 'O último perfil não pode ser excluído'
-              : 'Excluir este perfil. Os nomes, avisos e contribuições não são apagados.',
+              : 'Excluir este perfil, com os nomes, textos e contribuições que ele guarda.',
           onclick: () =>
-            confirm(t('Excluir o perfil "{name}"?', { name: p.name })) &&
-            profileCommand('/api/profile/remove', { id: p.id }),
+            confirm(
+              t('Excluir o perfil "{name}"? Os nomes e textos dele também são apagados.', {
+                name: p.name,
+              }),
+            ) && profileCommand('/api/profile/remove', { id: p.id }),
         }),
       );
     }),
@@ -4215,7 +4218,7 @@ function renderProfiles() {
       'button',
       {
         class: 'menuAdd',
-        title: 'Cria um perfil com a aparência que está em uso agora e passa a usá-lo',
+        title: 'Cria um perfil como cópia de tudo o que está em uso agora e passa a usá-lo',
         onclick: addProfile,
       },
       '+ ' + t('Novo perfil'),
@@ -4223,7 +4226,7 @@ function renderProfiles() {
     h(
       'p',
       { class: 'menuHint' },
-      'Cada perfil guarda uma aparência completa: modelo, cores, fontes e logo.',
+      'Cada perfil guarda tudo separado: nome da igreja, logo, aparência, nomes, ofertas e textos.',
     ),
   );
 }
@@ -4242,7 +4245,7 @@ async function addProfile() {
   renaming = config.profile;
   profileOpen = true;
   renderProfiles();
-  toast(t('Perfil criado com a aparência atual. Dê um nome a ele.'));
+  toast(t('Perfil criado como cópia do atual. Dê um nome a ele.'));
 }
 function closeProfiles() {
   profileOpen = false;
@@ -4283,13 +4286,13 @@ const profilesCard = () => {
   const add = async () => {
     if (!name.value.trim()) return name.focus();
     const r = await profileCommand('/api/profile/add', { name: name.value });
-    if (r) toast(t('Perfil "{name}" criado com a aparência atual.', { name: name.value.trim() }));
+    if (r) toast(t('Perfil "{name}" criado como cópia do atual.', { name: name.value.trim() }));
   };
   name.addEventListener('keydown', (e) => e.key === 'Enter' && add());
   return card(
     'Perfis de culto',
     hint(
-      'Cada perfil guarda uma aparência completa: modelo, cores, fontes, logo, posições e o que o selo mostra. Troque, crie, renomeie e exclua perfis no seletor do alto desta página; a troca também está no painel do OBS. Os nomes, avisos, agenda e contribuições são os mesmos em todos.',
+      'Cada perfil é um conjunto completo e separado: nome da igreja, logo, modelo, cores, nomes, ofertas, avisos, agenda, redes, contribuição e roteiro. Um perfil novo nasce como cópia do que está em uso. Troque, crie, renomeie e exclua perfis no seletor do alto desta página; a troca também está no painel do OBS. O idioma e os modelos próprios valem para todos.',
     ),
     h(
       'div',
@@ -4322,7 +4325,7 @@ const profilesCard = () => {
               'button',
               {
                 title:
-                  'Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja',
+                  'Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja. Os nomes, os textos e a contribuição não vão no arquivo.',
               },
               'Exportar',
             ),
@@ -4331,10 +4334,13 @@ const profilesCard = () => {
             'button',
             {
               disabled: config.profiles.length < 2,
-              title: 'Excluir este perfil. Os nomes, avisos e contribuições não são apagados.',
+              title: 'Excluir este perfil, com os nomes, textos e contribuições que ele guarda.',
               onclick: () =>
-                confirm(t('Excluir o perfil "{name}"?', { name: p.name })) &&
-                profileCommand('/api/profile/remove', { id: p.id }),
+                confirm(
+                  t('Excluir o perfil "{name}"? Os nomes e textos dele também são apagados.', {
+                    name: p.name,
+                  }),
+                ) && profileCommand('/api/profile/remove', { id: p.id }),
             },
             'Excluir',
           ),
@@ -4350,14 +4356,14 @@ const profilesCard = () => {
         'button',
         {
           class: 'primary',
-          title: 'Cria um perfil com a aparência que está em uso agora e passa a usá-lo',
+          title: 'Cria um perfil como cópia de tudo o que está em uso agora e passa a usá-lo',
           onclick: add,
         },
         'Salvar como novo perfil',
       ),
     ),
     hint(
-      'Para um perfil novo: salve com um nome e depois escolha o modelo, as cores e o logo dele.',
+      'Para um perfil novo: salve com um nome e depois troque o que for diferente nele (nome da igreja, logo, nomes, cores).',
     ),
   );
 };

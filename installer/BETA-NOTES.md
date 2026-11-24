@@ -1,5 +1,12 @@
 **Versão beta para testes — somente Windows.** Programa novo, separado do PTZ Control Web.
 
+### Novidades da beta.17
+
+- **Perfis com todos os dados separados**: ao trocar de perfil, troca tudo o que é da igreja ou do evento, e não só a aparência: nome da igreja, logo, modelo e cores, nomes, ofertas salvas, recados, agenda, redes, comentários, contagem, contribuição (PIX), roteiro e quais elementos estão ligados. Um perfil novo nasce como cópia do que está em uso. O idioma, o tamanho das fontes do OBS e os modelos próprios continuam valendo para todos.
+  - **Perfis que já existiam** guardavam só a aparência: na primeira vez em que cada um for usado, ele recebe os dados que estiverem em uso naquele momento, e daí em diante os dados são dele.
+  - **Excluir um perfil** agora apaga também os nomes e textos dele (a pergunta de confirmação avisa).
+  - **Exportar um perfil** continua levando só a aparência (com o logo e o modelo próprio): nomes, textos e a chave de contribuição não vão no arquivo.
+
 ### Novidades da beta.16
 
 - **Roteiro do culto**: em "Roteiro do culto" (configurações) coloca-se em ordem o que vai ao ar: nomes, ofertas, comentários, redes, agenda, contagem, "tirar tudo do ar". No painel do OBS, a aba **Roteiro** mostra a lista e o botão **Próximo**: a cada clique entra o passo seguinte e o anterior sai. Também há endereços para Stream Deck (próximo, anterior, ir para um passo, recomeçar).

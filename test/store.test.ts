@@ -353,38 +353,75 @@ test('corner badge: date and day of the week each have a switch; old settings ke
   assert.equal(cleanConfig({ top: { dateStyle: 'long' } }).top.dateStyle, 'long');
 });
 
-test('service profiles: each keeps a whole look; the texts are the same in all of them', () => {
+test('service profiles: each keeps everything of its own, the names and texts included', () => {
   let c = cleanConfig(undefined);
   c.theme.radius = 3;
+  c.brand.name = 'Igreja Sede';
   c.brand.logo = '/media/aaaaaaaaaaaaaaaa.png';
   c.lower.template = 'news';
   c.lower.items[0].line1 = 'Maria';
-  // A new profile starts as a copy of the look in use and becomes the one in use.
+  c.giving.details = 'chave-da-sede';
+  c.enabled.agenda = false;
+  // A new profile starts as a copy of everything in use and becomes the one in use.
   c = addProfile(c, '  Natal  ');
   assert.deepEqual(
-    c.profiles.map((p) => p.name),
-    ['Perfil 1', 'Natal'],
+    c.profiles.map((p) => [p.name, p.full]),
+    [
+      ['Perfil 1', true],
+      ['Natal', true],
+    ],
   );
   assert.equal(c.profile, c.profiles[1].id);
+  assert.equal(c.brand.name, 'Igreja Sede');
+  assert.equal(c.lower.items[0].line1, 'Maria');
   c.theme.radius = 40;
+  c.brand.name = 'Cantata de Natal';
   c.brand.logo = '/media/bbbbbbbbbbbbbbbb.png';
   c.lower.template = 'floral';
   c.top.showDate = true;
-  c.lower.items[0].line1 = 'José';
-  // Back to the first: its look returns, the names stay as they are now.
+  c.lower.items = [{ ...c.lower.items[0], line1: 'José' }];
+  c.card.saved = [
+    { id: 'card1111', title: 'Missões', subtitle: '', qr: 'url', qrText: 'https://x.org' },
+  ];
+  c.rundown = [{ id: 'step1111', kind: 'card', ref: 'card1111', note: '' }];
+  c.giving.details = 'chave-da-cantata';
+  c.enabled.agenda = true;
+  c.countdown.minutes = 12;
+  // Back to the first: everything of it returns, the names and the way of giving too.
   c = useProfile(c, 'perfil 1');
   assert.equal(c.profile, 'padrao');
   assert.equal(c.theme.radius, 3);
+  assert.equal(c.brand.name, 'Igreja Sede');
   assert.equal(c.brand.logo, '/media/aaaaaaaaaaaaaaaa.png');
   assert.equal(c.lower.template, 'news');
   assert.equal(c.top.showDate, false);
-  assert.equal(c.lower.items[0].line1, 'José');
+  assert.equal(c.lower.items[0].line1, 'Maria');
+  assert.ok(c.lower.items.length > 1);
+  assert.deepEqual([c.card.saved.length, c.rundown.length], [0, 0]);
+  assert.equal(c.giving.details, 'chave-da-sede');
+  assert.equal(c.enabled.agenda, false);
+  assert.notEqual(c.countdown.minutes, 12);
   // And to the second, by its position: what was changed there was kept.
   c = useProfile(c, '2');
   assert.equal(c.theme.radius, 40);
+  assert.equal(c.brand.name, 'Cantata de Natal');
   assert.equal(c.brand.logo, '/media/bbbbbbbbbbbbbbbb.png');
   assert.equal(c.lower.template, 'floral');
   assert.equal(c.top.showDate, true);
+  assert.deepEqual(
+    c.lower.items.map((i) => i.line1),
+    ['José'],
+  );
+  assert.equal(c.card.saved[0].title, 'Missões');
+  assert.equal(c.rundown[0].ref, 'card1111');
+  assert.equal(c.giving.details, 'chave-da-cantata');
+  assert.equal(c.countdown.minutes, 12);
+  // What belongs to the program, not to a profile, is the same in both.
+  c.language = 'es';
+  c.output.horizontal = '1280x720';
+  c = useProfile(c, '1');
+  assert.deepEqual([c.language, c.output.horizontal], ['es', '1280x720']);
+  c = useProfile(c, '2');
   // Everything survives a save and a reload.
   assert.deepEqual(cleanConfig(JSON.parse(JSON.stringify(c))), c);
   assert.throws(() => useProfile(c, 'nope'), /Profile not found/);
@@ -511,4 +548,31 @@ test('the order of service keeps only steps of known kinds, and tells what each 
   assert.equal(cleanLive({ step: 'step2222' }, c).step, 'step2222');
   assert.equal(cleanLive({ step: 'zzzz0000' }, c).step, '');
   assert.equal(cleanLive({ countdown: { on: true, until: 123 } }, c).countdown.until, 123);
+});
+
+test('a profile from before, with only a look, takes the data in use the first time it is used', () => {
+  let c = cleanConfig(undefined);
+  c.brand.name = 'Igreja Sede';
+  c.lower.items[0].line1 = 'Maria';
+  c = addProfile(c, 'Natal');
+  // As the settings of an older version had it: no "full", only the look.
+  const saved = JSON.parse(JSON.stringify(useProfile(c, '1')));
+  const old = saved.profiles[1];
+  delete old.full;
+  old.look = { brand: { logo: '/media/cccccccccccccccc.png', font: '' }, theme: { radius: 7 } };
+  c = cleanConfig(saved);
+  assert.equal(c.profiles[1].full, false);
+  assert.equal((c.profiles[1].look.brand as { name?: string }).name, undefined);
+  // Used for the first time: its look comes, the names stay as they are…
+  c = useProfile(c, 'Natal');
+  assert.equal(c.theme.radius, 7);
+  assert.equal(c.brand.logo, '/media/cccccccccccccccc.png');
+  assert.equal(c.brand.name, 'Igreja Sede');
+  assert.equal(c.lower.items[0].line1, 'Maria');
+  // …and from then on they are its own.
+  c.lower.items[0].line1 = 'José';
+  c = useProfile(c, '1');
+  assert.equal(c.lower.items[0].line1, 'Maria');
+  assert.equal(c.profiles[1].full, true);
+  assert.equal(useProfile(c, 'Natal').lower.items[0].line1, 'José');
 });

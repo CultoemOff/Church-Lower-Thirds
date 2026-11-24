@@ -130,9 +130,6 @@ O Windows deste computador não deixou o programa abrir o instalador sozinho (é
 Salvar como novo perfil
 Guardar como novo perfil
 
-Para um perfil novo: salve com um nome e depois escolha o modelo, as cores e o logo dele.
-Para um perfil novo: guarde com um nome e depois escolha o modelo, as cores e o logótipo.
-
 Cada oferta tem o seu título e o seu QR Code: dízimos e ofertas, missões, uma campanha, uma inscrição. No painel do OBS, na aba "Ofertas e Dízimos", um clique mostra a que você escolher.
 Cada oferta tem o seu título e o seu QR Code: dízimos e ofertas, missões, uma campanha, uma inscrição. No painel do OBS, no separador "Ofertas e Dízimos", um clique mostra a que escolher.
 
@@ -168,15 +165,6 @@ Eliminar
 
 O último perfil não pode ser excluído
 O último perfil não pode ser eliminado
-
-Excluir este perfil. Os nomes, avisos e contribuições não são apagados.
-Eliminar este perfil. Os nomes, avisos e contribuições não são apagados.
-
-Excluir o perfil "{name}"?
-Eliminar o perfil "{name}"?
-
-Cada perfil guarda uma aparência completa: modelo, cores, fontes e logo.
-Cada perfil guarda uma aparência completa: modelo, cores, tipos de letra e logótipo.
 
 Nenhuma regra pôde ser usada. Confira se colou só o código CSS.
 Nenhuma regra pôde ser usada. Confirme se colou só o código CSS.
@@ -232,9 +220,6 @@ Guarda os nomes num ficheiro que o Excel e o Google Sheets abrem
 Aceita arquivos de modelo e de perfil exportados pelo Church Lower Thirds
 Aceita ficheiros de modelo e de perfil exportados pelo Church Lower Thirds
 
-Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja
-Guarda a aparência deste perfil num ficheiro (com o logótipo e o modelo próprio), para levar a outra igreja
-
 Mostra a contagem na tela, começando agora
 Mostra a contagem no ecrã, a começar agora
 
@@ -255,3 +240,15 @@ Este passo aponta para algo que foi apagado. Corrija o roteiro nas definições.
 
 Abre as configurações para montar ou mudar o roteiro
 Abre as definições para montar ou mudar o roteiro
+
+Excluir este perfil, com os nomes, textos e contribuições que ele guarda.
+Eliminar este perfil, com os nomes, textos e contribuições que guarda.
+
+Excluir o perfil "{name}"? Os nomes e textos dele também são apagados.
+Eliminar o perfil "{name}"? Os nomes e textos dele também são apagados.
+
+Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja. Os nomes, os textos e a contribuição não vão no arquivo.
+Guarda a aparência deste perfil num ficheiro (com o logótipo e o modelo próprio), para levar a outra igreja. Os nomes, os textos e a contribuição não vão no ficheiro.
+
+Perfil: troca de uma vez tudo o que é de uma igreja ou de um evento (nome, logo, aparência, nomes e textos). Crie e ajuste os perfis nas configurações.
+Perfil: troca de uma vez tudo o que é de uma igreja ou de um evento (nome, logótipo, aparência, nomes e textos). Crie e ajuste os perfis nas definições.
