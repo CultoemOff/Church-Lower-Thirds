@@ -608,7 +608,34 @@ function buildSocial() {
           prefix: s.prefix,
         },
       );
+      // Every item in sequence, each for a few seconds (the pace is in the settings).
+      const allOn = live.social.on && live.social.item === 'all';
+      const all =
+        s.items.length > 1
+          ? h(
+              'button',
+              {
+                class: 'net all' + (allOn ? ' on' : ''),
+                title: allOn
+                  ? 'No ar: clique para esconder'
+                  : 'Mostra todos em sequência, um de cada vez. Use o botão de fixar para deixar passando.',
+                onclick: () => command('/api/live/social/toggle?item=all'),
+              },
+              h('span', { class: 'ico' }, '∞'),
+              h(
+                'span',
+                { class: 'txt' },
+                h('b', {}, 'Todos em sequência'),
+                h(
+                  'small',
+                  { 'data-raw': '' },
+                  t('{n} itens, {s} s cada', { n: s.items.length, s: s.seconds }),
+                ),
+              ),
+            )
+          : null;
       nets.replaceChildren(
+        ...(all ? [all] : []),
         ...s.items.map((item) => {
           const on = live.social.on && live.social.item === item.id;
           const ico = h('span', { class: 'ico' });
@@ -628,7 +655,7 @@ function buildSocial() {
               'span',
               { class: 'txt', 'data-raw': '' },
               h('b', {}, item.handle),
-              h('small', {}, item.label || t('Rede')),
+              h('small', {}, item.text || item.label || t('Rede')),
             ),
             mini(
               '×',

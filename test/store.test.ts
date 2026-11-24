@@ -279,3 +279,49 @@ test('giving: PIX is one method among others, and old settings carry over', () =
     ],
   );
 });
+
+test('social: an own phrase per item, new kinds, and all of them in sequence', () => {
+  const c = cleanConfig({
+    social: {
+      template: 'plaque',
+      seconds: 999,
+      counter: 'no',
+      items: [
+        {
+          network: 'address',
+          label: 'Endereço',
+          handle: 'Rua Um, 10',
+          text: ' Venha nos visitar! ',
+        },
+        { network: 'bitcoin', handle: '@x' },
+      ],
+    },
+  });
+  assert.equal(c.social.template, 'plaque');
+  assert.equal(c.social.seconds, 120);
+  assert.equal(c.social.counter, true);
+  assert.deepEqual(
+    c.social.items.map((i) => [i.network, i.text]),
+    [
+      ['address', 'Venha nos visitar!'],
+      ['other', ''],
+    ],
+  );
+  // "all" stands for every item, one after the other.
+  const off = cleanLive({}, c);
+  assert.equal(resolveSocial(c, off, 'all')?.id, 'all');
+  const on = cleanLive({ social: { on: true, item: 'all' } }, c);
+  assert.deepEqual(on.social, { on: true, item: 'all', pin: false });
+  assert.equal(resolveSocial(c, on, undefined)?.id, 'all');
+  assert.equal(resolveSocial(c, on, '2')?.handle, '@x');
+  // With nothing to show there is no sequence either.
+  const empty = cleanConfig({ social: { items: [] } });
+  empty.social.items = [];
+  assert.equal(resolveSocial(empty, cleanLive({}, empty), 'all'), undefined);
+  assert.equal(cleanLive({ social: { on: true, item: 'all' } }, empty).social.on, false);
+  // The plaque model exists for names and for the QR card too.
+  assert.equal(
+    cleanConfig({ lower: { template: 'plaque' }, card: { template: 'plaque' } }).card.template,
+    'plaque',
+  );
+});

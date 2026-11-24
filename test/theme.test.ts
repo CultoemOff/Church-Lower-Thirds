@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { cleanConfig, defaults } from '../src/server/store.js';
 // @ts-expect-error browser module without type declarations
-import { givingQr, givingText, themed, THEMED_ELEMENTS } from '../src/web/js/look.js';
+import { givingQr, givingText, qrInk, qrUrl, themed, THEMED_ELEMENTS } from '../src/web/js/look.js';
 
 test('every element follows the global theme until it is given its own appearance', () => {
   const c = defaults();
@@ -71,4 +71,13 @@ test('the contribution QR and its text depend on the method', () => {
   c.giving.details = 'Banco 000\nConta 1';
   assert.equal(givingQr(c), '');
   assert.equal(givingText(c), 'Banco 000\nConta 1');
+});
+
+test('a QR code is only drawn in a color dark enough to scan', () => {
+  assert.equal(qrInk('#071a38'), '#071a38');
+  assert.equal(qrInk('#ffffff'), '');
+  assert.equal(qrInk('#f0e2b0'), '');
+  assert.equal(qrInk('navy'), '');
+  assert.match(qrUrl('url', 'https://example.org', { dark: '#071a38' }), /dark=%23071a38/);
+  assert.doesNotMatch(qrUrl('url', 'https://example.org', { dark: 'red' }), /dark=/);
 });

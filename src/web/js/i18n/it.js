@@ -756,4 +756,28 @@ export default {
   Altura: 'Altezza',
   Câmera: 'Telecamera',
   Docks: 'Pannelli',
+  'Mostra todos em sequência, um de cada vez. Use o botão de fixar para deixar passando.':
+    'Mostra tutti in sequenza, uno alla volta. Usa il pulsante blocca per lasciarli scorrere.',
+  'Todos em sequência': 'Tutti in sequenza',
+  '{n} itens, {s} s cada': '{n} elementi, {s} s ciascuno',
+  Placa: 'Targa',
+  'Azul e ouro': 'Blu e oro',
+  'Placas azul-marinho com fio dourado: QR Code no alto à esquerda e avisos em sequência embaixo':
+    'Targhe blu navy con filo dorato: codice QR in alto a sinistra e avvisi in sequenza in basso',
+  'Frase só deste item. Vazio: usa o texto geral e o nome da rede.':
+    'Frase solo per questo elemento. Vuoto: usa il testo generale e il nome della rete.',
+  'Frase própria (opcional)': 'Frase propria (facoltativa)',
+  'No painel do OBS, "Todos em sequência" mostra um item de cada vez. O modelo "Placa" foi feito para isso, com contador e linha do tempo.':
+    'Nel pannello di OBS, "Tutti in sequenza" mostra un elemento alla volta. Il modello "Targa" è fatto per questo, con contatore e linea del tempo.',
+  'Tempo de cada item': 'Tempo di ogni elemento',
+  'Mostrar o contador (01 / 03)': 'Mostra il contatore (01 / 03)',
+  'Mostrar a linha do tempo': 'Mostra la linea del tempo',
+  Telefone: 'Telefono',
+  'E-mail': 'E-mail',
+  'Escreva o telefone, o código ou o e-mail que recebe.':
+    "Scrivi il telefono, il codice o l'e-mail che riceve.",
+  'Arquivo grande demais.': 'File troppo grande.',
+  'Não foi possível concluir. Tente de novo.': 'Impossibile completare. Riprova.',
+  'Abra esta página pelo endereço do próprio programa (127.0.0.1).':
+    "Apri questa pagina dall'indirizzo del programma stesso (127.0.0.1).",
 };

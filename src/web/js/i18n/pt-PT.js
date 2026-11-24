@@ -146,6 +146,7 @@ export default {
   'Configurações iniciais restauradas.': 'Definições iniciais restauradas.',
   'O assistente leva uns cinco minutos. Dá para pular um passo, ir direto a outro pela lista ao lado ou pular o assistente inteiro.':
     'O assistente demora uns cinco minutos. Pode saltar um passo, ir diretamente a outro pela lista ao lado ou saltar o assistente inteiro.',
+  'Arquivo grande demais.': 'Ficheiro demasiado grande.',
   'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui você confere e ajusta a aparência.':
     'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui pode conferir e ajustar o aspeto.',
   'Use o mesmo tamanho do vídeo do seu OBS. Os gráficos se ajustam sozinhos: tudo o que você configurou fica igual em qualquer um deles.':
@@ -181,4 +182,5 @@ export default {
   'Aplicativo de pagamento por telefone ou código':
     'Aplicação de pagamento por telemóvel ou código',
   'Telefone, código ou e-mail que recebe': 'Telemóvel, código ou e-mail que recebe',
+  Telefone: 'Telefone',
 };

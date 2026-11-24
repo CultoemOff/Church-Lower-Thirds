@@ -1,0 +1,107 @@
+Mostra todos em sequência, um de cada vez. Use o botão de fixar para deixar passando.
+Shows them all in sequence, one at a time. Use the pin button to keep them going.
+Muestra todos en secuencia, uno a la vez. Use el botón de fijar para dejarlos pasando.
+Mostra tutti in sequenza, uno alla volta. Usa il pulsante blocca per lasciarli scorrere.
+Zeigt alle nacheinander, jeweils einen. Mit der Fixieren-Taste laufen sie dauerhaft weiter.
+
+Todos em sequência
+All in sequence
+Todos en secuencia
+Tutti in sequenza
+Alle nacheinander
+
+{n} itens, {s} s cada
+{n} items, {s} s each
+{n} elementos, {s} s cada uno
+{n} elementi, {s} s ciascuno
+{n} Einträge, je {s} s
+
+Placa
+Plaque
+Placa
+Targa
+Tafel
+
+Azul e ouro
+Navy and gold
+Azul y oro
+Blu e oro
+Blau und Gold
+
+Placas azul-marinho com fio dourado: QR Code no alto à esquerda e avisos em sequência embaixo
+Navy plaques with a golden line: QR code at the top left and notices in sequence at the bottom
+Placas azul marino con hilo dorado: código QR arriba a la izquierda y avisos en secuencia abajo
+Targhe blu navy con filo dorato: codice QR in alto a sinistra e avvisi in sequenza in basso
+Marineblaue Tafeln mit goldener Linie: QR-Code oben links und Hinweise nacheinander unten
+
+Frase só deste item. Vazio: usa o texto geral e o nome da rede.
+A phrase for this item only. Empty: uses the general text and the network's name.
+Frase solo de este elemento. Vacío: usa el texto general y el nombre de la red.
+Frase solo per questo elemento. Vuoto: usa il testo generale e il nome della rete.
+Text nur für diesen Eintrag. Leer: verwendet den allgemeinen Text und den Namen des Netzwerks.
+
+Frase própria (opcional)
+Own phrase (optional)
+Frase propia (opcional)
+Frase propria (facoltativa)
+Eigener Text (optional)
+
+No painel do OBS, "Todos em sequência" mostra um item de cada vez. O modelo "Placa" foi feito para isso, com contador e linha do tempo.
+In the OBS panel, "All in sequence" shows one item at a time. The "Plaque" model was made for it, with a counter and a time line.
+En el panel de OBS, "Todos en secuencia" muestra un elemento a la vez. El modelo "Placa" fue hecho para eso, con contador y línea de tiempo.
+Nel pannello di OBS, "Tutti in sequenza" mostra un elemento alla volta. Il modello "Targa" è fatto per questo, con contatore e linea del tempo.
+Im OBS-Bedienfeld zeigt „Alle nacheinander“ jeweils einen Eintrag. Die Vorlage „Tafel“ ist dafür gemacht, mit Zähler und Zeitlinie.
+
+Tempo de cada item
+Time for each item
+Tiempo de cada elemento
+Tempo di ogni elemento
+Dauer pro Eintrag
+
+Mostrar o contador (01 / 03)
+Show the counter (01 / 03)
+Mostrar el contador (01 / 03)
+Mostra il contatore (01 / 03)
+Zähler anzeigen (01 / 03)
+
+Mostrar a linha do tempo
+Show the time line
+Mostrar la línea de tiempo
+Mostra la linea del tempo
+Zeitlinie anzeigen
+
+Telefone
+Phone
+Teléfono
+Telefono
+Telefon
+
+E-mail
+E-mail
+Correo
+E-mail
+E-Mail
+
+Escreva o telefone, o código ou o e-mail que recebe.
+Enter the phone, code or e-mail that receives.
+Escriba el teléfono, el código o el correo que recibe.
+Scrivi il telefono, il codice o l'e-mail che riceve.
+Telefonnummer, Code oder E-Mail des Empfängers eintragen.
+
+Arquivo grande demais.
+File too large.
+Archivo demasiado grande.
+File troppo grande.
+Datei zu groß.
+
+Não foi possível concluir. Tente de novo.
+Could not finish. Try again.
+No se pudo completar. Inténtelo de nuevo.
+Impossibile completare. Riprova.
+Vorgang fehlgeschlagen. Bitte erneut versuchen.
+
+Abra esta página pelo endereço do próprio programa (127.0.0.1).
+Open this page through the program's own address (127.0.0.1).
+Abra esta página por la dirección del propio programa (127.0.0.1).
+Apri questa pagina dall'indirizzo del programma stesso (127.0.0.1).
+Diese Seite über die Adresse des Programms selbst öffnen (127.0.0.1).
