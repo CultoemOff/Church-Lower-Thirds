@@ -63,7 +63,7 @@ jobs:
           $text = [Text.Encoding]::ASCII.GetString([IO.File]::ReadAllBytes('installer\output\Church-Lower-Thirds-Setup.exe'))
           $level = [regex]::Match($text, 'requestedExecutionLevel\s+level="(\w+)"').Groups[1].Value
           Write-Host "requestedExecutionLevel: $level"
-          if ($level -notin 'asInvoker', 'requireAdministrator') { throw "Unexpected manifest level: '$level'" }
+          if ($level -ne 'asInvoker') { throw "The update button could not start this setup (manifest: '$level')" }
       - name: Installer smoke test (install, run, uninstall)
         shell: pwsh
         run: |

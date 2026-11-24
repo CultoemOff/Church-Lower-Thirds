@@ -409,26 +409,14 @@ app.post('/api/update/install', async (_q, r) => {
     if (!info.newer) return void r.status(409).json({ error: 'Already up to date', ...info });
     installing ??= downloadVerifiedSetup(info).finally(() => (installing = undefined));
     const setup = await installing;
-    // Started through the Windows shell (Start-Process), which is what shows the permission
-    // prompt. /SILENT: after that, only the progress window. The path travels in an
-    // environment variable so no quoting can break on a profile name with spaces.
-    const child = spawn(
-      'powershell.exe',
-      [
-        '-NoProfile',
-        '-WindowStyle',
-        'Hidden',
-        '-Command',
-        // /LOG leaves "Setup Log <date>.txt" in the temp folder, for when an update goes wrong.
-        "Start-Process -FilePath $env:CLT_SETUP -ArgumentList '/SILENT','/SUPPRESSMSGBOXES','/NORESTART','/LOG'",
-      ],
-      {
-        env: { ...process.env, CLT_SETUP: setup },
-        detached: true,
-        stdio: 'ignore',
-        windowsHide: true,
-      },
-    );
+    // The setup asks Windows for permission by itself (its manifest is "asInvoker", checked
+    // in CI), so it can be started directly. /SILENT: after the permission prompt, only the
+    // progress window. /LOG leaves "Setup Log <date>.txt" in the temp folder, for when an
+    // update goes wrong.
+    const child = spawn(setup, ['/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/LOG'], {
+      detached: true,
+      stdio: 'ignore',
+    });
     // Answer only once Windows has really started it; a failure here must reach the person
     // as a message, not take the program down.
     await new Promise<void>((ok, bad) => {
