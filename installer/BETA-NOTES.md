@@ -1,5 +1,12 @@
 **Versão beta para testes — somente Windows.** Programa novo, separado do PTZ Control Web.
 
+### Novidades da beta.3
+
+- **Modelo "Placa"** para nomes, cartão do QR Code e redes: placa escura com borda fina, quadro para o ícone ou o logo e fio na cor de destaque. No cartão, o QR Code sai na cor escura da própria placa.
+- **Redes em sequência**: o botão "Todos em sequência" do painel mostra um item de cada vez, com contador (01 / 03) e linha do tempo. Cada item pode ter a própria frase, e há ícones para endereço, telefone e e-mail.
+- **Tema "Azul e ouro"**: azul-marinho com dourado, cartão do QR no alto à esquerda e as placas embaixo à esquerda. Também entrou em "Cores prontas".
+- O modelo "Vidro líquido" dos nomes voltou a aparecer na lista de modelos.
+
 ### Novidades da beta.2
 
 - **Contribuições além do PIX**: aplicativo de pagamento por telefone ou código (o nome é livre; em Portugal, Espanha e Itália já vem sugerido o mais usado no país), transferência SEPA com QR Code lido pelos aplicativos de banco, link, imagem de QR Code pronta ou só os dados bancários. Até 6 linhas de dados ao lado do QR Code.

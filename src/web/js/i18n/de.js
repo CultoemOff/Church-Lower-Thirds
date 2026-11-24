@@ -760,4 +760,28 @@ export default {
   Altura: 'Höhe',
   Câmera: 'Kamera',
   Docks: 'Docks',
+  'Mostra todos em sequência, um de cada vez. Use o botão de fixar para deixar passando.':
+    'Zeigt alle nacheinander, jeweils einen. Mit der Fixieren-Taste laufen sie dauerhaft weiter.',
+  'Todos em sequência': 'Alle nacheinander',
+  '{n} itens, {s} s cada': '{n} Einträge, je {s} s',
+  Placa: 'Tafel',
+  'Azul e ouro': 'Blau und Gold',
+  'Placas azul-marinho com fio dourado: QR Code no alto à esquerda e avisos em sequência embaixo':
+    'Marineblaue Tafeln mit goldener Linie: QR-Code oben links und Hinweise nacheinander unten',
+  'Frase só deste item. Vazio: usa o texto geral e o nome da rede.':
+    'Text nur für diesen Eintrag. Leer: verwendet den allgemeinen Text und den Namen des Netzwerks.',
+  'Frase própria (opcional)': 'Eigener Text (optional)',
+  'No painel do OBS, "Todos em sequência" mostra um item de cada vez. O modelo "Placa" foi feito para isso, com contador e linha do tempo.':
+    'Im OBS-Bedienfeld zeigt „Alle nacheinander“ jeweils einen Eintrag. Die Vorlage „Tafel“ ist dafür gemacht, mit Zähler und Zeitlinie.',
+  'Tempo de cada item': 'Dauer pro Eintrag',
+  'Mostrar o contador (01 / 03)': 'Zähler anzeigen (01 / 03)',
+  'Mostrar a linha do tempo': 'Zeitlinie anzeigen',
+  Telefone: 'Telefon',
+  'E-mail': 'E-Mail',
+  'Escreva o telefone, o código ou o e-mail que recebe.':
+    'Telefonnummer, Code oder E-Mail des Empfängers eintragen.',
+  'Arquivo grande demais.': 'Datei zu groß.',
+  'Não foi possível concluir. Tente de novo.': 'Vorgang fehlgeschlagen. Bitte erneut versuchen.',
+  'Abra esta página pelo endereço do próprio programa (127.0.0.1).':
+    'Diese Seite über die Adresse des Programms selbst öffnen (127.0.0.1).',
 };

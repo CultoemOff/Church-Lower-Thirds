@@ -748,4 +748,28 @@ export default {
   Altura: 'Height',
   Câmera: 'Camera',
   Docks: 'Docks',
+  'Mostra todos em sequência, um de cada vez. Use o botão de fixar para deixar passando.':
+    'Shows them all in sequence, one at a time. Use the pin button to keep them going.',
+  'Todos em sequência': 'All in sequence',
+  '{n} itens, {s} s cada': '{n} items, {s} s each',
+  Placa: 'Plaque',
+  'Azul e ouro': 'Navy and gold',
+  'Placas azul-marinho com fio dourado: QR Code no alto à esquerda e avisos em sequência embaixo':
+    'Navy plaques with a golden line: QR code at the top left and notices in sequence at the bottom',
+  'Frase só deste item. Vazio: usa o texto geral e o nome da rede.':
+    "A phrase for this item only. Empty: uses the general text and the network's name.",
+  'Frase própria (opcional)': 'Own phrase (optional)',
+  'No painel do OBS, "Todos em sequência" mostra um item de cada vez. O modelo "Placa" foi feito para isso, com contador e linha do tempo.':
+    'In the OBS panel, "All in sequence" shows one item at a time. The "Plaque" model was made for it, with a counter and a time line.',
+  'Tempo de cada item': 'Time for each item',
+  'Mostrar o contador (01 / 03)': 'Show the counter (01 / 03)',
+  'Mostrar a linha do tempo': 'Show the time line',
+  Telefone: 'Phone',
+  'E-mail': 'E-mail',
+  'Escreva o telefone, o código ou o e-mail que recebe.':
+    'Enter the phone, code or e-mail that receives.',
+  'Arquivo grande demais.': 'File too large.',
+  'Não foi possível concluir. Tente de novo.': 'Could not finish. Try again.',
+  'Abra esta página pelo endereço do próprio programa (127.0.0.1).':
+    "Open this page through the program's own address (127.0.0.1).",
 };

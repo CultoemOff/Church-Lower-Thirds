@@ -185,6 +185,10 @@ jobs:
           if (-not $live.live.lower.on) { throw "Lower third did not go on air" }
           $live = Invoke-RestMethod "$base/api/live/all/hide" -Method Post
           if ($live.live.lower.on) { throw "Hide all left the lower third on" }
+          # Social: every item in sequence.
+          $all = Invoke-RestMethod "$base/api/live/social/show?item=all" -Method Post
+          if (-not $all.live.social.on -or $all.live.social.item -ne 'all') { throw "Social sequence did not start: $($all.live.social | ConvertTo-Json -Compress)" }
+          Invoke-RestMethod "$base/api/live/social/hide" -Method Post | Out-Null
           # Pinned in the dock: the global time does not take it off the air.
           Invoke-RestMethod "$base/api/patch" -Method Post -ContentType 'application/json' -Body (@{ 'timing.autoHide' = 2 } | ConvertTo-Json) | Out-Null
           Invoke-RestMethod "$base/api/live/lower/pin" -Method Post | Out-Null

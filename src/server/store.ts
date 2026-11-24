@@ -36,12 +36,13 @@ export const LOWER_TEMPLATES = [
   'news',
   'stack',
   'liquid',
+  'plaque',
 ];
 export const TOP_TEMPLATES = ['bar', 'pills', 'stack', 'liquid'];
-export const CARD_TEMPLATES = ['vertical', 'horizontal', 'ticket', 'frame', 'liquid'];
+export const CARD_TEMPLATES = ['vertical', 'horizontal', 'ticket', 'frame', 'liquid', 'plaque'];
 export const TICKER_TEMPLATES = ['full', 'floating', 'minimal', 'liquid'];
 export const AGENDA_TEMPLATES = ['card', 'banner', 'center', 'liquid'];
-export const SOCIAL_TEMPLATES = ['pill', 'card', 'liquid'];
+export const SOCIAL_TEMPLATES = ['pill', 'card', 'liquid', 'plaque'];
 export const NETWORKS = [
   'instagram',
   'youtube',
@@ -50,6 +51,9 @@ export const NETWORKS = [
   'whatsapp',
   'x',
   'site',
+  'address',
+  'phone',
+  'email',
   'other',
 ];
 /** One day of the church's week: "Domingo" + its services, one per line. */
@@ -61,6 +65,8 @@ export interface AgendaDay {
 export interface SocialItem {
   id: string;
   network: string;
+  /** Own phrase for this item ('' = the general text + the network's name) */
+  text: string;
   label: string;
   handle: string;
   /** Optional image the church uploads to use instead of the built-in generic icon */
@@ -353,9 +359,27 @@ export function defaults() {
       marginY: 90,
       ...free(),
       prefix: 'Siga-nos no',
+      /** Showing all in sequence: seconds each one stays, the 01 / 03 counter, the time line */
+      seconds: 8,
+      counter: true,
+      progress: true,
       items: [
-        { id: 'rede1', network: 'instagram', label: 'Instagram', handle: '@suaigreja', icon: '' },
-        { id: 'rede2', network: 'youtube', label: 'YouTube', handle: '@suaigreja', icon: '' },
+        {
+          id: 'rede1',
+          network: 'instagram',
+          label: 'Instagram',
+          handle: '@suaigreja',
+          text: '',
+          icon: '',
+        },
+        {
+          id: 'rede2',
+          network: 'youtube',
+          label: 'YouTube',
+          handle: '@suaigreja',
+          text: '',
+          icon: '',
+        },
       ] as SocialItem[],
     },
     bug: {
@@ -544,6 +568,7 @@ function clean(def: unknown, raw: unknown, path: string, key: string): unknown {
             network,
             label: text(r.label, 30).trim(),
             handle,
+            text: text(r.text, 80).trim(),
             icon: MEDIA.test(String(r.icon)) ? String(r.icon) : '',
           }
         : undefined;
@@ -618,7 +643,11 @@ export function cleanLive(raw: unknown, config: Config): Live {
       pin: !!r.agenda?.pin,
     },
     social: (() => {
-      const found = config.social.items.some((i) => i.id === r.social?.item);
+      // "all" = every item in sequence.
+      const found =
+        r.social?.item === ALL
+          ? config.social.items.length > 0
+          : config.social.items.some((i) => i.id === r.social?.item);
       return {
         on: ok.social && !!r.social?.on && found,
         item: found ? String(r.social?.item) : '',
@@ -652,9 +681,16 @@ export function resolveItem(config: Config, live: Live, ref: string | undefined)
   return Number.isInteger(n) && n >= 1 && n <= items.length ? items[n - 1] : undefined;
 }
 
-/** Which social network a command means: an id, a 1-based position, or the current one. */
+/** In place of one item's id: all of them, one after the other. */
+export const ALL = 'all';
+/**
+ * Which social network a command means: an id, a 1-based position, "all" (every one in
+ * sequence) or the current one.
+ */
 export function resolveSocial(config: Config, live: Live, ref: string | undefined) {
   const items = config.social.items;
+  const all = items.length ? ({ id: ALL } as SocialItem) : undefined;
+  if (ref === ALL || (!ref && live.social.item === ALL)) return all;
   if (!ref) return items.find((i) => i.id === live.social.item) ?? items[0];
   const n = Number(ref);
   return (

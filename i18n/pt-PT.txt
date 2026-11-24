@@ -120,3 +120,9 @@ Fixar: o que mostrar neste separador fica no ecrã até esconder, mesmo quando o
 
 Não dá para desfazer. Salve um backup antes, se quiser guardar o que tem hoje.
 Não é possível desfazer. Guarde uma cópia de segurança antes, se quiser manter o que tem hoje.
+
+Telefone
+Telefone
+
+Arquivo grande demais.
+Ficheiro demasiado grande.

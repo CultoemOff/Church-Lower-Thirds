@@ -4,6 +4,7 @@ import {
   givingQr,
   givingText,
   onColor,
+  qrInk,
   qrUrl,
   rgba,
   shadowCss,
@@ -272,12 +273,14 @@ function renderCard() {
     mx: c.marginX + 'px',
     my: c.marginY + 'px',
   });
+  // The plaque draws the QR code in the dark color of the card itself.
+  const ink = c.template === 'plaque' ? qrInk(c.fill.a) : '';
   const logo = c.showLogo && config.brand.logo,
     qr =
       c.qr === 'giving'
-        ? givingQr(config, { round: c.qrRound, stamp: givingStamp })
+        ? givingQr(config, { round: c.qrRound, stamp: givingStamp, dark: ink })
         : c.qrText
-          ? qrUrl('url', c.qrText, { round: c.qrRound })
+          ? qrUrl('url', c.qrText, { round: c.qrRound, dark: ink })
           : '',
     key = !c.showKey
       ? ''
@@ -465,13 +468,66 @@ function renderAgenda() {
 }
 
 // ---- Social networks ----
+// One item, or all of them in sequence ("all"): each stays a few seconds, with a counter and
+// a line that fills up as its time runs.
+const ALL = 'all';
+let socialIndex = 0,
+  socialTimer;
+function socialList(c) {
+  const picked = preview === 'social' || edit ? params.get('item') : live.social.item;
+  // In the settings preview the "plaque" model shows what it was made for: the sequence.
+  const all = picked === ALL || (!picked && preview === 'social' && c.template === 'plaque');
+  if (all) return { all: c.items.length > 1, items: c.items };
+  const one =
+    c.items.find((i) => i.id === picked) || (preview === 'social' || edit ? c.items[0] : null);
+  return { all: false, items: one ? [one] : [] };
+}
+function showSocial() {
+  const c = themed(config, 'social'),
+    { all, items } = socialList(c),
+    item = items[socialIndex % (items.length || 1)];
+  if (!item) return;
+  const icon = $('social', '.icon');
+  const key = [item.network, item.icon].join('|');
+  if (icon.dataset.key !== key) {
+    icon.dataset.key = key;
+    if (item.icon) icon.replaceChildren(Object.assign(new Image(), { src: item.icon, alt: '' }));
+    else icon.innerHTML = SOCIAL_ICONS[item.network] || SOCIAL_ICONS.other;
+  }
+  $('social', '.prefix').textContent =
+    item.text || [c.prefix, item.label].filter(Boolean).join(' ');
+  $('social', '.handle').textContent = item.handle;
+  const two = (n) => String(n).padStart(2, '0');
+  $('social', '.count b').textContent = two((socialIndex % items.length) + 1);
+  $('social', '.count i').textContent = `/ ${two(items.length)}`;
+  // The time line starts over with each item.
+  const line = $('social', '.progress i');
+  line.style.animation = 'none';
+  void line.offsetWidth;
+  line.style.animation = all ? `social-progress ${c.seconds}s linear forwards` : 'none';
+}
+function startSocial() {
+  clearInterval(socialTimer);
+  socialIndex = 0;
+  showSocial();
+  const c = config.social;
+  if (!socialList(c).all) return;
+  const box = $('social', '.box');
+  socialTimer = setInterval(() => {
+    const list = socialList(config.social);
+    if (!shown.social.on || !list.all) return clearInterval(socialTimer);
+    box.classList.add('swap');
+    setTimeout(() => {
+      socialIndex = (socialIndex + 1) % list.items.length;
+      showSocial();
+      box.classList.remove('swap');
+    }, 450);
+  }, c.seconds * 1000);
+}
 function renderSocial() {
   const c = themed(config, 'social'),
     root = roots.social,
-    item =
-      preview === 'social' || edit
-        ? c.items.find((i) => i.id === params.get('item')) || c.items[0]
-        : c.items.find((i) => i.id === live.social.item);
+    { all, items } = socialList(c);
   root.dataset.template = c.template;
   root.dataset.pos = c.position;
   common('social', c, sideOf(c.position));
@@ -487,17 +543,24 @@ function renderSocial() {
     mx: c.marginX + 'px',
     my: c.marginY + 'px',
   });
-  if (!item) return '';
-  const icon = $('social', '.icon');
-  const key = [item.id, item.network, item.label, item.handle, item.icon, c.prefix].join('|');
-  if (icon.dataset.key !== key) {
-    icon.dataset.key = key;
-    if (item.icon) icon.replaceChildren(Object.assign(new Image(), { src: item.icon, alt: '' }));
-    else icon.innerHTML = SOCIAL_ICONS[item.network] || SOCIAL_ICONS.other;
-  }
-  $('social', '.prefix').textContent = [c.prefix, item.label].filter(Boolean).join(' ');
-  $('social', '.handle').textContent = item.handle;
-  return key;
+  const box = $('social', '.box');
+  box.classList.toggle('has-count', all && c.counter);
+  box.classList.toggle('has-progress', all && c.progress);
+  if (!items.length) return '';
+  // While it is on air, a change in the texts shows at once; only a different choice (or
+  // another pace) makes it leave and come back.
+  if (shown.social.on) showSocial();
+  return all
+    ? JSON.stringify([ALL, items.map((i) => i.id), c.seconds])
+    : [
+        items[0].id,
+        items[0].network,
+        items[0].label,
+        items[0].handle,
+        items[0].text,
+        items[0].icon,
+        c.prefix,
+      ].join('|');
 }
 
 const render = {
@@ -509,7 +572,7 @@ const render = {
   agenda: renderAgenda,
   social: renderSocial,
 };
-const onShow = { agenda: startAgenda };
+const onShow = { agenda: startAgenda, social: startSocial };
 const wanted = (el) => {
   if (only?.length && !only.includes(el)) return false;
   if (edit) return true;

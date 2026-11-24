@@ -37,12 +37,22 @@ export const fontCss = (font) =>
   (font ? `"${String(font).replace(/["\\]/g, '')}", ` : '') +
   'system-ui, "Segoe UI", Roboto, sans-serif';
 
-export function qrUrl(kind, text, { round = false, stamp = '' } = {}) {
+export function qrUrl(kind, text, { round = false, stamp = '', dark = '' } = {}) {
   const p = new URLSearchParams({ kind: kind === 'giving' ? 'giving' : 'text', margin: '1' });
   if (kind !== 'giving') p.set('text', text || '');
   if (round) p.set('round', '1');
+  // The dots in a color of the card instead of black (only a dark one still scans).
+  if (/^#[0-9a-f]{6}$/i.test(dark)) p.set('dark', dark);
   if (stamp) p.set('v', stamp);
   return `/api/qr.svg?${p}`;
+}
+
+/** A color dark enough to draw a QR code with on white ('' when it is not). */
+export function qrInk(hex) {
+  const m = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(hex || '');
+  if (!m) return '';
+  const [r, g, b] = m.slice(1).map((v) => parseInt(v, 16));
+  return 0.299 * r + 0.587 * g + 0.114 * b < 70 ? hex : '';
 }
 
 export const THEMED_ELEMENTS = ['lower', 'top', 'ticker', 'card', 'agenda', 'social'];
@@ -139,14 +149,16 @@ export const LOWER_TEMPLATES = [
   'neon',
   'news',
   'stack',
+  'liquid',
+  'plaque',
 ];
 export const TOP_TEMPLATES = ['bar', 'pills', 'stack', 'liquid'];
-export const CARD_TEMPLATES = ['vertical', 'horizontal', 'ticket', 'frame', 'liquid'];
+export const CARD_TEMPLATES = ['vertical', 'horizontal', 'ticket', 'frame', 'liquid', 'plaque'];
 export const ANIMATIONS = ['slide', 'rise', 'fade', 'wipe', 'zoom', 'blur', 'bounce', 'flip'];
 export const SHADOWS = ['none', 'soft', 'hard', 'glow'];
 export const TICKER_TEMPLATES = ['full', 'floating', 'minimal', 'liquid'];
 export const AGENDA_TEMPLATES = ['card', 'banner', 'center', 'liquid'];
-export const SOCIAL_TEMPLATES = ['pill', 'card', 'liquid'];
+export const SOCIAL_TEMPLATES = ['pill', 'card', 'liquid', 'plaque'];
 export const NETWORKS = [
   ['instagram', 'Instagram'],
   ['youtube', 'YouTube'],
@@ -155,6 +167,9 @@ export const NETWORKS = [
   ['whatsapp', 'WhatsApp'],
   ['x', 'X'],
   ['site', 'Site'],
+  ['address', 'Endereço'],
+  ['phone', 'Telefone'],
+  ['email', 'E-mail'],
   ['other', 'Outra'],
 ];
 // Generic line icons (camera, play, people…), not the networks' own logos: those are
@@ -183,6 +198,13 @@ export const SOCIAL_ICONS = {
   site: icon(
     '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
   ),
+  address: icon(
+    '<path d="M12 21s-6.500-5.600-6.500-10.500a6.500 6.500 0 0 1 13 0C18.500 15.400 12 21 12 21z"/><circle cx="12" cy="10.500" r="2.300"/>',
+  ),
+  phone: icon(
+    '<path d="M6.500 3.500h3l1.500 4-2 1.500a11 11 0 0 0 6 6l1.500-2 4 1.500v3a2 2 0 0 1-2.200 2A16 16 0 0 1 4.500 5.700a2 2 0 0 1 2-2.200z"/>',
+  ),
+  email: icon('<rect x="3.500" y="5.500" width="17" height="13" rx="2"/><path d="M4 7l8 6 8-6"/>'),
   other: icon(
     '<circle cx="12" cy="12" r="3.600"/><path d="M15.600 8.400v5a2.400 2.400 0 0 0 4.900 0V12a8.500 8.500 0 1 0-3.300 6.700"/>',
   ),

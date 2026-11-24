@@ -64,6 +64,7 @@ const NAMES = {
   news: 'Telejornal',
   stack: 'Cartões',
   liquid: 'Vidro líquido',
+  plaque: 'Placa',
   bar: 'Barra',
   pills: 'Cápsulas',
   card: 'Cartão',
@@ -217,6 +218,14 @@ const grad = (a, b, angle = 90) => ({ type: 'gradient', a, b, angle });
 // Ready-made looks: main color, second color, accent, text on main, text on second.
 const PALETTES = [
   [
+    'Azul e ouro',
+    grad('#071a38', '#0a3460', 90),
+    grad('#071a38', '#0a3460', 90),
+    grad('#f0e2b0', '#c9a45a', 90),
+    '#ffffff',
+    '#bccce4',
+  ],
+  [
     'Azul real',
     grad('#2463eb', '#4f46e5', 100),
     solid('#0f172a'),
@@ -304,6 +313,34 @@ const THEMES = [
       card: 'vertical',
       agenda: 'card',
       social: 'pill',
+    },
+  },
+  {
+    name: 'Azul e ouro',
+    hint: 'Placas azul-marinho com fio dourado: QR Code no alto à esquerda e avisos em sequência embaixo',
+    font: 'Google Sans',
+    main: grad('#071a38', '#0a3460', 90),
+    surface: grad('#071a38', '#0a3460', 90),
+    accent: grad('#f0e2b0', '#c9a45a', 90),
+    t1: '#ffffff',
+    t2: '#bccce4',
+    opacity: 96,
+    radius: 16,
+    shadow: 'soft',
+    templates: {
+      lower: 'plaque',
+      top: 'bar',
+      ticker: 'floating',
+      card: 'plaque',
+      agenda: 'card',
+      social: 'plaque',
+    },
+    // This look has its places: the QR card up on the left, the plates down on the left.
+    place: {
+      card: { position: 'top-left', marginX: 30, marginY: 30, size: 78 },
+      social: { position: 'bottom-left', marginX: 30, marginY: 30, size: 100 },
+      // The names sit just above the plates, so both can be on screen together.
+      lower: { position: 'left', marginX: 30, marginY: 160 },
     },
   },
   {
@@ -660,6 +697,9 @@ function applyTheme(look) {
   // A ready-made theme is a complete look: every element goes back to following it.
   for (const el of THEMED_ELEMENTS)
     Object.assign(config[el], { template: look.templates[el], custom: false });
+  // Some looks also say where things go (and undo a free placement made by dragging).
+  for (const [el, spot] of Object.entries(look.place || {}))
+    Object.assign(config[el], spot, { free: false, vfree: false });
   save();
   renderForm();
   toast(t('Tema "{name}" aplicado a todos os elementos.', { name: t(look.name) }));
@@ -2117,7 +2157,7 @@ const pages = {
       'Redes',
       ...rows(
         'social.items',
-        { network: 'instagram', label: 'Instagram', handle: '@suaigreja', icon: '' },
+        { network: 'instagram', label: 'Instagram', handle: '@suaigreja', text: '', icon: '' },
         (item, change) => [
           h(
             'select',
@@ -2146,6 +2186,13 @@ const pages = {
             placeholder: '@ ou endereço',
             maxlength: 80,
             oninput: (e) => change({ handle: e.target.value }),
+          }),
+          h('input', {
+            value: item.text,
+            title: 'Frase só deste item. Vazio: usa o texto geral e o nome da rede.',
+            placeholder: 'Frase própria (opcional)',
+            maxlength: 80,
+            oninput: (e) => change({ text: e.target.value }),
           }),
           h(
             'label',
@@ -2189,6 +2236,17 @@ const pages = {
       ),
       hint(
         'Os ícones do programa são genéricos (câmera, play, pessoas…), não os logotipos oficiais das redes. Para usar o ícone oficial, envie a imagem em "Ícone…".',
+      ),
+    ),
+    card(
+      'Todos em sequência',
+      hint(
+        'No painel do OBS, "Todos em sequência" mostra um item de cada vez. O modelo "Placa" foi feito para isso, com contador e linha do tempo.',
+      ),
+      grid(
+        range('social.seconds', 'Tempo de cada item', 3, 30, ' s'),
+        check('social.counter', 'Mostrar o contador (01 / 03)'),
+        check('social.progress', 'Mostrar a linha do tempo'),
       ),
     ),
     colors('social', { text: 'O @', text2: 'Texto de cima' }),
