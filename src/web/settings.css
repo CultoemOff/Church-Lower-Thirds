@@ -566,6 +566,22 @@ input[type='color'] {
 .row.viewing {
   border-color: var(--accent);
 }
+/* Service profiles */
+.profileRow {
+  grid-template-columns: minmax(0, 1fr) auto auto;
+}
+.profileRow.current {
+  border-color: var(--accent);
+}
+.profileRow .tag {
+  padding: 0 10px;
+  font-size: 11.5px;
+  color: var(--accent);
+  white-space: nowrap;
+}
+#profile {
+  max-width: 190px;
+}
 .row .extra {
   grid-column: 1 / -1;
 }

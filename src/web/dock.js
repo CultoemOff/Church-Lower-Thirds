@@ -109,7 +109,9 @@ function buildLower() {
     command('/api/live/lower/show?item=quick');
   };
   show.onclick = go;
-  for (const i of [l1, l2]) i.onkeydown = (e) => e.key === 'Enter' && go();
+  // (A listener, not "onkeydown =": there, the value returned by a one-line function would
+  // cancel every other key, and nothing could be typed.)
+  for (const i of [l1, l2]) i.addEventListener('keydown', (e) => e.key === 'Enter' && go());
   save.onclick = async () => {
     const v = values();
     if (!v.line1 && !v.line2) return l1.focus();
@@ -352,7 +354,7 @@ function buildTexts(el, { label, tip, extra = [], parts = [], listTitle, hint })
     if (!r.error && value && !live[el].on) command(`/api/live/${el}/show`);
   };
   const go = () => (text.value.trim() ? pinNow(text.value.trim()) : text.focus());
-  text.onkeydown = (e) => e.key === 'Enter' && go();
+  text.addEventListener('keydown', (e) => e.key === 'Enter' && go());
   const pinned = h('div', { class: 'pinned hidden' });
   return {
     pane: [
@@ -569,7 +571,7 @@ function buildSocial() {
     });
     if (!r.error) handle.value = '';
   };
-  handle.onkeydown = (e) => e.key === 'Enter' && add();
+  handle.addEventListener('keydown', (e) => e.key === 'Enter' && add());
   const nets = h('div', { class: 'nets' });
   return {
     pane: [
@@ -752,7 +754,7 @@ function refresh() {
     b.classList.toggle('hidden', !config.enabled[b.dataset.toggle]);
   for (const b of pane.querySelectorAll('[data-toggle]'))
     b.classList.toggle('on', !!live[b.dataset.toggle].on);
-  renderLook();
+  renderProfiles();
   // The pin belongs to what leaves by itself: names, QR card, schedule and social.
   const pin = $('#pinToggle'),
     timed = PINNABLE.includes(tab);
@@ -765,7 +767,11 @@ function refresh() {
     time.dataset.key = options.join();
     time.replaceChildren(
       ...options.map((s) =>
-        h('option', { value: s }, s === 0 ? t('Fica') : s >= 120 ? `${s / 60} min` : `${s} s`),
+        h(
+          'option',
+          { value: s },
+          `${t('Tempo')}: ${s === 0 ? t('sem limite') : s >= 120 ? `${s / 60} min` : `${s} s`}`,
+        ),
       ),
     );
   }
@@ -776,24 +782,18 @@ $('#autoHide').onchange = (e) => patch({ 'timing.autoHide': Number(e.target.valu
 $('#pinToggle').onclick = () => PINNABLE.includes(tab) && command(`/api/live/${tab}/togglepin`);
 $('#hideAll').onclick = () => command('/api/live/all/hide');
 
-// ---------- Preview: how the element of this tab looks on screen ----------
-// Open by default only where there is room for it; the choice is remembered.
-let lookOpen = (localStorage.cltLook ?? (innerHeight >= 640 ? '1' : '0')) === '1';
-function renderLook() {
-  const box = $('#lookBox');
-  $('#look').classList.toggle('open', lookOpen);
-  const src = lookOpen && tab ? `/overlay?preview=${tab}` : '';
-  const frame = box.querySelector('iframe');
-  if (!src) return void box.replaceChildren();
-  // Same element: the page inside follows the settings by itself.
-  if (frame?.getAttribute('src') !== src)
-    box.replaceChildren(h('iframe', { src, title: 'Prévia', tabindex: '-1' }));
+// ---------- Service profile: the whole look at once ----------
+function renderProfiles() {
+  const box = $('#profile'),
+    key = JSON.stringify(config.profiles.map((p) => [p.id, p.name]));
+  if (box.dataset.key !== key) {
+    box.dataset.key = key;
+    box.replaceChildren(...config.profiles.map((p) => h('option', { value: p.id }, p.name)));
+  }
+  if (document.activeElement !== box) box.value = config.profile;
 }
-$('#lookToggle').onclick = () => {
-  lookOpen = !lookOpen;
-  localStorage.cltLook = lookOpen ? '1' : '0';
-  renderLook();
-};
+$('#profile').onchange = (e) =>
+  command('/api/profile/use', { method: 'POST', body: { id: e.target.value } });
 $('#openSettings').onclick = () => command('/api/open-settings');
 
 autoLocalize();

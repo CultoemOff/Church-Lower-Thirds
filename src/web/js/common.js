@@ -74,6 +74,10 @@ const ERRORS = [
   [/Update check failed/, 'Não foi possível procurar atualizações agora.'],
   [/Update download|Update checksum/, 'Não foi possível baixar a atualização. Tente de novo.'],
   [/Already up to date/, 'O programa já está atualizado.'],
+  [/Profile not found/, 'Esse perfil não existe mais.'],
+  [/Type a name for the profile/, 'Escreva um nome para o perfil.'],
+  [/last profile cannot be removed/, 'O último perfil não pode ser apagado.'],
+  [/Too many profiles/, 'Há perfis demais: apague algum antes de criar outro.'],
   [
     /Windows did not start the installer/,
     'O Windows não deixou abrir o instalador. Baixe a nova versão pelo botão ao lado.',

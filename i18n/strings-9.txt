@@ -352,12 +352,6 @@ Pascua: sepulcro vacío
 Pasqua: sepolcro vuoto
 Ostern: leeres Grab
 
-Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; passe o mouse para ver a entrada.
-Start with the style: it sets the shape, the font and the animation of every element and already brings the colors that suit it best. The pictures show each style with the church's name and logo; point at one to see it come in.
-Empiece por el modelo: define la forma, la fuente y la animación de todos los elementos y ya trae los colores que mejor combinan. Las figuras muestran cada modelo con el nombre y el logo de la iglesia; pase el ratón para ver la entrada.
-Inizia dal modello: definisce la forma, il carattere e l’animazione di tutti gli elementi e porta già i colori più adatti. Le figure mostrano ogni modello con il nome e il logo della chiesa; passa il mouse per vedere l’entrata.
-Beginnen Sie mit der Vorlage: Sie bestimmt Form, Schrift und Animation aller Elemente und bringt die passendsten Farben gleich mit. Die Bilder zeigen jede Vorlage mit Namen und Logo der Gemeinde; zeigen Sie mit der Maus darauf, um den Einstieg zu sehen.
-
 Modelos temáticos
 Themed styles
 Modelos temáticos
@@ -585,3 +579,153 @@ Windows on this computer did not let the program open the installer by itself (c
 El Windows de este equipo no dejó que el programa abriera el instalador por sí solo (es común en equipos de empresa). Descargue el instalador y ábralo usted mismo: la configuración se mantiene.
 Windows su questo computer non ha lasciato che il programma aprisse l’installer da solo (è comune sui computer aziendali). Scarica l’installer e aprilo tu stesso: le impostazioni vengono mantenute.
 Windows hat auf diesem Computer nicht zugelassen, dass das Programm das Installationsprogramm selbst öffnet (auf Firmencomputern üblich). Laden Sie es herunter und öffnen Sie es selbst: Die Einstellungen bleiben erhalten.
+
+Culto padrão
+Regular service
+Culto habitual
+Culto abituale
+Normaler Gottesdienst
+
+Perfil
+Profile
+Perfil
+Profilo
+Profil
+
+Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Crie e ajuste os perfis nas configurações.
+Service profile: changes the style, the colors, the fonts and the logo at once. Create and adjust the profiles in the settings.
+Perfil de culto: cambia de una vez el modelo, los colores, las fuentes y el logo. Cree y ajuste los perfiles en la configuración.
+Profilo del culto: cambia in una volta il modello, i colori, i caratteri e il logo. Crea e regola i profili nelle impostazioni.
+Gottesdienst-Profil: wechselt Vorlage, Farben, Schriften und Logo auf einmal. Profile werden in den Einstellungen angelegt und angepasst.
+
+Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo
+Service profile: changes the style, the colors, the fonts and the logo at once
+Perfil de culto: cambia de una vez el modelo, los colores, las fuentes y el logo
+Profilo del culto: cambia in una volta il modello, i colori, i caratteri e il logo
+Gottesdienst-Profil: wechselt Vorlage, Farben, Schriften und Logo auf einmal
+
+Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.
+Start with the style: it sets the shape, the font and the animation of every element and already brings the colors that suit it best. The pictures show each style with the church's name and logo; the entrance animation is shown in the big preview.
+Empiece por el modelo: define la forma, la fuente y la animación de todos los elementos y ya trae los colores que mejor combinan. Las figuras muestran cada modelo con el nombre y el logo de la iglesia; la animación de entrada aparece en la vista previa grande.
+Inizia dal modello: definisce la forma, il carattere e l’animazione di tutti gli elementi e porta già i colori più adatti. Le figure mostrano ogni modello con il nome e il logo della chiesa; l’animazione d’entrata appare nell’anteprima grande.
+Beginnen Sie mit der Vorlage: Sie bestimmt Form, Schrift und Animation aller Elemente und bringt die passendsten Farben gleich mit. Die Bilder zeigen jede Vorlage mit Namen und Logo der Gemeinde; die Einstiegsanimation zeigt die große Vorschau.
+
+Trocar de perfil de culto (pelo nome)
+Change the service profile (by name)
+Cambiar de perfil de culto (por el nombre)
+Cambia profilo del culto (per nome)
+Gottesdienst-Profil wechseln (nach Name)
+
+Nome do novo perfil (ex.: Culto de mulheres, Natal)
+Name of the new profile (e.g. Women's service, Christmas)
+Nombre del nuevo perfil (p. ej.: Culto de mujeres, Navidad)
+Nome del nuovo profilo (es.: Culto delle donne, Natale)
+Name des neuen Profils (z. B. Frauengottesdienst, Weihnachten)
+
+Perfil "{name}" criado com a aparência atual.
+Profile "{name}" created with the current look.
+Perfil "{name}" creado con la apariencia actual.
+Profilo "{name}" creato con l’aspetto attuale.
+Profil „{name}“ mit dem aktuellen Aussehen angelegt.
+
+Perfis de culto
+Service profiles
+Perfiles de culto
+Profili del culto
+Gottesdienst-Profile
+
+Cada perfil guarda uma aparência completa: modelo, cores, fontes, logo, posições e o que o selo mostra. Troque de perfil aqui, no alto desta página ou no painel do OBS. Os nomes, avisos, agenda e contribuições são os mesmos em todos.
+Each profile keeps a complete look: style, colors, fonts, logo, positions and what the badge shows. Change the profile here, at the top of this page or in the OBS dock. Names, notices, schedule and giving are the same in all of them.
+Cada perfil guarda una apariencia completa: modelo, colores, fuentes, logo, posiciones y lo que muestra el sello. Cambie de perfil aquí, en la parte superior de esta página o en el panel de OBS. Los nombres, avisos, agenda y contribuciones son los mismos en todos.
+Ogni profilo conserva un aspetto completo: modello, colori, caratteri, logo, posizioni e ciò che mostra il sigillo. Cambia profilo qui, in alto in questa pagina o nel pannello di OBS. Nomi, avvisi, agenda e contributi sono gli stessi in tutti.
+Jedes Profil bewahrt ein vollständiges Aussehen: Vorlage, Farben, Schriften, Logo, Positionen und was das Eck-Emblem zeigt. Wechseln Sie das Profil hier, oben auf dieser Seite oder im OBS-Dock. Namen, Hinweise, Programm und Spenden sind in allen gleich.
+
+Nome do perfil
+Profile name
+Nombre del perfil
+Nome del profilo
+Profilname
+
+Em uso
+In use
+En uso
+In uso
+In Verwendung
+
+Usar
+Use
+Usar
+Usa
+Verwenden
+
+Apaga este perfil. Os nomes, avisos e contribuições não são apagados.
+Deletes this profile. Names, notices and giving are not deleted.
+Borra este perfil. Los nombres, avisos y contribuciones no se borran.
+Elimina questo profilo. Nomi, avvisi e contributi non vengono eliminati.
+Löscht dieses Profil. Namen, Hinweise und Spenden werden nicht gelöscht.
+
+Apagar o perfil "{name}"?
+Delete the profile "{name}"?
+¿Borrar el perfil "{name}"?
+Eliminare il profilo "{name}"?
+Profil „{name}“ löschen?
+
+Apagar
+Delete
+Borrar
+Elimina
+Löschen
+
+Cria um perfil com a aparência que está em uso agora e passa a usá-lo
+Creates a profile with the look in use now and changes to it
+Crea un perfil con la apariencia que está en uso ahora y pasa a usarlo
+Crea un profilo con l’aspetto in uso ora e passa a usarlo
+Legt ein Profil mit dem jetzt verwendeten Aussehen an und wechselt dorthin
+
+Salvar como novo perfil
+Save as a new profile
+Guardar como perfil nuevo
+Salva come nuovo profilo
+Als neues Profil speichern
+
+Para um perfil novo: salve com um nome e depois escolha o modelo, as cores e o logo dele.
+For a new profile: save it with a name and then choose its style, colors and logo.
+Para un perfil nuevo: guárdelo con un nombre y después elija su modelo, colores y logo.
+Per un nuovo profilo: salvalo con un nome e poi scegli il suo modello, i colori e il logo.
+Für ein neues Profil: mit einem Namen speichern und dann Vorlage, Farben und Logo dafür wählen.
+
+Esse perfil não existe mais.
+That profile no longer exists.
+Ese perfil ya no existe.
+Quel profilo non esiste più.
+Dieses Profil gibt es nicht mehr.
+
+Escreva um nome para o perfil.
+Type a name for the profile.
+Escriba un nombre para el perfil.
+Scrivi un nome per il profilo.
+Geben Sie einen Namen für das Profil ein.
+
+O último perfil não pode ser apagado.
+The last profile cannot be deleted.
+El último perfil no se puede borrar.
+L’ultimo profilo non può essere eliminato.
+Das letzte Profil kann nicht gelöscht werden.
+
+Há perfis demais: apague algum antes de criar outro.
+There are too many profiles: delete one before creating another.
+Hay demasiados perfiles: borre alguno antes de crear otro.
+Ci sono troppi profili: eliminane uno prima di crearne un altro.
+Es gibt zu viele Profile: Löschen Sie eines, bevor Sie ein neues anlegen.
+
+Tempo
+Time
+Tiempo
+Tempo
+Zeit
+
+sem limite
+no limit
+sin límite
+senza limite
+ohne Limit

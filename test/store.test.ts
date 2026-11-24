@@ -1,19 +1,28 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  addProfile,
   cleanConfig,
   cleanLive,
   defaults,
   findItem,
   firstConfig,
   liveDefaults,
+  removeProfile,
   resolveItem,
   resolveSocial,
+  useProfile,
 } from '../src/server/store.js';
 
 test('an empty or broken file yields the defaults', () => {
-  assert.deepEqual(cleanConfig(undefined), defaults());
-  assert.deepEqual(cleanConfig({ lower: 'x', top: null, nope: 1 }), defaults());
+  // The defaults, plus the first service profile (made from them).
+  const first = (c: ReturnType<typeof defaults>) => ({ ...c, profiles: [] });
+  assert.deepEqual(first(cleanConfig(undefined)), defaults());
+  assert.deepEqual(first(cleanConfig({ lower: 'x', top: null, nope: 1 })), defaults());
+  assert.deepEqual(
+    cleanConfig(undefined).profiles.map((p) => [p.id, p.name]),
+    [['padrao', 'Culto padrão']],
+  );
 });
 
 test('values are kept when valid and fall back when not', () => {
@@ -337,4 +346,56 @@ test('corner badge: date and day of the week each have a switch; old settings ke
   assert.equal(cleanConfig({ top: { showDate: false } }).top.showWeekday, false);
   assert.equal(cleanConfig({ top: { dateStyle: 'nope' } }).top.dateStyle, 'short');
   assert.equal(cleanConfig({ top: { dateStyle: 'long' } }).top.dateStyle, 'long');
+});
+
+test('service profiles: each keeps a whole look; the texts are the same in all of them', () => {
+  let c = cleanConfig(undefined);
+  c.theme.radius = 3;
+  c.brand.logo = '/media/aaaaaaaaaaaaaaaa.png';
+  c.lower.template = 'news';
+  c.lower.items[0].line1 = 'Maria';
+  // A new profile starts as a copy of the look in use and becomes the one in use.
+  c = addProfile(c, '  Natal  ');
+  assert.deepEqual(
+    c.profiles.map((p) => p.name),
+    ['Culto padrão', 'Natal'],
+  );
+  assert.equal(c.profile, c.profiles[1].id);
+  c.theme.radius = 40;
+  c.brand.logo = '/media/bbbbbbbbbbbbbbbb.png';
+  c.lower.template = 'floral';
+  c.top.showDate = true;
+  c.lower.items[0].line1 = 'José';
+  // Back to the first: its look returns, the names stay as they are now.
+  c = useProfile(c, 'culto padrão');
+  assert.equal(c.profile, 'padrao');
+  assert.equal(c.theme.radius, 3);
+  assert.equal(c.brand.logo, '/media/aaaaaaaaaaaaaaaa.png');
+  assert.equal(c.lower.template, 'news');
+  assert.equal(c.top.showDate, false);
+  assert.equal(c.lower.items[0].line1, 'José');
+  // And to the second, by its position: what was changed there was kept.
+  c = useProfile(c, '2');
+  assert.equal(c.theme.radius, 40);
+  assert.equal(c.brand.logo, '/media/bbbbbbbbbbbbbbbb.png');
+  assert.equal(c.lower.template, 'floral');
+  assert.equal(c.top.showDate, true);
+  // Everything survives a save and a reload.
+  assert.deepEqual(cleanConfig(JSON.parse(JSON.stringify(c))), c);
+  assert.throws(() => useProfile(c, 'nope'), /Profile not found/);
+  assert.throws(() => addProfile(c, '   '), /Type a name/);
+  // Removing the one in use moves to another; the last one cannot be removed.
+  c = removeProfile(c, 'Natal');
+  assert.equal(c.profile, 'padrao');
+  assert.equal(c.theme.radius, 3);
+  assert.equal(c.profiles.length, 1);
+  assert.throws(() => removeProfile(c, 'padrao'), /last profile/);
+  // A broken list is repaired: there is always one profile, and one in use.
+  const fixed = cleanConfig({
+    profile: 'x',
+    profiles: [{ id: '!!', name: '' }, 7, { name: 'Só nome' }],
+  });
+  assert.equal(fixed.profiles.length, 1);
+  assert.equal(fixed.profiles[0].name, 'Só nome');
+  assert.equal(fixed.profile, fixed.profiles[0].id);
 });

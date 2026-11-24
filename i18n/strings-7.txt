@@ -10,12 +10,6 @@ Ajustes avanzados: se abre en el navegador (modelos, colores, fuentes, ofrendas,
 Impostazioni avanzate: si apre nel browser (modelli, colori, caratteri, offerte, logo)
 Erweiterte Einstellungen: öffnet sich im Browser (Vorlagen, Farben, Schriften, Spenden, Logo)
 
-Mostra ou esconde uma prévia de como o elemento desta aba aparece na tela
-Shows or hides a preview of how the element of this tab appears on screen
-Muestra u oculta una vista previa de cómo aparece en pantalla el elemento de esta pestaña
-Mostra o nasconde un'anteprima di come appare sullo schermo l'elemento di questa scheda
-Zeigt oder verbirgt eine Vorschau, wie das Element dieses Reiters auf dem Bildschirm aussieht
-
 Endereços para o OBS, tutorial, resoluções e atalhos.
 Addresses for OBS, tutorial, resolutions and shortcuts.
 Direcciones para OBS, tutorial, resoluciones y atajos.

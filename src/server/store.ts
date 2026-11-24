@@ -156,7 +156,8 @@ export function defaults() {
       bug: true,
     },
     /** How long names and the QR card stay on screen, in seconds (0 = until hidden). */
-    timing: { autoHide: 0 },
+    /** Seconds names, QR card, schedule and social stay on screen (0 = until hidden). */
+    timing: { autoHide: 10 },
     /** The setup assistant opens by itself until the person finishes or closes it. */
     setupDone: false,
     /**
@@ -438,7 +439,20 @@ export function defaults() {
       animation: 'fade',
       duration: 600,
     },
+    /**
+     * Service profiles ("Culto padrão", "Natal"…): each one keeps a complete look (model,
+     * colors, fonts, logo, places, what the badge shows). `profile` is the one in use; its
+     * look is the configuration itself, and is put away into the list when another one is
+     * chosen. Names, notices, schedule and giving are the same in every profile.
+     */
+    profile: 'padrao',
+    profiles: [] as Profile[],
   };
+}
+export interface Profile {
+  id: string;
+  name: string;
+  look: Record<string, Record<string, unknown>>;
 }
 export type Config = ReturnType<typeof defaults>;
 export type ElementName = 'lower' | 'top' | 'card' | 'bug' | 'ticker' | 'agenda' | 'social';
@@ -669,7 +683,105 @@ export function cleanConfig(raw: unknown): Config {
   // "Date under the time" used to bring the day of the week with it; now each has its switch.
   const top = (raw as { top?: { showDate?: unknown; showWeekday?: unknown } } | null)?.top;
   if (top?.showDate === true && top.showWeekday === undefined) config.top.showWeekday = true;
+  const saved = raw as { profile?: unknown; profiles?: unknown } | null;
+  config.profiles = (Array.isArray(saved?.profiles) ? saved.profiles : [])
+    .slice(0, 30)
+    .map((p): Profile | undefined => {
+      if (!p || typeof p !== 'object') return;
+      const name = text(p.name, 40).trim();
+      if (!name) return;
+      return {
+        id: typeof p.id === 'string' && /^[a-z0-9]{4,20}$/i.test(p.id) ? p.id : newId(),
+        name,
+        // Checked like the settings themselves.
+        look: takeLook(clean(defaults(), p.look, '', '') as Config),
+      };
+    })
+    .filter((p, i, all): p is Profile => !!p && all.findIndex((o) => o?.id === p.id) === i);
+  config.profile = typeof saved?.profile === 'string' ? saved.profile : '';
+  return withProfiles(config);
+}
+
+// ---- Service profiles ----
+// What is NOT part of a look: the texts and lists, which are the same in every profile.
+const CONTENT: Record<ElementName, string[]> = {
+  lower: ['items', 'quick'],
+  top: ['messages', 'pinned', 'liveText', 'order', 'interval'],
+  card: ['title', 'subtitle', 'qr', 'qrText', 'saved'],
+  ticker: ['messages', 'pinned', 'label'],
+  agenda: ['title', 'days'],
+  social: ['items', 'prefix'],
+  bug: [],
+};
+/** The look of a configuration: logo, font, theme and the appearance of every element. */
+export function takeLook(config: Config): Profile['look'] {
+  const look: Profile['look'] = {
+    brand: { logo: config.brand.logo, font: config.brand.font },
+    theme: structuredClone(config.theme),
+  };
+  for (const el of ELEMENTS)
+    look[el] = structuredClone(
+      Object.fromEntries(Object.entries(config[el]).filter(([k]) => !CONTENT[el].includes(k))),
+    );
+  return look;
+}
+function putLook(config: Config, look: Profile['look']) {
+  const c = config as unknown as Record<string, Record<string, unknown>>;
+  for (const [part, values] of Object.entries(structuredClone(look)))
+    if (c[part] && values) Object.assign(c[part], values);
+}
+/** There is always at least one profile, and the one in use is one of them. */
+function withProfiles(config: Config): Config {
+  if (!config.profiles.length)
+    config.profiles = [{ id: 'padrao', name: 'Culto padrão', look: takeLook(config) }];
+  if (!config.profiles.some((p) => p.id === config.profile)) config.profile = config.profiles[0].id;
   return config;
+}
+/** Finds a profile by id, by name (any case) or by its position (1 = first). */
+export function findProfile(config: Config, ref: string) {
+  const r = ref.trim().toLowerCase();
+  return (
+    config.profiles.find((p) => p.id === ref) ||
+    config.profiles.find((p) => p.name.toLowerCase() === r) ||
+    (/^\d+$/.test(r) ? config.profiles[Number(r) - 1] : undefined)
+  );
+}
+/** Changes to another profile: the look in use is put away first, then the other is put on. */
+export function useProfile(config: Config, ref: string): Config {
+  const target = findProfile(config, ref);
+  if (!target) throw new Error('Profile not found');
+  if (target.id === config.profile) return config;
+  const next = structuredClone(config);
+  const current = next.profiles.find((p) => p.id === next.profile);
+  if (current) current.look = takeLook(next);
+  putLook(next, next.profiles.find((p) => p.id === target.id)!.look);
+  next.profile = target.id;
+  return cleanConfig(next);
+}
+/** A new profile with the look in use, which becomes the one in use. */
+export function addProfile(config: Config, name: unknown): Config {
+  const clean = text(name, 40).trim();
+  if (!clean) throw new Error('Type a name for the profile');
+  if (config.profiles.length >= 30) throw new Error('Too many profiles');
+  const next = structuredClone(config);
+  const current = next.profiles.find((p) => p.id === next.profile);
+  if (current) current.look = takeLook(next);
+  const id = newId();
+  next.profiles.push({ id, name: clean, look: takeLook(next) });
+  next.profile = id;
+  return cleanConfig(next);
+}
+/** Removes a profile; the last one stays, and removing the one in use moves to another. */
+export function removeProfile(config: Config, ref: string): Config {
+  const target = findProfile(config, ref);
+  if (!target) throw new Error('Profile not found');
+  if (config.profiles.length < 2) throw new Error('The last profile cannot be removed');
+  let next = config;
+  if (target.id === config.profile)
+    next = useProfile(config, config.profiles.find((p) => p.id !== target.id)!.id);
+  next = structuredClone(next);
+  next.profiles = next.profiles.filter((p) => p.id !== target.id);
+  return cleanConfig(next);
 }
 
 export function cleanLive(raw: unknown, config: Config): Live {
@@ -852,7 +964,8 @@ const LOCAL_GIVING: Record<string, { method: string; app: string }> = {
   de: { method: 'sepa', app: 'Wero' },
   en: { method: 'link', app: 'Zelle' },
 };
-export function firstConfig(language: string): Config {
+export const firstConfig = (language: string): Config => withProfiles(sampleConfig(language));
+function sampleConfig(language: string): Config {
   const c = defaults();
   if (LANGUAGES.includes(language)) c.language = language;
   // PIX only exists in Brazil: each language starts from what its main country uses.

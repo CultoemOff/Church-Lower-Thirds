@@ -114,7 +114,6 @@ export default {
     'Muestra u oculta la barra inferior, con el texto desplazándose',
   'Textos que rolam': 'Textos que se desplazan',
   'Texto para rolar agora': 'Texto para desplazar ahora',
-  Fica: 'Fijo',
   Clássico: 'Clásico',
   Vidro: 'Vidrio',
   'Faixa inclinada': 'Franja inclinada',
@@ -665,8 +664,6 @@ export default {
     'Fijar: lo que muestre en esta pestaña queda en pantalla hasta que lo oculte, aunque termine el tiempo',
   'Configurações avançadas: abre no navegador (modelos, cores, fontes, contribuições, logo)':
     'Ajustes avanzados: se abre en el navegador (modelos, colores, fuentes, ofrendas, logo)',
-  'Mostra ou esconde uma prévia de como o elemento desta aba aparece na tela':
-    'Muestra u oculta una vista previa de cómo aparece en pantalla el elemento de esta pestaña',
   'Endereços para o OBS, tutorial, resoluções e atalhos.':
     'Direcciones para OBS, tutorial, resoluciones y atajos.',
   'Salvar e restaurar tudo num arquivo, ou voltar às configurações iniciais.':
@@ -816,8 +813,6 @@ export default {
   'Natal: manjedoura e estrela': 'Navidad: pesebre y estrella',
   'Páscoa: lírios e cruz': 'Pascua: lirios y cruz',
   'Páscoa: túmulo vazio': 'Pascua: sepulcro vacío',
-  'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; passe o mouse para ver a entrada.':
-    'Empiece por el modelo: define la forma, la fuente y la animación de todos los elementos y ya trae los colores que mejor combinan. Las figuras muestran cada modelo con el nombre y el logo de la iglesia; pase el ratón para ver la entrada.',
   'Modelos temáticos': 'Modelos temáticos',
   'Para ministérios e datas especiais: jovens, crianças, mulheres, coral, banda, Natal e Páscoa. O desenho pode ser trocado em "Fonte e forma".':
     'Para ministerios y fechas especiales: jóvenes, niños, mujeres, coro, banda, Navidad y Pascua. El dibujo se puede cambiar en "Fuente y forma".',
@@ -868,4 +863,39 @@ export default {
   'Baixar o instalador': 'Descargar el instalador',
   'O Windows deste computador não deixou o programa abrir o instalador sozinho (é comum em computadores de empresa). Baixe o instalador e abra-o você mesmo: as configurações são mantidas.':
     'El Windows de este equipo no dejó que el programa abriera el instalador por sí solo (es común en equipos de empresa). Descargue el instalador y ábralo usted mismo: la configuración se mantiene.',
+  'Culto padrão': 'Culto habitual',
+  Perfil: 'Perfil',
+  'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Crie e ajuste os perfis nas configurações.':
+    'Perfil de culto: cambia de una vez el modelo, los colores, las fuentes y el logo. Cree y ajuste los perfiles en la configuración.',
+  'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo':
+    'Perfil de culto: cambia de una vez el modelo, los colores, las fuentes y el logo',
+  'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.':
+    'Empiece por el modelo: define la forma, la fuente y la animación de todos los elementos y ya trae los colores que mejor combinan. Las figuras muestran cada modelo con el nombre y el logo de la iglesia; la animación de entrada aparece en la vista previa grande.',
+  'Trocar de perfil de culto (pelo nome)': 'Cambiar de perfil de culto (por el nombre)',
+  'Nome do novo perfil (ex.: Culto de mulheres, Natal)':
+    'Nombre del nuevo perfil (p. ej.: Culto de mujeres, Navidad)',
+  'Perfil "{name}" criado com a aparência atual.':
+    'Perfil "{name}" creado con la apariencia actual.',
+  'Perfis de culto': 'Perfiles de culto',
+  'Cada perfil guarda uma aparência completa: modelo, cores, fontes, logo, posições e o que o selo mostra. Troque de perfil aqui, no alto desta página ou no painel do OBS. Os nomes, avisos, agenda e contribuições são os mesmos em todos.':
+    'Cada perfil guarda una apariencia completa: modelo, colores, fuentes, logo, posiciones y lo que muestra el sello. Cambie de perfil aquí, en la parte superior de esta página o en el panel de OBS. Los nombres, avisos, agenda y contribuciones son los mismos en todos.',
+  'Nome do perfil': 'Nombre del perfil',
+  'Em uso': 'En uso',
+  Usar: 'Usar',
+  'Apaga este perfil. Os nomes, avisos e contribuições não são apagados.':
+    'Borra este perfil. Los nombres, avisos y contribuciones no se borran.',
+  'Apagar o perfil "{name}"?': '¿Borrar el perfil "{name}"?',
+  Apagar: 'Borrar',
+  'Cria um perfil com a aparência que está em uso agora e passa a usá-lo':
+    'Crea un perfil con la apariencia que está en uso ahora y pasa a usarlo',
+  'Salvar como novo perfil': 'Guardar como perfil nuevo',
+  'Para um perfil novo: salve com um nome e depois escolha o modelo, as cores e o logo dele.':
+    'Para un perfil nuevo: guárdelo con un nombre y después elija su modelo, colores y logo.',
+  'Esse perfil não existe mais.': 'Ese perfil ya no existe.',
+  'Escreva um nome para o perfil.': 'Escriba un nombre para el perfil.',
+  'O último perfil não pode ser apagado.': 'El último perfil no se puede borrar.',
+  'Há perfis demais: apague algum antes de criar outro.':
+    'Hay demasiados perfiles: borre alguno antes de crear otro.',
+  Tempo: 'Tiempo',
+  'sem limite': 'sin límite',
 };

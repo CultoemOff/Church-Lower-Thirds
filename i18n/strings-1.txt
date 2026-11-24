@@ -586,12 +586,6 @@ Texto para desplazar ahora
 Testo da far scorrere ora
 Text, der jetzt durchläuft
 
-Fica
-Stays
-Fijo
-Resta
-Bleibt
-
 Clássico
 Classic
 Clásico

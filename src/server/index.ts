@@ -26,18 +26,21 @@ import { sepaPayload } from './sepa.js';
 import { qrSvg } from './qr.js';
 import { SOURCES, sourceFileName, writeSourceFiles } from './sources.js';
 import {
+  addProfile,
   cleanConfig,
   cleanLive,
-  ELEMENTS,
-  firstConfig,
-  liveDefaults,
-  TIMED,
-  newId,
-  resolveItem,
-  resolveSocial,
   type Config,
   type ElementName,
+  ELEMENTS,
+  firstConfig,
   type Live,
+  liveDefaults,
+  newId,
+  removeProfile,
+  resolveItem,
+  resolveSocial,
+  TIMED,
+  useProfile,
 } from './store.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -460,6 +463,30 @@ app.get('/api/backup', async (_q, r) => {
 });
 // Back to how the program was on its first run: every setting, name and text is replaced
 // by the samples. The uploaded image files stay in the folder, unused.
+// Service profiles: change to another look at once (also for Stream Deck: ?name=Natal,
+// ?id=… or ?n=2), keep the look in use as a new profile, remove one.
+async function profileChange(r: Response, change: () => Config) {
+  try {
+    config = change();
+    live = cleanLive(live, config);
+    await saveStore();
+    sendConfig();
+    r.json({ ok: true, profile: config.profile, config });
+  } catch (e) {
+    fail(r, e);
+  }
+}
+const profileRef = (q: Request) =>
+  String(q.body?.id ?? q.query.id ?? q.body?.name ?? q.query.name ?? q.query.n ?? '');
+const chooseProfile = (q: Request, r: Response) =>
+  profileChange(r, () => useProfile(config, profileRef(q)));
+app.post('/api/profile/use', chooseProfile);
+app.get('/api/profile/use', chooseProfile);
+app.post('/api/profile/add', (q, r) => profileChange(r, () => addProfile(config, q.body?.name)));
+app.post('/api/profile/remove', (q, r) =>
+  profileChange(r, () => removeProfile(config, profileRef(q))),
+);
+
 app.post('/api/reset', async (_q, r) => {
   try {
     config = firstConfig(config.language === 'auto' ? install.language || 'auto' : config.language);

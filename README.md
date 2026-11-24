@@ -25,6 +25,7 @@ Na primeira vez, um assistente explica esses passos com ilustrações e deixa tu
 - **Agenda**: 4 modelos; mostra um dia por vez.
 - **Redes sociais e avisos**: 7 modelos; um item por vez ou todos em sequência, com contador e linha do tempo. Os ícones são genéricos (não os logotipos das redes); a igreja pode enviar os seus.
 - **Logo** no canto da tela.
+- **Perfis de culto**: aparências completas (modelo, cores, fontes, logo, posições) salvas com um nome, como "Culto padrão", "Culto de mulheres" ou "Natal", e trocadas num clique nas configurações, no painel do OBS ou por Stream Deck.
 - **Tema global**: cores com degradê, fonte, cantos, sombra e opacidade que todos os elementos seguem; cada elemento pode ter aparência própria. 24 modelos prontos, mostrados em miniaturas reais (com o nome e o logo da igreja), cada um com as cores sugeridas, e 29 conjuntos de cores prontas para trocar. Dez são **temáticos**: Jovem, Kids, Feminino, Coral, Banda, Natal, Natal Kids, Natal no Egito, Páscoa e Páscoa Kids, com desenhos próprios (flores, estrelas, notas musicais, estrela de Belém e manjedoura, sol e pirâmides, lírios e cruz, túmulo vazio).
 - 19 fontes incluídas (`src/web/fonts`, licença SIL OFL 1.1) e todas as instaladas no computador; 11 animações de entrada e saída, entre elas gota d’água, linha que se abre e deslize com rastro.
 - **Painel do OBS** com abas, responsivo, com o tempo na tela, botão de fixar e prévia.
