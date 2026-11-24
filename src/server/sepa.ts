@@ -11,7 +11,7 @@ export interface SepaData {
   reference?: string;
 }
 
-export const cleanIban = (iban: string) =>
+const cleanIban = (iban: string) =>
   String(iban ?? '')
     .replace(/\s+/g, '')
     .toUpperCase();

@@ -100,12 +100,6 @@ Temas listos
 Temi pronti
 Fertige Designs
 
-Um tema pronto troca o modelo, as cores e a fonte de todos os elementos de uma vez.
-A ready-made theme changes the model, colors and font of every element at once.
-Un tema listo cambia el modelo, los colores y la fuente de todos los elementos de una vez.
-Un tema pronto cambia modello, colori e carattere di tutti gli elementi in una volta.
-Ein fertiges Design ändert Vorlage, Farben und Schrift aller Elemente auf einmal.
-
 Troca só as cores do tema global
 Changes only the colors of the global theme
 Cambia solo los colores del tema global
@@ -280,12 +274,6 @@ Esta página de ajustes sirve para preparar todo con calma. Durante el culto usa
 Questa pagina di impostazioni serve a preparare tutto con calma. Durante il culto usi solo il pannello di OBS.
 Auf dieser Einstellungsseite bereiten Sie alles in Ruhe vor. Im Gottesdienst nutzen Sie nur das OBS-Bedienfeld.
 
-O assistente leva uns cinco minutos. Dá para pular qualquer passo e voltar depois.
-The assistant takes about five minutes. You can skip any step and come back later.
-El asistente lleva unos cinco minutos. Puede saltar cualquier paso y volver después.
-L'assistente richiede circa cinque minuti. Puoi saltare qualsiasi passo e tornarci dopo.
-Der Assistent dauert etwa fünf Minuten. Jeder Schritt lässt sich überspringen und später nachholen.
-
 Sua igreja
 Your church
 Su iglesia
@@ -297,12 +285,6 @@ The name and logo appear on the corner badge, on the names and on the QR code ca
 El nombre y el logo aparecen en el sello de la esquina, en los nombres y en la tarjeta del código QR.
 Il nome e il logo compaiono nel badge d'angolo, nei nomi e nella scheda del codice QR.
 Name und Logo erscheinen im Eck-Badge, bei den Namen und auf der QR-Code-Karte.
-
-Escolha um ponto de partida. Todos os elementos seguem este tema; depois, cada um pode ter a própria aparência.
-Choose a starting point. Every element follows this theme; later, each one can have its own appearance.
-Elija un punto de partida. Todos los elementos siguen este tema; después, cada uno puede tener su propia apariencia.
-Scegli un punto di partenza. Tutti gli elementi seguono questo tema; poi ciascuno può avere un aspetto proprio.
-Wählen Sie einen Ausgangspunkt. Alle Elemente folgen diesem Design; später kann jedes ein eigenes Aussehen erhalten.
 
 Contribuição
 Giving

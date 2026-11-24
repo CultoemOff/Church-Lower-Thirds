@@ -5,8 +5,6 @@ export default {
     'Tiempo en pantalla: cuánto permanecen los nombres, el código QR y las redes antes de salir solos',
   'Tirar tudo do ar': 'Quitar todo del aire',
   'Tema claro / escuro': 'Tema claro / oscuro',
-  'Configurações avançadas: abre no navegador (modelos, cores, fontes, PIX, logo)':
-    'Ajustes avanzados: se abre en el navegador (modelos, colores, fuentes, PIX, logo)',
   'Conectando…': 'Conectando…',
   Prévia: 'Vista previa',
   'Repetir animação': 'Repetir animación',
@@ -17,7 +15,6 @@ export default {
   'Mostra ou esconde este elemento no OBS agora': 'Muestra u oculta este elemento en OBS ahora',
   Nomes: 'Nombres',
   'Nomes e legendas (lower third)': 'Nombres y rótulos (lower third)',
-  'Cartão com QR Code do PIX ou de um link': 'Tarjeta con el código QR de PIX o de un enlace',
   Superior: 'Superior',
   'Selo no canto da tela: logo, nome, AO VIVO, horário e recados':
     'Sello en una esquina de la pantalla: logo, nombre, EN VIVO, hora y avisos',
@@ -52,8 +49,6 @@ export default {
   'Link do QR Code: https://…': 'Enlace del código QR: https://…',
   Título: 'Título',
   'Texto de apoio': 'Texto de apoyo',
-  'QR Code do PIX da igreja (a chave fica nas configurações)':
-    'Código QR del PIX de la iglesia (la clave está en los ajustes)',
   'QR Code que abre um site, uma inscrição, uma rede social…':
     'Código QR que abre un sitio, una inscripción, una red social…',
   'Escreva o link do QR Code.': 'Escriba el enlace del código QR.',
@@ -63,7 +58,6 @@ export default {
   'Guarda este QR Code na lista': 'Guarda este código QR en la lista',
   'QR Codes salvos': 'Códigos QR guardados',
   'Clique para mostrar este QR Code': 'Clic para mostrar este código QR',
-  'PIX da igreja': 'PIX de la iglesia',
   'Salve aqui o PIX e os links que você mais usa.': 'Guarde aquí el PIX y los enlaces que más usa.',
   'O que aparece no selo': 'Qué aparece en el sello',
   'Mostra só este texto agora, no lugar da lista (Enter)':
@@ -159,10 +153,7 @@ export default {
   Brilho: 'Brillo',
   'Visão geral': 'Resumen',
   'O que está no ar agora e os primeiros passos.': 'Qué está al aire ahora y los primeros pasos.',
-  'Geral e PIX': 'General y PIX',
   Igreja: 'Iglesia',
-  'Nome, logo, idioma, temas, tempo na tela e a chave PIX.':
-    'Nombre, logo, idioma, temas, tiempo en pantalla y la clave PIX.',
   Elementos: 'Elementos',
   'O lower third: nome e legenda de quem está falando.':
     'El lower third: nombre y rótulo de quien está hablando.',
@@ -170,8 +161,6 @@ export default {
     'Sello en una esquina de la pantalla con logo, nombre, EN VIVO y hora.',
   'Texto rolando o tempo todo na parte de baixo.':
     'Texto desplazándose todo el tiempo en la parte inferior.',
-  'Cartão QR / PIX': 'Tarjeta QR / PIX',
-  'Cartão com o QR Code do PIX ou de um link.': 'Tarjeta con el código QR de PIX o de un enlace.',
   'Dias e horários dos cultos, um dia de cada vez.':
     'Días y horarios de los cultos, un día a la vez.',
   'Redes sociais': 'Redes sociales',
@@ -183,10 +172,7 @@ export default {
     'Arrastre cada elemento a su lugar y ajuste el tamaño.',
   'OBS e atalhos': 'OBS y atajos',
   Instalação: 'Instalación',
-  'Fontes de navegador, painel do OBS, resoluções e atalhos.':
-    'Fuentes de navegador, panel de OBS, resoluciones y atajos.',
   Backup: 'Copia de seguridad',
-  'Salvar e restaurar tudo num arquivo.': 'Guardar y restaurar todo en un archivo.',
   Leve: 'Ligera',
   Normal: 'Normal',
   Médio: 'Media',
@@ -261,10 +247,6 @@ export default {
   'O QR Code leva para': 'El código QR lleva a',
   'Um link (site, inscrição, redes sociais)': 'Un enlace (sitio, inscripción, redes sociales)',
   'Link do QR Code': 'Enlace del código QR',
-  'Cores aplicadas ao lower third, à barra e ao cartão.':
-    'Colores aplicados al lower third, a la barra y a la tarjeta.',
-  'Preencha a chave para gerar o QR Code.': 'Complete la clave para generar el código QR.',
-  'QR Code do PIX': 'Código QR de PIX',
   'Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o nome que aparece.':
     'Pruebe antes del culto: apunte la aplicación del banco a este código QR y verifique el nombre que aparece.',
   'PIX copia e cola:': 'PIX copia y pega:',
@@ -278,7 +260,6 @@ export default {
   'Escreva o nome da igreja': 'Escriba el nombre de la iglesia',
   Abrir: 'Abrir',
   'Envie o logo da igreja': 'Suba el logo de la iglesia',
-  'Cadastre a chave PIX': 'Registre la clave PIX',
   'Adicione as fontes e o painel no OBS': 'Añada las fuentes y el panel en OBS',
   'Ver como': 'Ver cómo',
   'Arraste os elementos para o lugar': 'Arrastre los elementos a su lugar',
@@ -287,24 +268,18 @@ export default {
   'Esta pasta guarda as configurações, os nomes, as imagens e os arquivos das fontes do OBS. Copie a pasta inteira para fazer backup.':
     'Esta carpeta guarda los ajustes, los nombres, las imágenes y los archivos de las fuentes de OBS. Copie la carpeta entera para hacer una copia de seguridad.',
   'Nome da igreja': 'Nombre de la iglesia',
-  'Fonte geral': 'Fuente general',
   'Sem logo': 'Sin logo',
   'Trocar logo': 'Cambiar logo',
   'Enviar logo': 'Subir logo',
   'PNG com fundo transparente fica melhor. Até 8 MB.':
     'Un PNG con fondo transparente queda mejor. Hasta 8 MB.',
   Temas: 'Temas',
-  'Um tema troca o modelo, as cores e a fonte de todos os elementos de uma vez.':
-    'Un tema cambia el modelo, los colores y la fuente de todos los elementos a la vez.',
   'Tempo na tela': 'Tiempo en pantalla',
   'Nomes, QR Code e redes saem sozinhos depois de':
     'Nombres, código QR y redes salen solos después de',
   '0 = ficam na tela até você esconder. O mesmo tempo pode ser trocado no painel do OBS.':
     '0 = permanecen en pantalla hasta que los oculte. El mismo tiempo se puede cambiar en el panel de OBS.',
   'Cores prontas': 'Colores listos',
-  'Aplica estas cores a todos os elementos': 'Aplica estos colores a todos los elementos',
-  'É só um ponto de partida: cada elemento tem as próprias cores, com degradê, na aba dele.':
-    'Es solo un punto de partida: cada elemento tiene sus propios colores, con degradado, en su página.',
   'Como gerar o QR Code': 'Cómo generar el código QR',
   'Pela chave PIX': 'Con la clave PIX',
   'Colar o "PIX copia e cola" do banco': 'Pegar el "PIX copia e cola" del banco',
@@ -319,16 +294,12 @@ export default {
   'Identificador (opcional)': 'Identificador (opcional)',
   'Ex.: OFERTA': 'Ej.: OFRENDA',
   'PIX copia e cola': 'PIX copia y pega',
-  'Texto mostrado ao lado do QR Code': 'Texto mostrado junto al código QR',
-  'Ex.: CNPJ 12.345.678/0001-90': 'Ej.: CNPJ 12.345.678/0001-90',
-  'Vazio: mostra a chave.': 'Vacío: muestra la clave.',
   Modelo: 'Modelo',
   'Nomes e textos': 'Nombres y textos',
   'Cargo ou texto': 'Cargo o texto',
   'Mostra o logo da igreja neste lower third': 'Muestra el logo de la iglesia en este lower third',
   'QR Code neste lower third': 'Código QR en este lower third',
   'Sem QR': 'Sin QR',
-  'QR do PIX': 'QR de PIX',
   'QR de link': 'QR de enlace',
   'Ver este na prévia': 'Ver este en la vista previa',
   Ver: 'Ver',
@@ -376,8 +347,6 @@ export default {
   Conteúdo: 'Contenido',
   'Mostrar a chave (ou o link) por escrito': 'Mostrar la clave (o el enlace) por escrito',
   'QR Code com pontos arredondados': 'Código QR con puntos redondeados',
-  'Para o PIX, a chave e o texto ao lado do QR Code ficam na aba "Geral e PIX".':
-    'Para PIX, la clave y el texto junto al código QR están en "General y PIX".',
   'Cor do cartão': 'Color de la tarjeta',
   'Peso do título': 'Grosor del título',
   'Textos (um por linha)': 'Textos (uno por línea)',
@@ -412,8 +381,6 @@ export default {
   'Os ícones do programa são genéricos (câmera, play, pessoas…), não os logotipos oficiais das redes. Para usar o ícone oficial, envie a imagem em "Ícone…".':
     'Los iconos del programa son genéricos (cámara, play, personas…), no los logotipos oficiales de las redes. Para usar el icono oficial, suba la imagen en "Icono…".',
   'Texto de cima': 'Texto de arriba',
-  'Envie o logo da igreja na aba "Geral e PIX" para usar este elemento.':
-    'Suba el logo de la iglesia en "General y PIX" para usar este elemento.',
   'Logo no canto da tela': 'Logo en una esquina de la pantalla',
   Canto: 'Esquina',
   Largura: 'Ancho',
@@ -427,7 +394,6 @@ export default {
     'La barra inferior y los modelos de ancho completo (Noticiero, Franja ancha y Panel central) no se mueven.',
   'Voltar ao lugar padrão:': 'Volver al lugar predeterminado:',
   'Nenhum elemento foi movido ainda.': 'Ningún elemento se ha movido todavía.',
-  'Copiado.': 'Copiado.',
   Copiar: 'Copiar',
   'Todos os elementos': 'Todos los elementos',
   'Tamanho das fontes no OBS': 'Tamaño de las fuentes en OBS',
@@ -435,7 +401,6 @@ export default {
   'Vídeo vertical (9:16)': 'Vídeo vertical (9:16)',
   'Use o mesmo tamanho do vídeo do seu OBS. Os gráficos se ajustam sozinhos: tudo o que você configurou fica igual em qualquer um deles.':
     'Use el mismo tamaño que el vídeo de su OBS. Los gráficos se ajustan solos: todo lo configurado queda igual en cualquiera de ellos.',
-  '1. Os gráficos (fonte de navegador)': '1. Los gráficos (fuente de navegador)',
   Horizontal: 'Horizontal',
   Vertical: 'Vertical',
   'No OBS, em Fontes, clique em + e escolha Navegador.':
@@ -450,7 +415,6 @@ export default {
   Endereço: 'Dirección',
   '"All Elements" mostra tudo numa fonte só. Os outros arquivos mostram um elemento cada, para você separar por cena. Não use os dois na mesma cena: o elemento apareceria duas vezes.':
     '"All Elements" muestra todo en una sola fuente. Los otros archivos muestran un elemento cada uno, para separarlos por escena. No use los dos en la misma escena: el elemento aparecería dos veces.',
-  '2. O painel (dock)': '2. El panel (dock)',
   'No OBS, abra o menu Docks → Docks de navegador personalizados.':
     'En OBS, abra el menú Paneles → Paneles de navegador personalizados.',
   'Dê o nome "Church Lower Thirds" e cole o endereço abaixo.':
@@ -550,8 +514,6 @@ export default {
     'Código QR de la ofrenda de la iglesia: PIX, transferencia, enlace o imagen (elija en los ajustes)',
   'Contribuição da igreja': 'Ofrenda de la iglesia',
   'Geral e contribuições': 'General y ofrendas',
-  'Nome, logo, idioma, temas, tempo na tela e a forma de contribuir: PIX, transferência, link ou dados bancários.':
-    'Nombre, logo, idioma, temas, tiempo en pantalla y la forma de ofrendar: PIX, transferencia, enlace o datos bancarios.',
   'Cartão QR / Oferta': 'Tarjeta QR / Ofrenda',
   'Cartão com o QR Code da contribuição ou de um link.':
     'Tarjeta con el código QR de la ofrenda o de un enlace.',
@@ -569,8 +531,6 @@ export default {
   'Conteúdo do QR Code:': 'Contenido del código QR:',
   'Cadastre a forma de contribuir': 'Configure la forma de ofrendar',
   'Contribuições: dízimos e ofertas': 'Ofrendas: diezmos y ofrendas',
-  'O PIX só existe no Brasil. Escolha como a sua igreja recebe: o QR Code e os dados aparecem no cartão e nos nomes marcados com "Contribuição da igreja".':
-    'PIX solo existe en Brasil. Elija cómo recibe su iglesia: el código QR y los datos aparecen en la tarjeta y en los nombres marcados con "Ofrenda de la iglesia".',
   'Como as pessoas contribuem': 'Cómo ofrendan las personas',
   'PIX (Brasil)': 'PIX (Brasil)',
   'Transferência bancária SEPA (zona do euro)': 'Transferencia bancaria SEPA (zona del euro)',
@@ -636,8 +596,6 @@ export default {
   'Endereços para o OBS': 'Direcciones para OBS',
   'Ver o endereço de cada elemento': 'Ver la dirección de cada elemento',
   'Temas prontos': 'Temas listos',
-  'Um tema pronto troca o modelo, as cores e a fonte de todos os elementos de uma vez.':
-    'Un tema listo cambia el modelo, los colores y la fuente de todos los elementos de una vez.',
   'Troca só as cores do tema global': 'Cambia solo los colores del tema global',
   'Troca só as cores do tema. Depois ajuste cada uma abaixo, com degradê.':
     'Cambia solo los colores del tema. Después ajuste cada uno abajo, con degradado.',
@@ -678,13 +636,9 @@ export default {
     'Un dock dentro de OBS. Es donde hace clic para mostrar y ocultar cada cosa durante el culto.',
   'Esta página de configurações serve para preparar tudo com calma. Durante o culto você usa só o painel do OBS.':
     'Esta página de ajustes sirve para preparar todo con calma. Durante el culto usa solo el panel de OBS.',
-  'O assistente leva uns cinco minutos. Dá para pular qualquer passo e voltar depois.':
-    'El asistente lleva unos cinco minutos. Puede saltar cualquier paso y volver después.',
   'Sua igreja': 'Su iglesia',
   'O nome e o logo aparecem no selo do canto, nos nomes e no cartão do QR Code.':
     'El nombre y el logo aparecen en el sello de la esquina, en los nombres y en la tarjeta del código QR.',
-  'Escolha um ponto de partida. Todos os elementos seguem este tema; depois, cada um pode ter a própria aparência.':
-    'Elija un punto de partida. Todos los elementos siguen este tema; después, cada uno puede tener su propia apariencia.',
   Contribuição: 'Ofrenda',
   'Como a igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão. Se não for usar, pule este passo.':
     'Cómo recibe la iglesia diezmos y ofrendas. El código QR y los datos aparecen en la tarjeta. Si no lo va a usar, salte este paso.',

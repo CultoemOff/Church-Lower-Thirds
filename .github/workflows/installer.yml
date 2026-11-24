@@ -175,11 +175,32 @@ jobs:
           if (-not $live.live.lower.on) { throw "Lower third did not go on air" }
           $live = Invoke-RestMethod "$base/api/live/all/hide" -Method Post
           if ($live.live.lower.on) { throw "Hide all left the lower third on" }
-          # A page from another site must not be able to send commands.
-          try {
-            Invoke-WebRequest "$base/api/live/top/show" -Method Post -Headers @{ Origin = 'https://example.com' } -UseBasicParsing | Out-Null
-            throw "Foreign origin was accepted"
-          } catch { if ($_.Exception.Message -match 'accepted') { throw } }
+          # Pinned in the dock: the global time does not take it off the air.
+          Invoke-RestMethod "$base/api/patch" -Method Post -ContentType 'application/json' -Body (@{ 'timing.autoHide' = 2 } | ConvertTo-Json) | Out-Null
+          Invoke-RestMethod "$base/api/live/lower/pin" -Method Post | Out-Null
+          Invoke-RestMethod "$base/api/live/lower/show?item=1" -Method Post | Out-Null
+          Start-Sleep -Seconds 4
+          if (-not (Invoke-RestMethod "$base/api/state").live.lower.on) { throw "A pinned name left the screen by itself" }
+          Invoke-RestMethod "$base/api/live/lower/unpin" -Method Post | Out-Null
+          Start-Sleep -Seconds 4
+          if ((Invoke-RestMethod "$base/api/state").live.lower.on) { throw "An unpinned name stayed after the time" }
+          Invoke-RestMethod "$base/api/patch" -Method Post -ContentType 'application/json' -Body (@{ 'timing.autoHide' = 0 } | ConvertTo-Json) | Out-Null
+          # A page from another site must not be able to send commands or read the settings:
+          # by its origin, by a plain cross-site request, or through another host name.
+          function Assert-Refused([string]$What, [hashtable]$Headers, [string]$Path, [string]$Method = 'Get') {
+            try {
+              Invoke-WebRequest "$base$Path" -Method $Method -Headers $Headers -UseBasicParsing | Out-Null
+              $ok = $true
+            } catch { $ok = $false }
+            if ($ok) { throw "$What was accepted" }
+          }
+          Assert-Refused 'A foreign origin' @{ Origin = 'https://example.com' } '/api/live/top/show' 'Post'
+          Assert-Refused 'A cross-site request' @{ 'Sec-Fetch-Site' = 'cross-site' } '/api/state'
+          Assert-Refused 'Another host name' @{ Host = 'example.com:8795' } '/api/state'
+          if ((Invoke-RestMethod "$base/api/state").live.top.on) { throw "A refused request still changed what is on air" }
+          # An address that does not exist answers in JSON, without internals.
+          try { Invoke-WebRequest "$base/api/nope" -UseBasicParsing | Out-Null; throw "Unknown address was accepted" }
+          catch { if ($_.Exception.Message -match 'accepted') { throw } }
           Write-Host "Installed server v$($health.version) OK; fonts: $(@($fonts).Count)"
 
           # The one-click update runs this same installer with /SILENT: the program comes

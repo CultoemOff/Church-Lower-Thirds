@@ -74,7 +74,7 @@ export interface SavedCard {
   qr: 'giving' | 'url';
   qrText: string;
 }
-export const GIVING_METHODS = ['pix', 'app', 'sepa', 'link', 'image', 'text'];
+const GIVING_METHODS = ['pix', 'app', 'sepa', 'link', 'image', 'text'];
 export const ANIMATIONS = ['slide', 'rise', 'fade', 'wipe', 'zoom', 'blur', 'bounce', 'flip'];
 export const SHADOWS = ['none', 'soft', 'hard', 'glow'];
 const CORNERS = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
@@ -83,8 +83,8 @@ const PLACES = [...CORNERS, 'top-center', 'bottom-center', 'center-left', 'cente
 /** Free placement: where the element was dragged to (top-left corner, 1920x1080 stage). */
 const free = () => ({ free: false, x: 0, y: 0, vfree: false, vx: 0, vy: 0 });
 export const LANGUAGES = ['pt-BR', 'pt-PT', 'es', 'en', 'it', 'de'];
-export const RESOLUTIONS = ['1280x720', '1920x1080', '2560x1440', '3840x2160'];
-export const VERTICAL_RESOLUTIONS = ['720x1280', '1080x1920', '1440x2560', '2160x3840'];
+const RESOLUTIONS = ['1280x720', '1920x1080', '2560x1440', '3840x2160'];
+const VERTICAL_RESOLUTIONS = ['720x1280', '1080x1920', '1440x2560', '2160x3840'];
 
 export const newId = () => randomBytes(5).toString('hex');
 
@@ -760,7 +760,7 @@ const SAMPLES: Record<string, Record<string, unknown>> = {
  * starting point (the church can write any other name). German starts on the SEPA transfer,
  * whose QR code the banking apps there read.
  */
-export const LOCAL_GIVING: Record<string, { method: string; app: string }> = {
+const LOCAL_GIVING: Record<string, { method: string; app: string }> = {
   'pt-PT': { method: 'app', app: 'MB WAY' },
   es: { method: 'app', app: 'Bizum' },
   it: { method: 'app', app: 'BANCOMAT Pay' },

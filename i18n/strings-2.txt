@@ -52,12 +52,6 @@ Suba el logo de la iglesia
 Carica il logo della chiesa
 Logo der Gemeinde hochladen
 
-Cadastre a chave PIX
-Enter the PIX key
-Registre la clave PIX
-Inserisci la chiave PIX
-PIX-Schlüssel eintragen
-
 Adicione as fontes e o painel no OBS
 Add the sources and the dock in OBS
 Añada las fuentes y el panel en OBS
@@ -100,12 +94,6 @@ Nombre de la iglesia
 Nome della chiesa
 Name der Gemeinde
 
-Fonte geral
-General font
-Fuente general
-Carattere generale
-Allgemeine Schrift
-
 Sem logo
 No logo
 Sin logo
@@ -136,12 +124,6 @@ Temas
 Temi
 Designs
 
-Um tema troca o modelo, as cores e a fonte de todos os elementos de uma vez.
-A theme changes the style, the colors and the font of every element at once.
-Un tema cambia el modelo, los colores y la fuente de todos los elementos a la vez.
-Un tema cambia modello, colori e carattere di tutti gli elementi in una volta.
-Ein Design ändert Vorlage, Farben und Schrift aller Elemente auf einmal.
-
 Tempo na tela
 Time on screen
 Tiempo en pantalla
@@ -165,18 +147,6 @@ Ready-made colors
 Colores listos
 Colori pronti
 Fertige Farben
-
-Aplica estas cores a todos os elementos
-Applies these colors to every element
-Aplica estos colores a todos los elementos
-Applica questi colori a tutti gli elementi
-Wendet diese Farben auf alle Elemente an
-
-É só um ponto de partida: cada elemento tem as próprias cores, com degradê, na aba dele.
-It is only a starting point: each element has its own colors, with gradients, on its page.
-Es solo un punto de partida: cada elemento tiene sus propios colores, con degradado, en su página.
-È solo un punto di partenza: ogni elemento ha i propri colori, con sfumatura, nella sua pagina.
-Nur ein Ausgangspunkt: jedes Element hat auf seiner Seite eigene Farben, auch mit Verlauf.
 
 Como gerar o QR Code
 How to create the QR code
@@ -256,24 +226,6 @@ PIX copia y pega
 PIX copia e incolla
 PIX „Copia e Cola“
 
-Texto mostrado ao lado do QR Code
-Text shown beside the QR code
-Texto mostrado junto al código QR
-Testo mostrato accanto al codice QR
-Text neben dem QR-Code
-
-Ex.: CNPJ 12.345.678/0001-90
-E.g. CNPJ 12.345.678/0001-90
-Ej.: CNPJ 12.345.678/0001-90
-Es.: CNPJ 12.345.678/0001-90
-Z. B. CNPJ 12.345.678/0001-90
-
-Vazio: mostra a chave.
-Empty: shows the key.
-Vacío: muestra la clave.
-Vuoto: mostra la chiave.
-Leer: zeigt den Schlüssel.
-
 Modelo
 Style
 Modelo
@@ -309,12 +261,6 @@ No QR
 Sin QR
 Senza QR
 Ohne QR
-
-QR do PIX
-PIX QR
-QR de PIX
-QR del PIX
-PIX-QR
 
 QR de link
 Link QR
@@ -580,12 +526,6 @@ Código QR con puntos redondeados
 Codice QR con punti arrotondati
 QR-Code mit runden Punkten
 
-Para o PIX, a chave e o texto ao lado do QR Code ficam na aba "Geral e PIX".
-For PIX, the key and the text beside the QR code are on the "General and PIX" page.
-Para PIX, la clave y el texto junto al código QR están en "General y PIX".
-Per il PIX, la chiave e il testo accanto al codice QR sono in "Generale e PIX".
-Für PIX stehen Schlüssel und Text neben dem QR-Code unter „Allgemein und PIX“.
-
 Cor do cartão
 Card color
 Color de la tarjeta
@@ -760,12 +700,6 @@ Texto de arriba
 Testo sopra
 Text oben
 
-Envie o logo da igreja na aba "Geral e PIX" para usar este elemento.
-Upload the church logo on the "General and PIX" page to use this element.
-Suba el logo de la iglesia en "General y PIX" para usar este elemento.
-Carica il logo della chiesa in "Generale e PIX" per usare questo elemento.
-Logo der Gemeinde unter „Allgemein und PIX“ hochladen, um dieses Element zu nutzen.
-
 Logo no canto da tela
 Logo in a corner of the screen
 Logo en una esquina de la pantalla
@@ -832,12 +766,6 @@ Ningún elemento se ha movido todavía.
 Nessun elemento è stato ancora spostato.
 Noch kein Element wurde verschoben.
 
-Copiado.
-Copied.
-Copiado.
-Copiato.
-Kopiert.
-
 Copiar
 Copy
 Copiar
@@ -873,12 +801,6 @@ Use the same size as the video in your OBS. The graphics adjust by themselves: e
 Use el mismo tamaño que el vídeo de su OBS. Los gráficos se ajustan solos: todo lo configurado queda igual en cualquiera de ellos.
 Usa la stessa dimensione del video del tuo OBS. La grafica si adatta da sola: tutto ciò che hai impostato resta uguale in ognuna.
 Dieselbe Größe wie das Video in OBS verwenden. Die Grafiken passen sich selbst an: alles Eingestellte sieht in jeder Größe gleich aus.
-
-1. Os gráficos (fonte de navegador)
-1. The graphics (browser source)
-1. Los gráficos (fuente de navegador)
-1. La grafica (sorgente browser)
-1. Die Grafiken (Browserquelle)
 
 Horizontal
 Horizontal
@@ -945,12 +867,6 @@ Adresse
 "All Elements" muestra todo en una sola fuente. Los otros archivos muestran un elemento cada uno, para separarlos por escena. No use los dos en la misma escena: el elemento aparecería dos veces.
 "All Elements" mostra tutto in un'unica sorgente. Gli altri file mostrano un elemento ciascuno, per separarli per scena. Non usare entrambi nella stessa scena: l'elemento apparirebbe due volte.
 „All Elements“ zeigt alles in einer Quelle. Die anderen Dateien zeigen je ein Element, um sie nach Szenen zu trennen. Nicht beides in derselben Szene nutzen: das Element erschiene doppelt.
-
-2. O painel (dock)
-2. The control panel (dock)
-2. El panel (dock)
-2. Il pannello (dock)
-2. Das Bedienfeld (Dock)
 
 No OBS, abra o menu Docks → Docks de navegador personalizados.
 In OBS, open the Docks menu → Custom Browser Docks.

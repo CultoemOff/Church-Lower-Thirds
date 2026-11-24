@@ -82,9 +82,6 @@ Uma dock dentro do OBS. É onde clica para mostrar e esconder cada coisa durante
 Esta página de configurações serve para preparar tudo com calma. Durante o culto você usa só o painel do OBS.
 Esta página de definições serve para preparar tudo com calma. Durante o culto usa apenas o painel do OBS.
 
-O assistente leva uns cinco minutos. Dá para pular qualquer passo e voltar depois.
-O assistente demora uns cinco minutos. Pode saltar qualquer passo e voltar depois.
-
 Pular o assistente
 Saltar o assistente
 

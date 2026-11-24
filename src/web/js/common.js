@@ -45,6 +45,13 @@ export function toast(text) {
 // Messages the server sends in English, shown in Portuguese.
 const ERRORS = [
   [/PIX key is empty/, 'Preencha a chave PIX nas configurações.'],
+  [
+    /Enter the number or code that receives/,
+    'Escreva o telefone, o código ou o e-mail que recebe.',
+  ],
+  [/File too large/, 'Arquivo grande demais.'],
+  [/Invalid data|Unknown address|Internal error/, 'Não foi possível concluir. Tente de novo.'],
+  [/Forbidden/, 'Abra esta página pelo endereço do próprio programa (127.0.0.1).'],
   [/Enter the link for the QR code/, 'Escreva o link da contribuição nas configurações.'],
   [/Enter the account holder name/, 'Escreva o nome do titular da conta.'],
   [/Invalid IBAN/, 'IBAN inválido: confira as letras e os números.'],

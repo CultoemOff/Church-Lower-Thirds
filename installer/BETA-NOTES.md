@@ -2,10 +2,13 @@
 
 ### Novidades da beta.2
 
-- **Contribuições além do PIX**: transferência SEPA com QR Code lido pelos aplicativos de banco, link, imagem de QR Code pronta ou dados bancários em texto. Até 6 linhas de dados ao lado do QR Code.
-- **Tema global**: cores, fonte, cantos, sombra e opacidade num lugar só; todos os elementos obedecem. Cada elemento pode mudar para "Aparência própria".
-- **Assistente de configuração**: abre na primeira vez, explica como o programa funciona e ajuda a deixar tudo pronto. Pode ser aberto de novo na Visão geral.
-- **Endereços para o OBS** com botão Copiar na Visão geral e em "OBS e atalhos".
+- **Contribuições além do PIX**: aplicativo de pagamento por telefone ou código (o nome é livre; em Portugal, Espanha e Itália já vem sugerido o mais usado no país), transferência SEPA com QR Code lido pelos aplicativos de banco, link, imagem de QR Code pronta ou só os dados bancários. Até 6 linhas de dados ao lado do QR Code.
+- **Tema global**: cores, fonte, cantos, sombra e opacidade num lugar só; todos os elementos obedecem e cada um pode mudar para "Aparência própria". **14 temas prontos** numa galeria que mostra cada um.
+- **Assistente de configuração** com tutorial ilustrado do OBS: abre na primeira vez, pode ser pulado inteiro ou passo a passo e reaberto na Visão geral.
+- **Endereços para o OBS** com botão Copiar, o do painel primeiro. "OBS e atalhos" e "Backup" ficam no canto direito.
+- **Painel do OBS**: botão de fixar (o que estiver na tela não sai quando o tempo acaba) e prévia do elemento da aba.
+- **Backup**: "Restaurar as configurações iniciais", com aviso, reabre o assistente.
+- **Segurança e erros**: o programa só responde às próprias páginas (sites abertos no navegador não conseguem ler as configurações nem mexer no que está no ar); arquivo de configurações danificado é guardado à parte em vez de ser sobrescrito; os erros ficam em `error.log`, na pasta de dados do usuário.
 
 ### O que é
 

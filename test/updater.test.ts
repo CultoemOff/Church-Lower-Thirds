@@ -87,6 +87,8 @@ test('two accounts never look like the same owner', () => {
 });
 
 test('the installer is only accepted when its SHA-256 matches the published list', async () => {
+  // The local server of this test speaks plain http; real downloads must be https.
+  process.env.CLT_UPDATE_API = 'test';
   const setup = Buffer.from('pretend this is the installer '.repeat(2000));
   let sums = `${createHash('sha256').update(setup).digest('hex')} *Church-Lower-Thirds-Setup-9.9.9.exe\n`;
   // The file sits behind a redirect, as on GitHub.
@@ -109,6 +111,14 @@ test('the installer is only accepted when its SHA-256 matches the published list
     sums = `${'0'.repeat(64)} *Church-Lower-Thirds-Setup-9.9.9.exe\n`;
     await assert.rejects(downloadVerifiedSetup(info), /checksum mismatch/);
     await assert.rejects(downloadVerifiedSetup({ ...info, sumsUrl: undefined }), /not available/);
+    // Outside the tests, an address that is not encrypted is refused, as is a file name
+    // that could leave the temp folder.
+    delete process.env.CLT_UPDATE_API;
+    await assert.rejects(downloadVerifiedSetup(info), /insecure address/);
+    await assert.rejects(
+      downloadVerifiedSetup({ ...info, setupName: '..\\Church-Lower-Thirds-Setup.exe' }),
+      /not available/,
+    );
   } finally {
     web.close();
   }

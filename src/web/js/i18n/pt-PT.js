@@ -2,8 +2,6 @@
 export default {
   'Tempo na tela: quanto tempo nomes, QR Code e redes sociais ficam antes de sair sozinhos':
     'Tempo no ecrã: quanto tempo nomes, QR Code e redes sociais ficam antes de sair sozinhos',
-  'Configurações avançadas: abre no navegador (modelos, cores, fontes, PIX, logo)':
-    'Definições avançadas: abre no navegador (modelos, cores, fontes, PIX, logo)',
   'O fundo da prévia simula a imagem da câmera. No OBS o fundo é transparente.':
     'O fundo da prévia simula a imagem da câmara. No OBS o fundo é transparente.',
   'Selo no canto da tela: logo, nome, AO VIVO, horário e recados':
@@ -16,8 +14,6 @@ export default {
   'Clique para mostrar na tela': 'Clique para mostrar no ecrã',
   'Nada salvo ainda. Escreva acima e clique em "Salvar na lista".':
     'Ainda não há nada guardado. Escreva acima e clique em "Guardar na lista".',
-  'QR Code do PIX da igreja (a chave fica nas configurações)':
-    'QR Code do PIX da igreja (a chave fica nas definições)',
   'Tira o cartão da tela': 'Tira o cartão do ecrã',
   'QR Codes salvos': 'QR Codes guardados',
   'Salve aqui o PIX e os links que você mais usa.': 'Guarde aqui o PIX e as ligações que mais usa.',
@@ -35,15 +31,12 @@ export default {
   Esmaecer: 'Desvanecer',
   Quicar: 'Saltar',
   Girar: 'Rodar',
-  'Nome, logo, idioma, temas, tempo na tela e a chave PIX.':
-    'Nome, logo, idioma, temas, tempo no ecrã e a chave PIX.',
   'Selo num canto da tela com logo, nome, AO VIVO e horário.':
     'Selo num canto do ecrã com logo, nome, EM DIRETO e horário.',
   'Texto rolando o tempo todo na parte de baixo.': 'Texto a passar o tempo todo na parte de baixo.',
   'O logo sozinho num canto da tela.': 'O logo sozinho num canto do ecrã.',
   'Posições na tela': 'Posições no ecrã',
   Tela: 'Ecrã',
-  'Salvar e restaurar tudo num arquivo.': 'Guardar e restaurar tudo num ficheiro.',
   'Salvando…': 'A guardar…',
   Salvo: 'Guardado',
   'No centro da tela': 'No centro do ecrã',
@@ -54,30 +47,23 @@ export default {
     'Menos de 100% deixa a imagem da câmara aparecer por trás.',
   'Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o nome que aparece.':
     'Teste antes do culto: aponte a aplicação do banco para este QR Code e confira o nome que aparece.',
-  'Cadastre a chave PIX': 'Registe a chave PIX',
   'Seus arquivos': 'Os seus ficheiros',
   'Esta pasta guarda as configurações, os nomes, as imagens e os arquivos das fontes do OBS. Copie a pasta inteira para fazer backup.':
     'Esta pasta guarda as definições, os nomes, as imagens e os ficheiros das fontes do OBS. Copie a pasta inteira para fazer backup.',
   'Tempo na tela': 'Tempo no ecrã',
   '0 = ficam na tela até você esconder. O mesmo tempo pode ser trocado no painel do OBS.':
     '0 = ficam no ecrã até os esconder. O mesmo tempo pode ser alterado no painel do OBS.',
-  'É só um ponto de partida: cada elemento tem as próprias cores, com degradê, na aba dele.':
-    'É só um ponto de partida: cada elemento tem as próprias cores, com degradê, no separador dele.',
   'No painel do OBS, um clique no nome mostra ou esconde. Dá para adicionar nomes por lá também.':
     'No painel do OBS, um clique no nome mostra ou esconde. É possível adicionar nomes por lá também.',
   'Lado da tela': 'Lado do ecrã',
   'Selo "AO VIVO"': 'Selo "EM DIRETO"',
   'Cada parte liga e desliga sozinha, aqui ou na aba "Superior" do painel do OBS.':
     'Cada parte liga e desliga sozinha, aqui ou no separador "Superior" do painel do OBS.',
-  'Para o PIX, a chave e o texto ao lado do QR Code ficam na aba "Geral e PIX".':
-    'Para o PIX, a chave e o texto ao lado do QR Code ficam no separador "Geral e PIX".',
   'Cada dia fica na tela por': 'Cada dia fica no ecrã por',
   'Desligado: a agenda sai da tela depois do último dia.':
     'Desligado: a agenda sai do ecrã depois do último dia.',
   'Os ícones do programa são genéricos (câmera, play, pessoas…), não os logotipos oficiais das redes. Para usar o ícone oficial, envie a imagem em "Ícone…".':
     'Os ícones do programa são genéricos (câmara, play, pessoas…), não os logotipos oficiais das redes. Para usar o ícone oficial, envie a imagem em "Ícone…".',
-  'Envie o logo da igreja na aba "Geral e PIX" para usar este elemento.':
-    'Envie o logo da igreja no separador "Geral e PIX" para usar este elemento.',
   'Logo no canto da tela': 'Logo no canto do ecrã',
   'Marque "Arquivo local" e escolha um dos arquivos abaixo. Se preferir, deixe desmarcado e cole o endereço.':
     'Marque "Ficheiro local" e escolha um dos ficheiros abaixo. Se preferir, deixe desmarcado e cole o endereço.',
@@ -113,8 +99,6 @@ export default {
     'Cada utilizador do computador tem a sua própria pasta e as suas próprias definições: um não altera o que é do outro.',
   'QR Code da contribuição da igreja: PIX, transferência, link ou imagem (escolha nas configurações)':
     'QR Code da contribuição da igreja: PIX, transferência, link ou imagem (escolha nas definições)',
-  'Nome, logo, idioma, temas, tempo na tela e a forma de contribuir: PIX, transferência, link ou dados bancários.':
-    'Nome, logo, idioma, temas, tempo no ecrã e a forma de contribuir: PIX, transferência, link ou dados bancários.',
   'Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o titular e o IBAN que aparecem.':
     'Teste antes do culto: aponte a aplicação do banco para este QR Code e confira o titular e o IBAN que aparecem.',
   'Teste antes do culto: aponte a câmera do celular para este QR Code e confira a página que abre.':
@@ -139,8 +123,6 @@ export default {
     'Fica a correr no computador, sem janela, e inicia com o Windows. É ele que guarda as definições.',
   'Esta página de configurações serve para preparar tudo com calma. Durante o culto você usa só o painel do OBS.':
     'Esta página de definições serve para preparar tudo com calma. Durante o culto usa apenas o painel do OBS.',
-  'O assistente leva uns cinco minutos. Dá para pular qualquer passo e voltar depois.':
-    'O assistente demora uns cinco minutos. Pode saltar qualquer passo e voltar depois.',
   'A engrenagem do painel abre esta página de configurações.':
     'A engrenagem do painel abre esta página de definições.',
   'A fonte de navegador precisa estar por cima das câmeras, na cena que está no ar.':

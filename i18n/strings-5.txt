@@ -28,12 +28,6 @@ General y ofrendas
 Generale e offerte
 Allgemein und Spenden
 
-Nome, logo, idioma, temas, tempo na tela e a forma de contribuir: PIX, transferência, link ou dados bancários.
-Name, logo, language, themes, time on screen and how people give: PIX, bank transfer, link or bank details.
-Nombre, logo, idioma, temas, tiempo en pantalla y la forma de ofrendar: PIX, transferencia, enlace o datos bancarios.
-Nome, logo, lingua, temi, tempo sullo schermo e il modo di donare: PIX, bonifico, link o coordinate bancarie.
-Name, Logo, Sprache, Designs, Anzeigedauer und der Spendenweg: PIX, Überweisung, Link oder Bankdaten.
-
 Cartão QR / Oferta
 QR / Giving card
 Tarjeta QR / Ofrenda
@@ -99,12 +93,6 @@ Giving: tithes and offerings
 Ofrendas: diezmos y ofrendas
 Offerte: decime e offerte
 Spenden: Zehnter und Kollekte
-
-O PIX só existe no Brasil. Escolha como a sua igreja recebe: o QR Code e os dados aparecem no cartão e nos nomes marcados com "Contribuição da igreja".
-PIX only exists in Brazil. Choose how your church receives: the QR code and the details appear on the card and on the names marked "Church giving".
-PIX solo existe en Brasil. Elija cómo recibe su iglesia: el código QR y los datos aparecen en la tarjeta y en los nombres marcados con "Ofrenda de la iglesia".
-PIX esiste solo in Brasile. Scegli come riceve la tua chiesa: il codice QR e i dati compaiono nella scheda e nei nomi contrassegnati con "Offerta della chiesa".
-PIX gibt es nur in Brasilien. Wählen Sie, wie Ihre Gemeinde Spenden erhält: QR-Code und Angaben erscheinen auf der Karte und bei den Namen mit „Spende an die Gemeinde“.
 
 Como as pessoas contribuem
 How people give

@@ -22,7 +22,7 @@ export function parseFontList(text: string) {
   return [...names].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
 }
 
-export const FONT_SCRIPT =
+const FONT_SCRIPT =
   '[Console]::OutputEncoding=[Text.Encoding]::UTF8; Add-Type -AssemblyName System.Drawing; (New-Object System.Drawing.Text.InstalledFontCollection).Families | ForEach-Object { $_.Name }';
 
 let cache: { at: number; fonts: string[] } | undefined;
