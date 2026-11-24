@@ -690,6 +690,7 @@ const BUILD = {
         ['top.showName', 'Nome'],
         ['top.showLive', 'Ao vivo'],
         ['top.showClock', 'Hora'],
+        ['top.showDate', 'Data'],
         ['top.showMessages', 'Recados'],
       ],
       listTitle: 'Recados',

@@ -321,7 +321,6 @@ export default {
   'Selo "AO VIVO"': '"LIVE" badge',
   'Texto do selo': 'Badge text',
   Horário: 'Time',
-  'Data embaixo da hora': 'Date under the time',
   'Mostrar segundos': 'Show seconds',
   'Formato 12 horas': '12-hour format',
   'Recados (texto que se reveza)': 'Messages (text that takes turns)',
@@ -842,9 +841,17 @@ export default {
   'Adesivos em tons alegres, com o túmulo vazio e a pedra removida: para a Páscoa das crianças':
     "Stickers in cheerful colors, with the empty tomb and the stone rolled away: for the children's Easter",
   'Natal no Egito': 'Christmas in Egypt',
-  'Tons de areia e marrom, com o sol e as pirâmides nascendo sobre as placas: para a cantata de Natal':
-    'Sand and brown tones, with the sun and the pyramids rising over the plaques: for the Christmas cantata',
   'Natal no Egito: sol e pirâmides': 'Christmas in Egypt: sun and pyramids',
   Deserto: 'Desert',
   'Noite no deserto': 'Desert night',
+  'Tons de areia e marrom com o logo da cantata: o sol, as pirâmides e o letreiro':
+    'Sand and brown tones with the logo of the cantata: the sun, the pyramids and the lettering',
+  'Dia da semana': 'Day of the week',
+  'Como a data aparece': 'How the date is shown',
+  Curta: 'Short',
+  'Por extenso': 'In full',
+  'Em números': 'In numbers',
+  'Com o horário ligado, a data fica embaixo dele; sozinha, fica no lugar dele.':
+    'With the time on, the date goes under it; by itself, it takes its place.',
+  Data: 'Date',
 };

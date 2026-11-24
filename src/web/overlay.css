@@ -868,6 +868,16 @@ img:not([src]) {
 .top .has-date .date {
   display: block;
 }
+/* The date by itself, without the time */
+.top .no-time .time {
+  display: none;
+}
+.top .no-time .date {
+  margin-top: 0;
+  font-size: 19px;
+  letter-spacing: 0.06em;
+  color: var(--t1);
+}
 /* --- bar: one rounded strip, parts divided by thin lines --- */
 .top[data-template='bar'] .box,
 .top[data-template='liquid'] .box {
@@ -2414,58 +2424,82 @@ img:not([src]) {
   text-transform: uppercase;
 }
 
-/* "Natal no Egito": the sun and the pyramids stand on the top edge of each plate, and
-   rise from behind it when the element comes in. */
-.el[data-template='floral'][data-decor='egypt'] .deco {
-  top: auto;
-  bottom: calc(100% - 1px);
+/* "Natal no Egito": the complete logo of the cantata on the name plate and on the card;
+   the sun and the pyramids alone inside the corner badge and rising over the social plate. */
+.deco .lgt {
+  fill: var(--logo-ink, #793b13);
+}
+.deco .lgs {
+  fill: var(--logo-sub, #1d1d1b);
 }
 .lower[data-template='floral'][data-decor='egypt'] .box {
-  padding-left: 56px;
+  min-height: 134px;
+  padding-left: 212px;
 }
 .lower[data-template='floral'][data-decor='egypt'] .deco {
-  left: 34px;
-  width: 200px;
-  height: 106px;
+  left: 24px;
+  top: 50%;
+  width: 164px;
+  height: 104px;
+  margin-top: -52px;
 }
-/* The corner badge sits near the edge of the screen: there the drawing goes inside, standing
-   on the inner frame. */
+.lower[data-template='floral'][data-decor='egypt'] .texts {
+  padding-left: 26px;
+  border-left: 1.5px solid var(--accent-a);
+}
+.lower[data-template='floral'][data-decor='egypt'] .logo {
+  margin-right: 26px;
+}
+/* The corner badge is low: there the sun and pyramids stand on the inner frame. */
 .top[data-template='floral'][data-decor='egypt'] .box {
   padding-left: 112px;
 }
 .top[data-template='floral'][data-decor='egypt'] .deco {
   left: 16px;
+  top: auto;
   bottom: 8px;
   width: 92px;
   height: 49px;
 }
-.card[data-template='floral'][data-decor='egypt'] .deco {
-  inset: auto 0 calc(100% - 1px);
-  height: 122px;
-}
+/* On the card the logo of the cantata takes the place of the church's. */
 .card[data-template='floral'][data-decor='egypt'] .deco svg:first-child {
   left: 50%;
-  top: 0;
-  width: 230px;
-  height: 122px;
-  margin-left: -115px;
+  top: 30px;
+  width: 216px;
+  height: 137px;
+  margin-left: -108px;
 }
-.card[data-template='floral'][data-decor='egypt'] .deco svg:last-child {
+.card[data-template='floral'][data-decor='egypt'] .deco svg:last-child,
+.card[data-template='floral'][data-decor='egypt'] .logo {
   display: none;
 }
+.card[data-template='floral'][data-decor='egypt'] .head {
+  padding-top: 184px;
+}
 .social[data-template='floral'][data-decor='egypt'] .deco {
+  top: auto;
   right: 40px;
+  bottom: calc(100% - 1px);
   width: 116px;
   height: 62px;
 }
 .el.in[data-template='floral'][data-decor='egypt'] .deco {
+  animation-name: deco-soft;
+}
+@keyframes deco-soft {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+/* Over the social plate it comes up from behind the edge: what is still below stays cut off. */
+.social.in[data-template='floral'][data-decor='egypt'] .deco {
   animation: none;
 }
-.el.in[data-template='floral'][data-decor='egypt'] .deco svg {
+.social.in[data-template='floral'][data-decor='egypt'] .deco svg {
   animation: deco-rise calc(var(--dur) * 1.5) cubic-bezier(0.2, 0.8, 0.2, 1) both;
   animation-delay: calc(var(--dur) * 0.55);
 }
-/* It comes up from behind the edge: what is still below the edge stays cut off. */
 @keyframes deco-rise {
   from {
     transform: translateY(100%);

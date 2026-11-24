@@ -160,3 +160,18 @@
   font-weight: 300 700;
   src: url('/fonts/fredoka-latin-wght-normal.woff2') format('woff2');
 }
+/* Not a font shipped with the program: Khepri is a commercial typeface (the one of the
+   "Natal no Egito" artwork). Where it is installed on the computer it is used; elsewhere
+   this name falls back to Cinzel, so the model that asks for it always has a font. */
+@font-face {
+  font-family: 'Khepri';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src:
+    local('Khepri'),
+    local('Khepri Regular'),
+    local('KhepriRegular'),
+    local('Khepri-Regular'),
+    url('/fonts/cinzel-latin-wght-normal.woff2') format('woff2');
+}

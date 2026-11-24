@@ -277,6 +277,9 @@ export function defaults() {
       clock12h: false,
       clockSeconds: false,
       showDate: false,
+      showWeekday: false,
+      /** short = "ter, 24 nov"; long = "terça-feira, 24 de novembro"; numeric = "24/11/2026" */
+      dateStyle: 'short',
       showMessages: false,
       messages: ['Seja bem-vindo!', 'Culto ao vivo', 'Inscreva-se no canal e ative o sininho'],
       /** A message typed in the dock: shown alone until cleared ('' = rotate the list) */
@@ -519,6 +522,7 @@ const CHOICES: Record<string, string[]> = {
   'social.template': SOCIAL_TEMPLATES,
   animation: ANIMATIONS,
   shadow: SHADOWS,
+  'top.dateStyle': ['short', 'long', 'numeric'],
   'theme.decor': DECORS,
   'lower.position': ['left', 'center', 'right'],
   'card.position': PLACES,
@@ -662,6 +666,9 @@ export function cleanConfig(raw: unknown): Config {
   const old = (raw as { pix?: { display?: unknown }; giving?: unknown } | null) ?? {};
   if (!old.giving && typeof old.pix?.display === 'string')
     config.giving.details = text(old.pix.display, 300).trim();
+  // "Date under the time" used to bring the day of the week with it; now each has its switch.
+  const top = (raw as { top?: { showDate?: unknown; showWeekday?: unknown } } | null)?.top;
+  if (top?.showDate === true && top.showWeekday === undefined) config.top.showWeekday = true;
   return config;
 }
 

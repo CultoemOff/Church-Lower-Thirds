@@ -325,7 +325,6 @@ export default {
   'Selo "AO VIVO"': 'Sello "EN VIVO"',
   'Texto do selo': 'Texto del sello',
   Horário: 'Hora',
-  'Data embaixo da hora': 'Fecha debajo de la hora',
   'Mostrar segundos': 'Mostrar segundos',
   'Formato 12 horas': 'Formato de 12 horas',
   'Recados (texto que se reveza)': 'Avisos (texto que se alterna)',
@@ -851,9 +850,17 @@ export default {
   'Adesivos em tons alegres, com o túmulo vazio e a pedra removida: para a Páscoa das crianças':
     'Pegatinas en tonos alegres, con el sepulcro vacío y la piedra removida: para la Pascua de los niños',
   'Natal no Egito': 'Navidad en Egipto',
-  'Tons de areia e marrom, com o sol e as pirâmides nascendo sobre as placas: para a cantata de Natal':
-    'Tonos de arena y marrón, con el sol y las pirámides saliendo sobre las placas: para la cantata de Navidad',
   'Natal no Egito: sol e pirâmides': 'Navidad en Egipto: sol y pirámides',
   Deserto: 'Desierto',
   'Noite no deserto': 'Noche en el desierto',
+  'Tons de areia e marrom com o logo da cantata: o sol, as pirâmides e o letreiro':
+    'Tonos de arena y marrón con el logo de la cantata: el sol, las pirámides y el letrero',
+  'Dia da semana': 'Día de la semana',
+  'Como a data aparece': 'Cómo aparece la fecha',
+  Curta: 'Corta',
+  'Por extenso': 'Completa',
+  'Em números': 'En números',
+  'Com o horário ligado, a data fica embaixo dele; sozinha, fica no lugar dele.':
+    'Con la hora activada, la fecha queda debajo; sola, ocupa su lugar.',
+  Data: 'Fecha',
 };

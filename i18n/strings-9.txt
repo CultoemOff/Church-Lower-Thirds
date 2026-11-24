@@ -502,12 +502,6 @@ Navidad en Egipto
 Natale in Egitto
 Weihnachten in Ägypten
 
-Tons de areia e marrom, com o sol e as pirâmides nascendo sobre as placas: para a cantata de Natal
-Sand and brown tones, with the sun and the pyramids rising over the plaques: for the Christmas cantata
-Tonos de arena y marrón, con el sol y las pirámides saliendo sobre las placas: para la cantata de Navidad
-Toni di sabbia e marrone, con il sole e le piramidi che sorgono sulle targhe: per la cantata di Natale
-Sand- und Brauntöne, mit Sonne und Pyramiden, die über den Tafeln aufgehen: für die Weihnachtskantate
-
 Natal no Egito: sol e pirâmides
 Christmas in Egypt: sun and pyramids
 Navidad en Egipto: sol y pirámides
@@ -525,3 +519,51 @@ Desert night
 Noche en el desierto
 Notte nel deserto
 Wüstennacht
+
+Tons de areia e marrom com o logo da cantata: o sol, as pirâmides e o letreiro
+Sand and brown tones with the logo of the cantata: the sun, the pyramids and the lettering
+Tonos de arena y marrón con el logo de la cantata: el sol, las pirámides y el letrero
+Toni di sabbia e marrone con il logo della cantata: il sole, le piramidi e la scritta
+Sand- und Brauntöne mit dem Logo der Kantate: Sonne, Pyramiden und Schriftzug
+
+Dia da semana
+Day of the week
+Día de la semana
+Giorno della settimana
+Wochentag
+
+Como a data aparece
+How the date is shown
+Cómo aparece la fecha
+Come appare la data
+So erscheint das Datum
+
+Curta
+Short
+Corta
+Breve
+Kurz
+
+Por extenso
+In full
+Completa
+Per esteso
+Ausgeschrieben
+
+Em números
+In numbers
+En números
+In numeri
+In Zahlen
+
+Com o horário ligado, a data fica embaixo dele; sozinha, fica no lugar dele.
+With the time on, the date goes under it; by itself, it takes its place.
+Con la hora activada, la fecha queda debajo; sola, ocupa su lugar.
+Con l’orario attivo, la data sta sotto; da sola, ne prende il posto.
+Bei eingeschalteter Uhrzeit steht das Datum darunter; allein nimmt es deren Platz ein.
+
+Data
+Date
+Fecha
+Data
+Datum

@@ -265,9 +265,14 @@ jobs:
           & powershell -NoProfile -ExecutionPolicy Bypass -File "$dir\stop-server.ps1" -AppDir $dir
           $env:CLT_UPDATE_API = 'http://127.0.0.1:8899/releases.json'
           $log = Join-Path $env:RUNNER_TEMP 'server'
-          $old = Start-Process "$dir\runtime\node.exe" -ArgumentList "`"$dir\app\dist\server\index.js`"" -WorkingDirectory "$dir\app" -PassThru -WindowStyle Hidden -RedirectStandardOutput "$log.out.txt" -RedirectStandardError "$log.err.txt"
+          # In a console of its own (cmd in a hidden window), as the installed program runs:
+          # sharing the console of this step would let a Ctrl+C meant for it reach the runner.
+          Start-Process cmd.exe -ArgumentList '/c', "`"`"$dir\runtime\node.exe`" `"$dir\app\dist\server\index.js`" > `"$log.out.txt`" 2> `"$log.err.txt`"`"" -WorkingDirectory "$dir\app" -WindowStyle Hidden
           $env:CLT_UPDATE_API = $null
           Wait-Server
+          $node = Get-CimInstance Win32_Process -Filter "Name='node.exe'" | Where-Object { $_.ExecutablePath -eq "$dir\runtime\node.exe" } | Select-Object -First 1
+          if (-not $node) { throw "The test server is not running from the installed folder" }
+          $old = Get-Process -Id $node.ProcessId
           $u = Invoke-RestMethod "$base/api/update?force=1"
           if (-not $u.newer -or $u.latest -ne '99.0.0' -or -not $u.canInstall) { throw "Update not offered: $($u | ConvertTo-Json -Compress)" }
           try { $r = Invoke-RestMethod "$base/api/update/install" -Method Post -TimeoutSec 120 }

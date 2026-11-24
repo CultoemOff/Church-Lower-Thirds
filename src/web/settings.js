@@ -14,6 +14,7 @@ import {
   AGENDA_TEMPLATES,
   ANIMATIONS,
   CARD_TEMPLATES,
+  dateText,
   DECORS,
   EYE,
   EYE_OFF,
@@ -1645,11 +1646,29 @@ const pages = {
         check('top.showClock', 'Horário', { rerender: true }),
         ...(config.top.showClock
           ? [
-              check('top.showDate', 'Data embaixo da hora'),
               check('top.clockSeconds', 'Mostrar segundos'),
               check('top.clock12h', 'Formato 12 horas'),
             ]
           : []),
+        check('top.showDate', 'Data', { rerender: true }),
+        check('top.showWeekday', 'Dia da semana', { rerender: true }),
+        config.top.showDate || config.top.showWeekday
+          ? select(
+              'top.dateStyle',
+              'Como a data aparece',
+              [
+                ['short', 'Curta'],
+                ['long', 'Por extenso'],
+                ['numeric', 'Em números'],
+              ].map(([v, name]) => [
+                v,
+                `${t(name)}: ${dateText(new Date(), lang, { ...config.top, dateStyle: v })}`,
+              ]),
+              {
+                tip: 'Com o horário ligado, a data fica embaixo dele; sozinha, fica no lugar dele.',
+              },
+            )
+          : null,
         check('top.showMessages', 'Recados (texto que se reveza)', { rerender: true }),
       ),
       hint('Cada parte liga e desliga sozinha, aqui ou na aba "Superior" do painel do OBS.'),

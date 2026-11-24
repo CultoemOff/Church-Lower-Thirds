@@ -291,7 +291,6 @@
   "Selo \"AO VIVO\"",
   "Texto do selo",
   "Horário",
-  "Data embaixo da hora",
   "Mostrar segundos",
   "Formato 12 horas",
   "Recados (texto que se reveza)",
@@ -689,8 +688,15 @@
   "Páscoa Kids",
   "Adesivos em tons alegres, com o túmulo vazio e a pedra removida: para a Páscoa das crianças",
   "Natal no Egito",
-  "Tons de areia e marrom, com o sol e as pirâmides nascendo sobre as placas: para a cantata de Natal",
   "Natal no Egito: sol e pirâmides",
   "Deserto",
-  "Noite no deserto"
+  "Noite no deserto",
+  "Tons de areia e marrom com o logo da cantata: o sol, as pirâmides e o letreiro",
+  "Dia da semana",
+  "Como a data aparece",
+  "Curta",
+  "Por extenso",
+  "Em números",
+  "Com o horário ligado, a data fica embaixo dele; sozinha, fica no lugar dele.",
+  "Data"
 ]
