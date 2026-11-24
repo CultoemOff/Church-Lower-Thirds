@@ -33,13 +33,31 @@ export async function api(path, { method = 'GET', body, raw, type } = {}) {
 }
 
 let toastTimer = 0;
-export function toast(text) {
+/**
+ * A short notice at the bottom. With `undo`, it stays longer and carries a "Desfazer"
+ * button: what was just removed comes back with a click.
+ */
+export function toast(text, undo) {
   let box = $('.toast');
   if (!box) document.body.append((box = h('div', { class: 'toast', role: 'status' })));
-  box.textContent = t(text);
+  box.replaceChildren(h('span', { 'data-raw': '' }, t(text)));
+  if (undo)
+    box.append(
+      h(
+        'button',
+        {
+          type: 'button',
+          onclick: () => {
+            box.classList.add('hidden');
+            undo();
+          },
+        },
+        'Desfazer',
+      ),
+    );
   box.classList.remove('hidden');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => box.classList.add('hidden'), 3200);
+  toastTimer = setTimeout(() => box.classList.add('hidden'), undo ? 8000 : 3200);
 }
 
 // Messages the server sends in English, shown in Portuguese.
@@ -83,6 +101,13 @@ const ERRORS = [
     'O Windows não deixou abrir o instalador. Ele já foi baixado: use "Mostrar o instalador".',
   ],
   [/Update cancelled/, 'Atualização cancelada.'],
+  [/order of service is empty/, 'O roteiro está vazio. Monte-o nas configurações.'],
+  [/order of service is at its end/, 'O roteiro chegou ao fim.'],
+  [/No such step/, 'Esse passo não existe no roteiro.'],
+  [
+    /points to something that was deleted/,
+    'Este passo aponta para algo que foi apagado. Corrija o roteiro nas configurações.',
+  ],
   [/category is disabled/, 'Esta categoria está desativada nas configurações.'],
   [/Agenda is empty/, 'A agenda está vazia: adicione um dia.'],
   [/Comment is empty/, 'Escreva o comentário antes de mostrar.'],

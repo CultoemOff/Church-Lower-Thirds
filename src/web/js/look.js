@@ -76,7 +76,16 @@ export function qrInk(hex) {
   return 0.299 * r + 0.587 * g + 0.114 * b < 70 ? hex : '';
 }
 
-export const THEMED_ELEMENTS = ['lower', 'top', 'ticker', 'card', 'agenda', 'social', 'comment'];
+export const THEMED_ELEMENTS = [
+  'lower',
+  'top',
+  'ticker',
+  'card',
+  'agenda',
+  'social',
+  'comment',
+  'countdown',
+];
 /** What the global theme decides for an element that follows it. */
 export const THEMED_KEYS = [
   'fill',
@@ -205,6 +214,7 @@ export const SHADOWS = ['none', 'soft', 'hard', 'glow'];
 export const TICKER_TEMPLATES = ['full', 'floating', 'minimal', 'liquid'];
 export const AGENDA_TEMPLATES = ['card', 'banner', 'center', 'liquid'];
 export const COMMENT_TEMPLATES = ['bubble', 'card', 'liquid', 'youth', 'kids', 'floral'];
+export const COUNTDOWN_TEMPLATES = ['card', 'bar', 'big', 'liquid'];
 export const SOCIAL_TEMPLATES = ['pill', 'card', 'liquid', 'plaque', 'youth', 'kids', 'floral'];
 // Drawings of the themed models (flowers, stars, notes, Christmas, Easter…). They are our
 // own shapes, drawn here so they can take the colors of the theme. Paint classes: a = the

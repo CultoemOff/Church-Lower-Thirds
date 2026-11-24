@@ -35,6 +35,7 @@ import {
   cleanConfig,
   cleanLive,
   type Config,
+  countdownEnd,
   type ElementName,
   ELEMENTS,
   firstConfig,
@@ -44,6 +45,10 @@ import {
   removeProfile,
   resolveItem,
   resolveSocial,
+  type RundownStep,
+  type SavedCard,
+  type SavedComment,
+  stepTarget,
   TIMED,
   useProfile,
 } from './store.js';
@@ -289,6 +294,12 @@ function setOn(el: ElementName, on: boolean, item?: string) {
     seconds = config.timing.autoHide;
   else if (el === 'agenda' && !config.agenda.loop)
     seconds = config.agenda.days.length * config.agenda.seconds;
+  // The countdown leaves a moment after zero, when it is set to.
+  if (el === 'countdown') {
+    if (on) live.countdown.until = countdownEnd(config.countdown);
+    if (on && config.countdown.hideAtEnd)
+      seconds = Math.max(0, (live.countdown.until - Date.now()) / 1000) + 8;
+  }
   // Pinned in the dock: it stays until someone hides it.
   if (isTimed(el) && live[el].pin) seconds = 0;
   if (on && seconds > 0)
@@ -345,6 +356,77 @@ function liveCommand(q: Request, r: Response) {
 // GET too, so a Stream Deck "website" key or Companion can fire it without a plugin.
 app.post('/api/live/:element/:action', liveCommand);
 app.get('/api/live/:element/:action', liveCommand);
+
+// ---- Order of service ----
+// "Next" in the dock (or a Stream Deck key) runs the next step: what was on from the step
+// before leaves, and the saved name, offering, comment… of this one goes on air.
+const LEAVES: ElementName[] = ['lower', 'card', 'comment', 'social', 'agenda', 'countdown'];
+async function runStep(step: RundownStep, before?: RundownStep) {
+  if (step.kind === 'hide') for (const el of LEAVES) setOn(el, false);
+  else {
+    const target = stepTarget(config, step);
+    if (!config.enabled[step.kind]) throw new Error('This category is disabled in the settings');
+    if (!target) throw new Error('This step points to something that was deleted');
+    if (before && before.kind !== 'hide' && before.kind !== step.kind) setOn(before.kind, false);
+    // A saved offering or comment becomes the one on air, as a click on it in the dock does.
+    if (step.kind === 'card' && 'title' in target) {
+      const { title, subtitle, qr, qrText } = target as SavedCard;
+      config = { ...config, card: { ...config.card, title, subtitle, qr, qrText } };
+    }
+    if (step.kind === 'comment' && 'text' in target) {
+      const { user, text: said } = target as SavedComment;
+      config = { ...config, comment: { ...config.comment, user, said } };
+    }
+    if (step.kind === 'agenda' && !config.agenda.days.length) throw new Error('Agenda is empty');
+    if (step.kind === 'card' || step.kind === 'comment') {
+      await saveStore();
+      sendConfig();
+    }
+    setOn(step.kind, true, step.kind === 'lower' || step.kind === 'social' ? step.ref : undefined);
+  }
+}
+async function rundownCommand(q: Request, r: Response) {
+  const steps = config.rundown,
+    action = String(q.params.action),
+    at = steps.findIndex((x) => x.id === live.step);
+  if (!steps.length) return void r.status(404).json({ error: 'The order of service is empty' });
+  if (action === 'restart') {
+    for (const el of LEAVES) setOn(el, false);
+    live.step = '';
+    sendLive();
+    return void r.json({ ok: true, live });
+  }
+  const n = Number(q.query.n ?? q.body?.n),
+    ref = String(q.query.id ?? q.body?.id ?? '');
+  const step =
+    action === 'next'
+      ? steps[at + 1]
+      : action === 'prev'
+        ? steps[at - 1]
+        : action === 'go'
+          ? (steps.find((x) => x.id === ref) ?? (Number.isInteger(n) ? steps[n - 1] : undefined))
+          : undefined;
+  if (!['next', 'prev', 'go'].includes(action))
+    return void r.status(400).json({ error: 'Use next, prev, go or restart' });
+  if (!step)
+    return void r
+      .status(404)
+      .json({ error: action === 'next' ? 'The order of service is at its end' : 'No such step' });
+  // The step becomes the current one even when it cannot be shown: "Next" then goes on.
+  const before = steps[at];
+  live.step = step.id;
+  let error = '';
+  try {
+    await runStep(step, before);
+  } catch (e) {
+    error = (e as Error).message;
+  }
+  sendLive();
+  if (error) return void r.status(409).json({ error, live });
+  r.json({ ok: true, live });
+}
+app.post('/api/rundown/:action', rundownCommand);
+app.get('/api/rundown/:action', rundownCommand);
 
 // ---- PIX and QR ----
 function pixCode() {
@@ -536,8 +618,10 @@ app.post('/api/restore', async (q, r) => {
 });
 
 // The OBS dock cannot open a normal browser window by itself: the server does it.
-app.post('/api/open-settings', (_q, r) => {
-  const url = `${baseUrl}/settings`;
+app.post('/api/open-settings', (q, r) => {
+  // ?page=rundown opens the settings on that page.
+  const page = String(q.query.page ?? '');
+  const url = `${baseUrl}/settings${/^[a-z]{2,12}$/.test(page) ? `#${page}` : ''}`;
   if (process.platform === 'win32')
     execFile('cmd', ['/c', 'start', '', url], { windowsHide: true }, () => {});
   else execFile(process.platform === 'darwin' ? 'open' : 'xdg-open', [url], () => {});

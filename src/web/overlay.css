@@ -1972,6 +1972,118 @@ img:not([src]) {
 }
 
 /* =====================================================================
+   COUNTDOWN: a short title and the time left ("the service starts in 04:59")
+   ===================================================================== */
+.countdown .box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 320px;
+  padding: 26px 54px 30px;
+  color: var(--t1);
+  background: var(--fill);
+  border-radius: var(--radius);
+  text-align: center;
+}
+.countdown .title {
+  display: none;
+  font-size: 30px;
+  line-height: 1.15;
+  font-weight: 600;
+  color: var(--t2);
+  white-space: nowrap;
+}
+.countdown .has-title .title {
+  display: block;
+}
+.countdown .time {
+  font-size: 124px;
+  line-height: 1;
+  font-weight: var(--w1);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+.countdown .end {
+  display: none;
+  font-size: 58px;
+  line-height: 1.1;
+  font-weight: var(--w1);
+  white-space: nowrap;
+}
+.countdown .ended .time {
+  display: none;
+}
+.countdown .ended .end {
+  display: block;
+}
+/* card: the plate, with a line of the highlight color under the title */
+.countdown[data-template='card'] .has-title .title::after {
+  content: '';
+  display: block;
+  width: 64px;
+  height: 5px;
+  margin: 12px auto 8px;
+  border-radius: 3px;
+  background: var(--accent);
+}
+/* bar: one line, the time in a box of the highlight color */
+.countdown[data-template='bar'] .box {
+  flex-direction: row;
+  gap: 22px;
+  min-width: 0;
+  padding: 10px 10px 10px 30px;
+}
+.countdown[data-template='bar'] .title {
+  font-size: 32px;
+  color: var(--t1);
+}
+.countdown[data-template='bar'] .time,
+.countdown[data-template='bar'] .end {
+  font-size: 46px;
+  padding: 10px 24px;
+  border-radius: calc(var(--radius) * 0.7);
+  background: var(--accent);
+  color: var(--on-accent);
+}
+/* big: no plate, large numbers over the picture */
+.countdown[data-template='big'] .box {
+  background: none;
+  padding: 0;
+  text-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.55),
+    0 2px 6px rgba(0, 0, 0, 0.5);
+}
+.countdown[data-template='big'] .title {
+  font-size: 40px;
+  color: var(--t1);
+}
+.countdown[data-template='big'] .time {
+  font-size: 210px;
+}
+.countdown[data-template='big'] .end {
+  font-size: 96px;
+}
+/* liquid: glass */
+.countdown[data-template='liquid'] .scaler {
+  filter: none;
+}
+.countdown[data-template='liquid'] .box {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0.06) 46%),
+    var(--fill-glass);
+  -webkit-backdrop-filter: blur(22px) saturate(1.7);
+  backdrop-filter: blur(22px) saturate(1.7);
+  border-radius: max(var(--radius), 30px);
+  box-shadow:
+    inset 0 0 0 1.5px rgba(255, 255, 255, 0.5),
+    inset 0 2px 1px rgba(255, 255, 255, 0.8),
+    0 18px 44px -8px rgba(0, 0, 0, 0.38);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.28);
+}
+
+/* =====================================================================
    CUSTOM: the plain start of the church's own models. Their CSS (js/custom.js) takes it
    from here; the other elements already have a plate in their base rules.
    ===================================================================== */

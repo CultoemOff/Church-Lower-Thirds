@@ -16,6 +16,7 @@ export const SOURCES = [
   { slug: 'schedule', file: 'Schedule', element: 'agenda' },
   { slug: 'social', file: 'Social', element: 'social' },
   { slug: 'comments', file: 'Comments', element: 'comment' },
+  { slug: 'countdown', file: 'Countdown', element: 'countdown' },
   { slug: 'logo', file: 'Logo', element: 'bug' },
 ] as const;
 

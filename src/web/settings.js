@@ -11,10 +11,20 @@ import {
   toggleTheme,
 } from './js/common.js';
 import {
+  namesCsv,
+  parseNames,
+  plain,
+  STEP_KINDS,
+  STEP_NAMES,
+  stepChoices,
+  stepText,
+} from './js/lists.js';
+import {
   AGENDA_TEMPLATES,
   ANIMATIONS,
   CARD_TEMPLATES,
   COMMENT_TEMPLATES,
+  COUNTDOWN_TEMPLATES,
   dateText,
   DECORS,
   EYE,
@@ -54,7 +64,8 @@ import { autoLocalize, lang, LANGUAGES, t, useLanguage } from './js/i18n.js';
 // Every change is saved at once and shows in the preview and in OBS.
 let config = null,
   live = null,
-  page = localStorage.cltPage || 'home',
+  // #rundown in the address opens that page (the dock's "Editar o roteiro").
+  page = location.hash.slice(1) || localStorage.cltPage || 'home',
   info = null,
   vertical = false,
   viewItem = '',
@@ -70,6 +81,7 @@ const NAMES = {
   classic: 'Clássico',
   glass: 'Vidro',
   custom: 'Próprio',
+  big: 'Números grandes',
   ribbon: 'Faixa inclinada',
   minimal: 'Só texto',
   pill: 'Cápsula',
@@ -210,6 +222,20 @@ const PAGES = [
     svg('<path d="M4 5.500h16v10.500h-8.500L7 19.500V16H4z"/><path d="M8 9.500h8M8 12.500h5"/>'),
   ],
   [
+    'countdown',
+    'Contagem regressiva',
+    'Elementos',
+    '"O culto começa em 05:00".',
+    svg('<circle cx="12" cy="13" r="7.500"/><path d="M12 9v4l2.500 2M9.500 3h5"/>'),
+  ],
+  [
+    'rundown',
+    'Roteiro do culto',
+    'Tela',
+    'A ordem do que vai ao ar: no painel do OBS, um clique em "Próximo" a cada momento.',
+    svg('<path d="M8 6h12M8 12h12M8 18h12M4 6h.010M4 12h.010M4 18h.010"/>'),
+  ],
+  [
     'bug',
     'Logo',
     'Elementos',
@@ -249,7 +275,17 @@ const PAGES = [
 ];
 /** Pages opened from the top right corner instead of the menu on the left. */
 const CORNER = ['obs', 'backup', 'about'];
-const ELEMENTS = ['lower', 'top', 'ticker', 'card', 'agenda', 'social', 'comment', 'bug'];
+const ELEMENTS = [
+  'lower',
+  'top',
+  'ticker',
+  'card',
+  'agenda',
+  'social',
+  'comment',
+  'countdown',
+  'bug',
+];
 const WEIGHTS = [
   [300, 'Leve'],
   [400, 'Normal'],
@@ -464,7 +500,19 @@ function useCustom(model) {
   );
 }
 function removeCustom(model) {
-  if (!confirm(t('Excluir o modelo "{name}"?', { name: model.name }))) return;
+  // What "Desfazer" puts back: the model, and the elements that were on it.
+  const before = {
+    at: config.customModels.indexOf(model),
+    custom: config.theme.custom,
+    templates: Object.fromEntries(CUSTOM_ELEMENTS.map((el) => [el, config[el].template])),
+  };
+  toast(t('Modelo "{name}" excluído.', { name: model.name }), () => {
+    config.customModels.splice(before.at, 0, model);
+    config.theme.custom = before.custom;
+    for (const el of CUSTOM_ELEMENTS) config[el].template = before.templates[el];
+    save();
+    renderForm();
+  });
   config.customModels = config.customModels.filter((m) => m !== model);
   if (config.theme.custom === model.id) {
     // Its elements go back to the first ready-made model.
@@ -1050,6 +1098,238 @@ function fill(path, label, { tip } = {}) {
   draw();
   return field(label, box, { tip });
 }
+/** Takes an entry out of a list; for a few seconds, "Desfazer" puts it back. */
+function removeAt(list, i) {
+  if (i < 0) return;
+  const [item] = list.splice(i, 1);
+  save();
+  renderForm();
+  toast('Removido da lista.', () => {
+    list.splice(Math.min(i, list.length), 0, item);
+    save();
+    renderForm();
+  });
+}
+/** Hands a text to the browser as a file to keep. */
+function saveFile(name, text, type = 'application/json') {
+  const a = h('a', { href: URL.createObjectURL(new Blob([text], { type })), download: name });
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+}
+// ---------- Names: search, and a list typed, pasted or read from a file ----------
+let nameFind = '',
+  importOpen = false,
+  importText = '';
+function namesTools() {
+  const found = parseNames(importText);
+  const add = (replace) => {
+    // Read again: the text may have been typed after this was drawn.
+    const fresh = parseNames(importText).map((n) => ({
+      id: Math.random().toString(36).slice(2, 10),
+      ...n,
+      logo: true,
+      qr: 'none',
+      qrText: '',
+    }));
+    const before = config.lower.items;
+    config.lower.items = (replace ? fresh : [...before, ...fresh]).slice(0, 200);
+    importText = '';
+    importOpen = false;
+    save();
+    renderForm();
+    toast(t('{n} nomes na lista.', { n: config.lower.items.length }), () => {
+      config.lower.items = before;
+      save();
+      renderForm();
+    });
+  };
+  const count = h(
+    'p',
+    { class: 'hint', 'data-raw': '' },
+    importText.trim() ? t('Nomes encontrados: {n}.', { n: found.length }) : '',
+  );
+  return h(
+    'div',
+    { class: 'namesTools' },
+    h(
+      'div',
+      { class: 'fillRow' },
+      h(
+        'button',
+        {
+          title: 'Cole uma lista ou escolha um arquivo: um nome por linha, com o cargo depois',
+          onclick: () => {
+            importOpen = !importOpen;
+            renderForm();
+          },
+        },
+        'Importar lista',
+      ),
+      h(
+        'button',
+        {
+          title: 'Salva os nomes num arquivo que o Excel e o Google Planilhas abrem',
+          disabled: !config.lower.items.length,
+          onclick: () =>
+            saveFile('nomes.csv', namesCsv(config.lower.items), 'text/csv;charset=utf-8'),
+        },
+        'Exportar CSV',
+      ),
+    ),
+    importOpen
+      ? h(
+          'div',
+          { class: 'importBox' },
+          hint(
+            'Um nome por linha, com o cargo depois de um ponto e vírgula, uma tabulação, um traço ou uma vírgula. Exemplos: "Pr. João Silva; Pastor presidente" ou "Maria Souza - Louvor". Uma planilha salva como CSV também serve.',
+          ),
+          h('textarea', {
+            rows: 6,
+            'data-raw': '',
+            value: importText,
+            placeholder: 'Pr. João Silva; Pastor presidente\nMaria Souza; Louvor',
+            oninput: (e) => {
+              importText = e.target.value;
+              const n = parseNames(importText).length;
+              count.textContent = importText.trim() ? t('Nomes encontrados: {n}.', { n }) : '';
+              for (const b of e.target.parentNode.querySelectorAll('[data-add]')) b.disabled = !n;
+            },
+          }),
+          count,
+          h(
+            'div',
+            { class: 'fillRow' },
+            h('input', {
+              type: 'file',
+              id: 'namesFile',
+              class: 'hidden',
+              accept: '.csv,.txt,text/csv,text/plain',
+              onchange: async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                importText = await file.text();
+                renderForm();
+              },
+            }),
+            h('button', { onclick: () => $('#namesFile').click() }, 'Escolher arquivo'),
+            h(
+              'button',
+              {
+                class: 'primary',
+                'data-add': '',
+                disabled: !found.length,
+                onclick: () => add(false),
+              },
+              'Adicionar à lista',
+            ),
+            h(
+              'button',
+              {
+                'data-add': '',
+                disabled: !found.length,
+                title: 'Troca todos os nomes da lista por estes',
+                onclick: () => add(true),
+              },
+              'Substituir a lista',
+            ),
+          ),
+        )
+      : null,
+  );
+}
+// ---------- Order of service ----------
+function rundownCard() {
+  const steps = config.rundown;
+  const add = (kind) => {
+    const first = stepChoices(config, kind, t)[0]?.[0] || '';
+    steps.push({ id: Math.random().toString(36).slice(2, 10), kind, ref: first, note: '' });
+    save();
+    renderForm();
+  };
+  return card(
+    'Passos',
+    steps.length
+      ? h(
+          'div',
+          { class: 'rows steps' },
+          steps.map((step, i) => {
+            const choices = stepChoices(config, step.kind, t),
+              gone = stepText(config, step, t) === null;
+            const move = (d) => {
+              steps.splice(i + d, 0, steps.splice(i, 1)[0]);
+              save();
+              renderForm();
+            };
+            return h(
+              'div',
+              { class: 'row' + (gone ? ' bad' : '') },
+              h('b', { class: 'num', 'data-raw': '' }, String(i + 1)),
+              h('span', { class: 'kind' }, STEP_NAMES[step.kind]),
+              choices.length || gone
+                ? h(
+                    'select',
+                    {
+                      title: 'O que este passo mostra',
+                      onchange: (e) => {
+                        step.ref = e.target.value;
+                        save();
+                        renderForm();
+                      },
+                    },
+                    gone
+                      ? h('option', { value: step.ref, selected: true }, '(apagado: escolha outro)')
+                      : null,
+                    choices.map(([id, text]) =>
+                      h('option', { value: id, selected: id === step.ref, 'data-raw': '' }, text),
+                    ),
+                  )
+                : h('span', { class: 'what', 'data-raw': '' }, stepText(config, step, t) || ''),
+              h('input', {
+                value: step.note,
+                maxlength: 80,
+                placeholder: 'Lembrete (ex.: depois do segundo louvor)',
+                oninput: (e) => {
+                  step.note = e.target.value;
+                  save();
+                },
+              }),
+              h('button', { title: 'Subir', disabled: i === 0, onclick: () => move(-1) }, '↑'),
+              h(
+                'button',
+                { title: 'Descer', disabled: i === steps.length - 1, onclick: () => move(1) },
+                '↓',
+              ),
+              h('button', { title: 'Remover', onclick: () => removeAt(steps, i) }, '×'),
+            );
+          }),
+        )
+      : hint('Nenhum passo ainda. Use os botões abaixo para montar o roteiro, na ordem do culto.'),
+    h('div', { style: 'height:10px' }),
+    h('div', { class: 'sectionTitle' }, 'Adicionar um passo'),
+    h(
+      'div',
+      { class: 'chips' },
+      STEP_KINDS.map((kind) => {
+        // A kind with nothing saved yet has nothing to point at.
+        const needs = ['lower', 'card', 'comment'].includes(kind),
+          none = needs && !stepChoices(config, kind, t).length;
+        return h(
+          'button',
+          {
+            disabled: none || steps.length >= 80,
+            title: none
+              ? 'Salve primeiro um item deste tipo (no painel do OBS ou na página dele)'
+              : 'Acrescenta este passo no fim do roteiro',
+            onclick: () => add(kind),
+          },
+          '+ ' + t(STEP_NAMES[kind]),
+        );
+      }),
+    ),
+  );
+}
 /** The church's own model can be picked for an element while it draws that element. */
 function withCustom(el, list) {
   const model = config.customModels.find((m) => m.id === config.theme.custom);
@@ -1220,11 +1500,7 @@ function rows(path, blank, draw) {
               'button',
               {
                 title: 'Remover',
-                onclick: () => {
-                  items.splice(i, 1);
-                  save();
-                  renderForm();
-                },
+                onclick: () => removeAt(items, i),
               },
               '×',
             ),
@@ -1989,6 +2265,20 @@ const pages = {
     card('Modelo', chips('lower.template', withCustom('lower', LOWER_TEMPLATES))),
     card(
       'Nomes e textos',
+      config.lower.items.length > 7 || nameFind
+        ? h('input', {
+            class: 'find',
+            type: 'search',
+            value: nameFind,
+            placeholder: 'Buscar na lista',
+            oninput: (e) => {
+              nameFind = e.target.value;
+              const q = plain(nameFind).trim();
+              for (const row of e.target.parentNode.querySelectorAll('.rows > [data-text]'))
+                row.classList.toggle('hidden', !!q && !row.dataset.text.includes(q));
+            },
+          })
+        : null,
       h(
         'div',
         { class: 'rows' },
@@ -2005,7 +2295,16 @@ const pages = {
           };
           return h(
             'div',
-            { class: 'row' + (viewItem === item.id ? ' viewing' : '') },
+            {
+              class:
+                'row' +
+                (viewItem === item.id ? ' viewing' : '') +
+                (nameFind.trim() &&
+                !plain(`${item.line1} ${item.line2}`).includes(plain(nameFind).trim())
+                  ? ' hidden'
+                  : ''),
+              'data-text': plain(`${item.line1} ${item.line2}`),
+            },
             h('input', {
               value: item.line1,
               placeholder: 'Nome',
@@ -2076,11 +2375,7 @@ const pages = {
                 'button',
                 {
                   title: 'Remover',
-                  onclick: () => {
-                    config.lower.items.splice(i, 1);
-                    save();
-                    renderForm();
-                  },
+                  onclick: () => removeAt(config.lower.items, config.lower.items.indexOf(item)),
                 },
                 '×',
               ),
@@ -2117,6 +2412,7 @@ const pages = {
         },
         '+ Adicionar',
       ),
+      namesTools(),
       hint(
         'No painel do OBS, um clique no nome mostra ou esconde. Dá para adicionar nomes por lá também.',
       ),
@@ -2513,6 +2809,58 @@ const pages = {
     effects('comment'),
   ],
 
+  countdown: () => [
+    card('Modelo', chips('countdown.template', withCustom('countdown', COUNTDOWN_TEMPLATES))),
+    appearance('countdown'),
+    card(
+      'Contagem',
+      hint(
+        'A contagem começa quando é mostrada, no painel do OBS (aba "Contagem"), no roteiro ou por uma tecla do Stream Deck. Lá também se trocam os minutos na hora.',
+      ),
+      grid(
+        textInput('countdown.title', 'Texto', { max: 60, placeholder: 'O culto começa em' }),
+        select(
+          'countdown.mode',
+          'Como contar',
+          [
+            ['duration', 'Por minutos, a partir de quando é mostrada'],
+            ['clock', 'Até um horário de hoje'],
+          ],
+          { rerender: true },
+        ),
+        config.countdown.mode === 'clock'
+          ? field(
+              'Horário em que chega a zero',
+              h('input', {
+                type: 'time',
+                value: config.countdown.time,
+                onchange: (e) => e.target.value && set('countdown.time', e.target.value),
+              }),
+            )
+          : range('countdown.minutes', 'Minutos', 1, 60, ' min'),
+        textInput('countdown.endText', 'Texto ao chegar a zero', {
+          max: 60,
+          placeholder: 'Já vamos começar',
+          tip: 'Vazio: a contagem para em 00:00.',
+        }),
+        check('countdown.hideAtEnd', 'Sair sozinha alguns segundos depois do zero'),
+      ),
+    ),
+    colors('countdown', { text: 'Números', text2: 'Texto' }),
+    place('countdown'),
+    effects('countdown'),
+  ],
+
+  rundown: () => [
+    card(
+      'Roteiro do culto',
+      hint(
+        'Coloque em ordem o que vai ao ar durante o culto: o nome de quem fala, as ofertas, um comentário, a agenda. No painel do OBS, a aba "Roteiro" mostra a lista e um botão "Próximo": a cada clique entra o passo seguinte e o anterior sai. Os passos apontam para o que já está salvo (nomes, ofertas, comentários, redes).',
+      ),
+    ),
+    rundownCard(),
+  ],
+
   bug: () => [
     config.brand.logo
       ? null
@@ -2544,6 +2892,7 @@ const pages = {
       agenda: 'Agenda',
       social: 'Redes sociais',
       comment: 'Comentários',
+      countdown: 'Contagem regressiva',
       bug: 'Logo',
     };
     const key = vertical ? 'vfree' : 'free';
@@ -2776,6 +3125,11 @@ const pages = {
           row('Agenda', '/api/live/agenda/toggle'),
           row('Rede social (1 = primeira)', '/api/live/social/toggle?item=1'),
           row('Comentário (o último escrito)', '/api/live/comment/toggle'),
+          row('Contagem regressiva (começa de novo)', '/api/live/countdown/show'),
+          row('Roteiro: próximo passo', '/api/rundown/next'),
+          row('Roteiro: passo anterior', '/api/rundown/prev'),
+          row('Roteiro: ir para um passo (1 = primeiro)', '/api/rundown/go?n=1'),
+          row('Roteiro: recomeçar', '/api/rundown/restart'),
           row('Logo', '/api/live/bug/toggle'),
           row('Trocar de perfil de culto (pelo nome)', '/api/profile/use?name=Natal'),
           row('Tirar tudo do ar', '/api/live/all/hide'),

@@ -36,7 +36,7 @@ test('custom models are kept clean, and elements only stay on "custom" while one
     'nothing',
   ];
   raw.theme.custom = 'abcd1234';
-  for (const el of ['lower', 'top', 'ticker', 'card', 'agenda', 'social', 'comment'])
+  for (const el of ['lower', 'top', 'ticker', 'card', 'agenda', 'social', 'comment', 'countdown'])
     raw[el].template = 'custom';
   const c = cleanConfig(raw);
   assert.deepEqual(
