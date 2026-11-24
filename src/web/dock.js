@@ -866,10 +866,12 @@ function refresh() {
   state.lastChild.textContent = t(on ? 'No ar' : 'Fora do ar');
   eye.classList.toggle('on', on);
   eye.disabled = !config.enabled[tab];
+  // The button says what a click does: show it, or hide what is on air.
   if (eye.dataset.on !== String(on)) {
     eye.dataset.on = String(on);
-    eye.innerHTML = on ? EYE : EYE_OFF;
+    eye.firstElementChild.innerHTML = on ? EYE_OFF : EYE;
   }
+  eye.lastElementChild.textContent = t(on ? 'Esconder' : 'Mostrar');
   pin.classList.toggle('hidden', !timed);
   pin.classList.toggle('active', timed && !!live[tab].pin);
   const time = $('#autoHide'),

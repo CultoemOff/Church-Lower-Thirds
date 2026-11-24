@@ -1,5 +1,12 @@
 **Versão beta para testes — somente Windows.** Programa novo, separado do PTZ Control Web.
 
+### Novidades da beta.15
+
+- **Correção: o OBS continuava com o visual da versão anterior depois de atualizar.** As fontes de navegador do OBS ficam abertas por dias e seguiam desenhando com o código antigo; por isso a cor "Vidro líquido" aparecia como placas brancas, com o texto branco sumindo. Agora os gráficos se recarregam sozinhos quando o programa é atualizado, como o painel e as configurações já faziam. **Só nesta atualização** ainda é preciso recarregar uma vez: feche e abra o OBS, ou, nas propriedades de cada fonte de navegador, clique em "Atualizar cache da página atual".
+- **Correção: "Posições na tela" não guardava o que era arrastado.** O editor mostrava o elemento no lugar novo, mas a página das configurações não recebia a posição, então nada mudava no OBS (era assim desde a primeira beta). Agora arrastar e redimensionar pelo canto gravam na hora, em cada formato (horizontal e vertical), e a lista "Voltar ao lugar padrão" mostra o que foi movido.
+- **Painel do OBS**: na barra de cada aba, o botão do olho ganhou o texto (**Mostrar** / **Esconder**) e foi para a direita; o estado (**No ar** / **Fora do ar**) fica no meio e o fixar, à esquerda.
+- **Modelos próprios recolhidos**, como os temáticos: o bloco abre com um clique.
+
 ### Novidades da beta.14
 
 - **Modelos próprios**: em "Tema global", a igreja cria o seu próprio modelo com a ajuda de uma IA. O programa entrega um **prompt** (botão "Copiar prompt para a IA") com tudo o que a IA precisa saber: tamanho da tela, a estrutura de cada elemento, as cores do tema como variáveis e as regras. A IA devolve um código (CSS), que é colado no programa. O programa confere na hora o que foi colado (diz quantas regras aceitou, quais elementos o modelo desenha e o que ignorou), mostra na prévia antes de salvar e guarda o modelo com um nome, na galeria, junto dos prontos. O modelo muda só a aparência (formatos, bordas, transparências); textos, posições, cores do tema e animações de entrada continuam por conta do programa. Os elementos que o modelo não desenha ficam no modelo em uso. Por segurança, o código não pode buscar nada na internet nem mexer fora dos elementos.
