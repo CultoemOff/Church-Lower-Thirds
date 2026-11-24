@@ -56,6 +56,7 @@ export const CARD_TEMPLATES = [
 export const TICKER_TEMPLATES = ['full', 'floating', 'minimal', 'liquid'];
 export const AGENDA_TEMPLATES = ['card', 'banner', 'center', 'liquid'];
 export const COMMENT_TEMPLATES = ['bubble', 'card', 'liquid', 'youth', 'kids', 'floral'];
+export const COUNTDOWN_TEMPLATES = ['card', 'bar', 'big', 'liquid'];
 export const SOCIAL_TEMPLATES = ['pill', 'card', 'liquid', 'plaque', 'youth', 'kids', 'floral'];
 export const NETWORKS = [
   'instagram',
@@ -99,6 +100,26 @@ export interface SavedComment {
   id: string;
   user: string;
   text: string;
+}
+/**
+ * One step of the order of service: what goes on screen at that moment. `ref` says which
+ * saved name, offering, comment or network ('' where the element has only one content).
+ */
+export const STEP_KINDS = [
+  'lower',
+  'card',
+  'comment',
+  'social',
+  'agenda',
+  'countdown',
+  'hide',
+] as const;
+export interface RundownStep {
+  id: string;
+  kind: (typeof STEP_KINDS)[number];
+  ref: string;
+  /** A reminder for the operator ("after the second song"), shown in the dock. */
+  note: string;
 }
 const GIVING_METHODS = ['pix', 'app', 'sepa', 'link', 'image', 'text'];
 export const ANIMATIONS = [
@@ -146,7 +167,16 @@ export const newId = () => randomBytes(5).toString('hex');
  */
 export type CustomModel = { id: string; name: string; css: string };
 export const CUSTOM = 'custom';
-const CUSTOM_ELEMENTS = ['lower', 'top', 'ticker', 'card', 'agenda', 'social', 'comment'] as const;
+const CUSTOM_ELEMENTS = [
+  'lower',
+  'top',
+  'ticker',
+  'card',
+  'agenda',
+  'social',
+  'comment',
+  'countdown',
+] as const;
 /** The elements a custom CSS draws: the ones some selector of it starts with. */
 export function customCovers(css: string) {
   const plain = css.replace(/\/\*[\s\S]*?\*\//g, ' ');
@@ -176,6 +206,7 @@ export function defaults() {
       agenda: true,
       social: true,
       comment: true,
+      countdown: true,
       bug: true,
     },
     /** How long names and the QR card stay on screen, in seconds (0 = until hidden). */
@@ -490,6 +521,40 @@ export function defaults() {
       said: '',
       saved: [] as SavedComment[],
     },
+    /** A countdown: "the service starts in 05:00". */
+    countdown: {
+      /** false = follows the global theme; true = uses the colors, font and effects below */
+      custom: false,
+      template: 'card',
+      fill: fill('#0f172a', '#1e293b', 90),
+      accent: fill('#fbbf24', '#f59e0b', 180),
+      text: '#ffffff',
+      text2: '#e2e8f0',
+      font: '',
+      weight: 800,
+      size: 100,
+      radius: 22,
+      opacity: 96,
+      shadow: 'soft',
+      shadowStrength: 60,
+      animation: 'rise',
+      duration: 600,
+      position: 'center',
+      marginX: 90,
+      marginY: 90,
+      ...free(),
+      title: 'O culto começa em',
+      /** duration = counts `minutes` from the moment it is shown; clock = until `time` today */
+      mode: 'duration',
+      minutes: 5,
+      time: '19:30',
+      /** What takes the place of the numbers at zero ('' = stays at 00:00) */
+      endText: 'Já vamos começar',
+      /** Leaves by itself a few seconds after reaching zero */
+      hideAtEnd: true,
+    },
+    /** The order of service: steps the operator walks through with "Next" in the dock. */
+    rundown: [] as RundownStep[],
     bug: {
       position: 'top-right',
       size: 150,
@@ -521,7 +586,7 @@ export interface Profile {
 }
 export type Config = ReturnType<typeof defaults>;
 export type ElementName =
-  'lower' | 'top' | 'card' | 'bug' | 'ticker' | 'agenda' | 'social' | 'comment';
+  'lower' | 'top' | 'card' | 'bug' | 'ticker' | 'agenda' | 'social' | 'comment' | 'countdown';
 export const ELEMENTS: ElementName[] = [
   'lower',
   'top',
@@ -531,6 +596,7 @@ export const ELEMENTS: ElementName[] = [
   'agenda',
   'social',
   'comment',
+  'countdown',
 ];
 
 export interface Live {
@@ -543,6 +609,10 @@ export interface Live {
   agenda: { on: boolean; pin: boolean };
   social: { on: boolean; item: string; pin: boolean };
   comment: { on: boolean; pin: boolean };
+  /** until: when it reaches zero (ms since 1970), set at the moment it is shown */
+  countdown: { on: boolean; until: number };
+  /** The step of the order of service that was run last ('' = none yet). */
+  step: string;
 }
 /** Elements that leave by themselves, and so can be pinned. */
 export const TIMED = ['lower', 'card', 'agenda', 'social', 'comment'] as const;
@@ -555,6 +625,8 @@ export const liveDefaults = (): Live => ({
   agenda: { on: false, pin: false },
   social: { on: false, item: '', pin: false },
   comment: { on: false, pin: false },
+  countdown: { on: false, until: 0 },
+  step: '',
 });
 
 const HEX = /^#[0-9a-f]{6}$/i;
@@ -595,6 +667,7 @@ const RANGES: Record<string, [number, number]> = {
   weight1: [100, 900],
   weight2: [100, 900],
   angle: [0, 360],
+  minutes: [1, 600],
 };
 const CHOICES: Record<string, string[]> = {
   'lower.template': [...LOWER_TEMPLATES, CUSTOM],
@@ -605,6 +678,9 @@ const CHOICES: Record<string, string[]> = {
   'social.template': [...SOCIAL_TEMPLATES, CUSTOM],
   'comment.template': [...COMMENT_TEMPLATES, CUSTOM],
   'comment.position': PLACES,
+  'countdown.template': [...COUNTDOWN_TEMPLATES, CUSTOM],
+  'countdown.position': PLACES,
+  'countdown.mode': ['duration', 'clock'],
   'card.qr': ['giving', 'pixkey', 'url'],
   animation: ANIMATIONS,
   shadow: SHADOWS,
@@ -676,6 +752,13 @@ function clean(def: unknown, raw: unknown, path: string, key: string): unknown {
       })
       .filter((c): c is SavedCard => !!c && !seen.has(c.id) && !!seen.add(c.id));
   }
+  if (path === 'rundown')
+    return list<RundownStep>(raw, def, 80, (r) => {
+      const kind = STEP_KINDS.find((k) => k === r.kind);
+      return kind
+        ? { id: id(r.id), kind, ref: text(r.ref, 20).trim(), note: text(r.note, 80).trim() }
+        : undefined;
+    });
   if (path === 'comment.saved')
     return list<SavedComment>(raw, def, 60, (r) => {
       const c = { id: id(r.id), user: text(r.user, 60).trim(), text: text(r.text, 280).trim() };
@@ -812,6 +895,7 @@ const CONTENT: Record<ElementName, string[]> = {
   agenda: ['title', 'days'],
   social: ['items', 'prefix'],
   comment: ['user', 'said', 'saved'],
+  countdown: ['title', 'mode', 'minutes', 'time', 'endText', 'hideAtEnd'],
   bug: [],
 };
 /** The look of a configuration: logo, font, theme and the appearance of every element. */
@@ -922,6 +1006,11 @@ export function cleanLive(raw: unknown, config: Config): Live {
       on: ok.comment && !!r.comment?.on && !!config.comment.said.trim(),
       pin: !!r.comment?.pin,
     },
+    countdown: {
+      on: ok.countdown && !!r.countdown?.on,
+      until: Number.isFinite(r.countdown?.until) ? Number(r.countdown?.until) : 0,
+    },
+    step: config.rundown.some((x) => x.id === r.step) ? String(r.step) : '',
   };
 }
 
@@ -1098,4 +1187,92 @@ function sampleConfig(language: string): Config {
   c.social.prefix = t.social;
   for (const item of c.social.items) item.handle = t.handle;
   return cleanConfig(c);
+}
+
+/** When a countdown shown at `now` reaches zero. A time of day already past counts as zero. */
+export function countdownEnd(c: Config['countdown'], now = new Date()) {
+  if (c.mode !== 'clock') return now.getTime() + c.minutes * 60000;
+  const m = /^(\d{1,2}):(\d{2})$/.exec(c.time);
+  if (!m) return now.getTime();
+  const at = new Date(now);
+  at.setHours(Math.min(23, Number(m[1])), Math.min(59, Number(m[2])), 0, 0);
+  return Math.max(at.getTime(), now.getTime());
+}
+
+/** What a step of the order of service shows, for the lists of the dock and the settings. */
+export function stepTarget(config: Config, step: RundownStep) {
+  if (step.kind === 'lower') return config.lower.items.find((i) => i.id === step.ref);
+  if (step.kind === 'card') return config.card.saved.find((i) => i.id === step.ref);
+  if (step.kind === 'comment') return config.comment.saved.find((i) => i.id === step.ref);
+  if (step.kind === 'social')
+    return step.ref === ALL ? { id: ALL } : config.social.items.find((i) => i.id === step.ref);
+  return { id: '' };
+}
+
+// ---- Sharing: a custom model or a profile as a file, from one church to another ----
+/** A name no entry of the list has yet: "Natal", then "Natal 2", "Natal 3"… */
+function freeName(name: unknown, taken: string[], fallback: string) {
+  const base = text(name, 34).trim() || fallback;
+  const used = new Set(taken.map((n) => n.toLowerCase()));
+  if (!used.has(base.toLowerCase())) return base;
+  for (let n = 2; ; n++) if (!used.has(`${base} ${n}`.toLowerCase())) return `${base} ${n}`;
+}
+/** Adds a custom model that came in a file; says which id it got. */
+export function importModel(config: Config, name: unknown, css: unknown): [Config, string] {
+  if (typeof css !== 'string' || !customCovers(css).length)
+    throw new Error('This file has no model in it');
+  if (config.customModels.length >= 40) throw new Error('Too many custom models');
+  const next = structuredClone(config);
+  const id = newId();
+  next.customModels.push({
+    id,
+    name: freeName(
+      name,
+      next.customModels.map((m) => m.name),
+      'Modelo',
+    ),
+    css,
+  });
+  return [cleanConfig(next), id];
+}
+/**
+ * Adds a profile that came in a file, with the custom model it uses (if any). It does not
+ * become the one in use: the person chooses it when they want.
+ */
+export function importProfile(
+  config: Config,
+  file: { name?: unknown; look?: unknown; model?: { name?: unknown; css?: unknown } | null },
+): Config {
+  if (!file.look || typeof file.look !== 'object')
+    throw new Error('This file has no profile in it');
+  if (config.profiles.length >= 30) throw new Error('Too many profiles');
+  let next = structuredClone(config);
+  const look = structuredClone(file.look) as Profile['look'];
+  // Its custom model comes along under a new id; without one, the look points at none.
+  const theme = (look.theme ??= {});
+  theme.custom = '';
+  if (file.model?.css) {
+    const [withModel, id] = importModel(next, file.model.name, file.model.css);
+    next = withModel;
+    theme.custom = id;
+  }
+  next.profiles.push({
+    id: newId(),
+    name: freeName(
+      file.name,
+      next.profiles.map((p) => p.name),
+      'Perfil',
+    ),
+    look,
+  });
+  return cleanConfig(next);
+}
+/** What a shared profile carries: its look as it is now, and the custom model it uses. */
+export function exportProfile(config: Config, ref: string) {
+  const p = findProfile(config, ref);
+  if (!p) throw new Error('Profile not found');
+  const look = p.id === config.profile ? takeLook(config) : p.look;
+  const id = (look.theme as { custom?: string } | undefined)?.custom;
+  const model = config.customModels.find((m) => m.id === id);
+  return { name: p.name, look, model: model ? { name: model.name, css: model.css } : null };
 }

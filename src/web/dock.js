@@ -9,6 +9,7 @@ import {
   toast,
   toggleTheme,
 } from './js/common.js';
+import { plain, STEP_NAMES, stepText } from './js/lists.js';
 import { EYE, EYE_OFF, givingTag, NETWORKS, SOCIAL_ICONS } from './js/look.js';
 import { autoLocalize, t, useLanguage } from './js/i18n.js';
 
@@ -29,6 +30,7 @@ applyTheme();
 $('#themeToggle').onclick = () => applyTheme(toggleTheme());
 
 const TABS = [
+  ['rundown', 'Roteiro', 'Roteiro do culto: o que vai ao ar em cada momento, um clique por vez'],
   ['lower', 'Nomes', 'Nomes e legendas (lower third)'],
   ['card', 'Ofertas e Dízimos', 'Cartão com QR Code: ofertas, dízimos, missões, um link…'],
   ['top', 'Superior', 'Selo no canto da tela: logo, nome, AO VIVO, horário e recados'],
@@ -36,6 +38,7 @@ const TABS = [
   ['agenda', 'Agenda', 'Dias e horários dos cultos, um dia de cada vez'],
   ['social', 'Redes', 'Redes sociais: "Siga-nos no…"'],
   ['comment', 'Comentários', 'Um comentário digitado na hora: quem escreveu e o que disse'],
+  ['countdown', 'Contagem', 'Contagem regressiva: "O culto começa em 05:00"'],
 ];
 const PINNABLE = ['lower', 'card', 'agenda', 'social', 'comment'];
 const TIMES = [0, 5, 8, 10, 15, 20, 30, 45, 60, 120];
@@ -71,14 +74,38 @@ const toggleButton = (el, label, title) =>
     h('i'),
     h('span', {}, label),
   );
-const listWrap = (title, note = '') =>
+const listWrap = (title, note = '', find = false) =>
   h(
     'div',
     { class: 'listWrap' },
     h('div', { class: 'sectionTitle' }, h('span', {}, title), h('small', {}, note)),
+    find
+      ? h('input', {
+          class: 'find hidden',
+          type: 'search',
+          'data-find': '',
+          placeholder: 'Buscar na lista',
+          autocomplete: 'off',
+          oninput: () => refresh(),
+        })
+      : null,
     h('div', { class: 'items', 'data-list': '' }),
   );
 const empty = (text) => h('div', { class: 'empty' }, text);
+/** Removes one entry of a saved list; for a few seconds, "Desfazer" puts it back. */
+async function drop(path, item, index) {
+  const read = () => path.split('.').reduce((o, k) => o[k], config);
+  const list = read(),
+    at = index ?? list.indexOf(item);
+  if (at < 0) return;
+  const r = await patch({ [path]: list.filter((_, i) => i !== at) });
+  if (r?.error) return;
+  toast('Removido da lista.', () => {
+    const now = [...read()];
+    now.splice(Math.min(at, now.length), 0, item);
+    patch({ [path]: now });
+  });
+}
 
 // ---------- Names ----------
 function buildLower() {
@@ -130,7 +157,7 @@ function buildLower() {
       h('div', { class: 'actions' }, show, save, cancel),
       h('div', { class: 'note', 'data-note': '' }),
     ),
-    listWrap('Lista', 'clique: mostrar ou esconder'),
+    listWrap('Lista', 'clique: mostrar ou esconder', true),
   ];
   return {
     pane,
@@ -159,8 +186,16 @@ function buildLower() {
             )
           : '',
       );
+      // With many names saved, a search field narrows the list.
+      const find = root.querySelector('[data-find]'),
+        q = plain(find.value).trim();
+      find.classList.toggle('hidden', config.lower.items.length < 6 && !q);
+      const items = config.lower.items.filter(
+        (i) => !q || plain(`${i.line1} ${i.line2}`).includes(q),
+      );
       root.querySelector('[data-list]').replaceChildren(
-        ...config.lower.items.map((item) => {
+        ...(q && !items.length ? [empty('Nenhum nome com esse texto.')] : []),
+        ...items.map((item) => {
           const on = live.lower.on && live.lower.item === item.id;
           return h(
             'button',
@@ -186,12 +221,7 @@ function buildLower() {
               refresh();
               l1.focus();
             }),
-            mini(
-              '×',
-              'Remover da lista',
-              () => patch({ 'lower.items': config.lower.items.filter((i) => i.id !== item.id) }),
-              'del',
-            ),
+            mini('×', 'Remover da lista', () => drop('lower.items', item), 'del'),
           );
         }),
         ...(config.lower.items.length
@@ -348,12 +378,7 @@ function buildCard() {
               { class: 'tag' },
               s.qr === 'giving' ? givingTag(config) : s.qr === 'pixkey' ? 'PIX' : 'LINK',
             ),
-            mini(
-              '×',
-              'Remover da lista',
-              () => patch({ 'card.saved': c.saved.filter((x) => x.id !== s.id) }),
-              'del',
-            ),
+            mini('×', 'Remover da lista', () => drop('card.saved', s), 'del'),
           );
         }),
         ...(c.saved.length
@@ -468,12 +493,7 @@ function buildTexts(el, { extra = [], parts = [], listTitle, hint }) {
               patch({ [`${el}.messages`]: c.messages.filter((_, j) => j !== i) });
               text.focus();
             }),
-            mini(
-              '×',
-              'Remover da lista',
-              () => patch({ [`${el}.messages`]: c.messages.filter((_, j) => j !== i) }),
-              'del',
-            ),
+            mini('×', 'Remover da lista', () => drop(`${el}.messages`, c.messages[i], i), 'del'),
           ),
         ),
         ...(c.messages.length ? [] : [empty('A lista está vazia.')]),
@@ -551,12 +571,7 @@ function buildAgenda() {
               h('small', {}, d.lines.replace(/\n/g, '  |  ')),
             ),
             i > 0 ? mini('↑', 'Mostrar antes', () => move(i, -1)) : null,
-            mini(
-              '×',
-              'Remover da agenda',
-              () => patch({ 'agenda.days': a.days.filter((x) => x.id !== d.id) }),
-              'del',
-            ),
+            mini('×', 'Remover da agenda', () => drop('agenda.days', d), 'del'),
           ),
         ),
         ...(a.days.length ? [] : [empty('Adicione os dias de culto e os horários de cada um.')]),
@@ -673,12 +688,7 @@ function buildSocial() {
               h('b', {}, item.handle),
               h('small', {}, item.text || item.label || t('Rede')),
             ),
-            mini(
-              '×',
-              'Remover',
-              () => patch({ 'social.items': s.items.filter((x) => x.id !== item.id) }),
-              'del',
-            ),
+            mini('×', 'Remover', () => drop('social.items', item), 'del'),
           );
         }),
         ...(s.items.length ? [] : [empty('Adicione o Instagram, o YouTube…')]),
@@ -762,12 +772,7 @@ function buildComment() {
               h('b', {}, s.user || s.text),
               s.user ? h('small', {}, s.text) : null,
             ),
-            mini(
-              '×',
-              'Remover da lista',
-              () => patch({ 'comment.saved': c.saved.filter((x) => x.id !== s.id) }),
-              'del',
-            ),
+            mini('×', 'Remover da lista', () => drop('comment.saved', s), 'del'),
           );
         }),
         ...(c.saved.length
@@ -778,7 +783,205 @@ function buildComment() {
   };
 }
 
+// ---------- Countdown ----------
+const clockText = (ms) => {
+  const sec = Math.max(0, Math.ceil(ms / 1000)),
+    two = (n) => String(n).padStart(2, '0');
+  return sec >= 3600
+    ? `${Math.floor(sec / 3600)}:${two(Math.floor((sec % 3600) / 60))}:${two(sec % 60)}`
+    : `${two(Math.floor(sec / 60))}:${two(sec % 60)}`;
+};
+function buildCountdown() {
+  const title = input('Texto (ex.: O culto começa em)', 60),
+    minutes = h('input', { type: 'number', min: 1, max: 600, step: 1, title: 'Minutos' }),
+    time = h('input', { type: 'time', title: 'Horário em que chega a zero' }),
+    seg = h('div', { class: 'seg' }),
+    left = h('div', { class: 'now' });
+  const start = async (set = {}) => {
+    const r = await patch({
+      'countdown.title': title.value.trim(),
+      'countdown.minutes': Math.max(1, Math.round(Number(minutes.value) || 5)),
+      ...(time.value ? { 'countdown.time': time.value } : {}),
+      ...set,
+    });
+    // Starting again counts from the beginning.
+    if (!r?.error) command('/api/live/countdown/show');
+  };
+  title.onchange = () => patch({ 'countdown.title': title.value.trim() });
+  minutes.onchange = () =>
+    patch({ 'countdown.minutes': Math.max(1, Math.round(Number(minutes.value) || 5)) });
+  time.onchange = () => time.value && patch({ 'countdown.time': time.value });
+  // The time left, also here, while it is on air.
+  setInterval(() => {
+    if (!live || tab !== 'countdown') return;
+    const on = live.countdown.on;
+    left.classList.toggle('hidden', !on);
+    if (on) left.textContent = `${t('Faltam')} ${clockText(live.countdown.until - Date.now())}`;
+  }, 250);
+  return {
+    pane: [
+      h(
+        'div',
+        { class: 'editor' },
+        title,
+        seg,
+        h('div', { class: 'row countRow' }, minutes, time),
+        h(
+          'div',
+          { class: 'chipsRow', 'data-presets': '' },
+          [1, 3, 5, 10, 15, 30].map((m) =>
+            h(
+              'button',
+              {
+                title: 'Começa agora uma contagem com estes minutos',
+                onclick: () => start({ 'countdown.mode': 'duration', 'countdown.minutes': m }),
+              },
+              `${m} min`,
+            ),
+          ),
+        ),
+        h(
+          'div',
+          { class: 'actions' },
+          h(
+            'button',
+            {
+              class: 'primary',
+              title: 'Mostra a contagem na tela, começando agora',
+              onclick: () => start(),
+            },
+            'Iniciar',
+          ),
+          h('button', { onclick: () => command('/api/live/countdown/hide') }, 'Esconder'),
+        ),
+        left,
+      ),
+    ],
+    refresh(root) {
+      const c = config.countdown;
+      if (document.activeElement !== title) title.value = c.title;
+      if (document.activeElement !== minutes) minutes.value = c.minutes;
+      if (document.activeElement !== time) time.value = c.time;
+      const clock = c.mode === 'clock';
+      seg.replaceChildren(
+        ...[
+          ['duration', 'Por minutos'],
+          ['clock', 'Até um horário'],
+        ].map(([id, label]) =>
+          h(
+            'button',
+            {
+              class: c.mode === id ? 'active' : '',
+              onclick: () => patch({ 'countdown.mode': id }),
+            },
+            label,
+          ),
+        ),
+      );
+      minutes.classList.toggle('hidden', clock);
+      time.classList.toggle('hidden', !clock);
+      root.querySelector('[data-presets]').classList.toggle('hidden', clock);
+    },
+  };
+}
+
+// ---------- Order of service ----------
+function buildRundown() {
+  const go = (action, query = '') => command(`/api/rundown/${action}${query}`);
+  return {
+    pane: [
+      h(
+        'div',
+        { class: 'rundownBar' },
+        h('button', { title: 'Volta um passo', 'data-prev': '', onclick: () => go('prev') }, '‹'),
+        h(
+          'button',
+          {
+            class: 'primary',
+            'data-next': '',
+            title: 'Põe no ar o próximo passo; o anterior sai',
+            onclick: () => go('next'),
+          },
+          h('small', {}, 'Próximo'),
+          h('b', { 'data-raw': '' }),
+        ),
+      ),
+      listWrap('Roteiro do culto', 'clique: ir para o passo'),
+      h(
+        'div',
+        { class: 'rundownFoot' },
+        h(
+          'a',
+          {
+            href: '#',
+            title: 'Tira do ar o que estiver e volta ao começo do roteiro',
+            onclick: (e) => (e.preventDefault(), go('restart')),
+          },
+          'Recomeçar',
+        ),
+        h(
+          'a',
+          {
+            href: '#',
+            title: 'Abre as configurações para montar ou mudar o roteiro',
+            onclick: (e) => (e.preventDefault(), command('/api/open-settings?page=rundown')),
+          },
+          'Editar o roteiro',
+        ),
+      ),
+    ],
+    refresh(root) {
+      const steps = config.rundown,
+        at = steps.findIndex((x) => x.id === live.step),
+        next = steps[at + 1];
+      const label = (step) => stepText(config, step, t) ?? t('(apagado)');
+      root.querySelector('[data-prev]').disabled = at < 1;
+      const button = root.querySelector('[data-next]');
+      button.disabled = !next;
+      button.lastElementChild.textContent = next
+        ? label(next)
+        : steps.length
+          ? t('Fim do roteiro')
+          : '';
+      root.querySelector('[data-list]').replaceChildren(
+        ...steps.map((step, i) =>
+          h(
+            'button',
+            {
+              class: 'item step' + (i === at ? ' on' : i < at ? ' done' : ''),
+              title: 'Clique para pôr este passo no ar',
+              onclick: () => go('go', `?id=${step.id}`),
+            },
+            h('span', { class: 'num', 'data-raw': '' }, String(i + 1)),
+            h(
+              'span',
+              { class: 'txt', 'data-raw': '' },
+              h('b', {}, label(step)),
+              h(
+                'small',
+                {},
+                [step.kind === 'hide' ? '' : t(STEP_NAMES[step.kind]), step.note]
+                  .filter(Boolean)
+                  .join(' · '),
+              ),
+            ),
+          ),
+        ),
+        ...(steps.length
+          ? []
+          : [
+              empty(
+                'O roteiro está vazio. Em "Editar o roteiro", coloque em ordem o que vai ao ar no culto: nomes, ofertas, avisos. Depois é um clique em "Próximo" a cada momento.',
+              ),
+            ]),
+      );
+    },
+  };
+}
+
 const BUILD = {
+  rundown: buildRundown,
+  countdown: buildCountdown,
   lower: buildLower,
   comment: buildComment,
   card: buildCard,
@@ -814,7 +1017,11 @@ const BUILD = {
 function refresh() {
   if (!config || !live) return;
   // Categories switched off in the settings (the eye) are not offered here.
-  const tabs = TABS.filter(([id]) => config.enabled[id] || (id === 'top' && config.enabled.bug));
+  const tabs = TABS.filter(
+    ([id]) => id === 'rundown' || config.enabled[id] || (id === 'top' && config.enabled.bug),
+  );
+  // The order of service is a tab of its own kind: it runs the others, it is not on air.
+  const element = tab !== 'rundown';
   if (!tabs.some(([id]) => id === tab)) tab = tabs[0]?.[0] || '';
   $('#tabs').replaceChildren(
     ...tabs.map(([id, label, title]) =>
@@ -823,7 +1030,7 @@ function refresh() {
         {
           class:
             (id === tab ? 'active ' : '') +
-            (live[id].on || (id === 'top' && live.bug.on) ? 'on' : ''),
+            (live[id]?.on || (id === 'top' && live.bug.on) ? 'on' : ''),
           title,
           onclick: () => {
             tab = localStorage.cltTab = id;
@@ -849,7 +1056,8 @@ function refresh() {
     pane.replaceChildren(...built[tab].pane);
   }
   built[tab].refresh(pane);
-  pane.classList.toggle('onlyExtra', !config.enabled[tab]);
+  pane.classList.toggle('onlyExtra', element && !config.enabled[tab]);
+  $('.paneBar').classList.toggle('hidden', !element);
   for (const b of pane.querySelectorAll('[data-toggle]'))
     b.classList.toggle('hidden', !config.enabled[b.dataset.toggle]);
   for (const b of pane.querySelectorAll('[data-toggle]'))
@@ -857,7 +1065,7 @@ function refresh() {
   renderProfiles();
   // The bar of the tab: is it on air, the eye to show or hide it, and the pin for what
   // leaves by itself (names, offerings, schedule, social, comments).
-  const on = !!live[tab].on,
+  const on = element && !!live[tab].on,
     state = $('#paneState'),
     eye = $('#tabEye'),
     pin = $('#tabPin'),
@@ -865,7 +1073,7 @@ function refresh() {
   state.classList.toggle('on', on);
   state.lastChild.textContent = t(on ? 'No ar' : 'Fora do ar');
   eye.classList.toggle('on', on);
-  eye.disabled = !config.enabled[tab];
+  eye.disabled = !element || !config.enabled[tab];
   // The button says what a click does: show it, or hide what is on air.
   if (eye.dataset.on !== String(on)) {
     eye.dataset.on = String(on);
@@ -894,7 +1102,7 @@ function refresh() {
 
 $('#autoHide').onchange = (e) => patch({ 'timing.autoHide': Number(e.target.value) });
 $('#tabPin').onclick = () => PINNABLE.includes(tab) && command(`/api/live/${tab}/togglepin`);
-$('#tabEye').onclick = () => tab && command(`/api/live/${tab}/toggle`);
+$('#tabEye').onclick = () => tab && tab !== 'rundown' && command(`/api/live/${tab}/toggle`);
 $('#hideAll').onclick = () => command('/api/live/all/hide');
 
 // ---------- Service profile: the whole look at once ----------

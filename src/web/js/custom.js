@@ -7,7 +7,16 @@
 // throws away the rest (other parts of the page, addresses on the internet).
 
 export const CUSTOM = 'custom';
-export const CUSTOM_ELEMENTS = ['lower', 'top', 'ticker', 'card', 'agenda', 'social', 'comment'];
+export const CUSTOM_ELEMENTS = [
+  'lower',
+  'top',
+  'ticker',
+  'card',
+  'agenda',
+  'social',
+  'comment',
+  'countdown',
+];
 
 /** The elements a custom CSS draws: the ones some selector of it starts with. */
 export function customCovers(css) {
@@ -186,6 +195,11 @@ const ABOUT = {
   comment: [
     'Viewer comment: who wrote (.user) and what they said (.said, may wrap to 2-3 lines), with a chat icon (.icon, inline SVG using currentColor).',
     '.box.has-user, .box.has-icon.',
+    '--fill, --accent, --accent-a, --on-accent, --t1, --t2, --w1',
+  ],
+  countdown: [
+    'Countdown: a short title (.title, "The service starts in") and the time left (.time, like "04:59" or "1:04:59", written by the program every second; use tabular numbers). At zero .time is replaced by .end (a short text).',
+    '.box.has-title, .box.ended (zero reached: .time hidden, .end shown).',
     '--fill, --accent, --accent-a, --on-accent, --t1, --t2, --w1',
   ],
 };

@@ -1,0 +1,665 @@
+Simples: só o essencial. Avançado: todas as opções de aparência, efeitos e integrações.
+Simple: just the essentials. Advanced: every option for looks, effects and integrations.
+Simple: solo lo esencial. Avanzado: todas las opciones de apariencia, efectos e integraciones.
+Semplice: solo l’essenziale. Avanzato: tutte le opzioni di aspetto, effetti e integrazioni.
+Einfach: nur das Wesentliche. Erweitert: alle Optionen für Aussehen, Effekte und Integrationen.
+
+Roteiro
+Rundown
+Guion
+Scaletta
+Ablauf
+
+Roteiro do culto: o que vai ao ar em cada momento, um clique por vez
+Order of service: what goes on air at each moment, one click at a time
+Guion del culto: lo que sale al aire en cada momento, un clic cada vez
+Scaletta del culto: cosa va in onda in ogni momento, un clic alla volta
+Gottesdienstablauf: was wann auf Sendung geht, ein Klick pro Schritt
+
+Contagem
+Countdown
+Cuenta
+Conteggio
+Countdown
+
+Contagem regressiva: "O culto começa em 05:00"
+Countdown: "The service starts in 05:00"
+Cuenta regresiva: "El culto comienza en 05:00"
+Conto alla rovescia: "Il culto inizia tra 05:00"
+Countdown: „Der Gottesdienst beginnt in 05:00“
+
+Buscar na lista
+Search the list
+Buscar en la lista
+Cerca nell’elenco
+In der Liste suchen
+
+Removido da lista.
+Removed from the list.
+Quitado de la lista.
+Rimosso dall’elenco.
+Aus der Liste entfernt.
+
+Nenhum nome com esse texto.
+No name with that text.
+Ningún nombre con ese texto.
+Nessun nome con quel testo.
+Kein Name mit diesem Text.
+
+Texto (ex.: O culto começa em)
+Text (e.g. The service starts in)
+Texto (ej.: El culto comienza en)
+Testo (es.: Il culto inizia tra)
+Text (z. B. Der Gottesdienst beginnt in)
+
+Minutos
+Minutes
+Minutos
+Minuti
+Minuten
+
+Horário em que chega a zero
+Time at which it reaches zero
+Hora en que llega a cero
+Ora in cui arriva a zero
+Uhrzeit, zu der null erreicht wird
+
+Faltam
+Left:
+Faltan
+Mancano
+Noch
+
+Começa agora uma contagem com estes minutos
+Starts a countdown with these minutes now
+Empieza ahora una cuenta con estos minutos
+Avvia ora un conteggio con questi minuti
+Startet jetzt einen Countdown mit diesen Minuten
+
+Mostra a contagem na tela, começando agora
+Shows the countdown on screen, starting now
+Muestra la cuenta en pantalla, empezando ahora
+Mostra il conteggio sullo schermo, a partire da ora
+Zeigt den Countdown an, ab jetzt
+
+Iniciar
+Start
+Iniciar
+Avvia
+Starten
+
+Por minutos
+By minutes
+Por minutos
+A minuti
+Nach Minuten
+
+Até um horário
+Until a time
+Hasta una hora
+Fino a un’ora
+Bis zu einer Uhrzeit
+
+Volta um passo
+Goes back one step
+Vuelve un paso
+Torna indietro di un passo
+Einen Schritt zurück
+
+Põe no ar o próximo passo; o anterior sai
+Puts the next step on air; the one before leaves
+Pone al aire el siguiente paso; el anterior sale
+Manda in onda il passo successivo; il precedente esce
+Bringt den nächsten Schritt auf Sendung; der vorige geht
+
+Próximo
+Next
+Siguiente
+Avanti
+Weiter
+
+Roteiro do culto
+Order of service
+Guion del culto
+Scaletta del culto
+Gottesdienstablauf
+
+Tira do ar o que estiver e volta ao começo do roteiro
+Takes off air whatever is on and goes back to the start
+Quita del aire lo que esté y vuelve al inicio del guion
+Toglie dall’onda ciò che c’è e torna all’inizio della scaletta
+Nimmt alles von der Sendung und geht an den Anfang zurück
+
+Recomeçar
+Start over
+Reiniciar
+Ricomincia
+Neu beginnen
+
+Abre as configurações para montar ou mudar o roteiro
+Opens the settings to build or change the order of service
+Abre los ajustes para armar o cambiar el guion
+Apre le impostazioni per creare o modificare la scaletta
+Öffnet die Einstellungen, um den Ablauf zu erstellen oder zu ändern
+
+Editar o roteiro
+Edit the rundown
+Editar el guion
+Modifica la scaletta
+Ablauf bearbeiten
+
+Fim do roteiro
+End of the rundown
+Fin del guion
+Fine della scaletta
+Ende des Ablaufs
+
+Clique para pôr este passo no ar
+Click to put this step on air
+Haga clic para poner este paso al aire
+Fai clic per mandare in onda questo passo
+Klicken, um diesen Schritt auf Sendung zu bringen
+
+O roteiro está vazio. Em "Editar o roteiro", coloque em ordem o que vai ao ar no culto: nomes, ofertas, avisos. Depois é um clique em "Próximo" a cada momento.
+The rundown is empty. In "Edit the rundown", put in order what goes on air in the service: names, offerings, notices. Then it is one click on "Next" at each moment.
+El guion está vacío. En "Editar el guion", ponga en orden lo que sale al aire en el culto: nombres, ofrendas, avisos. Después es un clic en "Siguiente" en cada momento.
+La scaletta è vuota. In "Modifica la scaletta", metti in ordine ciò che va in onda nel culto: nomi, offerte, avvisi. Poi basta un clic su "Avanti" a ogni momento.
+Der Ablauf ist leer. Unter „Ablauf bearbeiten“ ordnen Sie, was im Gottesdienst auf Sendung geht: Namen, Spenden, Hinweise. Danach genügt jeweils ein Klick auf „Weiter“.
+
+Números grandes
+Large numbers
+Números grandes
+Numeri grandi
+Große Zahlen
+
+Contagem regressiva
+Countdown
+Cuenta regresiva
+Conto alla rovescia
+Countdown
+
+"O culto começa em 05:00".
+"The service starts in 05:00".
+"El culto comienza en 05:00".
+"Il culto inizia tra 05:00".
+„Der Gottesdienst beginnt in 05:00“.
+
+A ordem do que vai ao ar: no painel do OBS, um clique em "Próximo" a cada momento.
+The order of what goes on air: in the OBS panel, one click on "Next" at each moment.
+El orden de lo que sale al aire: en el panel de OBS, un clic en "Siguiente" en cada momento.
+L’ordine di ciò che va in onda: nel pannello di OBS, un clic su "Avanti" a ogni momento.
+Die Reihenfolge der Einblendungen: im OBS-Panel jeweils ein Klick auf „Weiter“.
+
+Esse arquivo não é um modelo nem um perfil do Church Lower Thirds.
+This file is not a Church Lower Thirds style or profile.
+Ese archivo no es un modelo ni un perfil de Church Lower Thirds.
+Questo file non è un modello né un profilo di Church Lower Thirds.
+Diese Datei ist weder eine Vorlage noch ein Profil von Church Lower Thirds.
+
+Perfil importado. Escolha-o no seletor de perfis para usar.
+Profile imported. Choose it in the profile selector to use it.
+Perfil importado. Elíjalo en el selector de perfiles para usarlo.
+Profilo importato. Sceglilo nel selettore dei profili per usarlo.
+Profil importiert. Wählen Sie es in der Profilauswahl aus.
+
+Modelo importado. Ele está em "Modelos próprios".
+Style imported. It is in "Custom styles".
+Modelo importado. Está en "Modelos propios".
+Modello importato. Si trova in "Modelli personali".
+Vorlage importiert. Sie steht unter „Eigene Vorlagen“.
+
+Aceita arquivos de modelo e de perfil exportados pelo Church Lower Thirds
+Accepts style and profile files exported by Church Lower Thirds
+Acepta archivos de modelo y de perfil exportados por Church Lower Thirds
+Accetta file di modello e di profilo esportati da Church Lower Thirds
+Akzeptiert von Church Lower Thirds exportierte Vorlagen- und Profildateien
+
+Modelo "{name}" excluído.
+Style "{name}" deleted.
+Modelo "{name}" eliminado.
+Modello "{name}" eliminato.
+Vorlage „{name}“ gelöscht.
+
+Salva este modelo num arquivo, para levar a outra igreja
+Saves this style to a file, to take to another church
+Guarda este modelo en un archivo, para llevarlo a otra iglesia
+Salva questo modello in un file, da portare in un’altra chiesa
+Speichert diese Vorlage in einer Datei, zum Weitergeben an eine andere Gemeinde
+
+Exportar
+Export
+Exportar
+Esporta
+Exportieren
+
+Importar modelo de um arquivo
+Import a style from a file
+Importar un modelo desde un archivo
+Importa un modello da un file
+Vorlage aus einer Datei importieren
+
+Nomes encontrados: {n}.
+Names found: {n}.
+Nombres encontrados: {n}.
+Nomi trovati: {n}.
+Gefundene Namen: {n}.
+
+{n} nomes na lista.
+{n} names in the list.
+{n} nombres en la lista.
+{n} nomi nell’elenco.
+{n} Namen in der Liste.
+
+Cole uma lista ou escolha um arquivo: um nome por linha, com o cargo depois
+Paste a list or choose a file: one name per line, with the role after it
+Pegue una lista o elija un archivo: un nombre por línea, con el cargo después
+Incolla un elenco o scegli un file: un nome per riga, con il ruolo dopo
+Liste einfügen oder Datei wählen: ein Name pro Zeile, die Funktion dahinter
+
+Importar lista
+Import a list
+Importar lista
+Importa elenco
+Liste importieren
+
+Salva os nomes num arquivo que o Excel e o Google Planilhas abrem
+Saves the names to a file that Excel and Google Sheets open
+Guarda los nombres en un archivo que abren Excel y Hojas de cálculo de Google
+Salva i nomi in un file che Excel e Fogli Google aprono
+Speichert die Namen in einer Datei, die Excel und Google Tabellen öffnen
+
+Exportar CSV
+Export CSV
+Exportar CSV
+Esporta CSV
+CSV exportieren
+
+Um nome por linha, com o cargo depois de um ponto e vírgula, uma tabulação, um traço ou uma vírgula. Exemplos: "Pr. João Silva; Pastor presidente" ou "Maria Souza - Louvor". Uma planilha salva como CSV também serve.
+One name per line, with the role after a semicolon, a tab, a dash or a comma. Examples: "Pr. João Silva; Senior pastor" or "Maria Souza - Worship". A spreadsheet saved as CSV works too.
+Un nombre por línea, con el cargo después de un punto y coma, una tabulación, un guion o una coma. Ejemplos: "Pr. João Silva; Pastor principal" o "Maria Souza - Alabanza". Una hoja de cálculo guardada como CSV también sirve.
+Un nome per riga, con il ruolo dopo un punto e virgola, una tabulazione, un trattino o una virgola. Esempi: "Pr. João Silva; Pastore" o "Maria Souza - Lode". Va bene anche un foglio di calcolo salvato come CSV.
+Ein Name pro Zeile, die Funktion nach einem Semikolon, Tabulator, Bindestrich oder Komma. Beispiele: „Pr. João Silva; Pastor“ oder „Maria Souza - Lobpreis“. Eine als CSV gespeicherte Tabelle geht auch.
+
+Escolher arquivo
+Choose a file
+Elegir archivo
+Scegli file
+Datei wählen
+
+Adicionar à lista
+Add to the list
+Añadir a la lista
+Aggiungi all’elenco
+Zur Liste hinzufügen
+
+Troca todos os nomes da lista por estes
+Replaces every name of the list with these
+Cambia todos los nombres de la lista por estos
+Sostituisce tutti i nomi dell’elenco con questi
+Ersetzt alle Namen der Liste durch diese
+
+Substituir a lista
+Replace the list
+Reemplazar la lista
+Sostituisci l’elenco
+Liste ersetzen
+
+Passos
+Steps
+Pasos
+Passi
+Schritte
+
+O que este passo mostra
+What this step shows
+Lo que muestra este paso
+Cosa mostra questo passo
+Was dieser Schritt zeigt
+
+(apagado: escolha outro)
+(deleted: choose another)
+(borrado: elija otro)
+(eliminato: scegline un altro)
+(gelöscht: anderes wählen)
+
+(apagado)
+(deleted)
+(borrado)
+(eliminato)
+(gelöscht)
+
+Lembrete (ex.: depois do segundo louvor)
+Reminder (e.g. after the second song)
+Recordatorio (ej.: después de la segunda alabanza)
+Promemoria (es.: dopo il secondo canto)
+Notiz (z. B. nach dem zweiten Lied)
+
+Nenhum passo ainda. Use os botões abaixo para montar o roteiro, na ordem do culto.
+No steps yet. Use the buttons below to build the rundown, in the order of the service.
+Aún no hay pasos. Use los botones de abajo para armar el guion, en el orden del culto.
+Ancora nessun passo. Usa i pulsanti qui sotto per creare la scaletta, nell’ordine del culto.
+Noch keine Schritte. Erstellen Sie den Ablauf mit den Schaltflächen unten, in der Reihenfolge des Gottesdienstes.
+
+Adicionar um passo
+Add a step
+Añadir un paso
+Aggiungi un passo
+Schritt hinzufügen
+
+Salve primeiro um item deste tipo (no painel do OBS ou na página dele)
+Save an item of this kind first (in the OBS panel or on its page)
+Guarde primero un elemento de este tipo (en el panel de OBS o en su página)
+Salva prima un elemento di questo tipo (nel pannello di OBS o nella sua pagina)
+Speichern Sie zuerst einen Eintrag dieser Art (im OBS-Panel oder auf seiner Seite)
+
+Acrescenta este passo no fim do roteiro
+Adds this step at the end of the rundown
+Añade este paso al final del guion
+Aggiunge questo passo alla fine della scaletta
+Fügt diesen Schritt am Ende des Ablaufs an
+
+A contagem começa quando é mostrada, no painel do OBS (aba "Contagem"), no roteiro ou por uma tecla do Stream Deck. Lá também se trocam os minutos na hora.
+The countdown starts when it is shown, from the OBS panel ("Countdown" tab), the rundown or a Stream Deck key. The minutes can also be changed there on the spot.
+La cuenta empieza cuando se muestra, desde el panel de OBS (pestaña "Cuenta"), el guion o una tecla del Stream Deck. Allí también se cambian los minutos al momento.
+Il conteggio parte quando viene mostrato, dal pannello di OBS (scheda "Conteggio"), dalla scaletta o da un tasto dello Stream Deck. Lì si cambiano anche i minuti al volo.
+Der Countdown beginnt, wenn er eingeblendet wird: im OBS-Panel (Tab „Countdown“), im Ablauf oder per Stream-Deck-Taste. Dort lassen sich auch die Minuten spontan ändern.
+
+O culto começa em
+The service starts in
+El culto comienza en
+Il culto inizia tra
+Der Gottesdienst beginnt in
+
+Como contar
+How to count
+Cómo contar
+Come contare
+Zählweise
+
+Por minutos, a partir de quando é mostrada
+By minutes, from the moment it is shown
+Por minutos, desde que se muestra
+A minuti, da quando viene mostrato
+Nach Minuten, ab dem Einblenden
+
+Até um horário de hoje
+Until a time today
+Hasta una hora de hoy
+Fino a un’ora di oggi
+Bis zu einer Uhrzeit heute
+
+Texto ao chegar a zero
+Text when it reaches zero
+Texto al llegar a cero
+Testo all’arrivo a zero
+Text bei null
+
+Já vamos começar
+We are about to start
+Ya vamos a empezar
+Stiamo per iniziare
+Gleich geht es los
+
+Vazio: a contagem para em 00:00.
+Empty: the countdown stops at 00:00.
+Vacío: la cuenta se detiene en 00:00.
+Vuoto: il conteggio si ferma a 00:00.
+Leer: Der Countdown bleibt bei 00:00 stehen.
+
+Sair sozinha alguns segundos depois do zero
+Leave by itself a few seconds after zero
+Salir sola unos segundos después del cero
+Uscire da solo qualche secondo dopo lo zero
+Einige Sekunden nach null von selbst ausblenden
+
+Números
+Numbers
+Números
+Numeri
+Zahlen
+
+Coloque em ordem o que vai ao ar durante o culto: o nome de quem fala, as ofertas, um comentário, a agenda. No painel do OBS, a aba "Roteiro" mostra a lista e um botão "Próximo": a cada clique entra o passo seguinte e o anterior sai. Os passos apontam para o que já está salvo (nomes, ofertas, comentários, redes).
+Put in order what goes on air during the service: the name of whoever is speaking, the offerings, a comment, the schedule. In the OBS panel, the "Rundown" tab shows the list and a "Next" button: each click brings in the next step and the one before leaves. The steps point at what is already saved (names, offerings, comments, networks).
+Ponga en orden lo que sale al aire durante el culto: el nombre de quien habla, las ofrendas, un comentario, la agenda. En el panel de OBS, la pestaña "Guion" muestra la lista y un botón "Siguiente": con cada clic entra el paso siguiente y el anterior sale. Los pasos apuntan a lo que ya está guardado (nombres, ofrendas, comentarios, redes).
+Metti in ordine ciò che va in onda durante il culto: il nome di chi parla, le offerte, un commento, l’agenda. Nel pannello di OBS, la scheda "Scaletta" mostra l’elenco e un pulsante "Avanti": a ogni clic entra il passo successivo e il precedente esce. I passi puntano a ciò che è già salvato (nomi, offerte, commenti, social).
+Ordnen Sie, was während des Gottesdienstes auf Sendung geht: den Namen des Sprechers, die Spenden, einen Kommentar, die Termine. Im OBS-Panel zeigt der Tab „Ablauf“ die Liste und die Schaltfläche „Weiter“: Jeder Klick bringt den nächsten Schritt, der vorige geht. Die Schritte verweisen auf bereits Gespeichertes (Namen, Spenden, Kommentare, Netzwerke).
+
+Contagem regressiva (começa de novo)
+Countdown (starts again)
+Cuenta regresiva (empieza de nuevo)
+Conto alla rovescia (riparte)
+Countdown (beginnt neu)
+
+Roteiro: próximo passo
+Rundown: next step
+Guion: paso siguiente
+Scaletta: passo successivo
+Ablauf: nächster Schritt
+
+Roteiro: passo anterior
+Rundown: previous step
+Guion: paso anterior
+Scaletta: passo precedente
+Ablauf: voriger Schritt
+
+Roteiro: ir para um passo (1 = primeiro)
+Rundown: go to a step (1 = first)
+Guion: ir a un paso (1 = primero)
+Scaletta: vai a un passo (1 = primo)
+Ablauf: zu einem Schritt springen (1 = erster)
+
+Roteiro: recomeçar
+Rundown: start over
+Guion: reiniciar
+Scaletta: ricomincia
+Ablauf: neu beginnen
+
+Modo simples: {n} blocos de ajustes finos estão escondidos nesta página.
+Simple mode: {n} blocks of fine adjustments are hidden on this page.
+Modo simple: {n} bloques de ajustes finos están ocultos en esta página.
+Modalità semplice: {n} blocchi di regolazioni fini sono nascosti in questa pagina.
+Einfacher Modus: {n} Blöcke mit Feineinstellungen sind auf dieser Seite ausgeblendet.
+
+Mostrar tudo
+Show everything
+Mostrar todo
+Mostra tutto
+Alles anzeigen
+
+Criar as fontes no OBS
+Create the sources in OBS
+Crear las fuentes en OBS
+Crea le fonti in OBS
+Quellen in OBS anlegen
+
+O programa cria as fontes de navegador direto no OBS, na cena que está aberta, com o endereço e o tamanho certos. No OBS, abra Ferramentas → Configurações do servidor WebSocket, marque "Ativar servidor WebSocket" e clique em "Mostrar informações de conexão" para ver a senha.
+The program creates the browser sources right in OBS, in the scene that is open, with the right address and size. In OBS, open Tools → WebSocket Server Settings, check "Enable WebSocket server" and click "Show Connect Info" to see the password.
+El programa crea las fuentes de navegador directamente en OBS, en la escena abierta, con la dirección y el tamaño correctos. En OBS, abra Herramientas → Configuración del servidor WebSocket, marque "Habilitar servidor WebSocket" y haga clic en "Mostrar información de conexión" para ver la contraseña.
+Il programma crea le fonti browser direttamente in OBS, nella scena aperta, con l’indirizzo e le dimensioni giuste. In OBS apri Strumenti → Impostazioni del server WebSocket, attiva "Abilita server WebSocket" e fai clic su "Mostra informazioni di connessione" per vedere la password.
+Das Programm legt die Browserquellen direkt in OBS an, in der geöffneten Szene, mit richtiger Adresse und Größe. Öffnen Sie in OBS Werkzeuge → WebSocket-Servereinstellungen, aktivieren Sie „WebSocket-Server aktivieren“ und klicken Sie auf „Verbindungsinformationen anzeigen“, um das Passwort zu sehen.
+
+Senha do servidor WebSocket do OBS
+Password of OBS's WebSocket server
+Contraseña del servidor WebSocket de OBS
+Password del server WebSocket di OBS
+Passwort des WebSocket-Servers von OBS
+
+Vazio se o OBS não pede senha
+Empty if OBS asks for no password
+Vacío si OBS no pide contraseña
+Vuoto se OBS non chiede la password
+Leer, wenn OBS kein Passwort verlangt
+
+Porta
+Port
+Puerto
+Porta
+Port
+
+A do OBS é 4455, a não ser que tenha sido trocada.
+OBS uses 4455, unless it was changed.
+La de OBS es 4455, salvo que se haya cambiado.
+Quella di OBS è 4455, salvo modifiche.
+OBS verwendet 4455, sofern nicht geändert.
+
+Uma fonte com tudo
+One source with everything
+Una fuente con todo
+Una fonte con tutto
+Eine Quelle mit allem
+
+Uma fonte por elemento
+One source per element
+Una fuente por elemento
+Una fonte per elemento
+Eine Quelle pro Element
+
+O mais simples: uma fonte só, com todos os elementos
+The simplest: a single source, with every element
+Lo más simple: una sola fuente, con todos los elementos
+La più semplice: una sola fonte, con tutti gli elementi
+Am einfachsten: eine einzige Quelle mit allen Elementen
+
+Uma fonte para cada elemento ligado, para mostrar em cenas diferentes ou mudar a ordem das camadas
+One source for each element that is on, to show in different scenes or change the order of the layers
+Una fuente para cada elemento activado, para mostrar en escenas distintas o cambiar el orden de las capas
+Una fonte per ogni elemento attivo, da mostrare in scene diverse o per cambiare l’ordine dei livelli
+Eine Quelle für jedes aktive Element, um sie in verschiedenen Szenen zu zeigen oder die Ebenenreihenfolge zu ändern
+
+Criando…
+Creating…
+Creando…
+Creazione…
+Wird angelegt…
+
+Criar no OBS
+Create in OBS
+Crear en OBS
+Crea in OBS
+In OBS anlegen
+
+Criadas na cena "{scene}": {list}.
+Created in the scene "{scene}": {list}.
+Creadas en la escena "{scene}": {list}.
+Create nella scena "{scene}": {list}.
+In der Szene „{scene}“ angelegt: {list}.
+
+Já existiam no OBS (não foram alteradas): {list}.
+Already in OBS (left unchanged): {list}.
+Ya existían en OBS (no se modificaron): {list}.
+Esistevano già in OBS (non modificate): {list}.
+Bereits in OBS vorhanden (unverändert): {list}.
+
+O painel de controle (dock) ainda é adicionado à mão: o OBS não deixa um programa criar docks. O endereço está logo abaixo.
+The control panel (dock) is still added by hand: OBS does not let a program create docks. The address is right below.
+El panel de control (dock) todavía se añade a mano: OBS no permite que un programa cree docks. La dirección está justo abajo.
+Il pannello di controllo (dock) si aggiunge ancora a mano: OBS non permette a un programma di creare dock. L’indirizzo è qui sotto.
+Das Bedienfeld (Dock) wird weiterhin von Hand hinzugefügt: OBS lässt Programme keine Docks anlegen. Die Adresse steht direkt darunter.
+
+Simples
+Simple
+Simple
+Semplice
+Einfach
+
+Avançado
+Advanced
+Avanzado
+Avanzato
+Erweitert
+
+Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja
+Saves the look of this profile to a file (with the logo and the custom style), to take to another church
+Guarda la apariencia de este perfil en un archivo (con el logo y el modelo propio), para llevarla a otra iglesia
+Salva l’aspetto di questo profilo in un file (con il logo e il modello personale), da portare in un’altra chiesa
+Speichert das Aussehen dieses Profils in einer Datei (mit Logo und eigener Vorlage), zum Weitergeben an eine andere Gemeinde
+
+Importar perfil de um arquivo
+Import a profile from a file
+Importar un perfil desde un archivo
+Importa un profilo da un file
+Profil aus einer Datei importieren
+
+Desfazer
+Undo
+Deshacer
+Annulla
+Rückgängig
+
+O OBS não respondeu. Confira se ele está aberto e se o servidor WebSocket está ativado (Ferramentas → Configurações do servidor WebSocket).
+OBS did not answer. Check that it is open and that the WebSocket server is enabled (Tools → WebSocket Server Settings).
+OBS no respondió. Compruebe que está abierto y que el servidor WebSocket está habilitado (Herramientas → Configuración del servidor WebSocket).
+OBS non ha risposto. Controlla che sia aperto e che il server WebSocket sia abilitato (Strumenti → Impostazioni del server WebSocket).
+OBS hat nicht geantwortet. Prüfen Sie, ob es geöffnet und der WebSocket-Server aktiviert ist (Werkzeuge → WebSocket-Servereinstellungen).
+
+A senha do servidor WebSocket do OBS não confere.
+The password of OBS's WebSocket server does not match.
+La contraseña del servidor WebSocket de OBS no coincide.
+La password del server WebSocket di OBS non corrisponde.
+Das Passwort des WebSocket-Servers von OBS stimmt nicht.
+
+O OBS pede uma senha. Copie-a em "Mostrar informações de conexão".
+OBS asks for a password. Copy it from "Show Connect Info".
+OBS pide una contraseña. Cópiela en "Mostrar información de conexión".
+OBS chiede una password. Copiala da "Mostra informazioni di connessione".
+OBS verlangt ein Passwort. Kopieren Sie es unter „Verbindungsinformationen anzeigen“.
+
+O OBS não tem uma cena aberta para receber as fontes.
+OBS has no open scene to receive the sources.
+OBS no tiene una escena abierta para recibir las fuentes.
+OBS non ha una scena aperta in cui inserire le fonti.
+OBS hat keine geöffnete Szene für die Quellen.
+
+O OBS fechou a conexão. Tente de novo.
+OBS closed the connection. Try again.
+OBS cerró la conexión. Inténtelo de nuevo.
+OBS ha chiuso la connessione. Riprova.
+OBS hat die Verbindung geschlossen. Versuchen Sie es erneut.
+
+O OBS recusou o pedido. Confira a versão do OBS (28 ou mais nova).
+OBS refused the request. Check the version of OBS (28 or newer).
+OBS rechazó la solicitud. Compruebe la versión de OBS (28 o más reciente).
+OBS ha rifiutato la richiesta. Controlla la versione di OBS (28 o successiva).
+OBS hat die Anfrage abgelehnt. Prüfen Sie die OBS-Version (28 oder neuer).
+
+Há modelos demais: exclua um antes de importar outro.
+Too many styles: delete one before importing another.
+Hay demasiados modelos: elimine uno antes de importar otro.
+Ci sono troppi modelli: eliminane uno prima di importarne un altro.
+Zu viele Vorlagen: Löschen Sie eine, bevor Sie eine weitere importieren.
+
+Esse modelo não existe mais.
+That style no longer exists.
+Ese modelo ya no existe.
+Quel modello non esiste più.
+Diese Vorlage gibt es nicht mehr.
+
+O roteiro está vazio. Monte-o nas configurações.
+The rundown is empty. Build it in the settings.
+El guion está vacío. Ármelo en los ajustes.
+La scaletta è vuota. Creala nelle impostazioni.
+Der Ablauf ist leer. Erstellen Sie ihn in den Einstellungen.
+
+O roteiro chegou ao fim.
+The rundown has reached its end.
+El guion llegó al final.
+La scaletta è arrivata alla fine.
+Der Ablauf ist am Ende.
+
+Esse passo não existe no roteiro.
+That step is not in the rundown.
+Ese paso no existe en el guion.
+Quel passo non esiste nella scaletta.
+Diesen Schritt gibt es im Ablauf nicht.
+
+Este passo aponta para algo que foi apagado. Corrija o roteiro nas configurações.
+This step points at something that was deleted. Fix the rundown in the settings.
+Este paso apunta a algo que fue borrado. Corrija el guion en los ajustes.
+Questo passo punta a qualcosa che è stato eliminato. Correggi la scaletta nelle impostazioni.
+Dieser Schritt verweist auf etwas Gelöschtes. Korrigieren Sie den Ablauf in den Einstellungen.
+
+Todas as redes
+All networks
+Todas las redes
+Tutti i social
+Alle Netzwerke

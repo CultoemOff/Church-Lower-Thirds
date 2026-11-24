@@ -33,13 +33,31 @@ export async function api(path, { method = 'GET', body, raw, type } = {}) {
 }
 
 let toastTimer = 0;
-export function toast(text) {
+/**
+ * A short notice at the bottom. With `undo`, it stays longer and carries a "Desfazer"
+ * button: what was just removed comes back with a click.
+ */
+export function toast(text, undo) {
   let box = $('.toast');
   if (!box) document.body.append((box = h('div', { class: 'toast', role: 'status' })));
-  box.textContent = t(text);
+  box.replaceChildren(h('span', { 'data-raw': '' }, t(text)));
+  if (undo)
+    box.append(
+      h(
+        'button',
+        {
+          type: 'button',
+          onclick: () => {
+            box.classList.add('hidden');
+            undo();
+          },
+        },
+        'Desfazer',
+      ),
+    );
   box.classList.remove('hidden');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => box.classList.add('hidden'), 3200);
+  toastTimer = setTimeout(() => box.classList.add('hidden'), undo ? 8000 : 3200);
 }
 
 // Messages the server sends in English, shown in Portuguese.
@@ -83,6 +101,28 @@ const ERRORS = [
     'O Windows não deixou abrir o instalador. Ele já foi baixado: use "Mostrar o instalador".',
   ],
   [/Update cancelled/, 'Atualização cancelada.'],
+  [
+    /OBS is not answering/,
+    'O OBS não respondeu. Confira se ele está aberto e se o servidor WebSocket está ativado (Ferramentas → Configurações do servidor WebSocket).',
+  ],
+  [/Wrong OBS password/, 'A senha do servidor WebSocket do OBS não confere.'],
+  [/OBS asks for a password/, 'O OBS pede uma senha. Copie-a em "Mostrar informações de conexão".'],
+  [/OBS has no scene/, 'O OBS não tem uma cena aberta para receber as fontes.'],
+  [/OBS closed the connection/, 'O OBS fechou a conexão. Tente de novo.'],
+  [/OBS refused/, 'O OBS recusou o pedido. Confira a versão do OBS (28 ou mais nova).'],
+  [
+    /Not a Church Lower Thirds model or profile|has no (model|profile) in it/,
+    'Esse arquivo não é um modelo nem um perfil do Church Lower Thirds.',
+  ],
+  [/Too many custom models/, 'Há modelos demais: exclua um antes de importar outro.'],
+  [/Model not found/, 'Esse modelo não existe mais.'],
+  [/order of service is empty/, 'O roteiro está vazio. Monte-o nas configurações.'],
+  [/order of service is at its end/, 'O roteiro chegou ao fim.'],
+  [/No such step/, 'Esse passo não existe no roteiro.'],
+  [
+    /points to something that was deleted/,
+    'Este passo aponta para algo que foi apagado. Corrija o roteiro nas configurações.',
+  ],
   [/category is disabled/, 'Esta categoria está desativada nas configurações.'],
   [/Agenda is empty/, 'A agenda está vazia: adicione um dia.'],
   [/Comment is empty/, 'Escreva o comentário antes de mostrar.'],

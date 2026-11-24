@@ -579,6 +579,94 @@ input[type='color'] {
   color: var(--accent);
   white-space: nowrap;
 }
+/* Simple mode: the cards of fine adjustments are left out */
+body.simple .adv {
+  display: none !important;
+}
+.simpleNote {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 14px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+#mode button {
+  padding: 0 10px;
+}
+.shareRow {
+  margin-top: 10px;
+}
+.customItem .customActions a {
+  flex: 1;
+  display: flex;
+}
+p.hint.ok {
+  color: var(--ok, #22c55e);
+}
+/* Search in a long list, and the names read from a pasted list or a file */
+input.find {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.namesTools {
+  margin: 10px 0 4px;
+  display: grid;
+  gap: 10px;
+}
+.importBox {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.importBox textarea {
+  width: 100%;
+  font:
+    12.5px/1.5 ui-monospace,
+    Consolas,
+    monospace;
+}
+.importBox .hint {
+  margin: 0;
+}
+/* Order of service */
+.rows.steps .row {
+  display: grid;
+  grid-template-columns: 22px 150px minmax(0, 1.2fr) minmax(0, 1fr) auto auto auto;
+  align-items: center;
+  gap: 8px;
+}
+.rows.steps .num {
+  text-align: center;
+  color: var(--muted);
+}
+.rows.steps .kind {
+  font-size: 12px;
+  font-weight: 700;
+}
+.rows.steps .what {
+  font-size: 12.5px;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rows.steps .row.bad select {
+  border-color: var(--danger, #ef4444);
+}
+@media (max-width: 900px) {
+  .rows.steps .row {
+    grid-template-columns: 22px 1fr auto auto auto;
+  }
+  .rows.steps .row select,
+  .rows.steps .row .what,
+  .rows.steps .row input {
+    grid-column: 2 / -1;
+  }
+}
 /* The church's own models */
 .customSteps {
   margin: 14px 0 0;

@@ -42,6 +42,38 @@ export default {
     'Menos de 100% deixa a imagem da câmara aparecer por trás.',
   'Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o nome que aparece.':
     'Teste antes do culto: aponte a aplicação do banco para este QR Code e confira o nome que aparece.',
+  'Mostra a contagem na tela, começando agora': 'Mostra a contagem no ecrã, a começar agora',
+  'Abre as configurações para montar ou mudar o roteiro':
+    'Abre as definições para montar ou mudar o roteiro',
+  'Esse arquivo não é um modelo nem um perfil do Church Lower Thirds.':
+    'Esse ficheiro não é um modelo nem um perfil do Church Lower Thirds.',
+  'Aceita arquivos de modelo e de perfil exportados pelo Church Lower Thirds':
+    'Aceita ficheiros de modelo e de perfil exportados pelo Church Lower Thirds',
+  'Salva este modelo num arquivo, para levar a outra igreja':
+    'Guarda este modelo num ficheiro, para levar a outra igreja',
+  'Importar modelo de um arquivo': 'Importar modelo de um ficheiro',
+  'Cole uma lista ou escolha um arquivo: um nome por linha, com o cargo depois':
+    'Cole uma lista ou escolha um ficheiro: um nome por linha, com o cargo depois',
+  'Salva os nomes num arquivo que o Excel e o Google Planilhas abrem':
+    'Guarda os nomes num ficheiro que o Excel e o Google Sheets abrem',
+  'Escolher arquivo': 'Escolher ficheiro',
+  'Salve primeiro um item deste tipo (no painel do OBS ou na página dele)':
+    'Guarde primeiro um item deste tipo (no painel do OBS ou na respetiva página)',
+  'A contagem começa quando é mostrada, no painel do OBS (aba "Contagem"), no roteiro ou por uma tecla do Stream Deck. Lá também se trocam os minutos na hora.':
+    'A contagem começa quando é mostrada, no painel do OBS (separador "Contagem"), no roteiro ou por uma tecla do Stream Deck. Lá também se trocam os minutos na hora.',
+  'Coloque em ordem o que vai ao ar durante o culto: o nome de quem fala, as ofertas, um comentário, a agenda. No painel do OBS, a aba "Roteiro" mostra a lista e um botão "Próximo": a cada clique entra o passo seguinte e o anterior sai. Os passos apontam para o que já está salvo (nomes, ofertas, comentários, redes).':
+    'Coloque em ordem o que vai ao ar durante o culto: o nome de quem fala, as ofertas, um comentário, a agenda. No painel do OBS, a separador "Roteiro" mostra a lista e um botão "Próximo": a cada clique entra o passo seguinte e o anterior sai. Os passos apontam para o que já está guardado (nomes, ofertas, comentários, redes).',
+  'O programa cria as fontes de navegador direto no OBS, na cena que está aberta, com o endereço e o tamanho certos. No OBS, abra Ferramentas → Configurações do servidor WebSocket, marque "Ativar servidor WebSocket" e clique em "Mostrar informações de conexão" para ver a senha.':
+    'O programa cria as fontes de navegador direto no OBS, na cena que está aberta, com o endereço e o tamanho certos. No OBS, abra Ferramentas → Definições do servidor WebSocket, marque "Ativar servidor WebSocket" e clique em "Mostrar informações de conexão" para ver a senha.',
+  'Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja':
+    'Guarda a aparência deste perfil num ficheiro (com o logótipo e o modelo próprio), para levar a outra igreja',
+  'Importar perfil de um arquivo': 'Importar perfil de um ficheiro',
+  'O OBS não respondeu. Confira se ele está aberto e se o servidor WebSocket está ativado (Ferramentas → Configurações do servidor WebSocket).':
+    'O OBS não respondeu. Confira se ele está aberto e se o servidor WebSocket está ativado (Ferramentas → Definições do servidor WebSocket).',
+  'O roteiro está vazio. Monte-o nas configurações.':
+    'O roteiro está vazio. Monte-o nas definições.',
+  'Este passo aponta para algo que foi apagado. Corrija o roteiro nas configurações.':
+    'Este passo aponta para algo que foi apagado. Corrija o roteiro nas definições.',
   'Seus arquivos': 'Os seus ficheiros',
   'Esta pasta guarda as configurações, os nomes, as imagens e os arquivos das fontes do OBS. Copie a pasta inteira para fazer backup.':
     'Esta pasta guarda as definições, os nomes, as imagens e os ficheiros das fontes do OBS. Copie a pasta inteira para fazer backup.',
@@ -237,4 +269,7 @@ export default {
     'Cole o prompt numa IA (ChatGPT, Claude, Gemini ou outra)',
   'Prompt copiado. Cole em uma IA e traga de volta o código que ela escrever.':
     'Prompt copiado. Cole-o numa IA e traga de volta o código que ela escrever.',
+  'Há modelos demais: exclua um antes de importar outro.':
+    'Há modelos a mais: elimine um antes de importar outro.',
+  'Modelo "{name}" excluído.': 'Modelo "{name}" eliminado.',
 };

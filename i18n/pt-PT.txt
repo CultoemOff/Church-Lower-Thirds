@@ -207,3 +207,51 @@ Cole o prompt numa IA (ChatGPT, Claude, Gemini ou outra)
 
 Prompt copiado. Cole em uma IA e traga de volta o código que ela escrever.
 Prompt copiado. Cole-o numa IA e traga de volta o código que ela escrever.
+
+Esse arquivo não é um modelo nem um perfil do Church Lower Thirds.
+Esse ficheiro não é um modelo nem um perfil do Church Lower Thirds.
+
+Salva este modelo num arquivo, para levar a outra igreja
+Guarda este modelo num ficheiro, para levar a outra igreja
+
+Importar modelo de um arquivo
+Importar modelo de um ficheiro
+
+Importar perfil de um arquivo
+Importar perfil de um ficheiro
+
+Escolher arquivo
+Escolher ficheiro
+
+Cole uma lista ou escolha um arquivo: um nome por linha, com o cargo depois
+Cole uma lista ou escolha um ficheiro: um nome por linha, com o cargo depois
+
+Salva os nomes num arquivo que o Excel e o Google Planilhas abrem
+Guarda os nomes num ficheiro que o Excel e o Google Sheets abrem
+
+Aceita arquivos de modelo e de perfil exportados pelo Church Lower Thirds
+Aceita ficheiros de modelo e de perfil exportados pelo Church Lower Thirds
+
+Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja
+Guarda a aparência deste perfil num ficheiro (com o logótipo e o modelo próprio), para levar a outra igreja
+
+Mostra a contagem na tela, começando agora
+Mostra a contagem no ecrã, a começar agora
+
+Salve primeiro um item deste tipo (no painel do OBS ou na página dele)
+Guarde primeiro um item deste tipo (no painel do OBS ou na respetiva página)
+
+Há modelos demais: exclua um antes de importar outro.
+Há modelos a mais: elimine um antes de importar outro.
+
+Modelo "{name}" excluído.
+Modelo "{name}" eliminado.
+
+O roteiro está vazio. Monte-o nas configurações.
+O roteiro está vazio. Monte-o nas definições.
+
+Este passo aponta para algo que foi apagado. Corrija o roteiro nas configurações.
+Este passo aponta para algo que foi apagado. Corrija o roteiro nas definições.
+
+Abre as configurações para montar ou mudar o roteiro
+Abre as definições para montar ou mudar o roteiro

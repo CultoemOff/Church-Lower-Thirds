@@ -4,6 +4,7 @@ import {
   addProfile,
   cleanConfig,
   cleanLive,
+  countdownEnd,
   defaults,
   findItem,
   firstConfig,
@@ -11,6 +12,7 @@ import {
   removeProfile,
   resolveItem,
   resolveSocial,
+  stepTarget,
   useProfile,
 } from '../src/server/store.js';
 
@@ -135,6 +137,8 @@ test('a name that no longer exists is not left on air', () => {
       agenda: { on: false, pin: false },
       social: { on: false, item: '', pin: false },
       comment: { on: false, pin: false },
+      countdown: { on: false, until: 0 },
+      step: '',
     },
   );
   assert.equal(cleanLive({ lower: { on: true, item: 'aaaa' } }, c).lower.on, true);
@@ -451,4 +455,60 @@ test('the first profile is called "Perfil 1"; the old default name is brought up
     cleanConfig(old).profiles.map((p) => p.name),
     ['Culto de domingo', 'Culto padrão'],
   );
+});
+
+test('a countdown ends a number of minutes after it is shown, or at a time of today', () => {
+  const c = defaults().countdown,
+    now = new Date(2026, 10, 24, 19, 0, 0);
+  assert.equal(countdownEnd({ ...c, mode: 'duration', minutes: 5 }, now), now.getTime() + 300000);
+  assert.equal(
+    countdownEnd({ ...c, mode: 'clock', time: '19:30' }, now),
+    new Date(2026, 10, 24, 19, 30, 0).getTime(),
+  );
+  // A time already past, or one that makes no sense, is zero now: never tomorrow.
+  assert.equal(countdownEnd({ ...c, mode: 'clock', time: '18:00' }, now), now.getTime());
+  assert.equal(countdownEnd({ ...c, mode: 'clock', time: 'soon' }, now), now.getTime());
+  // The server keeps the choices within reason.
+  const raw = JSON.parse(JSON.stringify(defaults()));
+  Object.assign(raw.countdown, { mode: 'forever', minutes: 99999, template: 'nope' });
+  const clean = cleanConfig(raw).countdown;
+  assert.deepEqual([clean.mode, clean.minutes, clean.template], ['duration', 600, 'card']);
+});
+
+test('the order of service keeps only steps of known kinds, and tells what each one shows', () => {
+  const raw = JSON.parse(JSON.stringify(defaults()));
+  raw.lower.items = [
+    { id: 'name1111', line1: 'Pr. João', line2: 'Pastor', logo: true, qr: 'none', qrText: '' },
+  ];
+  raw.card.saved = [
+    { id: 'card1111', title: 'Missões', subtitle: '', qr: 'url', qrText: 'https://x.org' },
+  ];
+  raw.rundown = [
+    { id: 'step1111', kind: 'lower', ref: 'name1111', note: '  abertura  ' },
+    { id: 'step2222', kind: 'card', ref: 'card1111', note: '' },
+    { id: 'step3333', kind: 'lower', ref: 'gone9999', note: '' },
+    { id: 'step4444', kind: 'explode', ref: '', note: '' },
+    { id: 'step1111', kind: 'hide', ref: '', note: 'repetido' },
+    { id: 'step5555', kind: 'hide', ref: '', note: '' },
+    'nothing',
+  ];
+  const c = cleanConfig(raw);
+  assert.deepEqual(
+    c.rundown.map((x) => [x.kind, x.ref, x.note]),
+    [
+      ['lower', 'name1111', 'abertura'],
+      ['card', 'card1111', ''],
+      ['lower', 'gone9999', ''],
+      ['hide', '', ''],
+    ],
+  );
+  assert.equal((stepTarget(c, c.rundown[0]) as { line1: string }).line1, 'Pr. João');
+  assert.equal((stepTarget(c, c.rundown[1]) as { title: string }).title, 'Missões');
+  // A step whose name was deleted stays in the list, pointing at nothing.
+  assert.equal(stepTarget(c, c.rundown[2]), undefined);
+  assert.ok(stepTarget(c, c.rundown[3]));
+  // The step that ran last is remembered only while it exists.
+  assert.equal(cleanLive({ step: 'step2222' }, c).step, 'step2222');
+  assert.equal(cleanLive({ step: 'zzzz0000' }, c).step, '');
+  assert.equal(cleanLive({ countdown: { on: true, until: 123 } }, c).countdown.until, 123);
 });

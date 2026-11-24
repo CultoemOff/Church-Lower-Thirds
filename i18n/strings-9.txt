@@ -1216,11 +1216,11 @@ No se pudo usar ninguna regla. Compruebe que pegó solo el código CSS.
 Nessuna regola utilizzabile. Controlla di aver incollato solo il codice CSS.
 Keine Regel konnte verwendet werden. Prüfen Sie, ob nur der CSS-Code eingefügt wurde.
 
-Seletores ignorados ({n}): cada um precisa começar pelo nome de um elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment).
-Selectors ignored ({n}): each one must start with the name of an element (.lower, .top, .ticker, .card, .agenda, .social, .comment).
-Selectores ignorados ({n}): cada uno debe empezar por el nombre de un elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment).
-Selettori ignorati ({n}): ognuno deve iniziare con il nome di un elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment).
-Ignorierte Selektoren ({n}): Jeder muss mit dem Namen eines Elements beginnen (.lower, .top, .ticker, .card, .agenda, .social, .comment).
+Seletores ignorados ({n}): cada um precisa começar pelo nome de um elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment, .countdown).
+Selectors ignored ({n}): each one must start with the name of an element (.lower, .top, .ticker, .card, .agenda, .social, .comment, .countdown).
+Selectores ignorados ({n}): cada uno debe empezar por el nombre de un elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment, .countdown).
+Selettori ignorati ({n}): ognuno deve iniziare con il nome di un elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment, .countdown).
+Ignorierte Selektoren ({n}): Jeder muss mit dem Namen eines Elements beginnen (.lower, .top, .ticker, .card, .agenda, .social, .comment, .countdown).
 
 Linhas ignoradas ({n}): o modelo não pode buscar nada na internet.
 Lines ignored ({n}): the style cannot fetch anything from the internet.

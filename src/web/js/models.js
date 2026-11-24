@@ -246,6 +246,7 @@ const BASE_ANIMATION = {
   agenda: 'rise',
   social: 'bounce',
   comment: 'rise',
+  countdown: 'rise',
 };
 // Models: the shape of every element at once (the model of each one, font, corners,
 // shadow, entrance). Each model names the ready-made colors that suit it best; they are
@@ -734,6 +735,8 @@ export const MODELS = [
  * otherwise are a speech balloon, or a card where the corners are nearly square.
  */
 export function modelTemplate(model, el) {
+  // The countdown has one glass look and, for every other model, its plain card.
+  if (el === 'countdown') return model.templates.lower === 'liquid' ? 'liquid' : 'card';
   if (el !== 'comment') return model.templates[el];
   const family = model.templates.lower;
   if (['liquid', 'youth', 'kids', 'floral'].includes(family)) return family;

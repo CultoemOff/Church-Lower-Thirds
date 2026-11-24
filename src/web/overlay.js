@@ -36,6 +36,7 @@ const SLUGS = {
   schedule: 'agenda',
   social: 'social',
   comments: 'comment',
+  countdown: 'countdown',
   logo: 'bug',
 };
 const slug = location.pathname.match(/^\/source\/([\w-]+)/)?.[1];
@@ -76,6 +77,7 @@ const shown = {
   agenda: {},
   social: {},
   comment: {},
+  countdown: {},
 };
 
 // ---- Custom models ----
@@ -165,7 +167,7 @@ const plate = (c) => (c.opacity ?? 100) * (config.theme.glass ? GLASS : 1);
       const paint = [r.style.background, r.style.backgroundImage, r.style.backgroundColor];
       if (!paint.some((v) => /var\(--fill2?(-soft)?\)/.test(v))) continue;
       for (const sel of selectors(r.selectorText)) {
-        const m = sel.match(/^\.(lower|top|ticker|card|agenda|social|comment)(?![\w-])/);
+        const m = sel.match(/^\.(lower|top|ticker|card|agenda|social|comment|countdown)(?![\w-])/);
         // The liquid models are glass already, in their own way.
         if (m && !sel.includes("'liquid'") && !sel.includes('"liquid"'))
           parts.push(`.${m[1]}[data-glass]${sel.slice(m[0].length)}`);
@@ -737,6 +739,58 @@ function renderComment() {
   return said ? [user, said].join('|') : '';
 }
 
+// ---- Countdown ----
+const clockText = (ms) => {
+  const s = Math.max(0, Math.ceil(ms / 1000)),
+    two = (n) => String(n).padStart(2, '0');
+  return s >= 3600
+    ? `${Math.floor(s / 3600)}:${two(Math.floor((s % 3600) / 60))}:${two(s % 60)}`
+    : `${two(Math.floor(s / 60))}:${two(s % 60)}`;
+};
+/** The time left, written again a few times a second while the countdown is on screen. */
+function tickCountdown() {
+  if (!config || !live) return;
+  const c = config.countdown,
+    box = $('countdown', '.box'),
+    // Off air (previews and the editor) it shows the time it would start with.
+    left = live.countdown.on
+      ? live.countdown.until - Date.now()
+      : c.mode === 'clock'
+        ? 4 * 60000 + 59000
+        : c.minutes * 60000;
+  const ended = left <= 0 && !!c.endText;
+  box.classList.toggle('ended', ended);
+  const text = clockText(left),
+    time = $('countdown', '.time');
+  if (time.textContent !== text) time.textContent = text;
+}
+setInterval(tickCountdown, 200);
+function renderCountdown() {
+  const c = themed(config, 'countdown'),
+    root = roots.countdown,
+    box = $('countdown', '.box');
+  root.dataset.template = c.template;
+  root.dataset.pos = c.position;
+  common('countdown', c, sideOf(c.position));
+  setVars(root, {
+    fill: fillCss(c.fill, plate(c)),
+    accent: fillCss(c.accent),
+    'accent-a': c.accent.a,
+    'on-accent': onColor(c.accent.type === 'gradient' ? c.accent.b : c.accent.a),
+    t1: c.text,
+    t2: c.text2,
+    w1: c.weight,
+    mx: c.marginX + 'px',
+    my: c.marginY + 'px',
+  });
+  $('countdown', '.title').textContent = c.title;
+  $('countdown', '.end').textContent = c.endText;
+  box.classList.toggle('has-title', !!c.title);
+  tickCountdown();
+  // The numbers change in place; only another start brings it in again.
+  return String(live.countdown.until);
+}
+
 const render = {
   lower: renderLower,
   top: renderTop,
@@ -746,6 +800,7 @@ const render = {
   agenda: renderAgenda,
   social: renderSocial,
   comment: renderComment,
+  countdown: renderCountdown,
 };
 const onShow = { agenda: startAgenda, social: startSocial };
 const wanted = (el) => {
