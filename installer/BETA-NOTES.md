@@ -1,5 +1,9 @@
 **Versão beta para testes — somente Windows.** Programa novo, separado do PTZ Control Web.
 
+### Novidades da beta.8
+
+- **Atualizar agora**: em alguns computadores (principalmente os de empresa) o Windows recusava abrir o instalador e aparecia só "spawn UNKNOWN". Agora, se a primeira tentativa falha, o programa pede ao Windows para abrir o instalador com permissão de administrador; se nem assim der, mostra o motivo e o botão **Baixar o instalador**.
+
 ### Novidades da beta.7
 
 - **Modelo temático "Natal no Egito"**, para a cantata: placas em tons de areia e marrom com o **logo completo** (o sol, as pirâmides, o letreiro e a linha "Cantata ICT 2026", com os traços e as cores da arte) na placa do nome e no cartão do QR Code; no selo superior e nas redes ficam o sol e as pirâmides. Cores sugeridas "Deserto"; há também "Noite no deserto".

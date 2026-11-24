@@ -53,7 +53,8 @@ let config = null,
   installedFonts = [],
   obsVertical = false,
   update = null,
-  updateState = '';
+  updateState = '',
+  updateBlocked = '';
 
 const NAMES = {
   classic: 'Clássico',
@@ -1043,8 +1044,23 @@ const pages = {
                 h('button', {}, 'Abrir a página de downloads'),
               )
             : null,
+          u?.newer && updateState === 'blocked'
+            ? h(
+                'a',
+                { href: u.setupUrl || u.page, target: '_blank', rel: 'noopener' },
+                h('button', { class: 'primary' }, 'Baixar o instalador'),
+              )
+            : null,
           h('button', { disabled: busy, onclick: () => checkUpdate(true) }, 'Procurar atualização'),
         ),
+        updateState === 'blocked'
+          ? hint(
+              'O Windows deste computador não deixou o programa abrir o instalador sozinho (é comum em computadores de empresa). Baixe o instalador e abra-o você mesmo: as configurações são mantidas.',
+            )
+          : null,
+        updateState === 'blocked' && updateBlocked
+          ? h('p', { class: 'hint', 'data-raw': '' }, updateBlocked)
+          : null,
       );
     };
     const done = (ok, text, action, pageId) =>
@@ -2340,7 +2356,9 @@ async function installUpdate() {
   renderForm();
   const r = await api('/api/update/install', { method: 'POST' });
   if (r.error) {
-    updateState = '';
+    // Windows refused to run the installer: the page then offers the download instead.
+    updateState = /did not start the installer/.test(r.error) ? 'blocked' : '';
+    updateBlocked = updateState ? r.error.replace(/^.*?installer:\s*/, '') : '';
     toast(friendly(r.error));
   } else updateState = 'installing';
   renderForm();

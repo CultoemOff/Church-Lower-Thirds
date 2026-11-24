@@ -861,4 +861,9 @@ export default {
   'Com o horário ligado, a data fica embaixo dele; sozinha, fica no lugar dele.':
     'Con l’orario attivo, la data sta sotto; da sola, ne prende il posto.',
   Data: 'Data',
+  'O Windows não deixou abrir o instalador. Baixe a nova versão pelo botão ao lado.':
+    'Windows non ha lasciato aprire l’installer. Scarica la nuova versione con il pulsante accanto.',
+  'Baixar o instalador': 'Scarica l’installer',
+  'O Windows deste computador não deixou o programa abrir o instalador sozinho (é comum em computadores de empresa). Baixe o instalador e abra-o você mesmo: as configurações são mantidas.':
+    'Windows su questo computer non ha lasciato che il programma aprisse l’installer da solo (è comune sui computer aziendali). Scarica l’installer e aprilo tu stesso: le impostazioni vengono mantenute.',
 };

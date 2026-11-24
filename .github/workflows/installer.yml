@@ -262,13 +262,18 @@ jobs:
             try { $listed = Invoke-RestMethod 'http://127.0.0.1:8899/releases.json' } catch {}
           }
           if (-not $listed) { throw "The stand-in release server did not start" }
+          $log = Join-Path $env:RUNNER_TEMP 'server'
+          # Both ways of starting the installer: directly, and through the Windows shell with
+          # administrator rights (what the program falls back to where Windows refuses the first).
+          foreach ($launch in '', 'shell') {
           & powershell -NoProfile -ExecutionPolicy Bypass -File "$dir\stop-server.ps1" -AppDir $dir
           $env:CLT_UPDATE_API = 'http://127.0.0.1:8899/releases.json'
-          $log = Join-Path $env:RUNNER_TEMP 'server'
+          $env:CLT_UPDATE_LAUNCH = $launch
           # In a console of its own (cmd in a hidden window), as the installed program runs:
           # sharing the console of this step would let a Ctrl+C meant for it reach the runner.
           Start-Process cmd.exe -ArgumentList '/c', "`"`"$dir\runtime\node.exe`" `"$dir\app\dist\server\index.js`" > `"$log.out.txt`" 2> `"$log.err.txt`"`"" -WorkingDirectory "$dir\app" -WindowStyle Hidden
           $env:CLT_UPDATE_API = $null
+          $env:CLT_UPDATE_LAUNCH = $null
           Wait-Server
           $node = Get-CimInstance Win32_Process -Filter "Name='node.exe'" | Where-Object { $_.ExecutablePath -eq "$dir\runtime\node.exe" } | Select-Object -First 1
           if (-not $node) { throw "The test server is not running from the installed folder" }
@@ -295,8 +300,9 @@ jobs:
           Wait-Server
           if ((Invoke-RestMethod "$base/api/info").folder -ne $other) { throw "Folder changed by the in-app update" }
           if ((Invoke-RestMethod "$base/api/state").config.pix.name -ne 'Igreja Teste') { throw "Settings lost by the in-app update" }
+          Write-Host "In-app update ($(if ($launch) { $launch } else { 'direct' })): downloaded, verified, installed and back on air."
+          }
           Stop-Process -Id $web.Id -Force -ErrorAction SilentlyContinue
-          Write-Host "In-app update: downloaded, verified, installed and back on air."
       - name: Installer test 5 of 5 - uninstall
         shell: pwsh
         timeout-minutes: 10

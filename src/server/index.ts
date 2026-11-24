@@ -1,7 +1,7 @@
 import express, { type NextFunction, type Request, type Response } from 'express';
 import { createServer, type IncomingMessage } from 'node:http';
 import { createHash } from 'node:crypto';
-import { execFile, spawn } from 'node:child_process';
+import { execFile } from 'node:child_process';
 import {
   appendFileSync,
   existsSync,
@@ -19,6 +19,7 @@ import { WebSocketServer } from 'ws';
 import { refusal } from './guard.js';
 import { appDataDir, installInfoFile, ownerId, userFilesFolder } from './paths.js';
 import { checkForUpdate, downloadVerifiedSetup } from './updater.js';
+import { startSetup } from './launch.js';
 import { installedFonts } from './fonts.js';
 import { pixPayload, validPixPayload } from './pix.js';
 import { sepaPayload } from './sepa.js';
@@ -522,21 +523,11 @@ app.post('/api/update/install', async (_q, r) => {
     if (!info.newer) return void r.status(409).json({ error: 'Already up to date', ...info });
     installing ??= downloadVerifiedSetup(info).finally(() => (installing = undefined));
     const setup = await installing;
-    // The setup asks Windows for permission by itself (its manifest is "asInvoker", checked
-    // in CI), so it can be started directly. /SILENT: after the permission prompt, only the
-    // progress window. /LOG leaves "Setup Log <date>.txt" in the temp folder, for when an
-    // update goes wrong.
-    const child = spawn(setup, ['/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/LOG'], {
-      detached: true,
-      stdio: 'ignore',
-    });
-    // Answer only once Windows has really started it; a failure here must reach the person
-    // as a message, not take the program down.
-    await new Promise<void>((ok, bad) => {
-      child.once('spawn', () => ok());
-      child.once('error', bad);
-    });
-    child.unref();
+    // /SILENT: after the permission prompt, only the progress window. /LOG leaves
+    // "Setup Log <date>.txt" in the temp folder, for when an update goes wrong. The answer
+    // goes out only once Windows has really started the setup: a failure must reach the
+    // person as a message, not take the program down.
+    await startSetup(setup, ['/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/LOG']);
     r.json({ ok: true, version: info.latest });
   } catch (e) {
     fail(r, e, 502);

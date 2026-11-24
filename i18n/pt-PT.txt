@@ -132,3 +132,6 @@ Faixa inclinada e letras altas, no estilo das transmissões desportivas
 
 Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; passe o mouse para ver a entrada.
 Comece pelo modelo: define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logótipo da igreja; passe o rato para ver a entrada.
+
+O Windows deste computador não deixou o programa abrir o instalador sozinho (é comum em computadores de empresa). Baixe o instalador e abra-o você mesmo: as configurações são mantidas.
+O Windows deste computador não deixou o programa abrir o instalador sozinho (é comum em computadores de empresa). Transfira o instalador e abra-o: as configurações são mantidas.

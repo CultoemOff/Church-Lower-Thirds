@@ -567,3 +567,21 @@ Date
 Fecha
 Data
 Datum
+
+O Windows não deixou abrir o instalador. Baixe a nova versão pelo botão ao lado.
+Windows did not let the installer open. Download the new version with the button beside it.
+Windows no dejó abrir el instalador. Descargue la nueva versión con el botón de al lado.
+Windows non ha lasciato aprire l’installer. Scarica la nuova versione con il pulsante accanto.
+Windows hat das Installationsprogramm nicht öffnen lassen. Laden Sie die neue Version über die Schaltfläche daneben herunter.
+
+Baixar o instalador
+Download the installer
+Descargar el instalador
+Scarica l’installer
+Installationsprogramm herunterladen
+
+O Windows deste computador não deixou o programa abrir o instalador sozinho (é comum em computadores de empresa). Baixe o instalador e abra-o você mesmo: as configurações são mantidas.
+Windows on this computer did not let the program open the installer by itself (common on company computers). Download the installer and open it yourself: the settings are kept.
+El Windows de este equipo no dejó que el programa abriera el instalador por sí solo (es común en equipos de empresa). Descargue el instalador y ábralo usted mismo: la configuración se mantiene.
+Windows su questo computer non ha lasciato che il programma aprisse l’installer da solo (è comune sui computer aziendali). Scarica l’installer e aprilo tu stesso: le impostazioni vengono mantenute.
+Windows hat auf diesem Computer nicht zugelassen, dass das Programm das Installationsprogramm selbst öffnet (auf Firmencomputern üblich). Laden Sie es herunter und öffnen Sie es selbst: Die Einstellungen bleiben erhalten.
