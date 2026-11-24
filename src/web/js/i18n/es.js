@@ -850,4 +850,10 @@ export default {
   'Páscoa Kids': 'Pascua Niños',
   'Adesivos em tons alegres, com o túmulo vazio e a pedra removida: para a Páscoa das crianças':
     'Pegatinas en tonos alegres, con el sepulcro vacío y la piedra removida: para la Pascua de los niños',
+  'Natal no Egito': 'Navidad en Egipto',
+  'Tons de areia e marrom, com o sol e as pirâmides nascendo sobre as placas: para a cantata de Natal':
+    'Tonos de arena y marrón, con el sol y las pirámides saliendo sobre las placas: para la cantata de Navidad',
+  'Natal no Egito: sol e pirâmides': 'Navidad en Egipto: sol y pirámides',
+  Deserto: 'Desierto',
+  'Noite no deserto': 'Noche en el desierto',
 };

@@ -841,4 +841,10 @@ export default {
   'Páscoa Kids': 'Easter Kids',
   'Adesivos em tons alegres, com o túmulo vazio e a pedra removida: para a Páscoa das crianças':
     "Stickers in cheerful colors, with the empty tomb and the stone rolled away: for the children's Easter",
+  'Natal no Egito': 'Christmas in Egypt',
+  'Tons de areia e marrom, com o sol e as pirâmides nascendo sobre as placas: para a cantata de Natal':
+    'Sand and brown tones, with the sun and the pyramids rising over the plaques: for the Christmas cantata',
+  'Natal no Egito: sol e pirâmides': 'Christmas in Egypt: sun and pyramids',
+  Deserto: 'Desert',
+  'Noite no deserto': 'Desert night',
 };

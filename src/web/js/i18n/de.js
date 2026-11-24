@@ -853,4 +853,10 @@ export default {
   'Páscoa Kids': 'Ostern Kinder',
   'Adesivos em tons alegres, com o túmulo vazio e a pedra removida: para a Páscoa das crianças':
     'Aufkleber in fröhlichen Farben, mit dem leeren Grab und dem weggerollten Stein: für das Osterfest der Kinder',
+  'Natal no Egito': 'Weihnachten in Ägypten',
+  'Tons de areia e marrom, com o sol e as pirâmides nascendo sobre as placas: para a cantata de Natal':
+    'Sand- und Brauntöne, mit Sonne und Pyramiden, die über den Tafeln aufgehen: für die Weihnachtskantate',
+  'Natal no Egito: sol e pirâmides': 'Weihnachten in Ägypten: Sonne und Pyramiden',
+  Deserto: 'Wüste',
+  'Noite no deserto': 'Wüstennacht',
 };

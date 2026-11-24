@@ -4,6 +4,7 @@ import { cleanConfig, defaults } from '../src/server/store.js';
 import {
   // @ts-expect-error browser module without type declarations
   decorFor,
+  decorName,
   DECORS,
   givingQr,
   givingText,
@@ -137,4 +138,11 @@ test('drawings of the themed models: the usual one, the one picked in the theme,
   assert.equal(decorFor(c, 'lower', 'kids'), '');
   assert.equal(cleanConfig({ theme: { decor: 'nope' } }).theme.decor, '');
   assert.equal(cleanConfig({ theme: { decor: 'easter' } }).theme.decor, 'easter');
+  // A drawing with its own proportions (the sun and pyramids of "Natal no Egito").
+  c.theme.decor = 'egypt';
+  assert.match(decorFor(c, 'lower', 'floral'), /^<svg[^>]*viewBox="0 0 200 106.33"/);
+  assert.equal(decorName(c, 'floral'), 'egypt');
+  assert.equal(decorName(c, 'classic'), '');
+  for (const name of DECORS)
+    assert.equal(cleanConfig({ theme: { decor: name } }).theme.decor, name);
 });

@@ -259,6 +259,17 @@ const cross = (x, y, k = 1) =>
   '<path class="inky" d="M0-58v-12M-34-44l-9-9M34-44l9-9M-48-12h-12M48-12h12"/>' +
   '<path class="y" d="M-7-44H7v24h20v14H7v48H-7v-48h-20v-14h20z"/></g>';
 
+// The sun and the pyramids of the cantata "Natal no Egito" (Igreja Cristã da Trindade, 2026),
+// with the exact outlines and colors of its artwork: the disc cut along the pyramids, the
+// rays, the small pyramid and the big one.
+const EGYPT = art(
+  200,
+  106.33,
+  '<path fill="#dea123" d="M197.3 104.25C198.34 98.86 198.89 93.31 198.89 87.62C198.89 39.23 159.66 0 111.26 0C62.87 0 23.64 39.23 23.64 87.62L23.64 88.03L83.73 41.52L130.37 77.64L146.67 65.03Z"/>' +
+    '<path fill="#fff" class="in" d="M112.66 0.86L113.72 64.74L111.63 63.13ZM141.04 6.25L126.49 74.64L124.47 73.07ZM165.55 18.85L143.23 67.69L139.9 70.27ZM183.17 37.55L183.23 37.65L157.01 73.04L155.74 72.06ZM194.05 58.84L194.12 59.06L168.56 81.99L167.44 81.12ZM198.39 78.28L198.43 78.63L179.42 90.4L178.48 89.67ZM198.31 97.71L198.25 98.2L192.43 100.47L191.8 99.98ZM112.66 0.86L113.72 64.75L111.63 63.13ZM95.23 50.43L93.29 48.92L83.82 4.4ZM74.47 48.69L73.51 49.44L58.81 17.44ZM59.69 60.13L58.8 60.82L40.35 36.15L40.42 36.05ZM45.79 70.89L45.04 71.48L29.09 57.17L29.17 56.96ZM32.29 81.34L31.76 81.75L24.28 77.13L24.32 76.78Z"/>' +
+    '<path fill="#793b13" d="M115.17 106.33L200 106.33L146.67 65.03L109.05 94.15L109.48 94.99L146.65 66.37L166.25 105.44L114.72 105.44Z"/>' +
+    '<path fill="#793b13" d="M0 106.33L2.23 106.33L52.43 67.67L52.44 67.69L83.69 43.63L101.7 79.51L101.71 79.51L115.17 106.33L167.42 106.33L83.73 41.52Z"/>',
+);
 export const DECORS = [
   'flowers',
   'stars',
@@ -269,6 +280,7 @@ export const DECORS = [
   'xmaskids',
   'easter',
   'easterkids',
+  'egypt',
 ];
 const SPARK =
   '<path class="ink" d="M50 6v30M50 64v30M6 50h30M64 50h30M19 19l20 20M61 61l20 20M81 19L61 39M39 61L19 81"/>';
@@ -356,15 +368,22 @@ export const DECOR = {
     ),
     small: small(tomb(50, 56, 0.6)),
   },
+  egypt: { big: EGYPT, small: EGYPT },
 };
 // The drawing each decorated model shows when the theme does not pick another.
 const USUAL_DECOR = { floral: 'flowers', kids: 'stars', youth: 'spark' };
-/** The drawing(s) of an element, as SVG ('' = none): the theme's choice or the usual one. */
-export function decorFor(config, el, template) {
+/** Which drawing a model shows ('' = none): the theme's choice or the usual one of the model. */
+export function decorName(config, template) {
   const usual = USUAL_DECOR[template],
     pick = config.theme?.decor;
   if (!usual || pick === 'none') return '';
-  const set = DECOR[pick] || DECOR[usual];
+  return DECOR[pick] ? pick : usual;
+}
+/** The drawing(s) of an element, as SVG ('' = none). */
+export function decorFor(config, el, template) {
+  const name = decorName(config, template);
+  if (!name) return '';
+  const set = DECOR[name];
   // The block model only has room for a small mark, and none on the corner badge.
   if (template === 'youth') return el === 'top' ? '' : set.small;
   if (el === 'card') return set.big + set.small;

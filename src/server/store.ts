@@ -120,6 +120,7 @@ const DECORS = [
   'xmaskids',
   'easter',
   'easterkids',
+  'egypt',
 ];
 const CORNERS = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
 const PLACES = [...CORNERS, 'top-center', 'bottom-center', 'center-left', 'center-right', 'center'];
