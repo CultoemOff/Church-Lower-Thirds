@@ -37,12 +37,25 @@ export const LOWER_TEMPLATES = [
   'stack',
   'liquid',
   'plaque',
+  'youth',
+  'kids',
+  'floral',
 ];
-export const TOP_TEMPLATES = ['bar', 'pills', 'stack', 'liquid'];
-export const CARD_TEMPLATES = ['vertical', 'horizontal', 'ticket', 'frame', 'liquid', 'plaque'];
+export const TOP_TEMPLATES = ['bar', 'pills', 'stack', 'liquid', 'youth', 'kids', 'floral'];
+export const CARD_TEMPLATES = [
+  'vertical',
+  'horizontal',
+  'ticket',
+  'frame',
+  'liquid',
+  'plaque',
+  'youth',
+  'kids',
+  'floral',
+];
 export const TICKER_TEMPLATES = ['full', 'floating', 'minimal', 'liquid'];
 export const AGENDA_TEMPLATES = ['card', 'banner', 'center', 'liquid'];
-export const SOCIAL_TEMPLATES = ['pill', 'card', 'liquid', 'plaque'];
+export const SOCIAL_TEMPLATES = ['pill', 'card', 'liquid', 'plaque', 'youth', 'kids', 'floral'];
 export const NETWORKS = [
   'instagram',
   'youtube',
@@ -81,8 +94,33 @@ export interface SavedCard {
   qrText: string;
 }
 const GIVING_METHODS = ['pix', 'app', 'sepa', 'link', 'image', 'text'];
-export const ANIMATIONS = ['slide', 'rise', 'fade', 'wipe', 'zoom', 'blur', 'bounce', 'flip'];
+export const ANIMATIONS = [
+  'slide',
+  'rise',
+  'fade',
+  'wipe',
+  'zoom',
+  'blur',
+  'bounce',
+  'flip',
+  'drop',
+  'unfold',
+  'glide',
+];
 export const SHADOWS = ['none', 'soft', 'hard', 'glow'];
+const DECORS = [
+  '',
+  'none',
+  'flowers',
+  'stars',
+  'spark',
+  'notes',
+  'band',
+  'xmas',
+  'xmaskids',
+  'easter',
+  'easterkids',
+];
 const CORNERS = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
 const PLACES = [...CORNERS, 'top-center', 'bottom-center', 'center-left', 'center-right', 'center'];
 
@@ -135,6 +173,8 @@ export function defaults() {
       opacity: 94,
       shadow: 'soft',
       shadowStrength: 55,
+      /** The drawing of the themed models: '' = the usual one of each model, 'none', or a set. */
+      decor: '',
     },
     pix: {
       mode: 'key',
@@ -478,6 +518,7 @@ const CHOICES: Record<string, string[]> = {
   'social.template': SOCIAL_TEMPLATES,
   animation: ANIMATIONS,
   shadow: SHADOWS,
+  'theme.decor': DECORS,
   'lower.position': ['left', 'center', 'right'],
   'card.position': PLACES,
   'top.position': PLACES,

@@ -28,24 +28,6 @@ Guardar y restaurar todo en un archivo, o volver a los ajustes iniciales.
 Salva e ripristina tutto in un file, oppure torna alle impostazioni iniziali.
 Alles in einer Datei sichern und wiederherstellen oder zu den Anfangseinstellungen zurückkehren.
 
-Azul institucional
-Institutional blue
-Azul institucional
-Blu istituzionale
-Klassisches Blau
-
-Barra azul com detalhe dourado: o visual clássico de transmissão
-Blue bar with a golden detail: the classic broadcast look
-Barra azul con detalle dorado: el aspecto clásico de transmisión
-Barra blu con dettaglio dorato: il classico aspetto televisivo
-Blaue Leiste mit goldenem Akzent: der klassische Sendelook
-
-Blocos retos e fortes, vermelho e azul-marinho, como nos noticiários
-Straight, strong blocks in red and navy, as in news programs
-Bloques rectos y fuertes, rojo y azul marino, como en los noticieros
-Blocchi netti e decisi, rosso e blu navy, come nei telegiornali
-Gerade, kräftige Blöcke in Rot und Marineblau, wie in Nachrichtensendungen
-
 Minimalista
 Minimalist
 Minimalista
@@ -58,29 +40,11 @@ Casi solo texto, con una línea fina: discreto, para no competir con la imagen
 Quasi solo testo, con una linea sottile: discreto, per non competere con l'immagine
 Fast nur Text mit einer feinen Linie: dezent, damit es dem Bild nicht die Schau stiehlt
 
-Clássico dourado
-Golden classic
-Clásico dorado
-Classico dorato
-Goldene Klassik
-
-Fonte serifada, preto quente e dourado: solene, para cultos tradicionais
-Serif font, warm black and gold: solemn, for traditional services
-Fuente con serifa, negro cálido y dorado: solemne, para cultos tradicionales
-Carattere con grazie, nero caldo e oro: solenne, per culti tradizionali
-Serifenschrift, warmes Schwarz und Gold: feierlich, für traditionelle Gottesdienste
-
 Luz da manhã
 Morning light
 Luz de la mañana
 Luce del mattino
 Morgenlicht
-
-Branco e claro, com laranja suave e formas arredondadas
-White and light, with soft orange and rounded shapes
-Blanco y claro, con naranja suave y formas redondeadas
-Bianco e chiaro, con arancione tenue e forme arrotondate
-Weiß und hell, mit sanftem Orange und runden Formen
 
 Neon
 Neon
@@ -88,71 +52,17 @@ Neón
 Neon
 Neon
 
-Fundo escuro com brilho ciano e violeta: jovem e tecnológico
-Dark background with a cyan and violet glow: young and techy
-Fondo oscuro con brillo cian y violeta: joven y tecnológico
-Sfondo scuro con bagliore ciano e viola: giovane e tecnologico
-Dunkler Hintergrund mit Leuchten in Cyan und Violett: jung und technisch
-
 Arena
 Arena
 Arena
 Arena
 Arena
-
-Faixa inclinada, letras altas e cores quentes, no estilo das transmissões esportivas
-Slanted band, tall letters and warm colors, in the style of sports broadcasts
-Franja inclinada, letras altas y colores cálidos, al estilo de las transmisiones deportivas
-Fascia inclinata, lettere alte e colori caldi, nello stile delle trasmissioni sportive
-Schräges Band, hohe Buchstaben und warme Farben, im Stil von Sportübertragungen
 
 Jardim
 Garden
 Jardín
 Giardino
 Garten
-
-Verdes profundos com detalhe em verde-claro e amarelo, fonte serifada suave
-Deep greens with a light green and yellow detail, soft serif font
-Verdes profundos con detalle en verde claro y amarillo, fuente con serifa suave
-Verdi profondi con dettaglio verde chiaro e giallo, carattere con grazie morbido
-Tiefe Grüntöne mit hellgrünem und gelbem Akzent, weiche Serifenschrift
-
-Vinho real
-Royal burgundy
-Vino real
-Bordeaux reale
-Königliches Weinrot
-
-Vinho e dourado com letras de inscrição: festivo e solene
-Burgundy and gold with inscription-style letters: festive and solemn
-Vino y dorado con letras de inscripción: festivo y solemne
-Bordeaux e oro con lettere da iscrizione: festoso e solenne
-Weinrot und Gold mit Inschrift-Buchstaben: festlich und feierlich
-
-Aurora
-Aurora
-Aurora
-Aurora
-Aurora
-
-Degradê roxo e rosa com detalhe ciano: moderno e vibrante
-Purple and pink gradient with a cyan detail: modern and vibrant
-Degradado morado y rosa con detalle cian: moderno y vibrante
-Sfumatura viola e rosa con dettaglio ciano: moderno e vivace
-Verlauf in Violett und Pink mit Cyan-Akzent: modern und lebendig
-
-Cinza-escuro com um toque de vermelho: sóbrio, combina com qualquer logo
-Dark gray with a touch of red: sober, goes with any logo
-Gris oscuro con un toque de rojo: sobrio, combina con cualquier logo
-Grigio scuro con un tocco di rosso: sobrio, si abbina a qualsiasi logo
-Dunkelgrau mit einem Hauch Rot: schlicht, passt zu jedem Logo
-
-Azul-petróleo e azul, com detalhe em água-marinha
-Teal and blue, with an aquamarine detail
-Azul petróleo y azul, con detalle en aguamarina
-Blu petrolio e blu, con dettaglio acquamarina
-Petrol und Blau mit einem Akzent in Aquamarin
 
 Aplicativo de pagamento por telefone ou código
 Payment app by phone number or code
@@ -189,12 +99,6 @@ Choose how your church receives tithes and offerings. The QR code and the detail
 Elija cómo recibe su iglesia diezmos y ofrendas. El código QR y los datos aparecen en la tarjeta y en los nombres marcados con "Ofrenda de la iglesia".
 Scegli come la tua chiesa riceve decime e offerte. Il codice QR e i dati compaiono nella scheda e nei nomi contrassegnati con "Offerta della chiesa".
 Wählen Sie, wie Ihre Gemeinde Zehnten und Kollekte erhält. QR-Code und Angaben erscheinen auf der Karte und bei den Namen mit „Spende an die Gemeinde“.
-
-Escolha um e está pronto: cada tema traz o modelo, as cores e a fonte de todos os elementos. Depois, se quiser, ajuste os detalhes abaixo.
-Pick one and you are done: each theme brings the model, colors and font of every element. Then, if you like, adjust the details below.
-Elija uno y listo: cada tema trae el modelo, los colores y la fuente de todos los elementos. Después, si quiere, ajuste los detalles abajo.
-Scegline uno ed è fatta: ogni tema porta modello, colori e carattere di tutti gli elementi. Poi, se vuoi, regola i dettagli qui sotto.
-Eines wählen und fertig: Jedes Design bringt Vorlage, Farben und Schrift aller Elemente mit. Danach lassen sich unten die Details anpassen.
 
 Abre o assistente no passo do OBS
 Opens the assistant at the OBS step
@@ -279,12 +183,6 @@ The assistant takes about five minutes. You can skip a step, jump straight to an
 El asistente lleva unos cinco minutos. Puede saltar un paso, ir directo a otro desde la lista de al lado o saltar el asistente entero.
 L'assistente richiede circa cinque minuti. Puoi saltare un passo, andare direttamente a un altro dall'elenco a lato o saltare tutto l'assistente.
 Der Assistent dauert etwa fünf Minuten. Sie können einen Schritt überspringen, über die Liste direkt zu einem anderen gehen oder den ganzen Assistenten überspringen.
-
-Escolha um tema e todos os elementos já ficam prontos. Depois dá para ajustar as cores em "Tema global" ou dar a um elemento a própria aparência.
-Choose a theme and every element is ready. Later you can adjust the colors in "Global theme" or give an element its own appearance.
-Elija un tema y todos los elementos quedan listos. Después puede ajustar los colores en "Tema global" o dar a un elemento su propia apariencia.
-Scegli un tema e tutti gli elementi sono pronti. Poi puoi regolare i colori in "Tema globale" o dare a un elemento un aspetto proprio.
-Ein Design wählen und alle Elemente sind fertig. Später lassen sich die Farben unter „Globales Design“ anpassen oder einem Element ein eigenes Aussehen geben.
 
 Deixa este passo para depois
 Leaves this step for later

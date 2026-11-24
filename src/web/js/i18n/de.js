@@ -190,10 +190,6 @@ export default {
   'Pôr do sol': 'Sonnenuntergang',
   Oceano: 'Ozean',
   'Céu noturno': 'Nachthimmel',
-  'Azul-noite translúcido, detalhes em azul-céu, cantos bem arredondados':
-    'Durchscheinendes Nachtblau, himmelblaue Details, stark gerundete Ecken',
-  'Vidro claro e arredondado, com brilho nas bordas': 'Klares, rundes Glas mit leuchtendem Rand',
-  'Tema "{name}" aplicado a todos os elementos.': 'Design „{name}“ auf alle Elemente angewendet.',
   'Salvando…': 'Speichere…',
   Salvo: 'Gespeichert',
   'Fontes do programa': 'Mitgelieferte Schriften',
@@ -591,17 +587,11 @@ export default {
   'Cores, fonte, cantos, sombra e opacidade vêm do tema global.':
     'Farben, Schrift, Ecken, Schatten und Deckkraft kommen aus dem globalen Design.',
   'Abrir o tema global': 'Globales Design öffnen',
-  'Cores aplicadas ao tema global.': 'Farben auf das globale Design angewendet.',
   'O assistente explica como o programa funciona e ajuda a deixar tudo pronto, passo a passo.':
     'Der Assistent erklärt, wie das Programm funktioniert, und hilft Schritt für Schritt beim Einrichten.',
   'Abrir o assistente': 'Assistent öffnen',
   'Endereços para o OBS': 'Adressen für OBS',
   'Ver o endereço de cada elemento': 'Adresse jedes Elements anzeigen',
-  'Temas prontos': 'Fertige Designs',
-  'Troca só as cores do tema global': 'Ändert nur die Farben des globalen Designs',
-  'Troca só as cores do tema. Depois ajuste cada uma abaixo, com degradê.':
-    'Ändert nur die Farben des Designs. Danach jede Farbe unten anpassen, auch mit Verlauf.',
-  'Cores do tema': 'Farben des Designs',
   'Cor principal': 'Hauptfarbe',
   'A barra do nome.': 'Die Namensleiste.',
   'Selo superior, barra inferior, cartão, agenda e redes; e a barra do cargo.':
@@ -685,39 +675,13 @@ export default {
     'Adressen für OBS, Anleitung, Auflösungen und Kurzbefehle.',
   'Salvar e restaurar tudo num arquivo, ou voltar às configurações iniciais.':
     'Alles in einer Datei sichern und wiederherstellen oder zu den Anfangseinstellungen zurückkehren.',
-  'Azul institucional': 'Klassisches Blau',
-  'Barra azul com detalhe dourado: o visual clássico de transmissão':
-    'Blaue Leiste mit goldenem Akzent: der klassische Sendelook',
-  'Blocos retos e fortes, vermelho e azul-marinho, como nos noticiários':
-    'Gerade, kräftige Blöcke in Rot und Marineblau, wie in Nachrichtensendungen',
   Minimalista: 'Minimalistisch',
   'Quase só texto, com uma linha fina: discreto, para não disputar com a imagem':
     'Fast nur Text mit einer feinen Linie: dezent, damit es dem Bild nicht die Schau stiehlt',
-  'Clássico dourado': 'Goldene Klassik',
-  'Fonte serifada, preto quente e dourado: solene, para cultos tradicionais':
-    'Serifenschrift, warmes Schwarz und Gold: feierlich, für traditionelle Gottesdienste',
   'Luz da manhã': 'Morgenlicht',
-  'Branco e claro, com laranja suave e formas arredondadas':
-    'Weiß und hell, mit sanftem Orange und runden Formen',
   Neon: 'Neon',
-  'Fundo escuro com brilho ciano e violeta: jovem e tecnológico':
-    'Dunkler Hintergrund mit Leuchten in Cyan und Violett: jung und technisch',
   Arena: 'Arena',
-  'Faixa inclinada, letras altas e cores quentes, no estilo das transmissões esportivas':
-    'Schräges Band, hohe Buchstaben und warme Farben, im Stil von Sportübertragungen',
   Jardim: 'Garten',
-  'Verdes profundos com detalhe em verde-claro e amarelo, fonte serifada suave':
-    'Tiefe Grüntöne mit hellgrünem und gelbem Akzent, weiche Serifenschrift',
-  'Vinho real': 'Königliches Weinrot',
-  'Vinho e dourado com letras de inscrição: festivo e solene':
-    'Weinrot und Gold mit Inschrift-Buchstaben: festlich und feierlich',
-  Aurora: 'Aurora',
-  'Degradê roxo e rosa com detalhe ciano: moderno e vibrante':
-    'Verlauf in Violett und Pink mit Cyan-Akzent: modern und lebendig',
-  'Cinza-escuro com um toque de vermelho: sóbrio, combina com qualquer logo':
-    'Dunkelgrau mit einem Hauch Rot: schlicht, passt zu jedem Logo',
-  'Azul-petróleo e azul, com detalhe em água-marinha':
-    'Petrol und Blau mit einem Akzent in Aquamarin',
   'Aplicativo de pagamento por telefone ou código': 'Bezahl-App per Telefonnummer oder Code',
   'Nome do aplicativo': 'Name der App',
   'O aplicativo que as pessoas usam no seu país para enviar dinheiro pelo celular.':
@@ -726,8 +690,6 @@ export default {
   'Imagem do QR Code (opcional)': 'QR-Code-Bild (optional)',
   'Escolha como a sua igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão e nos nomes marcados com "Contribuição da igreja".':
     'Wählen Sie, wie Ihre Gemeinde Zehnten und Kollekte erhält. QR-Code und Angaben erscheinen auf der Karte und bei den Namen mit „Spende an die Gemeinde“.',
-  'Escolha um e está pronto: cada tema traz o modelo, as cores e a fonte de todos os elementos. Depois, se quiser, ajuste os detalhes abaixo.':
-    'Eines wählen und fertig: Jedes Design bringt Vorlage, Farben und Schrift aller Elemente mit. Danach lassen sich unten die Details anpassen.',
   'Abre o assistente no passo do OBS': 'Öffnet den Assistenten beim OBS-Schritt',
   'Abrir o tutorial ilustrado': 'Bebilderte Anleitung öffnen',
   '1. O painel de controle (dock)': '1. Das Bedienfeld (Dock)',
@@ -747,8 +709,6 @@ export default {
   'Configurações iniciais restauradas.': 'Anfangseinstellungen wiederhergestellt.',
   'O assistente leva uns cinco minutos. Dá para pular um passo, ir direto a outro pela lista ao lado ou pular o assistente inteiro.':
     'Der Assistent dauert etwa fünf Minuten. Sie können einen Schritt überspringen, über die Liste direkt zu einem anderen gehen oder den ganzen Assistenten überspringen.',
-  'Escolha um tema e todos os elementos já ficam prontos. Depois dá para ajustar as cores em "Tema global" ou dar a um elemento a própria aparência.':
-    'Ein Design wählen und alle Elemente sind fertig. Später lassen sich die Farben unter „Globales Design“ anpassen oder einem Element ein eigenes Aussehen geben.',
   'Deixa este passo para depois': 'Verschiebt diesen Schritt auf später',
   'Pular este passo': 'Schritt überspringen',
   'Docks de navegador personalizados': 'Benutzerdefinierte Browser-Docks',
@@ -766,8 +726,6 @@ export default {
   '{n} itens, {s} s cada': '{n} Einträge, je {s} s',
   Placa: 'Tafel',
   'Azul e ouro': 'Blau und Gold',
-  'Placas azul-marinho com fio dourado: QR Code no alto à esquerda e avisos em sequência embaixo':
-    'Marineblaue Tafeln mit goldener Linie: QR-Code oben links und Hinweise nacheinander unten',
   'Frase só deste item. Vazio: usa o texto geral e o nome da rede.':
     'Text nur für diesen Eintrag. Leer: verwendet den allgemeinen Text und den Namen des Netzwerks.',
   'Frase própria (opcional)': 'Eigener Text (optional)',
@@ -784,4 +742,115 @@ export default {
   'Não foi possível concluir. Tente de novo.': 'Vorgang fehlgeschlagen. Bitte erneut versuchen.',
   'Abra esta página pelo endereço do próprio programa (127.0.0.1).':
     'Diese Seite über die Adresse des Programms selbst öffnen (127.0.0.1).',
+  Jovem: 'Jugend',
+  Kids: 'Kinder',
+  Feminino: 'Frauen',
+  'Gota d’água': 'Wassertropfen',
+  'Linha que se abre': 'Sich öffnende Linie',
+  'Deslize com rastro': 'Gleiten mit Schweif',
+  'Vermelho e marinho': 'Rot und Marineblau',
+  'Preto e ouro': 'Schwarz und Gold',
+  'Preto e branco': 'Schwarz-Weiß',
+  'Preto e limão': 'Schwarz und Limette',
+  Colorido: 'Bunt',
+  Rosé: 'Rosé',
+  Orquídea: 'Orchidee',
+  'Vidro claro': 'Klarglas',
+  Institucional: 'Institutionell',
+  'Barra do nome com fio de destaque: o visual clássico de transmissão':
+    'Namensleiste mit Akzentstreifen: der klassische Sendelook',
+  Placas: 'Tafeln',
+  'Placas de borda fina: QR Code no alto à esquerda e avisos em sequência embaixo':
+    'Tafeln mit feinem Rand: QR-Code oben links und Hinweise nacheinander unten',
+  'Vidro fosco': 'Milchglas',
+  'Painéis translúcidos e bem arredondados, que deixam a imagem aparecer':
+    'Durchscheinende, stark abgerundete Flächen, die das Bild durchscheinen lassen',
+  'Vidro claro com brilho nas bordas, que entra como uma gota d’água':
+    'Klares Glas mit leuchtenden Rändern, das wie ein Wassertropfen erscheint',
+  'Blocos retos e fortes, de ponta a ponta, como nos noticiários':
+    'Gerade, kräftige Blöcke von Rand zu Rand, wie in den Nachrichten',
+  Solene: 'Feierlich',
+  'Fonte serifada, bloco duplo e moldura: para cultos tradicionais':
+    'Serifenschrift, Doppelblock und Rahmen: für traditionelle Gottesdienste',
+  Cerimonial: 'Zeremoniell',
+  'Letras de inscrição em barras clássicas: festivo e solene':
+    'Inschriften-Buchstaben auf klassischen Leisten: festlich und feierlich',
+  'Formas bem arredondadas e leves, com o logo num anel':
+    'Leichte, stark abgerundete Formen, mit dem Logo in einem Ring',
+  'Contorno luminoso sobre fundo escuro: tecnológico':
+    'Leuchtender Umriss auf dunklem Grund: technisch',
+  'Faixa inclinada e letras altas, no estilo das transmissões esportivas':
+    'Schräges Band und hohe Buchstaben, im Stil von Sportübertragungen',
+  'Cartões sobrepostos, com fonte serifada suave':
+    'Überlappende Karten, mit weicher Serifenschrift',
+  Moderno: 'Modern',
+  'Bloco duplo com cápsulas: atual e vibrante': 'Doppelblock mit Kapseln: zeitgemäß und lebendig',
+  Sóbrio: 'Schlicht',
+  'Só o texto e um toque de cor: combina com qualquer logo':
+    'Nur der Text und ein Farbtupfer: passt zu jedem Logo',
+  'Blocos escuros com corte inclinado, faixas e etiqueta: para o ministério de jovens':
+    'Dunkle Blöcke mit schrägem Schnitt, Streifen und Etikett: für die Jugendarbeit',
+  'Adesivos coloridos com balão e estrelas: para o ministério infantil':
+    'Bunte Aufkleber mit Sprechblase und Sternen: für die Kinderarbeit',
+  'Placas suaves com moldura fina e flores: para o ministério de mulheres':
+    'Sanfte Tafeln mit feinem Rahmen und Blumen: für die Frauenarbeit',
+  'Troca só as cores, sem mexer no modelo': 'Ändert nur die Farben, ohne die Vorlage zu verändern',
+  'Sugerida para este modelo': 'Für diese Vorlage empfohlen',
+  'Modelo "{name}" aplicado, com as cores "{colors}".':
+    'Vorlage „{name}“ angewendet, mit den Farben „{colors}“.',
+  'Cores "{name}" aplicadas ao tema global.': 'Farben „{name}“ auf das globale Design angewendet.',
+  Modelos: 'Vorlagen',
+  'Troca só as cores, sem mexer no modelo. Depois, se quiser, ajuste cada cor abaixo.':
+    'Ändert nur die Farben, ohne die Vorlage zu verändern. Danach können Sie jede Farbe unten anpassen.',
+  'Personalizar as cores': 'Farben anpassen',
+  'Escolha um modelo e todos os elementos já ficam prontos, com as cores que mais combinam. Se preferir outras cores, troque logo abaixo.':
+    'Wählen Sie eine Vorlage und alle Elemente sind fertig, mit den passendsten Farben. Wenn Sie andere Farben möchten, ändern Sie sie gleich darunter.',
+  'Cada cor pode ser ajustada depois, em "Tema global".':
+    'Jede Farbe kann später unter „Globales Design“ angepasst werden.',
+  Divertidas: 'Verspielt',
+  Urbano: 'Urban',
+  Adesivo: 'Aufkleber',
+  Delicado: 'Zart',
+  Flores: 'Blumen',
+  Estrelas: 'Sterne',
+  Faísca: 'Funke',
+  'Notas musicais': 'Musiknoten',
+  'Barras de som': 'Klangbalken',
+  'Natal: estrela de Belém': 'Weihnachten: Stern von Bethlehem',
+  'Natal: manjedoura e estrela': 'Weihnachten: Krippe und Stern',
+  'Páscoa: lírios e cruz': 'Ostern: Lilien und Kreuz',
+  'Páscoa: túmulo vazio': 'Ostern: leeres Grab',
+  'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; passe o mouse para ver a entrada.':
+    'Beginnen Sie mit der Vorlage: Sie bestimmt Form, Schrift und Animation aller Elemente und bringt die passendsten Farben gleich mit. Die Bilder zeigen jede Vorlage mit Namen und Logo der Gemeinde; zeigen Sie mit der Maus darauf, um den Einstieg zu sehen.',
+  'Modelos temáticos': 'Themenvorlagen',
+  'Para ministérios e datas especiais: jovens, crianças, mulheres, coral, banda, Natal e Páscoa. O desenho pode ser trocado em "Fonte e forma".':
+    'Für Dienste und besondere Anlässe: Jugend, Kinder, Frauen, Chor, Band, Weihnachten und Ostern. Die Zeichnung lässt sich unter „Schrift und Form“ ändern.',
+  'Desenho dos modelos temáticos': 'Zeichnung der Themenvorlagen',
+  'O do próprio modelo': 'Die der Vorlage',
+  'Sem desenho': 'Ohne Zeichnung',
+  'Aparece nos modelos Urbano, Adesivo e Delicado dos elementos.':
+    'Erscheint bei den Vorlagen Urban, Aufkleber und Zart der Elemente.',
+  'Para ministérios e datas especiais.': 'Für Dienste und besondere Anlässe.',
+  'Púrpura e ouro': 'Purpur und Gold',
+  Palco: 'Bühne',
+  Natal: 'Weihnachten',
+  'Natal colorido': 'Buntes Weihnachten',
+  Páscoa: 'Ostern',
+  'Páscoa colorida': 'Buntes Ostern',
+  Coral: 'Chor',
+  'Placas suaves com moldura fina, pauta e notas musicais: para o coral':
+    'Sanfte Tafeln mit feinem Rahmen, Notenlinien und Noten: für den Chor',
+  Banda: 'Band',
+  'Blocos escuros com corte inclinado e barras de som: para o louvor e a banda':
+    'Dunkle Blöcke mit schrägem Schnitt und Klangbalken: für Lobpreis und Band',
+  'Verde-escuro e dourado, com a estrela de Belém e a manjedoura: sóbrio, para os cultos de Natal':
+    'Dunkelgrün und Gold, mit dem Stern von Bethlehem und der Krippe: schlicht, für die Weihnachtsgottesdienste',
+  'Natal Kids': 'Weihnachten Kinder',
+  'Adesivos em vermelho e verde, com a manjedoura e a estrela: para o Natal das crianças':
+    'Aufkleber in Rot und Grün, mit Krippe und Stern: für das Weihnachtsfest der Kinder',
+  'Branco e lilás, com lírios e a cruz vazia: sóbrio, para os cultos de Páscoa':
+    'Weiß und Flieder, mit Lilien und dem leeren Kreuz: schlicht, für die Ostergottesdienste',
+  'Páscoa Kids': 'Ostern Kinder',
+  'Adesivos em tons alegres, com o túmulo vazio e a pedra removida: para a Páscoa das crianças':
+    'Aufkleber in fröhlichen Farben, mit dem leeren Grab und dem weggerollten Stein: für das Osterfest der Kinder',
 };

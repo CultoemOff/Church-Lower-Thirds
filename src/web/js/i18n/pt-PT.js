@@ -183,4 +183,8 @@ export default {
     'Aplicação de pagamento por telemóvel ou código',
   'Telefone, código ou e-mail que recebe': 'Telemóvel, código ou e-mail que recebe',
   Telefone: 'Telefone',
+  'Faixa inclinada e letras altas, no estilo das transmissões esportivas':
+    'Faixa inclinada e letras altas, no estilo das transmissões desportivas',
+  'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; passe o mouse para ver a entrada.':
+    'Comece pelo modelo: define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logótipo da igreja; passe o rato para ver a entrada.',
 };

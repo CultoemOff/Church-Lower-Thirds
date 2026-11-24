@@ -185,10 +185,6 @@ export default {
   'Pôr do sol': 'Sunset',
   Oceano: 'Ocean',
   'Céu noturno': 'Night sky',
-  'Azul-noite translúcido, detalhes em azul-céu, cantos bem arredondados':
-    'Translucent midnight blue, sky-blue details, well-rounded corners',
-  'Vidro claro e arredondado, com brilho nas bordas': 'Clear, rounded glass with a bright rim',
-  'Tema "{name}" aplicado a todos os elementos.': 'Theme "{name}" applied to every element.',
   'Salvando…': 'Saving…',
   Salvo: 'Saved',
   'Fontes do programa': 'Fonts included',
@@ -580,17 +576,11 @@ export default {
   'Cores, fonte, cantos, sombra e opacidade vêm do tema global.':
     'Colors, font, corners, shadow and opacity come from the global theme.',
   'Abrir o tema global': 'Open the global theme',
-  'Cores aplicadas ao tema global.': 'Colors applied to the global theme.',
   'O assistente explica como o programa funciona e ajuda a deixar tudo pronto, passo a passo.':
     'The assistant explains how the program works and helps you get everything ready, step by step.',
   'Abrir o assistente': 'Open the assistant',
   'Endereços para o OBS': 'Addresses for OBS',
   'Ver o endereço de cada elemento': 'See the address of each element',
-  'Temas prontos': 'Ready-made themes',
-  'Troca só as cores do tema global': 'Changes only the colors of the global theme',
-  'Troca só as cores do tema. Depois ajuste cada uma abaixo, com degradê.':
-    'Changes only the theme colors. Then adjust each one below, with gradients.',
-  'Cores do tema': 'Theme colors',
   'Cor principal': 'Main color',
   'A barra do nome.': 'The name bar.',
   'Selo superior, barra inferior, cartão, agenda e redes; e a barra do cargo.':
@@ -674,38 +664,13 @@ export default {
     'Addresses for OBS, tutorial, resolutions and shortcuts.',
   'Salvar e restaurar tudo num arquivo, ou voltar às configurações iniciais.':
     'Save and restore everything in a file, or go back to the initial settings.',
-  'Azul institucional': 'Institutional blue',
-  'Barra azul com detalhe dourado: o visual clássico de transmissão':
-    'Blue bar with a golden detail: the classic broadcast look',
-  'Blocos retos e fortes, vermelho e azul-marinho, como nos noticiários':
-    'Straight, strong blocks in red and navy, as in news programs',
   Minimalista: 'Minimalist',
   'Quase só texto, com uma linha fina: discreto, para não disputar com a imagem':
     'Almost only text, with a thin line: discreet, so it does not compete with the picture',
-  'Clássico dourado': 'Golden classic',
-  'Fonte serifada, preto quente e dourado: solene, para cultos tradicionais':
-    'Serif font, warm black and gold: solemn, for traditional services',
   'Luz da manhã': 'Morning light',
-  'Branco e claro, com laranja suave e formas arredondadas':
-    'White and light, with soft orange and rounded shapes',
   Neon: 'Neon',
-  'Fundo escuro com brilho ciano e violeta: jovem e tecnológico':
-    'Dark background with a cyan and violet glow: young and techy',
   Arena: 'Arena',
-  'Faixa inclinada, letras altas e cores quentes, no estilo das transmissões esportivas':
-    'Slanted band, tall letters and warm colors, in the style of sports broadcasts',
   Jardim: 'Garden',
-  'Verdes profundos com detalhe em verde-claro e amarelo, fonte serifada suave':
-    'Deep greens with a light green and yellow detail, soft serif font',
-  'Vinho real': 'Royal burgundy',
-  'Vinho e dourado com letras de inscrição: festivo e solene':
-    'Burgundy and gold with inscription-style letters: festive and solemn',
-  Aurora: 'Aurora',
-  'Degradê roxo e rosa com detalhe ciano: moderno e vibrante':
-    'Purple and pink gradient with a cyan detail: modern and vibrant',
-  'Cinza-escuro com um toque de vermelho: sóbrio, combina com qualquer logo':
-    'Dark gray with a touch of red: sober, goes with any logo',
-  'Azul-petróleo e azul, com detalhe em água-marinha': 'Teal and blue, with an aquamarine detail',
   'Aplicativo de pagamento por telefone ou código': 'Payment app by phone number or code',
   'Nome do aplicativo': 'App name',
   'O aplicativo que as pessoas usam no seu país para enviar dinheiro pelo celular.':
@@ -714,8 +679,6 @@ export default {
   'Imagem do QR Code (opcional)': 'QR code image (optional)',
   'Escolha como a sua igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão e nos nomes marcados com "Contribuição da igreja".':
     'Choose how your church receives tithes and offerings. The QR code and the details appear on the card and on the names marked "Church giving".',
-  'Escolha um e está pronto: cada tema traz o modelo, as cores e a fonte de todos os elementos. Depois, se quiser, ajuste os detalhes abaixo.':
-    'Pick one and you are done: each theme brings the model, colors and font of every element. Then, if you like, adjust the details below.',
   'Abre o assistente no passo do OBS': 'Opens the assistant at the OBS step',
   'Abrir o tutorial ilustrado': 'Open the illustrated tutorial',
   '1. O painel de controle (dock)': '1. The control panel (dock)',
@@ -735,8 +698,6 @@ export default {
   'Configurações iniciais restauradas.': 'Initial settings restored.',
   'O assistente leva uns cinco minutos. Dá para pular um passo, ir direto a outro pela lista ao lado ou pular o assistente inteiro.':
     'The assistant takes about five minutes. You can skip a step, jump straight to another one from the list on the side, or skip the whole assistant.',
-  'Escolha um tema e todos os elementos já ficam prontos. Depois dá para ajustar as cores em "Tema global" ou dar a um elemento a própria aparência.':
-    'Choose a theme and every element is ready. Later you can adjust the colors in "Global theme" or give an element its own appearance.',
   'Deixa este passo para depois': 'Leaves this step for later',
   'Pular este passo': 'Skip this step',
   'Docks de navegador personalizados': 'Custom Browser Docks',
@@ -754,8 +715,6 @@ export default {
   '{n} itens, {s} s cada': '{n} items, {s} s each',
   Placa: 'Plaque',
   'Azul e ouro': 'Navy and gold',
-  'Placas azul-marinho com fio dourado: QR Code no alto à esquerda e avisos em sequência embaixo':
-    'Navy plaques with a golden line: QR code at the top left and notices in sequence at the bottom',
   'Frase só deste item. Vazio: usa o texto geral e o nome da rede.':
     "A phrase for this item only. Empty: uses the general text and the network's name.",
   'Frase própria (opcional)': 'Own phrase (optional)',
@@ -772,4 +731,114 @@ export default {
   'Não foi possível concluir. Tente de novo.': 'Could not finish. Try again.',
   'Abra esta página pelo endereço do próprio programa (127.0.0.1).':
     "Open this page through the program's own address (127.0.0.1).",
+  Jovem: 'Youth',
+  Kids: 'Kids',
+  Feminino: 'Women',
+  'Gota d’água': 'Water drop',
+  'Linha que se abre': 'Opening line',
+  'Deslize com rastro': 'Glide with trail',
+  'Vermelho e marinho': 'Red and navy',
+  'Preto e ouro': 'Black and gold',
+  'Preto e branco': 'Black and white',
+  'Preto e limão': 'Black and lime',
+  Colorido: 'Colorful',
+  Rosé: 'Rosé',
+  Orquídea: 'Orchid',
+  'Vidro claro': 'Clear glass',
+  Institucional: 'Institutional',
+  'Barra do nome com fio de destaque: o visual clássico de transmissão':
+    'Name bar with an accent stripe: the classic broadcast look',
+  Placas: 'Plaques',
+  'Placas de borda fina: QR Code no alto à esquerda e avisos em sequência embaixo':
+    'Fine-rimmed plaques: QR code at the top left and notices in sequence at the bottom',
+  'Vidro fosco': 'Frosted glass',
+  'Painéis translúcidos e bem arredondados, que deixam a imagem aparecer':
+    'Translucent, well-rounded panels that let the picture show through',
+  'Vidro claro com brilho nas bordas, que entra como uma gota d’água':
+    'Clear glass with shining edges, which comes in like a drop of water',
+  'Blocos retos e fortes, de ponta a ponta, como nos noticiários':
+    'Straight, strong blocks from edge to edge, as on the news',
+  Solene: 'Solemn',
+  'Fonte serifada, bloco duplo e moldura: para cultos tradicionais':
+    'Serif font, split block and frame: for traditional services',
+  Cerimonial: 'Ceremonial',
+  'Letras de inscrição em barras clássicas: festivo e solene':
+    'Inscription lettering on classic bars: festive and solemn',
+  'Formas bem arredondadas e leves, com o logo num anel':
+    'Light, well-rounded shapes, with the logo in a ring',
+  'Contorno luminoso sobre fundo escuro: tecnológico':
+    'Glowing outline on a dark background: high-tech',
+  'Faixa inclinada e letras altas, no estilo das transmissões esportivas':
+    'Slanted ribbon and tall letters, in the style of sports broadcasts',
+  'Cartões sobrepostos, com fonte serifada suave': 'Overlapping cards, with a soft serif font',
+  Moderno: 'Modern',
+  'Bloco duplo com cápsulas: atual e vibrante': 'Split block with capsules: current and vibrant',
+  Sóbrio: 'Sober',
+  'Só o texto e um toque de cor: combina com qualquer logo':
+    'Just the text and a touch of color: goes with any logo',
+  'Blocos escuros com corte inclinado, faixas e etiqueta: para o ministério de jovens':
+    'Dark blocks with a slanted cut, stripes and a tag: for the youth ministry',
+  'Adesivos coloridos com balão e estrelas: para o ministério infantil':
+    'Colorful stickers with a bubble and stars: for the children’s ministry',
+  'Placas suaves com moldura fina e flores: para o ministério de mulheres':
+    'Soft plaques with a fine frame and flowers: for the women’s ministry',
+  'Troca só as cores, sem mexer no modelo': 'Changes only the colors, without touching the style',
+  'Sugerida para este modelo': 'Suggested for this style',
+  'Modelo "{name}" aplicado, com as cores "{colors}".':
+    'Style "{name}" applied, with the "{colors}" colors.',
+  'Cores "{name}" aplicadas ao tema global.': '"{name}" colors applied to the global theme.',
+  Modelos: 'Styles',
+  'Troca só as cores, sem mexer no modelo. Depois, se quiser, ajuste cada cor abaixo.':
+    'Changes only the colors, without touching the style. Then, if you like, adjust each color below.',
+  'Personalizar as cores': 'Customize the colors',
+  'Escolha um modelo e todos os elementos já ficam prontos, com as cores que mais combinam. Se preferir outras cores, troque logo abaixo.':
+    'Pick a style and every element is ready, with the colors that suit it best. If you prefer other colors, change them right below.',
+  'Cada cor pode ser ajustada depois, em "Tema global".':
+    'Each color can be adjusted later, in "Global theme".',
+  Divertidas: 'Playful',
+  Urbano: 'Urban',
+  Adesivo: 'Sticker',
+  Delicado: 'Delicate',
+  Flores: 'Flowers',
+  Estrelas: 'Stars',
+  Faísca: 'Spark',
+  'Notas musicais': 'Musical notes',
+  'Barras de som': 'Sound bars',
+  'Natal: estrela de Belém': 'Christmas: star of Bethlehem',
+  'Natal: manjedoura e estrela': 'Christmas: manger and star',
+  'Páscoa: lírios e cruz': 'Easter: lilies and cross',
+  'Páscoa: túmulo vazio': 'Easter: empty tomb',
+  'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; passe o mouse para ver a entrada.':
+    "Start with the style: it sets the shape, the font and the animation of every element and already brings the colors that suit it best. The pictures show each style with the church's name and logo; point at one to see it come in.",
+  'Modelos temáticos': 'Themed styles',
+  'Para ministérios e datas especiais: jovens, crianças, mulheres, coral, banda, Natal e Páscoa. O desenho pode ser trocado em "Fonte e forma".':
+    'For ministries and special dates: youth, children, women, choir, band, Christmas and Easter. The drawing can be changed in "Font and shape".',
+  'Desenho dos modelos temáticos': 'Drawing of the themed styles',
+  'O do próprio modelo': "The style's own",
+  'Sem desenho': 'No drawing',
+  'Aparece nos modelos Urbano, Adesivo e Delicado dos elementos.':
+    'Shown by the Urban, Sticker and Delicate styles of the elements.',
+  'Para ministérios e datas especiais.': 'For ministries and special dates.',
+  'Púrpura e ouro': 'Purple and gold',
+  Palco: 'Stage',
+  Natal: 'Christmas',
+  'Natal colorido': 'Colorful Christmas',
+  Páscoa: 'Easter',
+  'Páscoa colorida': 'Colorful Easter',
+  Coral: 'Choir',
+  'Placas suaves com moldura fina, pauta e notas musicais: para o coral':
+    'Soft plaques with a fine frame, a staff and musical notes: for the choir',
+  Banda: 'Band',
+  'Blocos escuros com corte inclinado e barras de som: para o louvor e a banda':
+    'Dark blocks with a slanted cut and sound bars: for worship and the band',
+  'Verde-escuro e dourado, com a estrela de Belém e a manjedoura: sóbrio, para os cultos de Natal':
+    'Dark green and gold, with the star of Bethlehem and the manger: sober, for the Christmas services',
+  'Natal Kids': 'Christmas Kids',
+  'Adesivos em vermelho e verde, com a manjedoura e a estrela: para o Natal das crianças':
+    "Stickers in red and green, with the manger and the star: for the children's Christmas",
+  'Branco e lilás, com lírios e a cruz vazia: sóbrio, para os cultos de Páscoa':
+    'White and lilac, with lilies and the empty cross: sober, for the Easter services',
+  'Páscoa Kids': 'Easter Kids',
+  'Adesivos em tons alegres, com o túmulo vazio e a pedra removida: para a Páscoa das crianças':
+    "Stickers in cheerful colors, with the empty tomb and the stone rolled away: for the children's Easter",
 };

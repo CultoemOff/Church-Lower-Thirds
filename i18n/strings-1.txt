@@ -1006,24 +1006,6 @@ Cielo nocturno
 Cielo notturno
 Nachthimmel
 
-Azul-noite translúcido, detalhes em azul-céu, cantos bem arredondados
-Translucent midnight blue, sky-blue details, well-rounded corners
-Azul noche translúcido, detalles en azul cielo, esquinas muy redondeadas
-Blu notte traslucido, dettagli azzurro cielo, angoli molto arrotondati
-Durchscheinendes Nachtblau, himmelblaue Details, stark gerundete Ecken
-
-Vidro claro e arredondado, com brilho nas bordas
-Clear, rounded glass with a bright rim
-Vidrio claro y redondeado, con brillo en los bordes
-Vetro chiaro e arrotondato, con riflessi sui bordi
-Klares, rundes Glas mit leuchtendem Rand
-
-Tema "{name}" aplicado a todos os elementos.
-Theme "{name}" applied to every element.
-Tema "{name}" aplicado a todos los elementos.
-Tema "{name}" applicato a tutti gli elementi.
-Design „{name}“ auf alle Elemente angewendet.
-
 Salvando…
 Saving…
 Guardando…

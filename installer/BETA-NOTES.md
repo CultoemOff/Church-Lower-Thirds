@@ -1,5 +1,14 @@
 **Versão beta para testes — somente Windows.** Programa novo, separado do PTZ Control Web.
 
+### Novidades da beta.6
+
+- **Tema global em três passos**: primeiro o **modelo** (formato, fonte e animação de todos os elementos), depois as **cores prontas** (o modelo já aplica a que mais combina, e ela fica marcada como sugerida) e por fim o ajuste de cada cor. São 23 modelos e 27 conjuntos de cores.
+- **Miniaturas reais dos modelos**: cada figura é o próprio gráfico (selo, nome, cartão do QR Code e barra) desenhado com aquele modelo, com o nome e o logo da igreja. Passe o mouse para ver a animação de entrada.
+- **Modelos temáticos**, numa categoria própria: **Jovem**, **Kids**, **Feminino**, **Coral**, **Banda**, **Natal** e **Páscoa** (sóbrios) e **Natal Kids** e **Páscoa Kids** (infantis). Cada um traz o seu desenho: flores, estrelas, notas musicais, barras de som e, nas datas, símbolos cristãos: a estrela de Belém e a manjedoura no Natal, os lírios, a cruz e o túmulo vazio na Páscoa. O desenho pode ser trocado em "Fonte e forma".
+- Três formatos novos para nomes, selo superior, cartão do QR Code e redes: **Urbano** (blocos com corte inclinado e etiqueta), **Adesivo** (borda branca e balão, fonte Fredoka) e **Delicado** (placa suave com moldura fina).
+- **Três animações novas**: gota d'água (a do vidro líquido), linha que se abre e deslize com rastro.
+- **Assistente**: no passo Aparência os botões Voltar, Pular e Avançar voltaram a aparecer; a lista de modelos rola dentro da janela.
+
 ### Novidades da beta.5
 
 - **Ícone novo**, da mesma família do PTZ Control Web: fundo azul com a cruz e, no terço inferior, a tarja de nome com o fio dourado. Vale para o instalador, os atalhos e as abas do navegador.

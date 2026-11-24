@@ -151,14 +151,226 @@ export const LOWER_TEMPLATES = [
   'stack',
   'liquid',
   'plaque',
+  'youth',
+  'kids',
+  'floral',
 ];
-export const TOP_TEMPLATES = ['bar', 'pills', 'stack', 'liquid'];
-export const CARD_TEMPLATES = ['vertical', 'horizontal', 'ticket', 'frame', 'liquid', 'plaque'];
-export const ANIMATIONS = ['slide', 'rise', 'fade', 'wipe', 'zoom', 'blur', 'bounce', 'flip'];
+export const TOP_TEMPLATES = ['bar', 'pills', 'stack', 'liquid', 'youth', 'kids', 'floral'];
+export const CARD_TEMPLATES = [
+  'vertical',
+  'horizontal',
+  'ticket',
+  'frame',
+  'liquid',
+  'plaque',
+  'youth',
+  'kids',
+  'floral',
+];
+export const ANIMATIONS = [
+  'slide',
+  'rise',
+  'fade',
+  'wipe',
+  'zoom',
+  'blur',
+  'bounce',
+  'flip',
+  'drop',
+  'unfold',
+  'glide',
+];
 export const SHADOWS = ['none', 'soft', 'hard', 'glow'];
 export const TICKER_TEMPLATES = ['full', 'floating', 'minimal', 'liquid'];
 export const AGENDA_TEMPLATES = ['card', 'banner', 'center', 'liquid'];
-export const SOCIAL_TEMPLATES = ['pill', 'card', 'liquid', 'plaque'];
+export const SOCIAL_TEMPLATES = ['pill', 'card', 'liquid', 'plaque', 'youth', 'kids', 'floral'];
+// Drawings of the themed models (flowers, stars, notes, Christmas, Easter…). They are our
+// own shapes, drawn here so they can take the colors of the theme. Paint classes: a = the
+// accent color, y = gold, g / gd = greens, r = red, w = white, k = dark, b = brown,
+// s = sky, p = pink, o = orange; ink* = lines. Every set has a big drawing (200x170, for
+// the corner of the name plate and of the card) and a small one (100x100).
+const art = (w, h, body) =>
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}">${body}</svg>`;
+const big = (body) => art(200, 170, body);
+const small = (body) => art(100, 100, body);
+const n2 = (v) => Math.round(v * 100) / 100;
+const flower = (x, y, r, turn = 0, cls = 'a pt') =>
+  `<g transform="translate(${x} ${y}) rotate(${turn})">` +
+  [0, 72, 144, 216, 288]
+    .map(
+      (a) =>
+        `<ellipse class="${cls}" cy="${n2(-r * 0.56)}" rx="${n2(r * 0.37)}" ry="${n2(r * 0.5)}" transform="rotate(${a})"/>`,
+    )
+    .join('') +
+  `<circle class="y" r="${n2(r * 0.21)}"/></g>`;
+const leaf = (x, y, len, turn, cls = 'g') =>
+  `<path class="${cls}" transform="translate(${x} ${y}) rotate(${turn})" d="M0 0C${n2(len * 0.3)} ${n2(-len * 0.34)} ${n2(len * 0.74)} ${n2(-len * 0.3)} ${len} 0C${n2(len * 0.74)} ${n2(len * 0.3)} ${n2(len * 0.3)} ${n2(len * 0.34)} 0 0Z"/>`;
+/** A star with `points` tips; `inner` is how deep the valleys go (0-1). */
+const star = (x, y, r, turn = 0, cls = 'a', points = 5, inner = 0.46) =>
+  `<polygon class="${cls}" transform="translate(${x} ${y}) rotate(${turn})" points="${Array.from(
+    { length: points * 2 },
+    (_, i) => {
+      const d = i % 2 ? r * inner : r,
+        a = (Math.PI / points) * i - Math.PI / 2;
+      return `${n2(Math.cos(a) * d)},${n2(Math.sin(a) * d)}`;
+    },
+  ).join(' ')}"/>`;
+const lily = (x, y, r, turn = 0) =>
+  `<g transform="translate(${x} ${y}) rotate(${turn})">` +
+  [0, 60, 120, 180, 240, 300].map((a) => leaf(0, 0, r, a - 90, 'w pt')).join('') +
+  `<circle class="y" r="${n2(r * 0.16)}"/></g>`;
+const notePair = (x, y, k = 1) =>
+  `<g transform="translate(${x} ${y}) scale(${k})"><ellipse class="a" rx="12" ry="8.5" transform="rotate(-22)"/>` +
+  '<ellipse class="a" cx="42" cy="-10" rx="12" ry="8.5" transform="rotate(-22 42 -10)"/>' +
+  '<path class="a" d="M9-4h4v-50H9zM51-14h4v-50h-4zM9-54l46-10v12L9-42z"/></g>';
+const note = (x, y, k = 1) =>
+  `<g transform="translate(${x} ${y}) scale(${k})"><ellipse class="a" rx="12" ry="8.5" transform="rotate(-22)"/>` +
+  '<path class="a" d="M9-4h4v-48H9zM13-52c14 5 21 15 15 30-2-9-8-13-15-15z"/></g>';
+const bars = (x, bottom, heights, w = 11, gap = 7) =>
+  heights
+    .map(
+      (hgt, i) =>
+        `<rect class="a" x="${x + i * (w + gap)}" y="${bottom - hgt}" width="${w}" height="${hgt}" rx="${w / 2}"/>`,
+    )
+    .join('');
+/** The manger: a trough on crossed legs, hay and the child wrapped in cloths. */
+const manger = (x, y, k = 1, gold = false) => {
+  const wood = gold ? 'y' : 'b';
+  return (
+    `<g transform="translate(${x} ${y}) scale(${k})">` +
+    `<rect class="${wood}" x="-4" y="-8" width="8" height="52" rx="3" transform="rotate(38 0 18)"/>` +
+    `<rect class="${wood}" x="-4" y="-8" width="8" height="52" rx="3" transform="rotate(-38 0 18)"/>` +
+    `<path class="${gold ? 'yd' : 'y'} in" d="M-34-4l6-11 6 8 6-12 6 10 6-11 6 10 6-11 6 10 6-9 6 16z"/>` +
+    `<path class="${wood}" d="M-38-4h76l-9 22h-58z"/>` +
+    '<ellipse class="w" cx="4" cy="-14" rx="21" ry="9"/><circle class="n" cx="-17" cy="-18" r="8.5"/></g>'
+  );
+};
+/** The star of Bethlehem: four long rays and four short ones. */
+const guideStar = (x, y, r) =>
+  star(x, y, r, 0, 'y', 4, 0.2) + star(x, y, r * 0.52, 45, 'y', 4, 0.3);
+/** The empty tomb: the stone rolled aside and light coming out. */
+const tomb = (x, y, k = 1) =>
+  `<g transform="translate(${x} ${y}) scale(${k})">` +
+  '<path class="tn" d="M-76 44C-76-10-42-44 0-44s76 34 76 88z"/>' +
+  '<path class="k in" d="M-26 44V8a22 22 0 0 1 44 0v36z"/><path class="y in" d="M-18 44V10a14 14 0 0 1 28 0v34z"/>' +
+  '<circle class="st" cx="40" cy="20" r="26"/></g>';
+const cross = (x, y, k = 1) =>
+  `<g transform="translate(${x} ${y}) scale(${k})">` +
+  '<path class="inky" d="M0-58v-12M-34-44l-9-9M34-44l9-9M-48-12h-12M48-12h12"/>' +
+  '<path class="y" d="M-7-44H7v24h20v14H7v48H-7v-48h-20v-14h20z"/></g>';
+
+export const DECORS = [
+  'flowers',
+  'stars',
+  'spark',
+  'notes',
+  'band',
+  'xmas',
+  'xmaskids',
+  'easter',
+  'easterkids',
+];
+const SPARK =
+  '<path class="ink" d="M50 6v30M50 64v30M6 50h30M64 50h30M19 19l20 20M61 61l20 20M81 19L61 39M39 61L19 81"/>';
+export const DECOR = {
+  flowers: {
+    big: big(
+      leaf(96, 96, 78, -152) +
+        leaf(100, 100, 70, 62) +
+        leaf(104, 92, 74, -18) +
+        leaf(92, 104, 56, 118) +
+        flower(84, 86, 50, 8) +
+        flower(150, 54, 30, 30) +
+        flower(146, 126, 22, -12),
+    ),
+    small: small(leaf(46, 58, 46, -160) + leaf(52, 60, 42, 40) + flower(50, 50, 34, 10)),
+  },
+  stars: {
+    big: big(
+      star(70, 82, 54, -12) +
+        star(152, 42, 23, 14, 'w') +
+        '<circle class="w" cx="24" cy="26" r="9"/><circle class="a" cx="112" cy="16" r="8"/>',
+    ),
+    small: small(star(50, 52, 44, -10)),
+  },
+  spark: { big: small(SPARK), small: small(SPARK) },
+  notes: {
+    big: big(
+      [-13, 0, 13]
+        .map(
+          (d) =>
+            `<path class="line" transform="translate(0 ${d})" d="M6 104C56 62 104 134 194 78"/>`,
+        )
+        .join('') +
+        notePair(40, 122, 1.15) +
+        note(140, 100, 1.15) +
+        star(172, 30, 18, 0, 'y', 4, 0.26),
+    ),
+    small: small(notePair(18, 78, 1.25)),
+  },
+  band: {
+    big: big(
+      bars(18, 156, [44, 82, 120, 66, 98, 54, 30], 14, 9) +
+        '<path class="y" d="M176 6l-34 62h22l-12 50 44-68h-24z"/>',
+    ),
+    small: small(bars(12, 90, [34, 62, 84, 48, 70])),
+  },
+  // In the big drawings, what goes below the top edge of the plate stays on the left:
+  // further right it would cover the logo.
+  xmas: {
+    big: big(
+      guideStar(84, 34, 32) +
+        star(152, 42, 11, 0, 'y', 4, 0.26) +
+        star(22, 56, 9, 0, 'y', 4, 0.26) +
+        '<path class="inky" d="M26 112L84 70l58 42"/>' +
+        manger(84, 132, 0.82, true),
+    ),
+    small: small(guideStar(50, 50, 46)),
+  },
+  xmaskids: {
+    big: big(
+      star(78, 36, 34, 0, 'y', 8, 0.52) +
+        star(150, 30, 13, 10, 'w') +
+        '<circle class="w" cx="24" cy="50" r="7"/><circle class="w" cx="182" cy="56" r="5"/>' +
+        manger(78, 118, 1.2),
+    ),
+    small: small(star(50, 28, 25, 0, 'y', 8, 0.52) + manger(50, 70, 0.72)),
+  },
+  easter: {
+    big: big(
+      leaf(84, 104, 76, -158) +
+        leaf(88, 108, 70, 70) +
+        leaf(90, 100, 64, 150) +
+        lily(70, 96, 50, 12) +
+        lily(124, 132, 28, 40) +
+        cross(152, 76, 0.86),
+    ),
+    small: small(cross(50, 62, 0.86)),
+  },
+  easterkids: {
+    big: big(
+      '<circle class="y" cx="146" cy="36" r="21"/>' +
+        '<path class="inky" d="M146 6V2M171 11l4-4M121 11l-4-4M178 36h6"/>' +
+        '<path class="b" d="M66 16h10v11h11v10H76v24H66V37H55V27h11z"/>' +
+        tomb(74, 114, 0.9),
+    ),
+    small: small(tomb(50, 56, 0.6)),
+  },
+};
+// The drawing each decorated model shows when the theme does not pick another.
+const USUAL_DECOR = { floral: 'flowers', kids: 'stars', youth: 'spark' };
+/** The drawing(s) of an element, as SVG ('' = none): the theme's choice or the usual one. */
+export function decorFor(config, el, template) {
+  const usual = USUAL_DECOR[template],
+    pick = config.theme?.decor;
+  if (!usual || pick === 'none') return '';
+  const set = DECOR[pick] || DECOR[usual];
+  // The block model only has room for a small mark, and none on the corner badge.
+  if (template === 'youth') return el === 'top' ? '' : set.small;
+  if (el === 'card') return set.big + set.small;
+  return el === 'lower' ? set.big : set.small;
+}
+
 export const NETWORKS = [
   ['instagram', 'Instagram'],
   ['youtube', 'YouTube'],

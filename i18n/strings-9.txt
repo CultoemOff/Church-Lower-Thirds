@@ -1,0 +1,497 @@
+Jovem
+Youth
+Jóvenes
+Giovani
+Jugend
+
+Kids
+Kids
+Niños
+Bambini
+Kinder
+
+Feminino
+Women
+Femenino
+Femminile
+Frauen
+
+Gota d’água
+Water drop
+Gota de agua
+Goccia d’acqua
+Wassertropfen
+
+Linha que se abre
+Opening line
+Línea que se abre
+Linea che si apre
+Sich öffnende Linie
+
+Deslize com rastro
+Glide with trail
+Deslizar con estela
+Scivolata con scia
+Gleiten mit Schweif
+
+Vermelho e marinho
+Red and navy
+Rojo y azul marino
+Rosso e blu navy
+Rot und Marineblau
+
+Preto e ouro
+Black and gold
+Negro y oro
+Nero e oro
+Schwarz und Gold
+
+Preto e branco
+Black and white
+Blanco y negro
+Bianco e nero
+Schwarz-Weiß
+
+Preto e limão
+Black and lime
+Negro y lima
+Nero e lime
+Schwarz und Limette
+
+Colorido
+Colorful
+Colorido
+Colorato
+Bunt
+
+Rosé
+Rosé
+Rosé
+Rosé
+Rosé
+
+Orquídea
+Orchid
+Orquídea
+Orchidea
+Orchidee
+
+Vidro claro
+Clear glass
+Vidrio claro
+Vetro chiaro
+Klarglas
+
+Institucional
+Institutional
+Institucional
+Istituzionale
+Institutionell
+
+Barra do nome com fio de destaque: o visual clássico de transmissão
+Name bar with an accent stripe: the classic broadcast look
+Barra del nombre con una línea de acento: el aspecto clásico de transmisión
+Barra del nome con un filo di accento: il classico aspetto da trasmissione
+Namensleiste mit Akzentstreifen: der klassische Sendelook
+
+Placas
+Plaques
+Placas
+Targhe
+Tafeln
+
+Placas de borda fina: QR Code no alto à esquerda e avisos em sequência embaixo
+Fine-rimmed plaques: QR code at the top left and notices in sequence at the bottom
+Placas de borde fino: código QR arriba a la izquierda y avisos en secuencia abajo
+Targhe dal bordo sottile: codice QR in alto a sinistra e avvisi in sequenza in basso
+Tafeln mit feinem Rand: QR-Code oben links und Hinweise nacheinander unten
+
+Vidro fosco
+Frosted glass
+Vidrio esmerilado
+Vetro satinato
+Milchglas
+
+Painéis translúcidos e bem arredondados, que deixam a imagem aparecer
+Translucent, well-rounded panels that let the picture show through
+Paneles translúcidos y muy redondeados, que dejan ver la imagen
+Pannelli traslucidi e ben arrotondati, che lasciano vedere l’immagine
+Durchscheinende, stark abgerundete Flächen, die das Bild durchscheinen lassen
+
+Vidro claro com brilho nas bordas, que entra como uma gota d’água
+Clear glass with shining edges, which comes in like a drop of water
+Vidrio claro con brillo en los bordes, que entra como una gota de agua
+Vetro chiaro con bordi luminosi, che entra come una goccia d’acqua
+Klares Glas mit leuchtenden Rändern, das wie ein Wassertropfen erscheint
+
+Blocos retos e fortes, de ponta a ponta, como nos noticiários
+Straight, strong blocks from edge to edge, as on the news
+Bloques rectos y fuertes, de lado a lado, como en los noticieros
+Blocchi dritti e decisi, da un lato all’altro, come nei telegiornali
+Gerade, kräftige Blöcke von Rand zu Rand, wie in den Nachrichten
+
+Solene
+Solemn
+Solemne
+Solenne
+Feierlich
+
+Fonte serifada, bloco duplo e moldura: para cultos tradicionais
+Serif font, split block and frame: for traditional services
+Fuente con serifa, bloque doble y marco: para cultos tradicionales
+Carattere con grazie, blocco doppio e cornice: per culti tradizionali
+Serifenschrift, Doppelblock und Rahmen: für traditionelle Gottesdienste
+
+Cerimonial
+Ceremonial
+Ceremonial
+Cerimoniale
+Zeremoniell
+
+Letras de inscrição em barras clássicas: festivo e solene
+Inscription lettering on classic bars: festive and solemn
+Letras de inscripción en barras clásicas: festivo y solemne
+Lettere da iscrizione su barre classiche: festoso e solenne
+Inschriften-Buchstaben auf klassischen Leisten: festlich und feierlich
+
+Formas bem arredondadas e leves, com o logo num anel
+Light, well-rounded shapes, with the logo in a ring
+Formas ligeras y muy redondeadas, con el logo en un anillo
+Forme leggere e ben arrotondate, con il logo in un anello
+Leichte, stark abgerundete Formen, mit dem Logo in einem Ring
+
+Contorno luminoso sobre fundo escuro: tecnológico
+Glowing outline on a dark background: high-tech
+Contorno luminoso sobre fondo oscuro: tecnológico
+Contorno luminoso su sfondo scuro: tecnologico
+Leuchtender Umriss auf dunklem Grund: technisch
+
+Faixa inclinada e letras altas, no estilo das transmissões esportivas
+Slanted ribbon and tall letters, in the style of sports broadcasts
+Franja inclinada y letras altas, al estilo de las transmisiones deportivas
+Fascia inclinata e lettere alte, nello stile delle trasmissioni sportive
+Schräges Band und hohe Buchstaben, im Stil von Sportübertragungen
+
+Cartões sobrepostos, com fonte serifada suave
+Overlapping cards, with a soft serif font
+Tarjetas superpuestas, con una fuente con serifa suave
+Schede sovrapposte, con un carattere con grazie morbido
+Überlappende Karten, mit weicher Serifenschrift
+
+Moderno
+Modern
+Moderno
+Moderno
+Modern
+
+Bloco duplo com cápsulas: atual e vibrante
+Split block with capsules: current and vibrant
+Bloque doble con cápsulas: actual y vibrante
+Blocco doppio con capsule: attuale e vivace
+Doppelblock mit Kapseln: zeitgemäß und lebendig
+
+Sóbrio
+Sober
+Sobrio
+Sobrio
+Schlicht
+
+Só o texto e um toque de cor: combina com qualquer logo
+Just the text and a touch of color: goes with any logo
+Solo el texto y un toque de color: combina con cualquier logo
+Solo il testo e un tocco di colore: si abbina a qualsiasi logo
+Nur der Text und ein Farbtupfer: passt zu jedem Logo
+
+Blocos escuros com corte inclinado, faixas e etiqueta: para o ministério de jovens
+Dark blocks with a slanted cut, stripes and a tag: for the youth ministry
+Bloques oscuros con corte inclinado, franjas y etiqueta: para el ministerio de jóvenes
+Blocchi scuri con taglio inclinato, strisce ed etichetta: per il ministero dei giovani
+Dunkle Blöcke mit schrägem Schnitt, Streifen und Etikett: für die Jugendarbeit
+
+Adesivos coloridos com balão e estrelas: para o ministério infantil
+Colorful stickers with a bubble and stars: for the children’s ministry
+Pegatinas de colores con globo y estrellas: para el ministerio infantil
+Adesivi colorati con fumetto e stelle: per il ministero dei bambini
+Bunte Aufkleber mit Sprechblase und Sternen: für die Kinderarbeit
+
+Placas suaves com moldura fina e flores: para o ministério de mulheres
+Soft plaques with a fine frame and flowers: for the women’s ministry
+Placas suaves con marco fino y flores: para el ministerio de mujeres
+Targhe delicate con cornice sottile e fiori: per il ministero delle donne
+Sanfte Tafeln mit feinem Rahmen und Blumen: für die Frauenarbeit
+
+Troca só as cores, sem mexer no modelo
+Changes only the colors, without touching the style
+Cambia solo los colores, sin tocar el modelo
+Cambia solo i colori, senza toccare il modello
+Ändert nur die Farben, ohne die Vorlage zu verändern
+
+Sugerida para este modelo
+Suggested for this style
+Sugerida para este modelo
+Suggerita per questo modello
+Für diese Vorlage empfohlen
+
+Modelo "{name}" aplicado, com as cores "{colors}".
+Style "{name}" applied, with the "{colors}" colors.
+Modelo "{name}" aplicado, con los colores "{colors}".
+Modello "{name}" applicato, con i colori "{colors}".
+Vorlage „{name}“ angewendet, mit den Farben „{colors}“.
+
+Cores "{name}" aplicadas ao tema global.
+"{name}" colors applied to the global theme.
+Colores "{name}" aplicados al tema global.
+Colori "{name}" applicati al tema globale.
+Farben „{name}“ auf das globale Design angewendet.
+
+Modelos
+Styles
+Modelos
+Modelli
+Vorlagen
+
+Troca só as cores, sem mexer no modelo. Depois, se quiser, ajuste cada cor abaixo.
+Changes only the colors, without touching the style. Then, if you like, adjust each color below.
+Cambia solo los colores, sin tocar el modelo. Después, si quiere, ajuste cada color abajo.
+Cambia solo i colori, senza toccare il modello. Poi, se vuoi, regola ogni colore qui sotto.
+Ändert nur die Farben, ohne die Vorlage zu verändern. Danach können Sie jede Farbe unten anpassen.
+
+Personalizar as cores
+Customize the colors
+Personalizar los colores
+Personalizza i colori
+Farben anpassen
+
+Escolha um modelo e todos os elementos já ficam prontos, com as cores que mais combinam. Se preferir outras cores, troque logo abaixo.
+Pick a style and every element is ready, with the colors that suit it best. If you prefer other colors, change them right below.
+Elija un modelo y todos los elementos quedan listos, con los colores que mejor combinan. Si prefiere otros colores, cámbielos justo abajo.
+Scegli un modello e tutti gli elementi sono pronti, con i colori più adatti. Se preferisci altri colori, cambiali qui sotto.
+Wählen Sie eine Vorlage und alle Elemente sind fertig, mit den passendsten Farben. Wenn Sie andere Farben möchten, ändern Sie sie gleich darunter.
+
+Cada cor pode ser ajustada depois, em "Tema global".
+Each color can be adjusted later, in "Global theme".
+Cada color se puede ajustar después, en "Tema global".
+Ogni colore può essere regolato dopo, in "Tema globale".
+Jede Farbe kann später unter „Globales Design“ angepasst werden.
+
+Divertidas
+Playful
+Divertidas
+Divertenti
+Verspielt
+
+Urbano
+Urban
+Urbano
+Urbano
+Urban
+
+Adesivo
+Sticker
+Pegatina
+Adesivo
+Aufkleber
+
+Delicado
+Delicate
+Delicado
+Delicato
+Zart
+
+Flores
+Flowers
+Flores
+Fiori
+Blumen
+
+Estrelas
+Stars
+Estrellas
+Stelle
+Sterne
+
+Faísca
+Spark
+Chispa
+Scintilla
+Funke
+
+Notas musicais
+Musical notes
+Notas musicales
+Note musicali
+Musiknoten
+
+Barras de som
+Sound bars
+Barras de sonido
+Barre del suono
+Klangbalken
+
+Natal: estrela de Belém
+Christmas: star of Bethlehem
+Navidad: estrella de Belén
+Natale: stella di Betlemme
+Weihnachten: Stern von Bethlehem
+
+Natal: manjedoura e estrela
+Christmas: manger and star
+Navidad: pesebre y estrella
+Natale: mangiatoia e stella
+Weihnachten: Krippe und Stern
+
+Páscoa: lírios e cruz
+Easter: lilies and cross
+Pascua: lirios y cruz
+Pasqua: gigli e croce
+Ostern: Lilien und Kreuz
+
+Páscoa: túmulo vazio
+Easter: empty tomb
+Pascua: sepulcro vacío
+Pasqua: sepolcro vuoto
+Ostern: leeres Grab
+
+Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; passe o mouse para ver a entrada.
+Start with the style: it sets the shape, the font and the animation of every element and already brings the colors that suit it best. The pictures show each style with the church's name and logo; point at one to see it come in.
+Empiece por el modelo: define la forma, la fuente y la animación de todos los elementos y ya trae los colores que mejor combinan. Las figuras muestran cada modelo con el nombre y el logo de la iglesia; pase el ratón para ver la entrada.
+Inizia dal modello: definisce la forma, il carattere e l’animazione di tutti gli elementi e porta già i colori più adatti. Le figure mostrano ogni modello con il nome e il logo della chiesa; passa il mouse per vedere l’entrata.
+Beginnen Sie mit der Vorlage: Sie bestimmt Form, Schrift und Animation aller Elemente und bringt die passendsten Farben gleich mit. Die Bilder zeigen jede Vorlage mit Namen und Logo der Gemeinde; zeigen Sie mit der Maus darauf, um den Einstieg zu sehen.
+
+Modelos temáticos
+Themed styles
+Modelos temáticos
+Modelli a tema
+Themenvorlagen
+
+Para ministérios e datas especiais: jovens, crianças, mulheres, coral, banda, Natal e Páscoa. O desenho pode ser trocado em "Fonte e forma".
+For ministries and special dates: youth, children, women, choir, band, Christmas and Easter. The drawing can be changed in "Font and shape".
+Para ministerios y fechas especiales: jóvenes, niños, mujeres, coro, banda, Navidad y Pascua. El dibujo se puede cambiar en "Fuente y forma".
+Per ministeri e date speciali: giovani, bambini, donne, coro, band, Natale e Pasqua. Il disegno si può cambiare in "Carattere e forma".
+Für Dienste und besondere Anlässe: Jugend, Kinder, Frauen, Chor, Band, Weihnachten und Ostern. Die Zeichnung lässt sich unter „Schrift und Form“ ändern.
+
+Desenho dos modelos temáticos
+Drawing of the themed styles
+Dibujo de los modelos temáticos
+Disegno dei modelli a tema
+Zeichnung der Themenvorlagen
+
+O do próprio modelo
+The style's own
+El del propio modelo
+Quello del modello
+Die der Vorlage
+
+Sem desenho
+No drawing
+Sin dibujo
+Nessun disegno
+Ohne Zeichnung
+
+Aparece nos modelos Urbano, Adesivo e Delicado dos elementos.
+Shown by the Urban, Sticker and Delicate styles of the elements.
+Aparece en los modelos Urbano, Pegatina y Delicado de los elementos.
+Compare nei modelli Urbano, Adesivo e Delicato degli elementi.
+Erscheint bei den Vorlagen Urban, Aufkleber und Zart der Elemente.
+
+Para ministérios e datas especiais.
+For ministries and special dates.
+Para ministerios y fechas especiales.
+Per ministeri e date speciali.
+Für Dienste und besondere Anlässe.
+
+Púrpura e ouro
+Purple and gold
+Púrpura y oro
+Porpora e oro
+Purpur und Gold
+
+Palco
+Stage
+Escenario
+Palco
+Bühne
+
+Natal
+Christmas
+Navidad
+Natale
+Weihnachten
+
+Natal colorido
+Colorful Christmas
+Navidad colorida
+Natale colorato
+Buntes Weihnachten
+
+Páscoa
+Easter
+Pascua
+Pasqua
+Ostern
+
+Páscoa colorida
+Colorful Easter
+Pascua colorida
+Pasqua colorata
+Buntes Ostern
+
+Coral
+Choir
+Coro
+Coro
+Chor
+
+Placas suaves com moldura fina, pauta e notas musicais: para o coral
+Soft plaques with a fine frame, a staff and musical notes: for the choir
+Placas suaves con marco fino, pentagrama y notas musicales: para el coro
+Targhe delicate con cornice sottile, pentagramma e note musicali: per il coro
+Sanfte Tafeln mit feinem Rahmen, Notenlinien und Noten: für den Chor
+
+Banda
+Band
+Banda
+Band
+Band
+
+Blocos escuros com corte inclinado e barras de som: para o louvor e a banda
+Dark blocks with a slanted cut and sound bars: for worship and the band
+Bloques oscuros con corte inclinado y barras de sonido: para la alabanza y la banda
+Blocchi scuri con taglio inclinato e barre del suono: per la lode e la band
+Dunkle Blöcke mit schrägem Schnitt und Klangbalken: für Lobpreis und Band
+
+Verde-escuro e dourado, com a estrela de Belém e a manjedoura: sóbrio, para os cultos de Natal
+Dark green and gold, with the star of Bethlehem and the manger: sober, for the Christmas services
+Verde oscuro y dorado, con la estrella de Belén y el pesebre: sobrio, para los cultos de Navidad
+Verde scuro e oro, con la stella di Betlemme e la mangiatoia: sobrio, per i culti di Natale
+Dunkelgrün und Gold, mit dem Stern von Bethlehem und der Krippe: schlicht, für die Weihnachtsgottesdienste
+
+Natal Kids
+Christmas Kids
+Navidad Niños
+Natale Bambini
+Weihnachten Kinder
+
+Adesivos em vermelho e verde, com a manjedoura e a estrela: para o Natal das crianças
+Stickers in red and green, with the manger and the star: for the children's Christmas
+Pegatinas en rojo y verde, con el pesebre y la estrella: para la Navidad de los niños
+Adesivi in rosso e verde, con la mangiatoia e la stella: per il Natale dei bambini
+Aufkleber in Rot und Grün, mit Krippe und Stern: für das Weihnachtsfest der Kinder
+
+Branco e lilás, com lírios e a cruz vazia: sóbrio, para os cultos de Páscoa
+White and lilac, with lilies and the empty cross: sober, for the Easter services
+Blanco y lila, con lirios y la cruz vacía: sobrio, para los cultos de Pascua
+Bianco e lilla, con gigli e la croce vuota: sobrio, per i culti di Pasqua
+Weiß und Flieder, mit Lilien und dem leeren Kreuz: schlicht, für die Ostergottesdienste
+
+Páscoa Kids
+Easter Kids
+Pascua Niños
+Pasqua Bambini
+Ostern Kinder
+
+Adesivos em tons alegres, com o túmulo vazio e a pedra removida: para a Páscoa das crianças
+Stickers in cheerful colors, with the empty tomb and the stone rolled away: for the children's Easter
+Pegatinas en tonos alegres, con el sepulcro vacío y la piedra removida: para la Pascua de los niños
+Adesivi in toni allegri, con il sepolcro vuoto e la pietra rotolata via: per la Pasqua dei bambini
+Aufkleber in fröhlichen Farben, mit dem leeren Grab und dem weggerollten Stein: für das Osterfest der Kinder

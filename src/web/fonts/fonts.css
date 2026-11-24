@@ -153,3 +153,10 @@
   font-weight: 400 700;
   src: url('/fonts/dancing-script-latin-wght-normal.woff2') format('woff2');
 }
+@font-face {
+  font-family: 'Fredoka';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300 700;
+  src: url('/fonts/fredoka-latin-wght-normal.woff2') format('woff2');
+}

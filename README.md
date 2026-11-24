@@ -18,15 +18,15 @@ Na primeira vez, um assistente explica esses passos com ilustrações e deixa tu
 
 ## O que tem
 
-- **Nomes** (lower third): 12 modelos; texto escrito na hora ou salvo numa lista; logo e QR Code opcionais em cada item.
-- **Selo superior**: 4 modelos, num canto da tela, com logo, nome da igreja, "AO VIVO", horário e recados; cada parte é opcional.
+- **Nomes** (lower third): 15 modelos; texto escrito na hora ou salvo numa lista; logo e QR Code opcionais em cada item.
+- **Selo superior**: 7 modelos, num canto da tela, com logo, nome da igreja, "AO VIVO", horário e recados; cada parte é opcional.
 - **Barra inferior**: 4 modelos, com texto rolando. Os nomes sobem sozinhos quando ela está no ar.
-- **Cartão QR / Oferta**: 6 modelos. A contribuição pode ser PIX (pela chave ou pelo "copia e cola" do banco), aplicativo de pagamento por telefone ou código, transferência SEPA (QR EPC), um link, uma imagem de QR Code enviada ou só os dados bancários. Também faz QR Code de qualquer link.
+- **Cartão QR / Oferta**: 9 modelos. A contribuição pode ser PIX (pela chave ou pelo "copia e cola" do banco), aplicativo de pagamento por telefone ou código, transferência SEPA (QR EPC), um link, uma imagem de QR Code enviada ou só os dados bancários. Também faz QR Code de qualquer link.
 - **Agenda**: 4 modelos; mostra um dia por vez.
-- **Redes sociais e avisos**: 4 modelos; um item por vez ou todos em sequência, com contador e linha do tempo. Os ícones são genéricos (não os logotipos das redes); a igreja pode enviar os seus.
+- **Redes sociais e avisos**: 7 modelos; um item por vez ou todos em sequência, com contador e linha do tempo. Os ícones são genéricos (não os logotipos das redes); a igreja pode enviar os seus.
 - **Logo** no canto da tela.
-- **Tema global**: cores com degradê, fonte, cantos, sombra e opacidade que todos os elementos seguem; cada elemento pode ter aparência própria. 15 temas prontos.
-- 18 fontes incluídas (`src/web/fonts`, licença SIL OFL 1.1) e todas as instaladas no computador; 8 animações.
+- **Tema global**: cores com degradê, fonte, cantos, sombra e opacidade que todos os elementos seguem; cada elemento pode ter aparência própria. 23 modelos prontos, mostrados em miniaturas reais (com o nome e o logo da igreja), cada um com as cores sugeridas, e 27 conjuntos de cores prontas para trocar. Nove são **temáticos**: Jovem, Kids, Feminino, Coral, Banda, Natal, Natal Kids, Páscoa e Páscoa Kids, com desenhos próprios (flores, estrelas, notas musicais, estrela de Belém e manjedoura, lírios e cruz, túmulo vazio).
+- 19 fontes incluídas (`src/web/fonts`, licença SIL OFL 1.1) e todas as instaladas no computador; 11 animações de entrada e saída, entre elas gota d’água, linha que se abre e deslize com rastro.
 - **Painel do OBS** com abas, responsivo, com o tempo na tela, botão de fixar e prévia.
 - Posições na tela arrastando; layout horizontal e vertical; cada elemento como fonte separada ou todos numa só.
 - Endereços HTTP para Stream Deck e Companion, sem plugin. Backup num arquivo.
