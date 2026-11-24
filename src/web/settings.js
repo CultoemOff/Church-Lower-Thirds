@@ -495,7 +495,7 @@ function customReport(css) {
       ? line(
           'warn',
           t(
-            'Seletores ignorados ({n}): cada um precisa começar pelo nome de um elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment).',
+            'Seletores ignorados ({n}): cada um precisa começar pelo nome de um elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment, .countdown).',
             { n: count('selector') },
           ),
         )

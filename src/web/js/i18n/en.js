@@ -234,6 +234,148 @@ export default {
   'Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o nome que aparece.':
     'Test before the service: point the bank app at this QR code and check the name it shows.',
   'PIX copia e cola:': 'PIX copy and paste:',
+  'Simples: só o essencial. Avançado: todas as opções de aparência, efeitos e integrações.':
+    'Simple: just the essentials. Advanced: every option for looks, effects and integrations.',
+  Roteiro: 'Rundown',
+  'Roteiro do culto: o que vai ao ar em cada momento, um clique por vez':
+    'Order of service: what goes on air at each moment, one click at a time',
+  Contagem: 'Countdown',
+  'Contagem regressiva: "O culto começa em 05:00"': 'Countdown: "The service starts in 05:00"',
+  'Buscar na lista': 'Search the list',
+  'Removido da lista.': 'Removed from the list.',
+  'Nenhum nome com esse texto.': 'No name with that text.',
+  'Texto (ex.: O culto começa em)': 'Text (e.g. The service starts in)',
+  Minutos: 'Minutes',
+  'Horário em que chega a zero': 'Time at which it reaches zero',
+  Faltam: 'Left:',
+  'Começa agora uma contagem com estes minutos': 'Starts a countdown with these minutes now',
+  'Mostra a contagem na tela, começando agora': 'Shows the countdown on screen, starting now',
+  Iniciar: 'Start',
+  'Por minutos': 'By minutes',
+  'Até um horário': 'Until a time',
+  'Volta um passo': 'Goes back one step',
+  'Põe no ar o próximo passo; o anterior sai': 'Puts the next step on air; the one before leaves',
+  Próximo: 'Next',
+  'Roteiro do culto': 'Order of service',
+  'Tira do ar o que estiver e volta ao começo do roteiro':
+    'Takes off air whatever is on and goes back to the start',
+  Recomeçar: 'Start over',
+  'Abre as configurações para montar ou mudar o roteiro':
+    'Opens the settings to build or change the order of service',
+  'Editar o roteiro': 'Edit the rundown',
+  'Fim do roteiro': 'End of the rundown',
+  'Clique para pôr este passo no ar': 'Click to put this step on air',
+  'O roteiro está vazio. Em "Editar o roteiro", coloque em ordem o que vai ao ar no culto: nomes, ofertas, avisos. Depois é um clique em "Próximo" a cada momento.':
+    'The rundown is empty. In "Edit the rundown", put in order what goes on air in the service: names, offerings, notices. Then it is one click on "Next" at each moment.',
+  'Números grandes': 'Large numbers',
+  'Contagem regressiva': 'Countdown',
+  '"O culto começa em 05:00".': '"The service starts in 05:00".',
+  'A ordem do que vai ao ar: no painel do OBS, um clique em "Próximo" a cada momento.':
+    'The order of what goes on air: in the OBS panel, one click on "Next" at each moment.',
+  'Esse arquivo não é um modelo nem um perfil do Church Lower Thirds.':
+    'This file is not a Church Lower Thirds style or profile.',
+  'Perfil importado. Escolha-o no seletor de perfis para usar.':
+    'Profile imported. Choose it in the profile selector to use it.',
+  'Modelo importado. Ele está em "Modelos próprios".': 'Style imported. It is in "Custom styles".',
+  'Aceita arquivos de modelo e de perfil exportados pelo Church Lower Thirds':
+    'Accepts style and profile files exported by Church Lower Thirds',
+  'Modelo "{name}" excluído.': 'Style "{name}" deleted.',
+  'Salva este modelo num arquivo, para levar a outra igreja':
+    'Saves this style to a file, to take to another church',
+  Exportar: 'Export',
+  'Importar modelo de um arquivo': 'Import a style from a file',
+  'Nomes encontrados: {n}.': 'Names found: {n}.',
+  '{n} nomes na lista.': '{n} names in the list.',
+  'Cole uma lista ou escolha um arquivo: um nome por linha, com o cargo depois':
+    'Paste a list or choose a file: one name per line, with the role after it',
+  'Importar lista': 'Import a list',
+  'Salva os nomes num arquivo que o Excel e o Google Planilhas abrem':
+    'Saves the names to a file that Excel and Google Sheets open',
+  'Exportar CSV': 'Export CSV',
+  'Um nome por linha, com o cargo depois de um ponto e vírgula, uma tabulação, um traço ou uma vírgula. Exemplos: "Pr. João Silva; Pastor presidente" ou "Maria Souza - Louvor". Uma planilha salva como CSV também serve.':
+    'One name per line, with the role after a semicolon, a tab, a dash or a comma. Examples: "Pr. João Silva; Senior pastor" or "Maria Souza - Worship". A spreadsheet saved as CSV works too.',
+  'Escolher arquivo': 'Choose a file',
+  'Adicionar à lista': 'Add to the list',
+  'Troca todos os nomes da lista por estes': 'Replaces every name of the list with these',
+  'Substituir a lista': 'Replace the list',
+  Passos: 'Steps',
+  'O que este passo mostra': 'What this step shows',
+  '(apagado: escolha outro)': '(deleted: choose another)',
+  '(apagado)': '(deleted)',
+  'Lembrete (ex.: depois do segundo louvor)': 'Reminder (e.g. after the second song)',
+  'Nenhum passo ainda. Use os botões abaixo para montar o roteiro, na ordem do culto.':
+    'No steps yet. Use the buttons below to build the rundown, in the order of the service.',
+  'Adicionar um passo': 'Add a step',
+  'Salve primeiro um item deste tipo (no painel do OBS ou na página dele)':
+    'Save an item of this kind first (in the OBS panel or on its page)',
+  'Acrescenta este passo no fim do roteiro': 'Adds this step at the end of the rundown',
+  'A contagem começa quando é mostrada, no painel do OBS (aba "Contagem"), no roteiro ou por uma tecla do Stream Deck. Lá também se trocam os minutos na hora.':
+    'The countdown starts when it is shown, from the OBS panel ("Countdown" tab), the rundown or a Stream Deck key. The minutes can also be changed there on the spot.',
+  'O culto começa em': 'The service starts in',
+  'Como contar': 'How to count',
+  'Por minutos, a partir de quando é mostrada': 'By minutes, from the moment it is shown',
+  'Até um horário de hoje': 'Until a time today',
+  'Texto ao chegar a zero': 'Text when it reaches zero',
+  'Já vamos começar': 'We are about to start',
+  'Vazio: a contagem para em 00:00.': 'Empty: the countdown stops at 00:00.',
+  'Sair sozinha alguns segundos depois do zero': 'Leave by itself a few seconds after zero',
+  Números: 'Numbers',
+  'Coloque em ordem o que vai ao ar durante o culto: o nome de quem fala, as ofertas, um comentário, a agenda. No painel do OBS, a aba "Roteiro" mostra a lista e um botão "Próximo": a cada clique entra o passo seguinte e o anterior sai. Os passos apontam para o que já está salvo (nomes, ofertas, comentários, redes).':
+    'Put in order what goes on air during the service: the name of whoever is speaking, the offerings, a comment, the schedule. In the OBS panel, the "Rundown" tab shows the list and a "Next" button: each click brings in the next step and the one before leaves. The steps point at what is already saved (names, offerings, comments, networks).',
+  'Contagem regressiva (começa de novo)': 'Countdown (starts again)',
+  'Roteiro: próximo passo': 'Rundown: next step',
+  'Roteiro: passo anterior': 'Rundown: previous step',
+  'Roteiro: ir para um passo (1 = primeiro)': 'Rundown: go to a step (1 = first)',
+  'Roteiro: recomeçar': 'Rundown: start over',
+  'Modo simples: {n} blocos de ajustes finos estão escondidos nesta página.':
+    'Simple mode: {n} blocks of fine adjustments are hidden on this page.',
+  'Mostrar tudo': 'Show everything',
+  'Criar as fontes no OBS': 'Create the sources in OBS',
+  'O programa cria as fontes de navegador direto no OBS, na cena que está aberta, com o endereço e o tamanho certos. No OBS, abra Ferramentas → Configurações do servidor WebSocket, marque "Ativar servidor WebSocket" e clique em "Mostrar informações de conexão" para ver a senha.':
+    'The program creates the browser sources right in OBS, in the scene that is open, with the right address and size. In OBS, open Tools → WebSocket Server Settings, check "Enable WebSocket server" and click "Show Connect Info" to see the password.',
+  'Senha do servidor WebSocket do OBS': "Password of OBS's WebSocket server",
+  'Vazio se o OBS não pede senha': 'Empty if OBS asks for no password',
+  Porta: 'Port',
+  'A do OBS é 4455, a não ser que tenha sido trocada.': 'OBS uses 4455, unless it was changed.',
+  'Uma fonte com tudo': 'One source with everything',
+  'Uma fonte por elemento': 'One source per element',
+  'O mais simples: uma fonte só, com todos os elementos':
+    'The simplest: a single source, with every element',
+  'Uma fonte para cada elemento ligado, para mostrar em cenas diferentes ou mudar a ordem das camadas':
+    'One source for each element that is on, to show in different scenes or change the order of the layers',
+  'Criando…': 'Creating…',
+  'Criar no OBS': 'Create in OBS',
+  'Criadas na cena "{scene}": {list}.': 'Created in the scene "{scene}": {list}.',
+  'Já existiam no OBS (não foram alteradas): {list}.': 'Already in OBS (left unchanged): {list}.',
+  'O painel de controle (dock) ainda é adicionado à mão: o OBS não deixa um programa criar docks. O endereço está logo abaixo.':
+    'The control panel (dock) is still added by hand: OBS does not let a program create docks. The address is right below.',
+  Simples: 'Simple',
+  Avançado: 'Advanced',
+  'Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja':
+    'Saves the look of this profile to a file (with the logo and the custom style), to take to another church',
+  'Importar perfil de um arquivo': 'Import a profile from a file',
+  Desfazer: 'Undo',
+  'O OBS não respondeu. Confira se ele está aberto e se o servidor WebSocket está ativado (Ferramentas → Configurações do servidor WebSocket).':
+    'OBS did not answer. Check that it is open and that the WebSocket server is enabled (Tools → WebSocket Server Settings).',
+  'A senha do servidor WebSocket do OBS não confere.':
+    "The password of OBS's WebSocket server does not match.",
+  'O OBS pede uma senha. Copie-a em "Mostrar informações de conexão".':
+    'OBS asks for a password. Copy it from "Show Connect Info".',
+  'O OBS não tem uma cena aberta para receber as fontes.':
+    'OBS has no open scene to receive the sources.',
+  'O OBS fechou a conexão. Tente de novo.': 'OBS closed the connection. Try again.',
+  'O OBS recusou o pedido. Confira a versão do OBS (28 ou mais nova).':
+    'OBS refused the request. Check the version of OBS (28 or newer).',
+  'Há modelos demais: exclua um antes de importar outro.':
+    'Too many styles: delete one before importing another.',
+  'Esse modelo não existe mais.': 'That style no longer exists.',
+  'O roteiro está vazio. Monte-o nas configurações.':
+    'The rundown is empty. Build it in the settings.',
+  'O roteiro chegou ao fim.': 'The rundown has reached its end.',
+  'Esse passo não existe no roteiro.': 'That step is not in the rundown.',
+  'Este passo aponta para algo que foi apagado. Corrija o roteiro nas configurações.':
+    'This step points at something that was deleted. Fix the rundown in the settings.',
+  'Todas as redes': 'All networks',
   'No ar agora': 'On air now',
   'No ar': 'On air',
   'Fora do ar': 'Off air',
@@ -993,8 +1135,8 @@ export default {
   'Regras aceitas: {n}. Desenha: {list}.': 'Rules accepted: {n}. Draws: {list}.',
   'Nenhuma regra pôde ser usada. Confira se colou só o código CSS.':
     'No rule could be used. Check that only the CSS code was pasted.',
-  'Seletores ignorados ({n}): cada um precisa começar pelo nome de um elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment).':
-    'Selectors ignored ({n}): each one must start with the name of an element (.lower, .top, .ticker, .card, .agenda, .social, .comment).',
+  'Seletores ignorados ({n}): cada um precisa começar pelo nome de um elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment, .countdown).':
+    'Selectors ignored ({n}): each one must start with the name of an element (.lower, .top, .ticker, .card, .agenda, .social, .comment, .countdown).',
   'Linhas ignoradas ({n}): o modelo não pode buscar nada na internet.':
     'Lines ignored ({n}): the style cannot fetch anything from the internet.',
   'Trechos ignorados ({n}): só CSS simples é aceito.':

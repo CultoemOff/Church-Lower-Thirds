@@ -170,6 +170,14 @@ jobs:
           Invoke-RestMethod "$base/api/patch" -Method Post -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($patch)) | Out-Null
           $c = Invoke-RestMethod "$base/api/live/comment/show" -Method Post
           if (-not $c.live.comment.on) { throw "The comment did not go on air" }
+          # The countdown and the order of service: one step, run with "next".
+          $patch = @{ rundown = @(@{ id = 'step1111'; kind = 'countdown'; ref = ''; note = '' }); 'countdown.minutes' = 2 } | ConvertTo-Json -Depth 5
+          Invoke-RestMethod "$base/api/patch" -Method Post -ContentType 'application/json' -Body $patch | Out-Null
+          $s = Invoke-RestMethod "$base/api/rundown/next"
+          if ($s.live.step -ne 'step1111' -or -not $s.live.countdown.on -or $s.live.countdown.until -le 0) { throw "The order of service did not start the countdown: $($s | ConvertTo-Json -Compress -Depth 5)" }
+          # With OBS closed, asking it to create the sources fails with a clear reason.
+          try { Invoke-RestMethod "$base/api/obs/sources" -Method Post -ContentType 'application/json' -Body '{"port":4999}' | Out-Null; throw 'OBS answered where there is none' }
+          catch { if ("$($_.ErrorDetails.Message)" -notmatch 'OBS is not answering') { throw "Unexpected answer about OBS: $($_.ErrorDetails.Message) $_" } }
           # Service profiles: a new one, back to the first by its name.
           $p = Invoke-RestMethod "$base/api/profile/add" -Method Post -ContentType 'application/json' -Body (@{ name = 'Natal' } | ConvertTo-Json)
           if ($p.config.profiles.Count -ne 2) { throw "Profile not created" }

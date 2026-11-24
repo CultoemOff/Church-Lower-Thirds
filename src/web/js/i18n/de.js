@@ -238,6 +238,154 @@ export default {
   'Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o nome que aparece.':
     'Vor dem Gottesdienst testen: die Banking-App auf diesen QR-Code richten und den angezeigten Namen prüfen.',
   'PIX copia e cola:': 'PIX „Copia e Cola“:',
+  'Simples: só o essencial. Avançado: todas as opções de aparência, efeitos e integrações.':
+    'Einfach: nur das Wesentliche. Erweitert: alle Optionen für Aussehen, Effekte und Integrationen.',
+  Roteiro: 'Ablauf',
+  'Roteiro do culto: o que vai ao ar em cada momento, um clique por vez':
+    'Gottesdienstablauf: was wann auf Sendung geht, ein Klick pro Schritt',
+  Contagem: 'Countdown',
+  'Contagem regressiva: "O culto começa em 05:00"':
+    'Countdown: „Der Gottesdienst beginnt in 05:00“',
+  'Buscar na lista': 'In der Liste suchen',
+  'Removido da lista.': 'Aus der Liste entfernt.',
+  'Nenhum nome com esse texto.': 'Kein Name mit diesem Text.',
+  'Texto (ex.: O culto começa em)': 'Text (z. B. Der Gottesdienst beginnt in)',
+  Minutos: 'Minuten',
+  'Horário em que chega a zero': 'Uhrzeit, zu der null erreicht wird',
+  Faltam: 'Noch',
+  'Começa agora uma contagem com estes minutos': 'Startet jetzt einen Countdown mit diesen Minuten',
+  'Mostra a contagem na tela, começando agora': 'Zeigt den Countdown an, ab jetzt',
+  Iniciar: 'Starten',
+  'Por minutos': 'Nach Minuten',
+  'Até um horário': 'Bis zu einer Uhrzeit',
+  'Volta um passo': 'Einen Schritt zurück',
+  'Põe no ar o próximo passo; o anterior sai':
+    'Bringt den nächsten Schritt auf Sendung; der vorige geht',
+  Próximo: 'Weiter',
+  'Roteiro do culto': 'Gottesdienstablauf',
+  'Tira do ar o que estiver e volta ao começo do roteiro':
+    'Nimmt alles von der Sendung und geht an den Anfang zurück',
+  Recomeçar: 'Neu beginnen',
+  'Abre as configurações para montar ou mudar o roteiro':
+    'Öffnet die Einstellungen, um den Ablauf zu erstellen oder zu ändern',
+  'Editar o roteiro': 'Ablauf bearbeiten',
+  'Fim do roteiro': 'Ende des Ablaufs',
+  'Clique para pôr este passo no ar': 'Klicken, um diesen Schritt auf Sendung zu bringen',
+  'O roteiro está vazio. Em "Editar o roteiro", coloque em ordem o que vai ao ar no culto: nomes, ofertas, avisos. Depois é um clique em "Próximo" a cada momento.':
+    'Der Ablauf ist leer. Unter „Ablauf bearbeiten“ ordnen Sie, was im Gottesdienst auf Sendung geht: Namen, Spenden, Hinweise. Danach genügt jeweils ein Klick auf „Weiter“.',
+  'Números grandes': 'Große Zahlen',
+  'Contagem regressiva': 'Countdown',
+  '"O culto começa em 05:00".': '„Der Gottesdienst beginnt in 05:00“.',
+  'A ordem do que vai ao ar: no painel do OBS, um clique em "Próximo" a cada momento.':
+    'Die Reihenfolge der Einblendungen: im OBS-Panel jeweils ein Klick auf „Weiter“.',
+  'Esse arquivo não é um modelo nem um perfil do Church Lower Thirds.':
+    'Diese Datei ist weder eine Vorlage noch ein Profil von Church Lower Thirds.',
+  'Perfil importado. Escolha-o no seletor de perfis para usar.':
+    'Profil importiert. Wählen Sie es in der Profilauswahl aus.',
+  'Modelo importado. Ele está em "Modelos próprios".':
+    'Vorlage importiert. Sie steht unter „Eigene Vorlagen“.',
+  'Aceita arquivos de modelo e de perfil exportados pelo Church Lower Thirds':
+    'Akzeptiert von Church Lower Thirds exportierte Vorlagen- und Profildateien',
+  'Modelo "{name}" excluído.': 'Vorlage „{name}“ gelöscht.',
+  'Salva este modelo num arquivo, para levar a outra igreja':
+    'Speichert diese Vorlage in einer Datei, zum Weitergeben an eine andere Gemeinde',
+  Exportar: 'Exportieren',
+  'Importar modelo de um arquivo': 'Vorlage aus einer Datei importieren',
+  'Nomes encontrados: {n}.': 'Gefundene Namen: {n}.',
+  '{n} nomes na lista.': '{n} Namen in der Liste.',
+  'Cole uma lista ou escolha um arquivo: um nome por linha, com o cargo depois':
+    'Liste einfügen oder Datei wählen: ein Name pro Zeile, die Funktion dahinter',
+  'Importar lista': 'Liste importieren',
+  'Salva os nomes num arquivo que o Excel e o Google Planilhas abrem':
+    'Speichert die Namen in einer Datei, die Excel und Google Tabellen öffnen',
+  'Exportar CSV': 'CSV exportieren',
+  'Um nome por linha, com o cargo depois de um ponto e vírgula, uma tabulação, um traço ou uma vírgula. Exemplos: "Pr. João Silva; Pastor presidente" ou "Maria Souza - Louvor". Uma planilha salva como CSV também serve.':
+    'Ein Name pro Zeile, die Funktion nach einem Semikolon, Tabulator, Bindestrich oder Komma. Beispiele: „Pr. João Silva; Pastor“ oder „Maria Souza - Lobpreis“. Eine als CSV gespeicherte Tabelle geht auch.',
+  'Escolher arquivo': 'Datei wählen',
+  'Adicionar à lista': 'Zur Liste hinzufügen',
+  'Troca todos os nomes da lista por estes': 'Ersetzt alle Namen der Liste durch diese',
+  'Substituir a lista': 'Liste ersetzen',
+  Passos: 'Schritte',
+  'O que este passo mostra': 'Was dieser Schritt zeigt',
+  '(apagado: escolha outro)': '(gelöscht: anderes wählen)',
+  '(apagado)': '(gelöscht)',
+  'Lembrete (ex.: depois do segundo louvor)': 'Notiz (z. B. nach dem zweiten Lied)',
+  'Nenhum passo ainda. Use os botões abaixo para montar o roteiro, na ordem do culto.':
+    'Noch keine Schritte. Erstellen Sie den Ablauf mit den Schaltflächen unten, in der Reihenfolge des Gottesdienstes.',
+  'Adicionar um passo': 'Schritt hinzufügen',
+  'Salve primeiro um item deste tipo (no painel do OBS ou na página dele)':
+    'Speichern Sie zuerst einen Eintrag dieser Art (im OBS-Panel oder auf seiner Seite)',
+  'Acrescenta este passo no fim do roteiro': 'Fügt diesen Schritt am Ende des Ablaufs an',
+  'A contagem começa quando é mostrada, no painel do OBS (aba "Contagem"), no roteiro ou por uma tecla do Stream Deck. Lá também se trocam os minutos na hora.':
+    'Der Countdown beginnt, wenn er eingeblendet wird: im OBS-Panel (Tab „Countdown“), im Ablauf oder per Stream-Deck-Taste. Dort lassen sich auch die Minuten spontan ändern.',
+  'O culto começa em': 'Der Gottesdienst beginnt in',
+  'Como contar': 'Zählweise',
+  'Por minutos, a partir de quando é mostrada': 'Nach Minuten, ab dem Einblenden',
+  'Até um horário de hoje': 'Bis zu einer Uhrzeit heute',
+  'Texto ao chegar a zero': 'Text bei null',
+  'Já vamos começar': 'Gleich geht es los',
+  'Vazio: a contagem para em 00:00.': 'Leer: Der Countdown bleibt bei 00:00 stehen.',
+  'Sair sozinha alguns segundos depois do zero': 'Einige Sekunden nach null von selbst ausblenden',
+  Números: 'Zahlen',
+  'Coloque em ordem o que vai ao ar durante o culto: o nome de quem fala, as ofertas, um comentário, a agenda. No painel do OBS, a aba "Roteiro" mostra a lista e um botão "Próximo": a cada clique entra o passo seguinte e o anterior sai. Os passos apontam para o que já está salvo (nomes, ofertas, comentários, redes).':
+    'Ordnen Sie, was während des Gottesdienstes auf Sendung geht: den Namen des Sprechers, die Spenden, einen Kommentar, die Termine. Im OBS-Panel zeigt der Tab „Ablauf“ die Liste und die Schaltfläche „Weiter“: Jeder Klick bringt den nächsten Schritt, der vorige geht. Die Schritte verweisen auf bereits Gespeichertes (Namen, Spenden, Kommentare, Netzwerke).',
+  'Contagem regressiva (começa de novo)': 'Countdown (beginnt neu)',
+  'Roteiro: próximo passo': 'Ablauf: nächster Schritt',
+  'Roteiro: passo anterior': 'Ablauf: voriger Schritt',
+  'Roteiro: ir para um passo (1 = primeiro)': 'Ablauf: zu einem Schritt springen (1 = erster)',
+  'Roteiro: recomeçar': 'Ablauf: neu beginnen',
+  'Modo simples: {n} blocos de ajustes finos estão escondidos nesta página.':
+    'Einfacher Modus: {n} Blöcke mit Feineinstellungen sind auf dieser Seite ausgeblendet.',
+  'Mostrar tudo': 'Alles anzeigen',
+  'Criar as fontes no OBS': 'Quellen in OBS anlegen',
+  'O programa cria as fontes de navegador direto no OBS, na cena que está aberta, com o endereço e o tamanho certos. No OBS, abra Ferramentas → Configurações do servidor WebSocket, marque "Ativar servidor WebSocket" e clique em "Mostrar informações de conexão" para ver a senha.':
+    'Das Programm legt die Browserquellen direkt in OBS an, in der geöffneten Szene, mit richtiger Adresse und Größe. Öffnen Sie in OBS Werkzeuge → WebSocket-Servereinstellungen, aktivieren Sie „WebSocket-Server aktivieren“ und klicken Sie auf „Verbindungsinformationen anzeigen“, um das Passwort zu sehen.',
+  'Senha do servidor WebSocket do OBS': 'Passwort des WebSocket-Servers von OBS',
+  'Vazio se o OBS não pede senha': 'Leer, wenn OBS kein Passwort verlangt',
+  Porta: 'Port',
+  'A do OBS é 4455, a não ser que tenha sido trocada.':
+    'OBS verwendet 4455, sofern nicht geändert.',
+  'Uma fonte com tudo': 'Eine Quelle mit allem',
+  'Uma fonte por elemento': 'Eine Quelle pro Element',
+  'O mais simples: uma fonte só, com todos os elementos':
+    'Am einfachsten: eine einzige Quelle mit allen Elementen',
+  'Uma fonte para cada elemento ligado, para mostrar em cenas diferentes ou mudar a ordem das camadas':
+    'Eine Quelle für jedes aktive Element, um sie in verschiedenen Szenen zu zeigen oder die Ebenenreihenfolge zu ändern',
+  'Criando…': 'Wird angelegt…',
+  'Criar no OBS': 'In OBS anlegen',
+  'Criadas na cena "{scene}": {list}.': 'In der Szene „{scene}“ angelegt: {list}.',
+  'Já existiam no OBS (não foram alteradas): {list}.':
+    'Bereits in OBS vorhanden (unverändert): {list}.',
+  'O painel de controle (dock) ainda é adicionado à mão: o OBS não deixa um programa criar docks. O endereço está logo abaixo.':
+    'Das Bedienfeld (Dock) wird weiterhin von Hand hinzugefügt: OBS lässt Programme keine Docks anlegen. Die Adresse steht direkt darunter.',
+  Simples: 'Einfach',
+  Avançado: 'Erweitert',
+  'Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja':
+    'Speichert das Aussehen dieses Profils in einer Datei (mit Logo und eigener Vorlage), zum Weitergeben an eine andere Gemeinde',
+  'Importar perfil de um arquivo': 'Profil aus einer Datei importieren',
+  Desfazer: 'Rückgängig',
+  'O OBS não respondeu. Confira se ele está aberto e se o servidor WebSocket está ativado (Ferramentas → Configurações do servidor WebSocket).':
+    'OBS hat nicht geantwortet. Prüfen Sie, ob es geöffnet und der WebSocket-Server aktiviert ist (Werkzeuge → WebSocket-Servereinstellungen).',
+  'A senha do servidor WebSocket do OBS não confere.':
+    'Das Passwort des WebSocket-Servers von OBS stimmt nicht.',
+  'O OBS pede uma senha. Copie-a em "Mostrar informações de conexão".':
+    'OBS verlangt ein Passwort. Kopieren Sie es unter „Verbindungsinformationen anzeigen“.',
+  'O OBS não tem uma cena aberta para receber as fontes.':
+    'OBS hat keine geöffnete Szene für die Quellen.',
+  'O OBS fechou a conexão. Tente de novo.':
+    'OBS hat die Verbindung geschlossen. Versuchen Sie es erneut.',
+  'O OBS recusou o pedido. Confira a versão do OBS (28 ou mais nova).':
+    'OBS hat die Anfrage abgelehnt. Prüfen Sie die OBS-Version (28 oder neuer).',
+  'Há modelos demais: exclua um antes de importar outro.':
+    'Zu viele Vorlagen: Löschen Sie eine, bevor Sie eine weitere importieren.',
+  'Esse modelo não existe mais.': 'Diese Vorlage gibt es nicht mehr.',
+  'O roteiro está vazio. Monte-o nas configurações.':
+    'Der Ablauf ist leer. Erstellen Sie ihn in den Einstellungen.',
+  'O roteiro chegou ao fim.': 'Der Ablauf ist am Ende.',
+  'Esse passo não existe no roteiro.': 'Diesen Schritt gibt es im Ablauf nicht.',
+  'Este passo aponta para algo que foi apagado. Corrija o roteiro nas configurações.':
+    'Dieser Schritt verweist auf etwas Gelöschtes. Korrigieren Sie den Ablauf in den Einstellungen.',
+  'Todas as redes': 'Alle Netzwerke',
   'No ar agora': 'Jetzt im Bild',
   'No ar': 'Im Bild',
   'Fora do ar': 'Nicht im Bild',
@@ -1004,8 +1152,8 @@ export default {
   'Regras aceitas: {n}. Desenha: {list}.': 'Akzeptierte Regeln: {n}. Gestaltet: {list}.',
   'Nenhuma regra pôde ser usada. Confira se colou só o código CSS.':
     'Keine Regel konnte verwendet werden. Prüfen Sie, ob nur der CSS-Code eingefügt wurde.',
-  'Seletores ignorados ({n}): cada um precisa começar pelo nome de um elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment).':
-    'Ignorierte Selektoren ({n}): Jeder muss mit dem Namen eines Elements beginnen (.lower, .top, .ticker, .card, .agenda, .social, .comment).',
+  'Seletores ignorados ({n}): cada um precisa começar pelo nome de um elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment, .countdown).':
+    'Ignorierte Selektoren ({n}): Jeder muss mit dem Namen eines Elements beginnen (.lower, .top, .ticker, .card, .agenda, .social, .comment, .countdown).',
   'Linhas ignoradas ({n}): o modelo não pode buscar nada na internet.':
     'Ignorierte Zeilen ({n}): Die Vorlage darf nichts aus dem Internet laden.',
   'Trechos ignorados ({n}): só CSS simples é aceito.':

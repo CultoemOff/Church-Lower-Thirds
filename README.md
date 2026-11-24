@@ -34,6 +34,8 @@ Na primeira vez, um assistente explica esses passos com ilustrações e deixa tu
 - Endereços HTTP para Stream Deck e Companion, sem plugin. Backup num arquivo.
 - Atualização com um clique.
 
+**Roteiro do culto e contagem regressiva.** O roteiro põe em ordem o que vai ao ar (nomes, ofertas, comentários, agenda, contagem) e o painel do OBS avança com um clique em "Próximo". A contagem regressiva é um elemento como os outros. Nomes entram por lista colada ou CSV, as exclusões têm "Desfazer", e modelos próprios e perfis viajam em arquivos de uma igreja a outra. Em "OBS e atalhos", o programa cria as fontes de navegador no OBS pela conexão WebSocket dele (`src/server/obs.ts`).
+
 ## Fontes do OBS
 
 O programa escreve na pasta escolhida na instalação (`Documentos\Church Lower Thirds\OBS Sources`) um arquivo HTML por fonte, com nomes em inglês iguais em todo computador. Cada arquivo só espera o programa e abre o endereço correspondente.

@@ -1,5 +1,16 @@
 **Versão beta para testes — somente Windows.** Programa novo, separado do PTZ Control Web.
 
+### Novidades da beta.16
+
+- **Roteiro do culto**: em "Roteiro do culto" (configurações) coloca-se em ordem o que vai ao ar: nomes, ofertas, comentários, redes, agenda, contagem, "tirar tudo do ar". No painel do OBS, a aba **Roteiro** mostra a lista e o botão **Próximo**: a cada clique entra o passo seguinte e o anterior sai. Também há endereços para Stream Deck (próximo, anterior, ir para um passo, recomeçar).
+- **Contagem regressiva**: elemento novo ("O culto começa em 05:00"), com quatro modelos, por minutos ou até um horário, texto ao chegar a zero e saída sozinha. Aba **Contagem** no painel, com atalhos de 1 a 30 minutos.
+- **Lista de nomes por CSV**: em "Nomes", **Importar lista** aceita uma lista colada ou um arquivo (um nome por linha, com o cargo depois de ponto e vírgula, tabulação, traço ou vírgula) e **Exportar CSV** salva a lista para abrir numa planilha.
+- **Busca na lista de nomes**, no painel do OBS (a partir de 6 nomes) e nas configurações.
+- **Desfazer ao excluir**: ao remover um nome, oferta, recado, dia da agenda, rede, comentário, passo do roteiro ou modelo próprio, aparece "Desfazer" por alguns segundos.
+- **Criar as fontes no OBS**: em "OBS e atalhos", o programa cria as fontes de navegador direto no OBS (uma com tudo, ou uma por elemento), pela conexão WebSocket do próprio OBS (28 ou mais novo). O painel (dock) continua sendo adicionado à mão.
+- **Compartilhar**: modelos próprios e perfis ganharam **Exportar** e **Importar de um arquivo**, para levar de uma igreja a outra (o perfil leva o logo e o modelo próprio que usa).
+- **Modo simples e avançado**: o seletor no alto das configurações esconde, no modo simples, os blocos de ajustes finos (aparência própria, efeitos, cores uma a uma, modelos próprios, Stream Deck). Cada página avisa quantos blocos estão escondidos e tem "Mostrar tudo".
+
 ### Novidades da beta.15
 
 - **Correção: o OBS continuava com o visual da versão anterior depois de atualizar.** As fontes de navegador do OBS ficam abertas por dias e seguiam desenhando com o código antigo; por isso a cor "Vidro líquido" aparecia como placas brancas, com o texto branco sumindo. Agora os gráficos se recarregam sozinhos quando o programa é atualizado, como o painel e as configurações já faziam. **Só nesta atualização** ainda é preciso recarregar uma vez: feche e abra o OBS, ou, nas propriedades de cada fonte de navegador, clique em "Atualizar cache da página atual".
