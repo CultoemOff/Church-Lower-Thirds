@@ -89,10 +89,11 @@ test('two accounts never look like the same owner', () => {
 test('the installer is only accepted when its SHA-256 matches the published list', async () => {
   const setup = Buffer.from('pretend this is the installer '.repeat(2000));
   let sums = `${createHash('sha256').update(setup).digest('hex')} *Church-Lower-Thirds-Setup-9.9.9.exe\n`;
-  const web = createServer((q, r) => r.end(q.url === '/sums' ? sums : setup)).listen(
-    0,
-    '127.0.0.1',
-  );
+  // The file sits behind a redirect, as on GitHub.
+  const web = createServer((q, r) => {
+    if (q.url === '/setup') r.writeHead(302, { Location: '/files/setup.bin' }).end();
+    else r.end(q.url === '/sums' ? sums : setup);
+  }).listen(0, '127.0.0.1');
   await new Promise((ok) => web.once('listening', ok));
   const at = `http://127.0.0.1:${(web.address() as AddressInfo).port}`;
   const info = {

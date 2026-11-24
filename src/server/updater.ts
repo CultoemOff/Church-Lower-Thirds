@@ -2,7 +2,9 @@ import { createHash } from 'node:crypto';
 import { createWriteStream } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { Readable, Transform } from 'node:stream';
+import { get as httpGet, type IncomingMessage } from 'node:http';
+import { get as httpsGet } from 'node:https';
+import { Transform } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 
 /**
@@ -103,6 +105,29 @@ export async function checkForUpdate(current: string, force = false): Promise<Up
   return info;
 }
 
+/**
+ * Opens the installer download, following the redirects GitHub uses for release files.
+ * Plain node:http(s) on purpose: with fetch, a server that closes the connection while the
+ * file is still being written to disk can bring the whole program down.
+ */
+function openDownload(url: string, redirects = 5): Promise<IncomingMessage> {
+  return new Promise((ok, bad) => {
+    const get = url.startsWith('https:') ? httpsGet : httpGet;
+    const req = get(url, { headers: { 'User-Agent': 'Church-Lower-Thirds' } }, (res) => {
+      const status = res.statusCode ?? 0;
+      if (status >= 300 && status < 400 && res.headers.location && redirects > 0) {
+        res.resume();
+        ok(openDownload(new URL(res.headers.location, url).href, redirects - 1));
+      } else if (status !== 200) {
+        res.resume();
+        bad(new Error(`Update download failed (HTTP ${status})`));
+      } else ok(res);
+    });
+    req.on('error', bad);
+    req.setTimeout(30_000, () => req.destroy(new Error('Update download failed (timeout)')));
+  });
+}
+
 /** Downloads the installer to the temp folder, verifying SHA-256 against SHA256SUMS.txt. */
 export async function downloadVerifiedSetup(info: UpdateInfo): Promise<string> {
   if (!info.setupUrl || !info.sumsUrl || !info.setupName)
@@ -111,8 +136,7 @@ export async function downloadVerifiedSetup(info: UpdateInfo): Promise<string> {
   if (!sums.ok) throw new Error(`Update download failed (HTTP ${sums.status})`);
   const expected = hashFromSums(await sums.text(), info.setupName);
   if (!expected) throw new Error('Update download failed (no checksum)');
-  const res = await fetch(info.setupUrl, { signal: AbortSignal.timeout(10 * 60_000) });
-  if (!res.ok || !res.body) throw new Error(`Update download failed (HTTP ${res.status})`);
+  const res = await openDownload(info.setupUrl);
   const file = join(tmpdir(), info.setupName);
   const hash = createHash('sha256');
   const tap = new Transform({
@@ -121,8 +145,7 @@ export async function downloadVerifiedSetup(info: UpdateInfo): Promise<string> {
       cb(null, chunk);
     },
   });
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  await pipeline(Readable.fromWeb(res.body as any), tap, createWriteStream(file));
+  await pipeline(res, tap, createWriteStream(file));
   if (hash.digest('hex') !== expected) throw new Error('Update checksum mismatch');
   return file;
 }
