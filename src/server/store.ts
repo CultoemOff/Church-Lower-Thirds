@@ -19,7 +19,8 @@ export interface LowerItem {
   line1: string;
   line2: string;
   logo: boolean;
-  qr: 'none' | 'pix' | 'url';
+  /** 'giving' = the church's contribution QR, whatever method is configured; 'url' = any link */
+  qr: 'none' | 'giving' | 'url';
   qrText: string;
 }
 
@@ -70,9 +71,10 @@ export interface SavedCard {
   id: string;
   title: string;
   subtitle: string;
-  qr: 'pix' | 'url';
+  qr: 'giving' | 'url';
   qrText: string;
 }
+export const GIVING_METHODS = ['pix', 'sepa', 'link', 'image', 'text'];
 export const ANIMATIONS = ['slide', 'rise', 'fade', 'wipe', 'zoom', 'blur', 'bounce', 'flip'];
 export const SHADOWS = ['none', 'soft', 'hard', 'glow'];
 const CORNERS = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
@@ -118,8 +120,19 @@ export function defaults() {
       amount: '',
       txid: '',
       payload: '',
-      /** Text shown beside the QR, e.g. "CNPJ 12.345.678/0001-90" ('' = the key) */
-      display: '',
+    },
+    /**
+     * How people contribute. PIX only exists in Brazil, so the QR can also come from a SEPA
+     * transfer (euro area), any link (giving page, PayPal…), or a QR image the bank or app
+     * gave the church; "text" shows only the bank details, without a QR.
+     */
+    giving: {
+      method: 'pix',
+      link: '',
+      image: '',
+      sepa: { name: '', iban: '', bic: '', amount: '', reference: '' },
+      /** Shown beside the QR, one item per line: bank, branch, account, IBAN, document… */
+      details: '',
     },
     lower: {
       template: 'classic',
@@ -159,7 +172,7 @@ export function defaults() {
           line1: 'Dízimos e ofertas',
           line2: 'Aponte a câmera do celular para o QR Code',
           logo: false,
-          qr: 'pix',
+          qr: 'giving',
           qrText: '',
         },
       ] as LowerItem[],
@@ -222,7 +235,7 @@ export function defaults() {
       subtitle: 'Aponte a câmera do celular',
       showKey: true,
       showLogo: true,
-      qr: 'pix',
+      qr: 'giving',
       qrText: '',
       qrRound: false,
       saved: [] as SavedCard[],
@@ -412,13 +425,16 @@ const CHOICES: Record<string, string[]> = {
   'social.position': PLACES,
   'bug.position': CORNERS,
   'pix.mode': ['key', 'payload'],
+  'giving.method': GIVING_METHODS,
   language: ['auto', ...LANGUAGES],
   horizontal: RESOLUTIONS,
   vertical: VERTICAL_RESOLUTIONS,
   order: ['sequence', 'random'],
-  qr: ['pix', 'url'],
+  qr: ['giving', 'url'],
   type: ['solid', 'gradient'],
 };
+/** Stored by versions that only knew PIX. */
+const qrKind = (v: unknown) => (v === 'pix' ? 'giving' : v);
 const text = (v: unknown, max: number) =>
   String(v ?? '')
     .replace(/[\u0000-\u0008\u000b-\u001f]/g, '')
@@ -435,7 +451,7 @@ function cleanItem(raw: unknown, allowEmpty = false): LowerItem | undefined {
     line1,
     line2,
     logo: r.logo !== false,
-    qr: r.qr === 'pix' || r.qr === 'url' ? r.qr : 'none',
+    qr: qrKind(r.qr) === 'giving' ? 'giving' : r.qr === 'url' ? 'url' : 'none',
     qrText: text(r.qrText, 600).trim(),
   };
 }
@@ -461,7 +477,7 @@ function clean(def: unknown, raw: unknown, path: string, key: string): unknown {
           id: typeof r.id === 'string' && /^[a-z0-9]{4,20}$/i.test(r.id) ? r.id : newId(),
           title: text(r.title, 60).trim(),
           subtitle: text(r.subtitle, 90).trim(),
-          qr: r.qr === 'url' ? 'url' : 'pix',
+          qr: r.qr === 'url' ? 'url' : 'giving',
           qrText: text(r.qrText, 600).trim(),
         };
         return c.title || c.qrText ? c : undefined;
@@ -515,18 +531,35 @@ function clean(def: unknown, raw: unknown, path: string, key: string): unknown {
     return Math.min(max, Math.max(min, Math.round(n)));
   }
   const choices = CHOICES[path] || CHOICES[key];
-  if (choices) return choices.includes(String(raw)) ? String(raw) : def;
+  if (choices) {
+    const value = String(key === 'qr' ? qrKind(raw) : raw);
+    return choices.includes(value) ? value : def;
+  }
+  if (path === 'giving.image') return MEDIA.test(String(raw)) ? String(raw) : '';
+  if (path === 'giving.details')
+    return text(raw, 400)
+      .split(/\r?\n/)
+      .map((l) => l.trim())
+      .filter(Boolean)
+      .slice(0, 6)
+      .join('\n');
   if (typeof def === 'string' && HEX.test(def)) return HEX.test(String(raw)) ? String(raw) : def;
   if (key === 'logo') return MEDIA.test(String(raw)) ? String(raw) : '';
   if (key === 'font')
     return text(raw, 80)
       .replace(/["';{}<>\\]/g, '')
       .trim();
-  return typeof raw === 'string' ? text(raw, path === 'pix.payload' ? 1000 : 300) : def;
+  const max = path === 'pix.payload' || path === 'giving.link' ? 1000 : 300;
+  return typeof raw === 'string' ? text(raw, max) : def;
 }
 
 export function cleanConfig(raw: unknown): Config {
-  return clean(defaults(), raw, '', '') as Config;
+  const config = clean(defaults(), raw, '', '') as Config;
+  // Versions that only knew PIX kept the text shown beside the QR in pix.display.
+  const old = (raw as { pix?: { display?: unknown }; giving?: unknown } | null) ?? {};
+  if (!old.giving && typeof old.pix?.display === 'string')
+    config.giving.details = text(old.pix.display, 300).trim();
+  return config;
 }
 
 export function cleanLive(raw: unknown, config: Config): Live {
@@ -681,6 +714,9 @@ const SAMPLES: Record<string, Record<string, unknown>> = {
 export function firstConfig(language: string): Config {
   const c = defaults();
   if (LANGUAGES.includes(language)) c.language = language;
+  // PIX only exists in Brazil: elsewhere the church starts from a link to its giving page.
+  if (language !== 'pt-BR' && language !== 'auto' && LANGUAGES.includes(language))
+    c.giving.method = 'link';
   const t = SAMPLES[language] as Record<string, never> | undefined;
   if (!t) return c;
   const pair = (v: unknown) => v as [string, string];

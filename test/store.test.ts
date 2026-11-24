@@ -5,9 +5,10 @@ import {
   cleanLive,
   defaults,
   findItem,
-  resolveSocial,
+  firstConfig,
   liveDefaults,
   resolveItem,
+  resolveSocial,
 } from '../src/server/store.js';
 
 test('an empty or broken file yields the defaults', () => {
@@ -70,7 +71,8 @@ test('names: empty ones are dropped, ids are unique, QR kind is checked', () => 
     line1: 'Ana',
     line2: 'Louvor',
     logo: true,
-    qr: 'pix',
+    // 'pix' is how versions that only knew PIX stored the church's contribution QR.
+    qr: 'giving',
     qrText: '',
   });
   assert.match(c.lower.items[1].id, /^[a-f0-9]{10}$/);
@@ -183,7 +185,7 @@ test('agenda days, social networks and saved QR cards are cleaned', () => {
     c.card.saved.map((s) => [s.title, s.qr]),
     [
       ['Site', 'url'],
-      ['PIX', 'pix'],
+      ['PIX', 'giving'],
     ],
   );
   assert.equal(c.ticker.template, 'liquid');
@@ -223,4 +225,39 @@ test('a category switched off cannot stay on air', () => {
     c,
   );
   assert.deepEqual([live.ticker.on, live.top.on, live.social.on], [false, true, true]);
+});
+
+test('giving: PIX is one method among others, and old settings carry over', () => {
+  const d = cleanConfig({});
+  assert.equal(d.giving.method, 'pix');
+  assert.equal(d.card.qr, 'giving');
+  // Settings saved before the other methods existed.
+  const old = cleanConfig({
+    pix: { key: 'a@b.c', display: 'CNPJ 12.345.678/0001-90' },
+    card: { qr: 'pix' },
+  });
+  assert.equal(old.giving.details, 'CNPJ 12.345.678/0001-90');
+  assert.equal(old.card.qr, 'giving');
+  assert.equal('display' in old.pix, false);
+  const c = cleanConfig({
+    giving: {
+      method: 'bitcoin',
+      link: 'https://example.org/give',
+      image: 'https://evil.example/qr.png',
+      sepa: { name: 'Igreja', iban: 'PT50 0002 0123 1234 5678 9015 4', nope: 1 },
+      details: ' Banco 000 \n\n Conta 123 \n' + 'x\n'.repeat(20),
+    },
+  });
+  assert.equal(c.giving.method, 'pix');
+  assert.equal(c.giving.link, 'https://example.org/give');
+  assert.equal(c.giving.image, '', 'only images uploaded to the program');
+  assert.equal(c.giving.sepa.iban, 'PT50 0002 0123 1234 5678 9015 4');
+  assert.equal('nope' in c.giving.sepa, false);
+  assert.equal(c.giving.details.split('\n').length, 6);
+  assert.equal(c.giving.details.split('\n')[1], 'Conta 123');
+  assert.equal(cleanConfig({ giving: { method: 'text' } }).giving.method, 'text');
+  // Outside Brazil a first run does not start on PIX.
+  assert.equal(firstConfig('pt-BR').giving.method, 'pix');
+  for (const lang of ['en', 'es', 'it', 'de', 'pt-PT'])
+    assert.equal(firstConfig(lang).giving.method, 'link', lang);
 });

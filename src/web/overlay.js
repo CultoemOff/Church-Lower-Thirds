@@ -1,4 +1,14 @@
-import { fillCss, fontCss, onColor, qrUrl, rgba, shadowCss, SOCIAL_ICONS } from './js/look.js';
+import {
+  fillCss,
+  fontCss,
+  givingQr,
+  givingText,
+  onColor,
+  qrUrl,
+  rgba,
+  shadowCss,
+  SOCIAL_ICONS,
+} from './js/look.js';
 
 // The browser source page. Everything is laid out on a 1920x1080 stage (1080x1920 with
 // ?layout=vertical) and scaled to the source size, so the same settings look the same at
@@ -33,7 +43,7 @@ const roots = Object.fromEntries(
 const $ = (el, sel) => roots[el].querySelector(sel);
 let config = null,
   live = null,
-  pixStamp = '';
+  givingStamp = '';
 const shown = { lower: {}, top: {}, card: {}, bug: {}, ticker: {}, agenda: {}, social: {} };
 
 function fit() {
@@ -120,8 +130,8 @@ function renderLower() {
   if (!item) return '';
   const logo = item.logo && config.brand.logo,
     qr =
-      item.qr === 'pix'
-        ? qrUrl('pix', '', { stamp: pixStamp })
+      item.qr === 'giving'
+        ? givingQr(config, { stamp: givingStamp })
         : item.qr === 'url' && item.qrText
           ? qrUrl('url', item.qrText)
           : '';
@@ -251,22 +261,22 @@ function renderCard() {
     mx: c.marginX + 'px',
     my: c.marginY + 'px',
   });
-  const pix = config.pix,
-    logo = c.showLogo && config.brand.logo,
+  const logo = c.showLogo && config.brand.logo,
     qr =
-      c.qr === 'pix'
-        ? qrUrl('pix', '', { round: c.qrRound, stamp: pixStamp })
+      c.qr === 'giving'
+        ? givingQr(config, { round: c.qrRound, stamp: givingStamp })
         : c.qrText
           ? qrUrl('url', c.qrText, { round: c.qrRound })
           : '',
     key = !c.showKey
       ? ''
-      : c.qr === 'pix'
-        ? pix.display || (pix.mode === 'key' ? pix.key : '')
+      : c.qr === 'giving'
+        ? givingText(config)
         : c.qrText.replace(/^https?:\/\//, '');
   for (const t of root.querySelectorAll('.title, .title2')) t.textContent = c.title;
   $('card', '.sub').textContent = c.subtitle;
   $('card', '.key').textContent = key;
+  $('card', '.key').classList.toggle('multi', key.includes('\n'));
   setImage($('card', '.logo img'), logo || '');
   setImage($('card', '.qrw img'), qr);
   box.classList.toggle('has-logo', !!logo);
@@ -609,8 +619,8 @@ function connect() {
   ws.onmessage = (m) => {
     const e = JSON.parse(m.data);
     if (e.config) {
-      const pix = JSON.stringify(e.config.pix);
-      if (config && pix !== JSON.stringify(config.pix)) pixStamp = String(Date.now());
+      const giving = (c) => JSON.stringify([c.pix, c.giving]);
+      if (config && giving(e.config) !== giving(config)) givingStamp = String(Date.now());
       config = e.config;
     }
     if (e.live) live = e.live;

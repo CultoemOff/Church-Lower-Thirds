@@ -453,8 +453,8 @@ export default {
   '2. O painel (dock)': '2. Das Bedienfeld (Dock)',
   'No OBS, abra o menu Docks → Docks de navegador personalizados.':
     'In OBS das Menü Docks → Benutzerdefinierte Browser-Docks öffnen.',
-  'Dê o nome "Lower Third" e cole o endereço abaixo.':
-    '„Lower Third“ nennen und die Adresse unten einfügen.',
+  'Dê o nome "Church Lower Thirds" e cole o endereço abaixo.':
+    '„Church Lower Thirds“ nennen und die Adresse unten einfügen.',
   'Encaixe o painel onde preferir: ele se ajusta a um espaço alto ou largo. A engrenagem dele abre esta página.':
     'Das Dock beliebig andocken: es passt sich hohem oder breitem Platz an. Sein Zahnrad öffnet diese Seite.',
   'Stream Deck, Companion e outros': 'Stream Deck, Companion und andere',
@@ -546,4 +546,73 @@ export default {
   'O programa já está atualizado.': 'Das Programm ist bereits aktuell.',
   'Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.':
     'Jeder Benutzer des Computers hat seinen eigenen Ordner und seine eigenen Einstellungen: Keiner ändert die eines anderen.',
+  'Cartão com QR Code: a contribuição da igreja ou um link':
+    'Karte mit QR-Code: die Spende der Gemeinde oder ein Link',
+  Oferta: 'Spende',
+  'QR Code da contribuição da igreja: PIX, transferência, link ou imagem (escolha nas configurações)':
+    'QR-Code für die Spende der Gemeinde: PIX, Überweisung, Link oder Bild (in den Einstellungen wählen)',
+  'Contribuição da igreja': 'Spende an die Gemeinde',
+  'Geral e contribuições': 'Allgemein und Spenden',
+  'Nome, logo, idioma, temas, tempo na tela e a forma de contribuir: PIX, transferência, link ou dados bancários.':
+    'Name, Logo, Sprache, Designs, Anzeigedauer und der Spendenweg: PIX, Überweisung, Link oder Bankdaten.',
+  'Cartão QR / Oferta': 'QR- / Spendenkarte',
+  'Cartão com o QR Code da contribuição ou de um link.':
+    'Karte mit dem QR-Code für die Spende oder für einen Link.',
+  'Preencha os dados acima para ver o resultado.':
+    'Die Angaben oben ausfüllen, um das Ergebnis zu sehen.',
+  'Os dados acima aparecem no cartão, sem QR Code.':
+    'Die Angaben oben erscheinen auf der Karte, ohne QR-Code.',
+  'Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o titular e o IBAN que aparecem.':
+    'Vor dem Gottesdienst testen: diesen QR-Code mit der Banking-App scannen und Kontoinhaber und IBAN prüfen.',
+  'Teste antes do culto: aponte a câmera do celular para este QR Code e confira a página que abre.':
+    'Vor dem Gottesdienst testen: diesen QR-Code mit der Handykamera scannen und die geöffnete Seite prüfen.',
+  'Teste antes do culto: aponte o celular para a tela e confira se o QR Code da imagem é lido.':
+    'Vor dem Gottesdienst testen: das Handy auf den Bildschirm richten und prüfen, ob der QR-Code im Bild gelesen wird.',
+  'QR Code da contribuição': 'QR-Code für die Spende',
+  'Conteúdo do QR Code:': 'Inhalt des QR-Codes:',
+  'Cadastre a forma de contribuir': 'Spendenweg einrichten',
+  'Contribuições: dízimos e ofertas': 'Spenden: Zehnter und Kollekte',
+  'O PIX só existe no Brasil. Escolha como a sua igreja recebe: o QR Code e os dados aparecem no cartão e nos nomes marcados com "Contribuição da igreja".':
+    'PIX gibt es nur in Brasilien. Wählen Sie, wie Ihre Gemeinde Spenden erhält: QR-Code und Angaben erscheinen auf der Karte und bei den Namen mit „Spende an die Gemeinde“.',
+  'Como as pessoas contribuem': 'So wird gespendet',
+  'PIX (Brasil)': 'PIX (Brasilien)',
+  'Transferência bancária SEPA (zona do euro)': 'SEPA-Überweisung (Euroraum)',
+  'Link: página de doações ou serviço de pagamentos': 'Link: Spendenseite oder Zahlungsdienst',
+  'Imagem de QR Code pronta, do banco ou do aplicativo':
+    'Fertiges QR-Code-Bild von der Bank oder der App',
+  'Só os dados bancários, sem QR Code': 'Nur die Bankdaten, ohne QR-Code',
+  'Titular da conta': 'Kontoinhaber',
+  'Como está na conta do banco.': 'Wie beim Bankkonto angegeben.',
+  'BIC / SWIFT (opcional)': 'BIC / SWIFT (optional)',
+  'Valor fixo em euros (opcional)': 'Fester Betrag in Euro (optional)',
+  'Descrição da transferência (opcional)': 'Verwendungszweck (optional)',
+  'Ex.: Oferta': 'Z. B.: Spende',
+  'Link da contribuição': 'Spendenlink',
+  'Qualquer endereço serve: a página de doações da igreja ou o link de um serviço de pagamentos do seu país.':
+    'Jede Adresse funktioniert: die Spendenseite der Gemeinde oder der Link eines Zahlungsdienstes in Ihrem Land.',
+  'Imagem do QR Code': 'QR-Code-Bild',
+  'Tira a imagem enviada': 'Entfernt das hochgeladene Bild',
+  'Use a imagem que o banco ou o aplicativo de pagamentos gerou para a igreja. Fundo branco e boa resolução leem melhor.':
+    'Das Bild verwenden, das die Bank oder die Zahlungs-App für die Gemeinde erzeugt hat. Weißer Hintergrund und gute Auflösung lassen sich besser scannen.',
+  'Dados bancários mostrados no cartão': 'Bankdaten auf der Karte',
+  'Dados mostrados ao lado do QR Code': 'Angaben neben dem QR-Code',
+  'Uma informação por linha: banco, conta, titular…':
+    'Eine Angabe pro Zeile: Bank, Konto, Inhaber…',
+  'Uma informação por linha, até 6 linhas. Vazio: mostra a chave PIX, o IBAN ou o link.':
+    'Eine Angabe pro Zeile, bis zu 6 Zeilen. Leer: zeigt den PIX-Schlüssel, die IBAN oder den Link.',
+  'QR da contribuição': 'Spenden-QR',
+  'A forma de contribuir e os dados ao lado do QR Code ficam na aba "Geral e contribuições".':
+    'Der Spendenweg und die Angaben neben dem QR-Code stehen im Reiter „Allgemein und Spenden“.',
+  'Envie o logo da igreja na aba "Geral e contribuições" para usar este elemento.':
+    'Das Gemeindelogo im Reiter „Allgemein und Spenden“ hochladen, um dieses Element zu verwenden.',
+  'Escreva o link da contribuição nas configurações.':
+    'Den Spendenlink in den Einstellungen eintragen.',
+  'Escreva o nome do titular da conta.': 'Den Namen des Kontoinhabers eintragen.',
+  'IBAN inválido: confira as letras e os números.':
+    'Ungültige IBAN: Buchstaben und Ziffern prüfen.',
+  'BIC inválido: são 8 ou 11 caracteres, ou deixe vazio.':
+    'Ungültiger BIC: 8 oder 11 Zeichen, oder leer lassen.',
+  'Valor inválido: use um número como 25,00.': 'Ungültiger Betrag: eine Zahl wie 25,00 verwenden.',
+  'Envie a imagem do QR Code.': 'Das QR-Code-Bild hochladen.',
+  'Escreva os dados bancários que vão aparecer.': 'Die Bankdaten eintragen, die erscheinen sollen.',
 };

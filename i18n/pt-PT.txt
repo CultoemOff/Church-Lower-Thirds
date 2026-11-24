@@ -57,3 +57,18 @@ Abrir a página de transferências
 
 Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.
 Cada utilizador do computador tem a sua própria pasta e as suas próprias definições: um não altera o que é do outro.
+
+Teste antes do culto: aponte a câmera do celular para este QR Code e confira a página que abre.
+Teste antes do culto: aponte a câmara do telemóvel para este código QR e confirme a página que abre.
+
+Teste antes do culto: aponte o celular para a tela e confira se o QR Code da imagem é lido.
+Teste antes do culto: aponte o telemóvel para o ecrã e confirme se o código QR da imagem é lido.
+
+Cadastre a forma de contribuir
+Defina a forma de contribuir
+
+Contribuições: dízimos e ofertas
+Contribuições: dízimos e ofertas
+
+Link: página de doações ou serviço de pagamentos
+Ligação: página de donativos ou serviço de pagamentos

@@ -111,6 +111,27 @@ export default {
     'Atualização disponível: abra as definições para atualizar',
   'Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.':
     'Cada utilizador do computador tem a sua própria pasta e as suas próprias definições: um não altera o que é do outro.',
+  'QR Code da contribuição da igreja: PIX, transferência, link ou imagem (escolha nas configurações)':
+    'QR Code da contribuição da igreja: PIX, transferência, link ou imagem (escolha nas definições)',
+  'Nome, logo, idioma, temas, tempo na tela e a forma de contribuir: PIX, transferência, link ou dados bancários.':
+    'Nome, logo, idioma, temas, tempo no ecrã e a forma de contribuir: PIX, transferência, link ou dados bancários.',
+  'Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o titular e o IBAN que aparecem.':
+    'Teste antes do culto: aponte a aplicação do banco para este QR Code e confira o titular e o IBAN que aparecem.',
+  'Teste antes do culto: aponte a câmera do celular para este QR Code e confira a página que abre.':
+    'Teste antes do culto: aponte a câmara do telemóvel para este código QR e confirme a página que abre.',
+  'Teste antes do culto: aponte o celular para a tela e confira se o QR Code da imagem é lido.':
+    'Teste antes do culto: aponte o telemóvel para o ecrã e confirme se o código QR da imagem é lido.',
+  'Cadastre a forma de contribuir': 'Defina a forma de contribuir',
+  'Imagem de QR Code pronta, do banco ou do aplicativo':
+    'Imagem de QR Code pronta, do banco ou da aplicação',
+  'Use a imagem que o banco ou o aplicativo de pagamentos gerou para a igreja. Fundo branco e boa resolução leem melhor.':
+    'Use a imagem que o banco ou a aplicação de pagamentos gerou para a igreja. Fundo branco e boa resolução leem melhor.',
+  'A forma de contribuir e os dados ao lado do QR Code ficam na aba "Geral e contribuições".':
+    'A forma de contribuir e os dados ao lado do QR Code ficam no separador "Geral e contribuições".',
+  'Envie o logo da igreja na aba "Geral e contribuições" para usar este elemento.':
+    'Envie o logo da igreja no separador "Geral e contribuições" para usar este elemento.',
+  'Escreva o link da contribuição nas configurações.':
+    'Escreva o link da contribuição nas definições.',
   'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui você confere e ajusta a aparência.':
     'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui pode conferir e ajustar o aspeto.',
   'Use o mesmo tamanho do vídeo do seu OBS. Os gráficos se ajustam sozinhos: tudo o que você configurou fica igual em qualquer um deles.':
@@ -129,4 +150,7 @@ export default {
   'Não foi possível baixar a atualização. Tente de novo.':
     'Não foi possível transferir a atualização. Tente de novo.',
   'Abrir a página de downloads': 'Abrir a página de transferências',
+  'Contribuições: dízimos e ofertas': 'Contribuições: dízimos e ofertas',
+  'Link: página de doações ou serviço de pagamentos':
+    'Ligação: página de donativos ou serviço de pagamentos',
 };

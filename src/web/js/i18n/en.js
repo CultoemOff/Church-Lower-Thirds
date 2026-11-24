@@ -448,8 +448,8 @@ export default {
   '2. O painel (dock)': '2. The control panel (dock)',
   'No OBS, abra o menu Docks → Docks de navegador personalizados.':
     'In OBS, open the Docks menu → Custom Browser Docks.',
-  'Dê o nome "Lower Third" e cole o endereço abaixo.':
-    'Name it "Lower Third" and paste the address below.',
+  'Dê o nome "Church Lower Thirds" e cole o endereço abaixo.':
+    'Name it "Church Lower Thirds" and paste the address below.',
   'Encaixe o painel onde preferir: ele se ajusta a um espaço alto ou largo. A engrenagem dele abre esta página.':
     'Dock the panel wherever you like: it adapts to a tall or a wide space. Its gear opens this page.',
   'Stream Deck, Companion e outros': 'Stream Deck, Companion and others',
@@ -538,4 +538,69 @@ export default {
   'O programa já está atualizado.': 'The program is already up to date.',
   'Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.':
     "Each user of the computer has their own folder and their own settings: one never changes another's.",
+  'Cartão com QR Code: a contribuição da igreja ou um link':
+    "Card with a QR code: the church's giving or a link",
+  Oferta: 'Giving',
+  'QR Code da contribuição da igreja: PIX, transferência, link ou imagem (escolha nas configurações)':
+    "QR code of the church's giving: PIX, bank transfer, link or image (choose in the settings)",
+  'Contribuição da igreja': 'Church giving',
+  'Geral e contribuições': 'General and giving',
+  'Nome, logo, idioma, temas, tempo na tela e a forma de contribuir: PIX, transferência, link ou dados bancários.':
+    'Name, logo, language, themes, time on screen and how people give: PIX, bank transfer, link or bank details.',
+  'Cartão QR / Oferta': 'QR / Giving card',
+  'Cartão com o QR Code da contribuição ou de um link.':
+    'Card with the QR code for giving or for a link.',
+  'Preencha os dados acima para ver o resultado.': 'Fill in the details above to see the result.',
+  'Os dados acima aparecem no cartão, sem QR Code.':
+    'The details above appear on the card, without a QR code.',
+  'Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o titular e o IBAN que aparecem.':
+    'Test before the service: point the banking app at this QR code and check the account holder and IBAN it shows.',
+  'Teste antes do culto: aponte a câmera do celular para este QR Code e confira a página que abre.':
+    'Test before the service: point a phone camera at this QR code and check the page that opens.',
+  'Teste antes do culto: aponte o celular para a tela e confira se o QR Code da imagem é lido.':
+    'Test before the service: point a phone at the screen and check that the QR code in the image is read.',
+  'QR Code da contribuição': 'Giving QR code',
+  'Conteúdo do QR Code:': 'What the QR code holds:',
+  'Cadastre a forma de contribuir': 'Set up how people give',
+  'Contribuições: dízimos e ofertas': 'Giving: tithes and offerings',
+  'O PIX só existe no Brasil. Escolha como a sua igreja recebe: o QR Code e os dados aparecem no cartão e nos nomes marcados com "Contribuição da igreja".':
+    'PIX only exists in Brazil. Choose how your church receives: the QR code and the details appear on the card and on the names marked "Church giving".',
+  'Como as pessoas contribuem': 'How people give',
+  'PIX (Brasil)': 'PIX (Brazil)',
+  'Transferência bancária SEPA (zona do euro)': 'SEPA bank transfer (euro area)',
+  'Link: página de doações ou serviço de pagamentos': 'Link: giving page or payment service',
+  'Imagem de QR Code pronta, do banco ou do aplicativo':
+    'Ready-made QR code image, from the bank or the app',
+  'Só os dados bancários, sem QR Code': 'Bank details only, no QR code',
+  'Titular da conta': 'Account holder',
+  'Como está na conta do banco.': 'As it appears on the bank account.',
+  'BIC / SWIFT (opcional)': 'BIC / SWIFT (optional)',
+  'Valor fixo em euros (opcional)': 'Fixed amount in euros (optional)',
+  'Descrição da transferência (opcional)': 'Transfer description (optional)',
+  'Ex.: Oferta': 'E.g.: Offering',
+  'Link da contribuição': 'Giving link',
+  'Qualquer endereço serve: a página de doações da igreja ou o link de um serviço de pagamentos do seu país.':
+    "Any address works: the church's giving page or the link of a payment service in your country.",
+  'Imagem do QR Code': 'QR code image',
+  'Tira a imagem enviada': 'Removes the uploaded image',
+  'Use a imagem que o banco ou o aplicativo de pagamentos gerou para a igreja. Fundo branco e boa resolução leem melhor.':
+    'Use the image the bank or payment app generated for the church. A white background and good resolution scan better.',
+  'Dados bancários mostrados no cartão': 'Bank details shown on the card',
+  'Dados mostrados ao lado do QR Code': 'Details shown beside the QR code',
+  'Uma informação por linha: banco, conta, titular…': 'One item per line: bank, account, holder…',
+  'Uma informação por linha, até 6 linhas. Vazio: mostra a chave PIX, o IBAN ou o link.':
+    'One item per line, up to 6 lines. Empty: shows the PIX key, the IBAN or the link.',
+  'QR da contribuição': 'Giving QR',
+  'A forma de contribuir e os dados ao lado do QR Code ficam na aba "Geral e contribuições".':
+    'How people give and the details beside the QR code are in the "General and giving" tab.',
+  'Envie o logo da igreja na aba "Geral e contribuições" para usar este elemento.':
+    'Upload the church logo in the "General and giving" tab to use this element.',
+  'Escreva o link da contribuição nas configurações.': 'Enter the giving link in the settings.',
+  'Escreva o nome do titular da conta.': "Enter the account holder's name.",
+  'IBAN inválido: confira as letras e os números.': 'Invalid IBAN: check the letters and numbers.',
+  'BIC inválido: são 8 ou 11 caracteres, ou deixe vazio.':
+    'Invalid BIC: it has 8 or 11 characters, or leave it empty.',
+  'Valor inválido: use um número como 25,00.': 'Invalid amount: use a number like 25.00.',
+  'Envie a imagem do QR Code.': 'Upload the QR code image.',
+  'Escreva os dados bancários que vão aparecer.': 'Enter the bank details to show.',
 };

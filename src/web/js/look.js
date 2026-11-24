@@ -38,12 +38,42 @@ export const fontCss = (font) =>
   'system-ui, "Segoe UI", Roboto, sans-serif';
 
 export function qrUrl(kind, text, { round = false, stamp = '' } = {}) {
-  const p = new URLSearchParams({ kind: kind === 'pix' ? 'pix' : 'text', margin: '1' });
-  if (kind !== 'pix') p.set('text', text || '');
+  const p = new URLSearchParams({ kind: kind === 'giving' ? 'giving' : 'text', margin: '1' });
+  if (kind !== 'giving') p.set('text', text || '');
   if (round) p.set('round', '1');
   if (stamp) p.set('v', stamp);
   return `/api/qr.svg?${p}`;
 }
+
+/**
+ * The church's contribution QR: generated (PIX, SEPA transfer or a link), the image the
+ * bank or app gave the church, or none when only the bank details are shown.
+ */
+export function givingQr(config, options) {
+  const g = config.giving;
+  if (g.method === 'image') return g.image;
+  if (g.method === 'text') return '';
+  return qrUrl('giving', '', options);
+}
+
+/** Text beside that QR: the bank details typed in the settings, or what the QR stands for. */
+export function givingText(config) {
+  const g = config.giving;
+  if (g.details) return g.details;
+  if (g.method === 'pix') return config.pix.mode === 'key' ? config.pix.key : '';
+  if (g.method === 'sepa')
+    return g.sepa.iban
+      .replace(/\s+/g, '')
+      .toUpperCase()
+      .replace(/(.{4})(?=.)/g, '$1 ');
+  if (g.method === 'link') return g.link.replace(/^https?:\/\//, '').replace(/\/$/, '');
+  return '';
+}
+
+/** Short tag for lists: what kind of contribution QR the church uses. */
+export const givingTag = (config) =>
+  ({ pix: 'PIX', sepa: 'SEPA', link: 'QR', image: 'QR', text: 'TXT' })[config.giving.method] ||
+  'QR';
 
 export const LOWER_TEMPLATES = [
   'classic',

@@ -450,8 +450,8 @@ export default {
   '2. O painel (dock)': '2. Il pannello (dock)',
   'No OBS, abra o menu Docks → Docks de navegador personalizados.':
     'In OBS, apri il menu Pannelli → Pannelli browser personalizzati.',
-  'Dê o nome "Lower Third" e cole o endereço abaixo.':
-    'Chiamalo "Lower Third" e incolla l\'indirizzo qui sotto.',
+  'Dê o nome "Church Lower Thirds" e cole o endereço abaixo.':
+    'Chiamalo "Church Lower Thirds" e incolla l\'indirizzo qui sotto.',
   'Encaixe o painel onde preferir: ele se ajusta a um espaço alto ou largo. A engrenagem dele abre esta página.':
     'Aggancia il pannello dove preferisci: si adatta a uno spazio alto o largo. Il suo ingranaggio apre questa pagina.',
   'Stream Deck, Companion e outros': 'Stream Deck, Companion e altri',
@@ -541,4 +541,73 @@ export default {
   'O programa já está atualizado.': 'Il programma è già aggiornato.',
   'Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.':
     "Ogni utente del computer ha la propria cartella e le proprie impostazioni: uno non modifica quelle dell'altro.",
+  'Cartão com QR Code: a contribuição da igreja ou um link':
+    "Scheda con codice QR: l'offerta della chiesa o un link",
+  Oferta: 'Offerta',
+  'QR Code da contribuição da igreja: PIX, transferência, link ou imagem (escolha nas configurações)':
+    "Codice QR dell'offerta della chiesa: PIX, bonifico, link o immagine (scegli nelle impostazioni)",
+  'Contribuição da igreja': 'Offerta della chiesa',
+  'Geral e contribuições': 'Generale e offerte',
+  'Nome, logo, idioma, temas, tempo na tela e a forma de contribuir: PIX, transferência, link ou dados bancários.':
+    'Nome, logo, lingua, temi, tempo sullo schermo e il modo di donare: PIX, bonifico, link o coordinate bancarie.',
+  'Cartão QR / Oferta': 'Scheda QR / Offerta',
+  'Cartão com o QR Code da contribuição ou de um link.':
+    "Scheda con il codice QR dell'offerta o di un link.",
+  'Preencha os dados acima para ver o resultado.':
+    'Compila i dati qui sopra per vedere il risultato.',
+  'Os dados acima aparecem no cartão, sem QR Code.':
+    'I dati qui sopra compaiono nella scheda, senza codice QR.',
+  'Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o titular e o IBAN que aparecem.':
+    "Prova prima del culto: inquadra questo codice QR con l'app della banca e controlla l'intestatario e l'IBAN che compaiono.",
+  'Teste antes do culto: aponte a câmera do celular para este QR Code e confira a página que abre.':
+    'Prova prima del culto: inquadra questo codice QR con la fotocamera del telefono e controlla la pagina che si apre.',
+  'Teste antes do culto: aponte o celular para a tela e confira se o QR Code da imagem é lido.':
+    "Prova prima del culto: inquadra lo schermo con il telefono e controlla che il codice QR dell'immagine venga letto.",
+  'QR Code da contribuição': "Codice QR dell'offerta",
+  'Conteúdo do QR Code:': 'Contenuto del codice QR:',
+  'Cadastre a forma de contribuir': 'Imposta il modo di donare',
+  'Contribuições: dízimos e ofertas': 'Offerte: decime e offerte',
+  'O PIX só existe no Brasil. Escolha como a sua igreja recebe: o QR Code e os dados aparecem no cartão e nos nomes marcados com "Contribuição da igreja".':
+    'PIX esiste solo in Brasile. Scegli come riceve la tua chiesa: il codice QR e i dati compaiono nella scheda e nei nomi contrassegnati con "Offerta della chiesa".',
+  'Como as pessoas contribuem': 'Come donano le persone',
+  'PIX (Brasil)': 'PIX (Brasile)',
+  'Transferência bancária SEPA (zona do euro)': "Bonifico SEPA (area dell'euro)",
+  'Link: página de doações ou serviço de pagamentos':
+    'Link: pagina delle donazioni o servizio di pagamento',
+  'Imagem de QR Code pronta, do banco ou do aplicativo':
+    "Immagine del codice QR già pronta, della banca o dell'app",
+  'Só os dados bancários, sem QR Code': 'Solo le coordinate bancarie, senza codice QR',
+  'Titular da conta': 'Intestatario del conto',
+  'Como está na conta do banco.': 'Come risulta sul conto bancario.',
+  'BIC / SWIFT (opcional)': 'BIC / SWIFT (facoltativo)',
+  'Valor fixo em euros (opcional)': 'Importo fisso in euro (facoltativo)',
+  'Descrição da transferência (opcional)': 'Causale del bonifico (facoltativa)',
+  'Ex.: Oferta': 'Es.: Offerta',
+  'Link da contribuição': "Link dell'offerta",
+  'Qualquer endereço serve: a página de doações da igreja ou o link de um serviço de pagamentos do seu país.':
+    'Va bene qualsiasi indirizzo: la pagina delle donazioni della chiesa o il link di un servizio di pagamento del tuo paese.',
+  'Imagem do QR Code': 'Immagine del codice QR',
+  'Tira a imagem enviada': "Rimuove l'immagine caricata",
+  'Use a imagem que o banco ou o aplicativo de pagamentos gerou para a igreja. Fundo branco e boa resolução leem melhor.':
+    "Usa l'immagine generata per la chiesa dalla banca o dall'app di pagamento. Sfondo bianco e buona risoluzione si leggono meglio.",
+  'Dados bancários mostrados no cartão': 'Coordinate bancarie mostrate nella scheda',
+  'Dados mostrados ao lado do QR Code': 'Dati mostrati accanto al codice QR',
+  'Uma informação por linha: banco, conta, titular…':
+    'Un dato per riga: banca, conto, intestatario…',
+  'Uma informação por linha, até 6 linhas. Vazio: mostra a chave PIX, o IBAN ou o link.':
+    "Un dato per riga, fino a 6 righe. Vuoto: mostra la chiave PIX, l'IBAN o il link.",
+  'QR da contribuição': "QR dell'offerta",
+  'A forma de contribuir e os dados ao lado do QR Code ficam na aba "Geral e contribuições".':
+    'Il modo di donare e i dati accanto al codice QR sono nella scheda "Generale e offerte".',
+  'Envie o logo da igreja na aba "Geral e contribuições" para usar este elemento.':
+    'Carica il logo della chiesa nella scheda "Generale e offerte" per usare questo elemento.',
+  'Escreva o link da contribuição nas configurações.':
+    "Scrivi il link dell'offerta nelle impostazioni.",
+  'Escreva o nome do titular da conta.': "Scrivi il nome dell'intestatario del conto.",
+  'IBAN inválido: confira as letras e os números.': 'IBAN non valido: controlla lettere e numeri.',
+  'BIC inválido: são 8 ou 11 caracteres, ou deixe vazio.':
+    'BIC non valido: ha 8 o 11 caratteri, oppure lascialo vuoto.',
+  'Valor inválido: use um número como 25,00.': 'Importo non valido: usa un numero come 25,00.',
+  'Envie a imagem do QR Code.': "Carica l'immagine del codice QR.",
+  'Escreva os dados bancários que vão aparecer.': 'Scrivi le coordinate bancarie da mostrare.',
 };

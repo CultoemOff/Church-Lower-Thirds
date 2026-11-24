@@ -958,11 +958,11 @@ En OBS, abra el menú Paneles → Paneles de navegador personalizados.
 In OBS, apri il menu Pannelli → Pannelli browser personalizzati.
 In OBS das Menü Docks → Benutzerdefinierte Browser-Docks öffnen.
 
-Dê o nome "Lower Third" e cole o endereço abaixo.
-Name it "Lower Third" and paste the address below.
-Póngale el nombre "Lower Third" y pegue la dirección de abajo.
-Chiamalo "Lower Third" e incolla l'indirizzo qui sotto.
-„Lower Third“ nennen und die Adresse unten einfügen.
+Dê o nome "Church Lower Thirds" e cole o endereço abaixo.
+Name it "Church Lower Thirds" and paste the address below.
+Póngale el nombre "Church Lower Thirds" y pegue la dirección de abajo.
+Chiamalo "Church Lower Thirds" e incolla l'indirizzo qui sotto.
+„Church Lower Thirds“ nennen und die Adresse unten einfügen.
 
 Encaixe o painel onde preferir: ele se ajusta a um espaço alto ou largo. A engrenagem dele abre esta página.
 Dock the panel wherever you like: it adapts to a tall or a wide space. Its gear opens this page.

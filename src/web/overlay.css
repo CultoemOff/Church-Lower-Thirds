@@ -1037,6 +1037,20 @@ img:not([src]) {
 .card .has-key .key {
   display: block;
 }
+/* Bank details: several lines, so a rounded box instead of a pill. */
+.card .key.multi {
+  white-space: pre-line;
+  border-radius: 16px;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.38;
+  padding: 10px 16px;
+}
+/* A QR image sent by the church keeps its shape inside the white square. */
+.card .qrw img,
+.lower .qr img {
+  object-fit: contain;
+}
 .card .box:not(.has-sub) .sub,
 .card .box:not(.has-title) .title {
   display: none;

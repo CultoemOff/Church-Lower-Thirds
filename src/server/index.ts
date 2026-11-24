@@ -12,6 +12,7 @@ import { appDataDir, installInfoFile, ownerId, userFilesFolder } from './paths.j
 import { checkForUpdate, downloadVerifiedSetup } from './updater.js';
 import { installedFonts } from './fonts.js';
 import { pixPayload, validPixPayload } from './pix.js';
+import { sepaPayload } from './sepa.js';
 import { qrSvg } from './qr.js';
 import { SOURCES, sourceFileName, writeSourceFiles } from './sources.js';
 import {
@@ -285,16 +286,37 @@ function pixCode() {
   }
   return pixPayload(p);
 }
-app.get('/api/pix', (_q, r) => {
+/** What the church's contribution QR encodes, by the method chosen in the settings. */
+function givingCode() {
+  const g = config.giving;
+  if (g.method === 'pix') return pixCode();
+  if (g.method === 'sepa') return sepaPayload(g.sepa);
+  if (g.method === 'link') {
+    if (!g.link.trim()) throw new Error('Enter the link for the QR code');
+    return g.link.trim();
+  }
+  throw new Error('This way of giving has no generated QR code');
+}
+// For the check in the settings: what the QR holds, or why it cannot be made yet.
+app.get('/api/giving', (_q, r) => {
+  const g = config.giving;
   try {
-    r.json({ ok: true, payload: pixCode() });
+    if (g.method === 'image') {
+      if (!g.image) throw new Error('Upload the QR code image');
+      return void r.json({ ok: true, method: g.method, image: g.image });
+    }
+    if (g.method === 'text') {
+      if (!g.details) throw new Error('Enter the bank details to show');
+      return void r.json({ ok: true, method: g.method });
+    }
+    r.json({ ok: true, method: g.method, payload: givingCode() });
   } catch (e) {
     fail(r, e);
   }
 });
 app.get('/api/qr.svg', (q, r) => {
   try {
-    const text = q.query.kind === 'pix' ? pixCode() : String(q.query.text ?? '');
+    const text = q.query.kind === 'giving' ? givingCode() : String(q.query.text ?? '');
     const svg = qrSvg(text, {
       dark: String(q.query.dark ?? '#000000'),
       light: String(q.query.light ?? '#ffffff'),

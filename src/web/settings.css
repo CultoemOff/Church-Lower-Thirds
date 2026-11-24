@@ -839,3 +839,18 @@ table.apiTable {
 .step span:empty::before {
   content: '…';
 }
+
+/* Contributions */
+.hint.ok {
+  color: #2fb37a;
+}
+.rowline {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.rowline input[type='file'] {
+  flex: 1;
+  min-width: 0;
+}

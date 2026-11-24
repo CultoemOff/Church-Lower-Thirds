@@ -1,0 +1,293 @@
+Cartão com QR Code: a contribuição da igreja ou um link
+Card with a QR code: the church's giving or a link
+Tarjeta con código QR: la ofrenda de la iglesia o un enlace
+Scheda con codice QR: l'offerta della chiesa o un link
+Karte mit QR-Code: die Spende der Gemeinde oder ein Link
+
+Oferta
+Giving
+Ofrenda
+Offerta
+Spende
+
+QR Code da contribuição da igreja: PIX, transferência, link ou imagem (escolha nas configurações)
+QR code of the church's giving: PIX, bank transfer, link or image (choose in the settings)
+Código QR de la ofrenda de la iglesia: PIX, transferencia, enlace o imagen (elija en los ajustes)
+Codice QR dell'offerta della chiesa: PIX, bonifico, link o immagine (scegli nelle impostazioni)
+QR-Code für die Spende der Gemeinde: PIX, Überweisung, Link oder Bild (in den Einstellungen wählen)
+
+Contribuição da igreja
+Church giving
+Ofrenda de la iglesia
+Offerta della chiesa
+Spende an die Gemeinde
+
+Geral e contribuições
+General and giving
+General y ofrendas
+Generale e offerte
+Allgemein und Spenden
+
+Nome, logo, idioma, temas, tempo na tela e a forma de contribuir: PIX, transferência, link ou dados bancários.
+Name, logo, language, themes, time on screen and how people give: PIX, bank transfer, link or bank details.
+Nombre, logo, idioma, temas, tiempo en pantalla y la forma de ofrendar: PIX, transferencia, enlace o datos bancarios.
+Nome, logo, lingua, temi, tempo sullo schermo e il modo di donare: PIX, bonifico, link o coordinate bancarie.
+Name, Logo, Sprache, Designs, Anzeigedauer und der Spendenweg: PIX, Überweisung, Link oder Bankdaten.
+
+Cartão QR / Oferta
+QR / Giving card
+Tarjeta QR / Ofrenda
+Scheda QR / Offerta
+QR- / Spendenkarte
+
+Cartão com o QR Code da contribuição ou de um link.
+Card with the QR code for giving or for a link.
+Tarjeta con el código QR de la ofrenda o de un enlace.
+Scheda con il codice QR dell'offerta o di un link.
+Karte mit dem QR-Code für die Spende oder für einen Link.
+
+Preencha os dados acima para ver o resultado.
+Fill in the details above to see the result.
+Complete los datos de arriba para ver el resultado.
+Compila i dati qui sopra per vedere il risultato.
+Die Angaben oben ausfüllen, um das Ergebnis zu sehen.
+
+Os dados acima aparecem no cartão, sem QR Code.
+The details above appear on the card, without a QR code.
+Los datos de arriba aparecen en la tarjeta, sin código QR.
+I dati qui sopra compaiono nella scheda, senza codice QR.
+Die Angaben oben erscheinen auf der Karte, ohne QR-Code.
+
+Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o titular e o IBAN que aparecem.
+Test before the service: point the banking app at this QR code and check the account holder and IBAN it shows.
+Pruebe antes del culto: apunte la aplicación del banco a este código QR y verifique el titular y el IBAN que aparecen.
+Prova prima del culto: inquadra questo codice QR con l'app della banca e controlla l'intestatario e l'IBAN che compaiono.
+Vor dem Gottesdienst testen: diesen QR-Code mit der Banking-App scannen und Kontoinhaber und IBAN prüfen.
+
+Teste antes do culto: aponte a câmera do celular para este QR Code e confira a página que abre.
+Test before the service: point a phone camera at this QR code and check the page that opens.
+Pruebe antes del culto: apunte la cámara del móvil a este código QR y verifique la página que se abre.
+Prova prima del culto: inquadra questo codice QR con la fotocamera del telefono e controlla la pagina che si apre.
+Vor dem Gottesdienst testen: diesen QR-Code mit der Handykamera scannen und die geöffnete Seite prüfen.
+
+Teste antes do culto: aponte o celular para a tela e confira se o QR Code da imagem é lido.
+Test before the service: point a phone at the screen and check that the QR code in the image is read.
+Pruebe antes del culto: apunte el móvil a la pantalla y verifique que el código QR de la imagen se lee.
+Prova prima del culto: inquadra lo schermo con il telefono e controlla che il codice QR dell'immagine venga letto.
+Vor dem Gottesdienst testen: das Handy auf den Bildschirm richten und prüfen, ob der QR-Code im Bild gelesen wird.
+
+QR Code da contribuição
+Giving QR code
+Código QR de la ofrenda
+Codice QR dell'offerta
+QR-Code für die Spende
+
+Conteúdo do QR Code:
+What the QR code holds:
+Contenido del código QR:
+Contenuto del codice QR:
+Inhalt des QR-Codes:
+
+Cadastre a forma de contribuir
+Set up how people give
+Configure la forma de ofrendar
+Imposta il modo di donare
+Spendenweg einrichten
+
+Contribuições: dízimos e ofertas
+Giving: tithes and offerings
+Ofrendas: diezmos y ofrendas
+Offerte: decime e offerte
+Spenden: Zehnter und Kollekte
+
+O PIX só existe no Brasil. Escolha como a sua igreja recebe: o QR Code e os dados aparecem no cartão e nos nomes marcados com "Contribuição da igreja".
+PIX only exists in Brazil. Choose how your church receives: the QR code and the details appear on the card and on the names marked "Church giving".
+PIX solo existe en Brasil. Elija cómo recibe su iglesia: el código QR y los datos aparecen en la tarjeta y en los nombres marcados con "Ofrenda de la iglesia".
+PIX esiste solo in Brasile. Scegli come riceve la tua chiesa: il codice QR e i dati compaiono nella scheda e nei nomi contrassegnati con "Offerta della chiesa".
+PIX gibt es nur in Brasilien. Wählen Sie, wie Ihre Gemeinde Spenden erhält: QR-Code und Angaben erscheinen auf der Karte und bei den Namen mit „Spende an die Gemeinde“.
+
+Como as pessoas contribuem
+How people give
+Cómo ofrendan las personas
+Come donano le persone
+So wird gespendet
+
+PIX (Brasil)
+PIX (Brazil)
+PIX (Brasil)
+PIX (Brasile)
+PIX (Brasilien)
+
+Transferência bancária SEPA (zona do euro)
+SEPA bank transfer (euro area)
+Transferencia bancaria SEPA (zona del euro)
+Bonifico SEPA (area dell'euro)
+SEPA-Überweisung (Euroraum)
+
+Link: página de doações ou serviço de pagamentos
+Link: giving page or payment service
+Enlace: página de donaciones o servicio de pagos
+Link: pagina delle donazioni o servizio di pagamento
+Link: Spendenseite oder Zahlungsdienst
+
+Imagem de QR Code pronta, do banco ou do aplicativo
+Ready-made QR code image, from the bank or the app
+Imagen de código QR ya hecha, del banco o de la aplicación
+Immagine del codice QR già pronta, della banca o dell'app
+Fertiges QR-Code-Bild von der Bank oder der App
+
+Só os dados bancários, sem QR Code
+Bank details only, no QR code
+Solo los datos bancarios, sin código QR
+Solo le coordinate bancarie, senza codice QR
+Nur die Bankdaten, ohne QR-Code
+
+Titular da conta
+Account holder
+Titular de la cuenta
+Intestatario del conto
+Kontoinhaber
+
+Como está na conta do banco.
+As it appears on the bank account.
+Como figura en la cuenta del banco.
+Come risulta sul conto bancario.
+Wie beim Bankkonto angegeben.
+
+BIC / SWIFT (opcional)
+BIC / SWIFT (optional)
+BIC / SWIFT (opcional)
+BIC / SWIFT (facoltativo)
+BIC / SWIFT (optional)
+
+Valor fixo em euros (opcional)
+Fixed amount in euros (optional)
+Importe fijo en euros (opcional)
+Importo fisso in euro (facoltativo)
+Fester Betrag in Euro (optional)
+
+Descrição da transferência (opcional)
+Transfer description (optional)
+Concepto de la transferencia (opcional)
+Causale del bonifico (facoltativa)
+Verwendungszweck (optional)
+
+Ex.: Oferta
+E.g.: Offering
+Ej.: Ofrenda
+Es.: Offerta
+Z. B.: Spende
+
+Link da contribuição
+Giving link
+Enlace de la ofrenda
+Link dell'offerta
+Spendenlink
+
+Qualquer endereço serve: a página de doações da igreja ou o link de um serviço de pagamentos do seu país.
+Any address works: the church's giving page or the link of a payment service in your country.
+Sirve cualquier dirección: la página de donaciones de la iglesia o el enlace de un servicio de pagos de su país.
+Va bene qualsiasi indirizzo: la pagina delle donazioni della chiesa o il link di un servizio di pagamento del tuo paese.
+Jede Adresse funktioniert: die Spendenseite der Gemeinde oder der Link eines Zahlungsdienstes in Ihrem Land.
+
+Imagem do QR Code
+QR code image
+Imagen del código QR
+Immagine del codice QR
+QR-Code-Bild
+
+Tira a imagem enviada
+Removes the uploaded image
+Quita la imagen enviada
+Rimuove l'immagine caricata
+Entfernt das hochgeladene Bild
+
+Use a imagem que o banco ou o aplicativo de pagamentos gerou para a igreja. Fundo branco e boa resolução leem melhor.
+Use the image the bank or payment app generated for the church. A white background and good resolution scan better.
+Use la imagen que el banco o la aplicación de pagos generó para la iglesia. Fondo blanco y buena resolución se leen mejor.
+Usa l'immagine generata per la chiesa dalla banca o dall'app di pagamento. Sfondo bianco e buona risoluzione si leggono meglio.
+Das Bild verwenden, das die Bank oder die Zahlungs-App für die Gemeinde erzeugt hat. Weißer Hintergrund und gute Auflösung lassen sich besser scannen.
+
+Dados bancários mostrados no cartão
+Bank details shown on the card
+Datos bancarios mostrados en la tarjeta
+Coordinate bancarie mostrate nella scheda
+Bankdaten auf der Karte
+
+Dados mostrados ao lado do QR Code
+Details shown beside the QR code
+Datos mostrados junto al código QR
+Dati mostrati accanto al codice QR
+Angaben neben dem QR-Code
+
+Uma informação por linha: banco, conta, titular…
+One item per line: bank, account, holder…
+Un dato por línea: banco, cuenta, titular…
+Un dato per riga: banca, conto, intestatario…
+Eine Angabe pro Zeile: Bank, Konto, Inhaber…
+
+Uma informação por linha, até 6 linhas. Vazio: mostra a chave PIX, o IBAN ou o link.
+One item per line, up to 6 lines. Empty: shows the PIX key, the IBAN or the link.
+Un dato por línea, hasta 6 líneas. Vacío: muestra la clave PIX, el IBAN o el enlace.
+Un dato per riga, fino a 6 righe. Vuoto: mostra la chiave PIX, l'IBAN o il link.
+Eine Angabe pro Zeile, bis zu 6 Zeilen. Leer: zeigt den PIX-Schlüssel, die IBAN oder den Link.
+
+QR da contribuição
+Giving QR
+QR de la ofrenda
+QR dell'offerta
+Spenden-QR
+
+A forma de contribuir e os dados ao lado do QR Code ficam na aba "Geral e contribuições".
+How people give and the details beside the QR code are in the "General and giving" tab.
+La forma de ofrendar y los datos junto al código QR están en la pestaña "General y ofrendas".
+Il modo di donare e i dati accanto al codice QR sono nella scheda "Generale e offerte".
+Der Spendenweg und die Angaben neben dem QR-Code stehen im Reiter „Allgemein und Spenden“.
+
+Envie o logo da igreja na aba "Geral e contribuições" para usar este elemento.
+Upload the church logo in the "General and giving" tab to use this element.
+Suba el logo de la iglesia en la pestaña "General y ofrendas" para usar este elemento.
+Carica il logo della chiesa nella scheda "Generale e offerte" per usare questo elemento.
+Das Gemeindelogo im Reiter „Allgemein und Spenden“ hochladen, um dieses Element zu verwenden.
+
+Escreva o link da contribuição nas configurações.
+Enter the giving link in the settings.
+Escriba el enlace de la ofrenda en los ajustes.
+Scrivi il link dell'offerta nelle impostazioni.
+Den Spendenlink in den Einstellungen eintragen.
+
+Escreva o nome do titular da conta.
+Enter the account holder's name.
+Escriba el nombre del titular de la cuenta.
+Scrivi il nome dell'intestatario del conto.
+Den Namen des Kontoinhabers eintragen.
+
+IBAN inválido: confira as letras e os números.
+Invalid IBAN: check the letters and numbers.
+IBAN no válido: verifique las letras y los números.
+IBAN non valido: controlla lettere e numeri.
+Ungültige IBAN: Buchstaben und Ziffern prüfen.
+
+BIC inválido: são 8 ou 11 caracteres, ou deixe vazio.
+Invalid BIC: it has 8 or 11 characters, or leave it empty.
+BIC no válido: tiene 8 u 11 caracteres, o déjelo vacío.
+BIC non valido: ha 8 o 11 caratteri, oppure lascialo vuoto.
+Ungültiger BIC: 8 oder 11 Zeichen, oder leer lassen.
+
+Valor inválido: use um número como 25,00.
+Invalid amount: use a number like 25.00.
+Importe no válido: use un número como 25,00.
+Importo non valido: usa un numero come 25,00.
+Ungültiger Betrag: eine Zahl wie 25,00 verwenden.
+
+Envie a imagem do QR Code.
+Upload the QR code image.
+Suba la imagen del código QR.
+Carica l'immagine del codice QR.
+Das QR-Code-Bild hochladen.
+
+Escreva os dados bancários que vão aparecer.
+Enter the bank details to show.
+Escriba los datos bancarios que van a aparecer.
+Scrivi le coordinate bancarie da mostrare.
+Die Bankdaten eintragen, die erscheinen sollen.

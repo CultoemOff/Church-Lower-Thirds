@@ -94,9 +94,9 @@ const PAGES = [
   ],
   [
     'brand',
-    'Geral e PIX',
+    'Geral e contribuições',
     'Igreja',
-    'Nome, logo, idioma, temas, tempo na tela e a chave PIX.',
+    'Nome, logo, idioma, temas, tempo na tela e a forma de contribuir: PIX, transferência, link ou dados bancários.',
     svg('<path d="M12 3v5M9.500 5.500h5M6 21V11l6-3 6 3v10M4 21h16M10 21v-5h4v5"/>'),
   ],
   [
@@ -126,9 +126,9 @@ const PAGES = [
   ],
   [
     'card',
-    'Cartão QR / PIX',
+    'Cartão QR / Oferta',
     'Elementos',
-    'Cartão com o QR Code do PIX ou de um link.',
+    'Cartão com o QR Code da contribuição ou de um link.',
     svg(
       '<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/>',
     ),
@@ -347,7 +347,7 @@ function save() {
     const r = await api('/api/config', { method: 'PUT', body: config });
     $('#saved').textContent = r.error ? '' : 'Salvo';
     if (r.error) toast(friendly(r.error));
-    else if (page === 'brand') checkPix();
+    else if (page === 'brand') checkGiving();
   }, 250);
 }
 
@@ -365,7 +365,7 @@ const textInput = (path, label, { wide, tip, placeholder, max = 300 } = {}) =>
     }),
     { wide, tip },
   );
-const select = (path, label, options, { tip, rerender = false } = {}) =>
+const select = (path, label, options, { tip, rerender = false, wide = false } = {}) =>
   field(
     label,
     h(
@@ -381,7 +381,7 @@ const select = (path, label, options, { tip, rerender = false } = {}) =>
         h('option', { value: v, selected: String(get(path)) === String(v) }, l ?? NAMES[v] ?? v),
       ),
     ),
-    { tip },
+    { tip, wide },
   );
 const names = (list) => list.map((v) => [v, NAMES[v]]);
 function check(path, label, { tip, rerender = false } = {}) {
@@ -728,7 +728,7 @@ const qrChoice = (el) => [
     `${el}.qr`,
     'O QR Code leva para',
     [
-      ['pix', 'PIX da igreja'],
+      ['giving', 'Contribuição da igreja'],
       ['url', 'Um link (site, inscrição, redes sociais)'],
     ],
     { rerender: true },
@@ -769,32 +769,71 @@ function applyPalette([, main, second, accent, t1, t2]) {
   save();
   toast('Cores aplicadas ao lower third, à barra e ao cartão.');
 }
-async function checkPix() {
-  const box = $('#pixCheck');
+/** Something was typed for the chosen way of giving (it may still be wrong). */
+function givingFilled() {
+  const g = config.giving;
+  return !!{
+    pix: config.pix.key || config.pix.payload,
+    sepa: g.sepa.iban,
+    link: g.link,
+    image: g.image,
+    text: g.details,
+  }[g.method];
+}
+async function uploadGivingQr(file) {
+  if (!file) return;
+  const r = await api('/api/media', {
+    method: 'POST',
+    raw: file,
+    type: file.type || 'application/octet-stream',
+  });
+  if (r.error) return toast(friendly(r.error));
+  set('giving.image', r.url);
+  renderForm();
+}
+// Shows the QR exactly as it goes on air, or says what is still missing.
+async function checkGiving() {
+  const box = $('#givingCheck');
   if (!box) return;
-  const r = await api('/api/pix');
+  const method = config.giving.method;
+  const r = await api('/api/giving');
+  if (!$('#givingCheck') || method !== config.giving.method) return;
   if (r.error)
     return box.replaceChildren(
       hint(
-        config.pix.key || config.pix.payload
-          ? friendly(r.error)
-          : 'Preencha a chave para gerar o QR Code.',
-        config.pix.key || config.pix.payload ? 'bad' : '',
+        givingFilled() ? friendly(r.error) : 'Preencha os dados acima para ver o resultado.',
+        givingFilled() ? 'bad' : '',
       ),
     );
+  if (method === 'text')
+    return box.replaceChildren(hint('Os dados acima aparecem no cartão, sem QR Code.', 'ok'));
+  const test = {
+    pix: 'Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o nome que aparece.',
+    sepa: 'Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o titular e o IBAN que aparecem.',
+    link: 'Teste antes do culto: aponte a câmera do celular para este QR Code e confira a página que abre.',
+    image:
+      'Teste antes do culto: aponte o celular para a tela e confira se o QR Code da imagem é lido.',
+  }[method];
   box.replaceChildren(
     h(
       'div',
       { class: 'pixBox' },
-      h('img', { src: `/api/qr.svg?kind=pix&v=${Date.now()}`, alt: 'QR Code do PIX' }),
+      h('img', {
+        src: method === 'image' ? r.image : `/api/qr.svg?kind=giving&v=${Date.now()}`,
+        alt: 'QR Code da contribuição',
+      }),
       h(
         'div',
         {},
-        hint(
-          'Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o nome que aparece.',
-        ),
-        h('span', { class: 'hint' }, 'PIX copia e cola:'),
-        h('code', { class: 'block' }, r.payload),
+        hint(test),
+        r.payload
+          ? h(
+              'span',
+              { class: 'hint' },
+              method === 'pix' ? 'PIX copia e cola:' : 'Conteúdo do QR Code:',
+            )
+          : null,
+        r.payload ? h('code', { class: 'block', 'data-raw': '' }, r.payload) : null,
       ),
     ),
   );
@@ -947,7 +986,7 @@ const pages = {
             'brand',
           ),
           done(!!config.brand.logo, 'Envie o logo da igreja', 'Abrir', 'brand'),
-          done(!!(config.pix.key || config.pix.payload), 'Cadastre a chave PIX', 'Abrir', 'brand'),
+          done(givingFilled(), 'Cadastre a forma de contribuir', 'Abrir', 'brand'),
           done(false, 'Adicione as fontes e o painel no OBS', 'Ver como', 'obs'),
           done(
             Object.values(config).some((e) => e?.free || e?.vfree),
@@ -1077,55 +1116,149 @@ const pages = {
       ),
     ),
     card(
-      'PIX',
+      'Contribuições: dízimos e ofertas',
+      hint(
+        'O PIX só existe no Brasil. Escolha como a sua igreja recebe: o QR Code e os dados aparecem no cartão e nos nomes marcados com "Contribuição da igreja".',
+      ),
       grid(
         select(
-          'pix.mode',
-          'Como gerar o QR Code',
+          'giving.method',
+          'Como as pessoas contribuem',
           [
-            ['key', 'Pela chave PIX'],
-            ['payload', 'Colar o "PIX copia e cola" do banco'],
+            ['pix', 'PIX (Brasil)'],
+            ['sepa', 'Transferência bancária SEPA (zona do euro)'],
+            ['link', 'Link: página de doações ou serviço de pagamentos'],
+            ['image', 'Imagem de QR Code pronta, do banco ou do aplicativo'],
+            ['text', 'Só os dados bancários, sem QR Code'],
           ],
-          { rerender: true },
+          { rerender: true, wide: true },
         ),
-        ...(config.pix.mode === 'key'
+        ...(config.giving.method === 'pix'
           ? [
-              textInput('pix.key', 'Chave PIX', {
-                placeholder: 'CNPJ, e-mail, telefone ou chave aleatória',
-                max: 80,
+              select(
+                'pix.mode',
+                'Como gerar o QR Code',
+                [
+                  ['key', 'Pela chave PIX'],
+                  ['payload', 'Colar o "PIX copia e cola" do banco'],
+                ],
+                { rerender: true },
+              ),
+              ...(config.pix.mode === 'key'
+                ? [
+                    textInput('pix.key', 'Chave PIX', {
+                      placeholder: 'CNPJ, e-mail, telefone ou chave aleatória',
+                      max: 80,
+                    }),
+                    textInput('pix.name', 'Nome do recebedor', {
+                      max: 25,
+                      tip: 'Como está na conta do banco, até 25 letras.',
+                    }),
+                    textInput('pix.city', 'Cidade', { max: 15 }),
+                    textInput('pix.amount', 'Valor fixo (opcional)', {
+                      placeholder: 'Vazio: quem doa escolhe',
+                      max: 14,
+                    }),
+                    textInput('pix.txid', 'Identificador (opcional)', {
+                      placeholder: 'Ex.: OFERTA',
+                      max: 25,
+                    }),
+                  ]
+                : [
+                    field(
+                      'PIX copia e cola',
+                      h('textarea', {
+                        rows: 3,
+                        value: config.pix.payload,
+                        oninput: (e) => set('pix.payload', e.target.value),
+                      }),
+                      { wide: true },
+                    ),
+                  ]),
+            ]
+          : []),
+        ...(config.giving.method === 'sepa'
+          ? [
+              textInput('giving.sepa.name', 'Titular da conta', {
+                max: 70,
+                tip: 'Como está na conta do banco.',
               }),
-              textInput('pix.name', 'Nome do recebedor', {
-                max: 25,
-                tip: 'Como está na conta do banco, até 25 letras.',
+              textInput('giving.sepa.iban', 'IBAN', {
+                placeholder: 'PT50 0000 0000 0000 0000 0000 0',
+                max: 42,
               }),
-              textInput('pix.city', 'Cidade', { max: 15 }),
-              textInput('pix.amount', 'Valor fixo (opcional)', {
+              textInput('giving.sepa.bic', 'BIC / SWIFT (opcional)', { max: 11 }),
+              textInput('giving.sepa.amount', 'Valor fixo em euros (opcional)', {
                 placeholder: 'Vazio: quem doa escolhe',
                 max: 14,
               }),
-              textInput('pix.txid', 'Identificador (opcional)', {
-                placeholder: 'Ex.: OFERTA',
-                max: 25,
+              textInput('giving.sepa.reference', 'Descrição da transferência (opcional)', {
+                placeholder: 'Ex.: Oferta',
+                max: 140,
               }),
             ]
-          : [
+          : []),
+        ...(config.giving.method === 'link'
+          ? [
+              textInput('giving.link', 'Link da contribuição', {
+                placeholder: 'https://…',
+                max: 1000,
+                wide: true,
+                tip: 'Qualquer endereço serve: a página de doações da igreja ou o link de um serviço de pagamentos do seu país.',
+              }),
+            ]
+          : []),
+        ...(config.giving.method === 'image'
+          ? [
               field(
-                'PIX copia e cola',
-                h('textarea', {
-                  rows: 3,
-                  value: config.pix.payload,
-                  oninput: (e) => set('pix.payload', e.target.value),
-                }),
-                { wide: true },
+                'Imagem do QR Code',
+                h(
+                  'div',
+                  { class: 'rowline' },
+                  h('input', {
+                    type: 'file',
+                    accept: 'image/png,image/jpeg,image/webp,image/svg+xml',
+                    onchange: (e) => uploadGivingQr(e.target.files[0]),
+                  }),
+                  config.giving.image
+                    ? h(
+                        'button',
+                        {
+                          title: 'Tira a imagem enviada',
+                          onclick: () => {
+                            set('giving.image', '');
+                            renderForm();
+                          },
+                        },
+                        'Remover',
+                      )
+                    : null,
+                ),
+                {
+                  wide: true,
+                  tip: 'Use a imagem que o banco ou o aplicativo de pagamentos gerou para a igreja. Fundo branco e boa resolução leem melhor.',
+                },
               ),
-            ]),
-        textInput('pix.display', 'Texto mostrado ao lado do QR Code', {
-          placeholder: 'Ex.: CNPJ 12.345.678/0001-90',
-          max: 60,
-          tip: 'Vazio: mostra a chave.',
-        }),
+            ]
+          : []),
+        field(
+          config.giving.method === 'text'
+            ? 'Dados bancários mostrados no cartão'
+            : 'Dados mostrados ao lado do QR Code',
+          h('textarea', {
+            rows: 4,
+            maxlength: 400,
+            placeholder: 'Uma informação por linha: banco, conta, titular…',
+            value: config.giving.details,
+            oninput: (e) => set('giving.details', e.target.value),
+          }),
+          {
+            wide: true,
+            tip: 'Uma informação por linha, até 6 linhas. Vazio: mostra a chave PIX, o IBAN ou o link.',
+          },
+        ),
       ),
-      h('div', { id: 'pixCheck' }),
+      h('div', { id: 'givingCheck' }),
     ),
   ],
 
@@ -1183,7 +1316,7 @@ const pages = {
               },
               [
                 ['none', 'Sem QR'],
-                ['pix', 'QR do PIX'],
+                ['giving', 'QR da contribuição'],
                 ['url', 'QR de link'],
               ].map(([v, l]) => h('option', { value: v, selected: item.qr === v }, l)),
             ),
@@ -1369,7 +1502,9 @@ const pages = {
         check('card.showLogo', 'Logo da igreja'),
         check('card.qrRound', 'QR Code com pontos arredondados'),
       ),
-      hint('Para o PIX, a chave e o texto ao lado do QR Code ficam na aba "Geral e PIX".'),
+      hint(
+        'A forma de contribuir e os dados ao lado do QR Code ficam na aba "Geral e contribuições".',
+      ),
     ),
     card(
       'Cores e texto',
@@ -1573,7 +1708,10 @@ const pages = {
       ? null
       : card(
           'Logo',
-          hint('Envie o logo da igreja na aba "Geral e PIX" para usar este elemento.', 'bad'),
+          hint(
+            'Envie o logo da igreja na aba "Geral e contribuições" para usar este elemento.',
+            'bad',
+          ),
         ),
     card(
       'Logo no canto da tela',
@@ -1592,7 +1730,7 @@ const pages = {
     const LABELS = {
       lower: 'Nomes',
       top: 'Selo superior',
-      card: 'Cartão QR / PIX',
+      card: 'Cartão QR / Oferta',
       agenda: 'Agenda',
       social: 'Redes sociais',
       bug: 'Logo',
@@ -1781,7 +1919,7 @@ const pages = {
           'ol',
           { class: 'steps' },
           h('li', {}, 'No OBS, abra o menu Docks → Docks de navegador personalizados.'),
-          h('li', {}, 'Dê o nome "Lower Third" e cole o endereço abaixo.'),
+          h('li', {}, 'Dê o nome "Church Lower Thirds" e cole o endereço abaixo.'),
           h(
             'li',
             {},
@@ -1807,7 +1945,7 @@ const pages = {
           row('Esconder o nome', '/api/live/lower/hide'),
           row('Selo superior', '/api/live/top/toggle'),
           row('Barra inferior', '/api/live/ticker/toggle'),
-          row('Cartão QR / PIX', '/api/live/card/toggle'),
+          row('Cartão QR / Oferta', '/api/live/card/toggle'),
           row('Agenda', '/api/live/agenda/toggle'),
           row('Rede social (1 = primeira)', '/api/live/social/toggle?item=1'),
           row('Logo', '/api/live/bug/toggle'),
@@ -2016,7 +2154,7 @@ function renderForm() {
         )
       : null;
   $('#form').replaceChildren(...[off, ...pages[page]()].filter(Boolean));
-  if (page === 'brand') checkPix();
+  if (page === 'brand') checkGiving();
 }
 $('#replay').onclick = () => {
   const el = ELEMENTS.includes(page) ? page : 'card';
