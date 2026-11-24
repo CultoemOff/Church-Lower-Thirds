@@ -185,6 +185,11 @@ export function defaults() {
       shadowStrength: 55,
       /** The drawing of the themed models: '' = the usual one of each model, 'none', or a set. */
       decor: '',
+      /**
+       * The ready-made colors the model in use suggested ('' = not known). While the theme
+       * still has them, another model brings its own; colors chosen by the user stay.
+       */
+      suggested: '',
     },
     pix: {
       mode: 'key',

@@ -39,7 +39,7 @@ import {
   guideSourceProps,
 } from './js/obs-guide.js';
 import { BUNDLED_FONTS } from './js/fonts.js';
-import { applyModel, MODELS, modelTemplate, PALETTES } from './js/models.js';
+import { applyModel, MODELS, modelTemplate, ownColors, paletteOf, PALETTES } from './js/models.js';
 import { autoLocalize, lang, LANGUAGES, t, useLanguage } from './js/i18n.js';
 
 // Global settings, opened in the normal browser so the OBS dock can stay small.
@@ -243,27 +243,16 @@ const WEIGHTS = [
   [800, 'Extra negrito'],
   [900, 'Preto'],
 ];
-/** The model in use, while every element still follows it. */
+/** The model in use: its formats, font and drawing (an element may have its own colors). */
 const currentModel = () =>
   MODELS.find(
     (k) =>
       config.brand.font === k.font &&
       (config.theme.decor || '') === (k.decor || '') &&
-      THEMED_ELEMENTS.every(
-        (el) => config[el].template === modelTemplate(k, el) && !config[el].custom,
-      ),
+      THEMED_ELEMENTS.every((el) => config[el].template === modelTemplate(k, el)),
   );
 /** The ready-made colors in use, while none of them was changed by hand. */
-const currentPalette = () => {
-  const now = JSON.stringify([
-    config.theme.main,
-    config.theme.surface,
-    config.theme.accent,
-    config.theme.text1,
-    config.theme.text2,
-  ]);
-  return PALETTES.find((p) => JSON.stringify(p.slice(1, 6)) === now);
-};
+const currentPalette = () => paletteOf(config.theme);
 /**
  * Blocks that survive the redraws of the form: the pictures of the models are real pages
  * of the overlay, and taking one out of the page would load it again.
@@ -362,17 +351,42 @@ const paletteGallery = () => {
     }),
   );
 };
-function useModel(model) {
-  applyModel(config, model);
+function useModel(model, reset = false) {
+  const kept = applyModel(config, model, { reset });
   // Once it is saved, the big preview shows how the model comes in.
   afterSave = () => setTimeout(replayPreview, 350);
   save();
   renderForm();
   toast(
-    t('Modelo "{name}" aplicado, com as cores "{colors}".', {
-      name: t(model.name),
-      colors: t(model.palette),
-    }),
+    kept
+      ? t('Modelo "{name}" aplicado. As cores escolhidas foram mantidas.', { name: t(model.name) })
+      : t('Modelo "{name}" aplicado, com as cores "{colors}".', {
+          name: t(model.name),
+          colors: t(model.palette),
+        }),
+  );
+}
+/**
+ * Under the models, while something of the user's own is in use (colors of the theme, or
+ * an element with its own appearance): what stayed, and the way back to the whole model.
+ */
+function keptNote() {
+  const model = currentModel(),
+    own = THEMED_ELEMENTS.some((el) => config[el].custom);
+  if (!model || !(own || ownColors(config))) return null;
+  return h(
+    'div',
+    { class: 'keptNote' },
+    hint(
+      own
+        ? 'Ao trocar de modelo, as cores escolhidas e os elementos com aparência própria continuam como estão.'
+        : 'Ao trocar de modelo, as cores escolhidas continuam como estão.',
+    ),
+    h(
+      'button',
+      { type: 'button', onclick: () => useModel(model, true) },
+      t('Usar as cores do modelo ({colors})', { colors: t(model.palette) }),
+    ),
   );
 }
 
@@ -1444,7 +1458,7 @@ const pages = {
         card(
           'Modelos',
           hint(
-            'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.',
+            'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As cores que a igreja já escolheu continuam ao trocar de modelo. As figuras mostram cada modelo como ele vai ficar, com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.',
           ),
           modelGallery('page', false),
         ),
@@ -1465,6 +1479,7 @@ const pages = {
     card(
       'Cores prontas',
       hint('Troca só as cores, sem mexer no modelo. Depois, se quiser, ajuste cada cor abaixo.'),
+      keptNote(),
       paletteGallery(),
     ),
     card(
@@ -2670,6 +2685,7 @@ const WIZARD = [
       hint('Para ministérios e datas especiais.'),
       modelGallery('wizard', true),
       h('h3', {}, 'Cores prontas'),
+      keptNote(),
       paletteGallery(),
       hint('Cada cor pode ser ajustada depois, em "Tema global".'),
     ],

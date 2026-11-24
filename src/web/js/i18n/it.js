@@ -852,8 +852,8 @@ export default {
     'Profilo del culto: cambia in una volta il modello, i colori, i caratteri e il logo. Crea e regola i profili nelle impostazioni.',
   'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo':
     'Profilo del culto: cambia in una volta il modello, i colori, i caratteri e il logo',
-  'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.':
-    'Inizia dal modello: definisce la forma, il carattere e l’animazione di tutti gli elementi e porta già i colori più adatti. Le figure mostrano ogni modello con il nome e il logo della chiesa; l’animazione d’entrata appare nell’anteprima grande.',
+  'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As cores que a igreja já escolheu continuam ao trocar de modelo. As figuras mostram cada modelo como ele vai ficar, com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.':
+    'Inizia dal modello: definisce la forma, il carattere e l’animazione di tutti gli elementi e porta già i colori più adatti. I colori che la chiesa ha già scelto restano quando si cambia modello. Le figure mostrano ogni modello come apparirà, con il nome e il logo della chiesa; l’animazione d’entrata appare nell’anteprima grande.',
   'Trocar de perfil de culto (pelo nome)': 'Cambia profilo del culto (per nome)',
   'Nome do novo perfil (ex.: Culto de mulheres, Natal)':
     'Nome del nuovo profilo (es.: Culto delle donne, Natale)',
@@ -930,4 +930,11 @@ export default {
   'Mostrar o balão ao lado do texto': 'Mostra il fumetto accanto al testo',
   'Comentário (o último escrito)': 'Commento (l’ultimo scritto)',
   'Escreva o comentário antes de mostrar.': 'Scrivi il commento prima di mostrarlo.',
+  'Modelo "{name}" aplicado. As cores escolhidas foram mantidas.':
+    'Modello "{name}" applicato. I colori scelti sono stati mantenuti.',
+  'Ao trocar de modelo, as cores escolhidas e os elementos com aparência própria continuam como estão.':
+    'Quando si cambia modello, i colori scelti e gli elementi con aspetto proprio restano come sono.',
+  'Ao trocar de modelo, as cores escolhidas continuam como estão.':
+    'Quando si cambia modello, i colori scelti restano come sono.',
+  'Usar as cores do modelo ({colors})': 'Usa i colori del modello ({colors})',
 };

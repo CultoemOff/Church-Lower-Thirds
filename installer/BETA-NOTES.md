@@ -1,5 +1,9 @@
 **Versão beta para testes — somente Windows.** Programa novo, separado do PTZ Control Web.
 
+### Novidades da beta.11
+
+- **Trocar de modelo mantém as cores escolhidas**: quem já escolheu as cores da igreja (outro conjunto pronto ou cada cor ajustada à mão) não precisa refazer: o modelo novo muda o formato, a fonte, a animação e as posições, e as cores ficam. O mesmo vale para um elemento com aparência própria. Enquanto as cores ainda são as sugeridas pelo modelo, o modelo seguinte traz as dele, como antes. As miniaturas mostram cada modelo já com as cores que vão ficar, e o botão **Usar as cores do modelo**, em "Cores prontas", volta às sugeridas.
+
 ### Novidades da beta.10
 
 - **Comentários**: elemento novo para mostrar um comentário digitado na hora (quem escreveu e o que disse), com lista de comentários salvos. Acompanha o modelo em uso: balão, cartão, vidro líquido e os formatos temáticos. Tem aba própria no painel do OBS, página nas configurações e fonte do OBS ("Comments").

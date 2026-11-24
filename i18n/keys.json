@@ -693,7 +693,7 @@
   "Perfil",
   "Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Crie e ajuste os perfis nas configurações.",
   "Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo",
-  "Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.",
+  "Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As cores que a igreja já escolheu continuam ao trocar de modelo. As figuras mostram cada modelo como ele vai ficar, com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.",
   "Trocar de perfil de culto (pelo nome)",
   "Nome do novo perfil (ex.: Culto de mulheres, Natal)",
   "Perfil \"{name}\" criado com a aparência atual.",
@@ -749,5 +749,9 @@
   "O comentário é escrito no painel do OBS, na aba \"Comentários\": o nome de quem escreveu e o que disse. Ele sai sozinho depois do tempo escolhido no painel, a não ser que esteja fixado. Aqui, enquanto nada foi escrito, a prévia mostra um exemplo.",
   "Mostrar o balão ao lado do texto",
   "Comentário (o último escrito)",
-  "Escreva o comentário antes de mostrar."
+  "Escreva o comentário antes de mostrar.",
+  "Modelo \"{name}\" aplicado. As cores escolhidas foram mantidas.",
+  "Ao trocar de modelo, as cores escolhidas e os elementos com aparência própria continuam como estão.",
+  "Ao trocar de modelo, as cores escolhidas continuam como estão.",
+  "Usar as cores do modelo ({colors})"
 ]
