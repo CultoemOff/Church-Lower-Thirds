@@ -419,7 +419,8 @@ app.post('/api/update/install', async (_q, r) => {
         '-WindowStyle',
         'Hidden',
         '-Command',
-        "Start-Process -FilePath $env:CLT_SETUP -ArgumentList '/SILENT','/SUPPRESSMSGBOXES','/NORESTART'",
+        // /LOG leaves "Setup Log <date>.txt" in the temp folder, for when an update goes wrong.
+        "Start-Process -FilePath $env:CLT_SETUP -ArgumentList '/SILENT','/SUPPRESSMSGBOXES','/NORESTART','/LOG'",
       ],
       {
         env: { ...process.env, CLT_SETUP: setup },

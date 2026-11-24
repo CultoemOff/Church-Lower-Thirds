@@ -235,7 +235,14 @@ jobs:
             throw
           }
           if (-not $r.ok) { throw "Update did not start: $($r | ConvertTo-Json -Compress)" }
-          if (-not $old.WaitForExit(180000)) { throw "The installer never stopped the running program" }
+          if (-not $old.WaitForExit(180000)) {
+            Get-CimInstance Win32_Process | Where-Object { $_.Name -match 'Setup|powershell|wscript|_iu|\.tmp$' } |
+              ForEach-Object { Write-Host "  running: $($_.Name) $($_.CommandLine)" }
+            Get-ChildItem $env:TEMP -Filter 'Setup Log*.txt' | Sort-Object LastWriteTime | Select-Object -Last 1 |
+              ForEach-Object { Write-Host "  --- $($_.Name)"; Get-Content $_.FullName | Select-Object -Last 60 | ForEach-Object { Write-Host "  setup: $_" } }
+            Get-Content "$log.out.txt", "$log.err.txt" -ErrorAction SilentlyContinue | ForEach-Object { Write-Host "  server: $_" }
+            throw "The installer never stopped the running program"
+          }
           Wait-Server
           for ($i = 0; $i -lt 120 -and (Get-Process -Name 'Church-Lower-Thirds-Setup*' -ErrorAction SilentlyContinue); $i++) { Start-Sleep -Milliseconds 500 }
           Wait-Server
