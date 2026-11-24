@@ -2414,6 +2414,69 @@ img:not([src]) {
   text-transform: uppercase;
 }
 
+/* "Natal no Egito": the sun and the pyramids stand on the top edge of each plate, and
+   rise from behind it when the element comes in. */
+.el[data-template='floral'][data-decor='egypt'] .deco {
+  top: auto;
+  bottom: calc(100% - 1px);
+}
+.lower[data-template='floral'][data-decor='egypt'] .box {
+  padding-left: 56px;
+}
+.lower[data-template='floral'][data-decor='egypt'] .deco {
+  left: 34px;
+  width: 200px;
+  height: 106px;
+}
+/* The corner badge sits near the edge of the screen: there the drawing goes inside, standing
+   on the inner frame. */
+.top[data-template='floral'][data-decor='egypt'] .box {
+  padding-left: 112px;
+}
+.top[data-template='floral'][data-decor='egypt'] .deco {
+  left: 16px;
+  bottom: 8px;
+  width: 92px;
+  height: 49px;
+}
+.card[data-template='floral'][data-decor='egypt'] .deco {
+  inset: auto 0 calc(100% - 1px);
+  height: 122px;
+}
+.card[data-template='floral'][data-decor='egypt'] .deco svg:first-child {
+  left: 50%;
+  top: 0;
+  width: 230px;
+  height: 122px;
+  margin-left: -115px;
+}
+.card[data-template='floral'][data-decor='egypt'] .deco svg:last-child {
+  display: none;
+}
+.social[data-template='floral'][data-decor='egypt'] .deco {
+  right: 40px;
+  width: 116px;
+  height: 62px;
+}
+.el.in[data-template='floral'][data-decor='egypt'] .deco {
+  animation: none;
+}
+.el.in[data-template='floral'][data-decor='egypt'] .deco svg {
+  animation: deco-rise calc(var(--dur) * 1.5) cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--dur) * 0.55);
+}
+/* It comes up from behind the edge: what is still below the edge stays cut off. */
+@keyframes deco-rise {
+  from {
+    transform: translateY(100%);
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    transform: none;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
 /* ---------- kids: a sticker (thick white edge), a bubble and a drawing ---------- */
 /* Every shape of the drawing gets the white edge of a sticker. */
 .el[data-template='kids']

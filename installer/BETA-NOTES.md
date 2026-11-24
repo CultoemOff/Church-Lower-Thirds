@@ -1,5 +1,9 @@
 **Versão beta para testes — somente Windows.** Programa novo, separado do PTZ Control Web.
 
+### Novidades da beta.7
+
+- **Modelo temático "Natal no Egito"**, para a cantata: placas em tons de areia e marrom, com o sol e as pirâmides (os mesmos traços e cores da arte da cantata) nascendo sobre a borda de cada placa. Cores sugeridas "Deserto"; há também "Noite no deserto".
+
 ### Novidades da beta.6
 
 - **Tema global em três passos**: primeiro o **modelo** (formato, fonte e animação de todos os elementos), depois as **cores prontas** (o modelo já aplica a que mais combina, e ela fica marcada como sugerida) e por fim o ajuste de cada cor. São 23 modelos e 27 conjuntos de cores.

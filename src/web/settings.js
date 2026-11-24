@@ -79,6 +79,7 @@ const NAMES = {
   xmaskids: 'Natal: manjedoura e estrela',
   easter: 'Páscoa: lírios e cruz',
   easterkids: 'Páscoa: túmulo vazio',
+  egypt: 'Natal no Egito: sol e pirâmides',
   bar: 'Barra',
   pills: 'Cápsulas',
   card: 'Cartão',

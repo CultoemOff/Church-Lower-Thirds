@@ -1,5 +1,6 @@
 import {
   decorFor,
+  decorName,
   fillCss,
   fontCss,
   givingQr,
@@ -96,6 +97,8 @@ function common(el, c, side) {
   if (deco && deco.dataset.art !== art) {
     deco.dataset.art = art;
     deco.innerHTML = decorFor(config, el, c.template);
+    // Some drawings have their own place on the element (CSS).
+    root.dataset.decor = decorName(config, c.template);
   }
   const [sx, sy] = from[side];
   setVars(root, {
