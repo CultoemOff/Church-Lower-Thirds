@@ -942,4 +942,6 @@ export default {
   'Ao trocar de modelo, as cores escolhidas continuam como estão.':
     'Beim Wechsel der Vorlage bleiben die gewählten Farben, wie sie sind.',
   'Usar as cores do modelo ({colors})': 'Farben der Vorlage verwenden ({colors})',
+  'Enquanto ele estiver fixo, os recados da lista não se revezam.':
+    'Solange er fixiert ist, wechseln die Hinweise der Liste nicht.',
 };

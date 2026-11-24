@@ -1778,6 +1778,33 @@ const pages = {
     config.top.showMessages
       ? card(
           'Recados',
+          // A message fixed from the dock stays until someone goes back to the list.
+          config.top.pinned
+            ? h(
+                'div',
+                { class: 'keptNote' },
+                h(
+                  'p',
+                  { class: 'hint', 'data-raw': '' },
+                  t('Fixo:') + ' ',
+                  h('b', {}, config.top.pinned),
+                  h('br', {}),
+                  t('Enquanto ele estiver fixo, os recados da lista não se revezam.'),
+                ),
+                h(
+                  'button',
+                  {
+                    type: 'button',
+                    title: 'Volta a mostrar os textos da lista',
+                    onclick: () => {
+                      set('top.pinned', '');
+                      renderForm();
+                    },
+                  },
+                  'Voltar à lista',
+                ),
+              )
+            : null,
           grid(
             select('top.order', 'Ordem', [
               ['sequence', 'Na sequência'],

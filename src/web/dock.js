@@ -367,8 +367,14 @@ function buildCard() {
 // ---------- Top bar and bottom bar: a text now, and the list that rotates ----------
 function buildTexts(el, { extra = [], parts = [], listTitle, hint }) {
   const text = input(hint, 200);
+  // The corner badge only shows messages while that part of it is switched on.
+  const shows = () => el !== 'top' || config.top.showMessages;
   const pinNow = async (value) => {
-    const r = await patch({ [`${el}.pinned`]: value });
+    const r = await patch({
+      [`${el}.pinned`]: value,
+      // Showing a message now switches the messages of the badge on.
+      ...(value && !shows() ? { 'top.showMessages': true } : {}),
+    });
     if (!r.error && value && !live[el].on) command(`/api/live/${el}/show`);
   };
   const go = () => (text.value.trim() ? pinNow(text.value.trim()) : text.focus());
@@ -433,7 +439,8 @@ function buildTexts(el, { extra = [], parts = [], listTitle, hint }) {
       const c = config[el];
       for (const box of root.querySelectorAll('[data-part]'))
         box.checked = !!c[box.dataset.part.split('.')[1]];
-      pinned.classList.toggle('hidden', !c.pinned);
+      const fixed = shows() ? c.pinned : '';
+      pinned.classList.toggle('hidden', !fixed);
       pinned.replaceChildren(
         h('span', { 'data-raw': '' }, t('Fixo:') + ' ', h('b', {}, c.pinned)),
         h(
@@ -447,12 +454,12 @@ function buildTexts(el, { extra = [], parts = [], listTitle, hint }) {
           h(
             'button',
             {
-              class: 'item' + (c.pinned === m && live[el].on ? ' on' : ''),
+              class: 'item' + (fixed === m && live[el].on ? ' on' : ''),
               title:
-                c.pinned === m
+                fixed === m
                   ? 'Fixo: clique para voltar à lista'
                   : 'Clique para mostrar só este texto',
-              onclick: () => pinNow(c.pinned === m ? '' : m),
+              onclick: () => pinNow(fixed === m ? '' : m),
             },
             h('i'),
             h('span', { class: 'txt', 'data-raw': '' }, h('b', {}, m)),

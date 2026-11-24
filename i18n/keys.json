@@ -753,5 +753,6 @@
   "Modelo \"{name}\" aplicado. As cores escolhidas foram mantidas.",
   "Ao trocar de modelo, as cores escolhidas e os elementos com aparência própria continuam como estão.",
   "Ao trocar de modelo, as cores escolhidas continuam como estão.",
-  "Usar as cores do modelo ({colors})"
+  "Usar as cores do modelo ({colors})",
+  "Enquanto ele estiver fixo, os recados da lista não se revezam."
 ]

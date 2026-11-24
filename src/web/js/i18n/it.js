@@ -937,4 +937,6 @@ export default {
   'Ao trocar de modelo, as cores escolhidas continuam como estão.':
     'Quando si cambia modello, i colori scelti restano come sono.',
   'Usar as cores do modelo ({colors})': 'Usa i colori del modello ({colors})',
+  'Enquanto ele estiver fixo, os recados da lista não se revezam.':
+    'Finché resta fisso, i messaggi dell’elenco non si alternano.',
 };
