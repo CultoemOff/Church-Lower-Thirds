@@ -1,3 +1,5 @@
+<img src="src/web/icons/app-180.png" width="96" alt="" align="right" />
+
 # Church Lower Thirds by Culto em Off
 
 **Free lower thirds & overlays for church live streams in OBS Studio.** Names, a corner badge, a ticker, a QR code card for giving, the week's schedule, social handles and the church logo, all controlled from a dock inside OBS. Windows, beta. The interface is available in Portuguese (Brazil and Portugal), English, Spanish, Italian and German.
