@@ -66,6 +66,8 @@ jobs:
           if ($level -ne 'asInvoker') { throw "The update button could not start this setup (manifest: '$level')" }
       - name: Installer smoke test (install, run, uninstall)
         shell: pwsh
+        # A stuck installer or runner fails here with its log, instead of holding the job for hours.
+        timeout-minutes: 15
         run: |
           $exe = "installer\output\Church-Lower-Thirds-Setup.exe"
           $dir = Join-Path $env:ProgramFiles 'Culto em Off\Church Lower Thirds'
