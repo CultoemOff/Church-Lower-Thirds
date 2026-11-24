@@ -140,6 +140,21 @@ const VERTICAL_RESOLUTIONS = ['720x1280', '1080x1920', '1440x2560', '2160x3840']
 
 export const newId = () => randomBytes(5).toString('hex');
 
+/**
+ * A model the church made itself (usually with the help of an AI): a name and the CSS that
+ * draws the elements it covers. An element on it has the template "custom".
+ */
+export type CustomModel = { id: string; name: string; css: string };
+export const CUSTOM = 'custom';
+const CUSTOM_ELEMENTS = ['lower', 'top', 'ticker', 'card', 'agenda', 'social', 'comment'] as const;
+/** The elements a custom CSS draws: the ones some selector of it starts with. */
+export function customCovers(css: string) {
+  const plain = css.replace(/\/\*[\s\S]*?\*\//g, ' ');
+  return CUSTOM_ELEMENTS.filter((el) =>
+    new RegExp(`(^|[,{}])\\s*\\.(?:el\\.)?${el}(?![\\w-])`).test(plain),
+  );
+}
+
 export function defaults() {
   return {
     brand: {
@@ -185,6 +200,13 @@ export function defaults() {
       shadowStrength: 55,
       /** The drawing of the themed models: '' = the usual one of each model, 'none', or a set. */
       decor: '',
+      /**
+       * Liquid glass on any model: the plates become clear, blur what is behind them and
+       * get a bright rim. The ready-made glass colors switch it on.
+       */
+      glass: false,
+      /** The custom model in use ('' = none): its CSS draws the elements on "custom". */
+      custom: '',
       /**
        * The ready-made colors the model in use suggested ('' = not known). While the theme
        * still has them, another model brings its own; colors chosen by the user stay.
@@ -488,6 +510,8 @@ export function defaults() {
      */
     profile: 'padrao',
     profiles: [] as Profile[],
+    /** Models made by the church; `theme.custom` says which one is in use. */
+    customModels: [] as CustomModel[],
   };
 }
 export interface Profile {
@@ -573,13 +597,13 @@ const RANGES: Record<string, [number, number]> = {
   angle: [0, 360],
 };
 const CHOICES: Record<string, string[]> = {
-  'lower.template': LOWER_TEMPLATES,
-  'top.template': TOP_TEMPLATES,
-  'card.template': CARD_TEMPLATES,
-  'ticker.template': TICKER_TEMPLATES,
-  'agenda.template': AGENDA_TEMPLATES,
-  'social.template': SOCIAL_TEMPLATES,
-  'comment.template': COMMENT_TEMPLATES,
+  'lower.template': [...LOWER_TEMPLATES, CUSTOM],
+  'top.template': [...TOP_TEMPLATES, CUSTOM],
+  'card.template': [...CARD_TEMPLATES, CUSTOM],
+  'ticker.template': [...TICKER_TEMPLATES, CUSTOM],
+  'agenda.template': [...AGENDA_TEMPLATES, CUSTOM],
+  'social.template': [...SOCIAL_TEMPLATES, CUSTOM],
+  'comment.template': [...COMMENT_TEMPLATES, CUSTOM],
   'comment.position': PLACES,
   'card.qr': ['giving', 'pixkey', 'url'],
   animation: ANIMATIONS,
@@ -754,6 +778,27 @@ export function cleanConfig(raw: unknown): Config {
     })
     .filter((p, i, all): p is Profile => !!p && all.findIndex((o) => o?.id === p.id) === i);
   config.profile = typeof saved?.profile === 'string' ? saved.profile : '';
+  const models = (raw as { customModels?: unknown } | null)?.customModels;
+  config.customModels = (Array.isArray(models) ? models : [])
+    .slice(0, 40)
+    .map((m): CustomModel | undefined => {
+      if (!m || typeof m !== 'object') return;
+      const name = text(m.name, 40).trim(),
+        // CSS and nothing else: no tag can start in it. The overlay still goes through it
+        // rule by rule before using it (js/custom.js).
+        css = typeof m.css === 'string' ? m.css.slice(0, 60000).replace(/[<\u0000]/g, '') : '';
+      if (!name || !css.trim()) return;
+      return { id: id(m.id), name, css };
+    })
+    .filter((m, i, all): m is CustomModel => !!m && all.findIndex((o) => o?.id === m.id) === i);
+  // An element can only be on "custom" while the model in use draws it.
+  const model = config.customModels.find((m) => m.id === config.theme.custom);
+  if (!model) config.theme.custom = '';
+  const covered: string[] = model ? customCovers(model.css) : [];
+  const usual = defaults();
+  for (const el of CUSTOM_ELEMENTS)
+    if (config[el].template === CUSTOM && !covered.includes(el))
+      config[el].template = usual[el].template;
   return withProfiles(config);
 }
 

@@ -982,4 +982,57 @@ export default {
   'O Windows não deixou abrir o instalador. Ele já foi baixado: use "Mostrar o instalador".':
     'Windows did not let the installer open. It has already been downloaded: use "Show the installer".',
   'Atualização cancelada.': 'Update cancelled.',
+  Próprio: 'Custom',
+  'Clique para ver os modelos temáticos': 'Click to see the themed styles',
+  'Para ministérios e datas especiais: jovens, crianças, mulheres, coral, banda, Natal e Páscoa.':
+    'For ministries and special dates: youth, kids, women, choir, band, Christmas and Easter.',
+  'O desenho pode ser trocado em "Fonte e forma".':
+    'The drawing can be changed in "Font and shape".',
+  'Cole aqui o código que a IA escreveu: o programa confere na hora.':
+    'Paste here the code the AI wrote: the program checks it at once.',
+  'Regras aceitas: {n}. Desenha: {list}.': 'Rules accepted: {n}. Draws: {list}.',
+  'Nenhuma regra pôde ser usada. Confira se colou só o código CSS.':
+    'No rule could be used. Check that only the CSS code was pasted.',
+  'Seletores ignorados ({n}): cada um precisa começar pelo nome de um elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment).':
+    'Selectors ignored ({n}): each one must start with the name of an element (.lower, .top, .ticker, .card, .agenda, .social, .comment).',
+  'Linhas ignoradas ({n}): o modelo não pode buscar nada na internet.':
+    'Lines ignored ({n}): the style cannot fetch anything from the internet.',
+  'Trechos ignorados ({n}): só CSS simples é aceito.':
+    'Parts ignored ({n}): only plain CSS is accepted.',
+  'Dê um nome ao modelo.': 'Give the style a name.',
+  'Há modelos demais: exclua um antes de criar outro.':
+    'Too many styles: delete one before creating another.',
+  'Modelo "{name}" aplicado em: {list}.': 'Style "{name}" applied to: {list}.',
+  'Excluir o modelo "{name}"?': 'Delete the style "{name}"?',
+  'Prompt copiado. Cole em uma IA e traga de volta o código que ela escrever.':
+    'Prompt copied. Paste it into an AI and bring back the code it writes.',
+  'Usar este modelo': 'Use this style',
+  'Nome do modelo': 'Name of the style',
+  'Ex.: Faixas chanfradas': 'E.g. Chamfered bars',
+  'Código que a IA escreveu (CSS)': 'Code the AI wrote (CSS)',
+  'Mostra na prévia grande, sem salvar. A prévia mostra nomes, selo, barra e ofertas; os outros elementos aparecem nas páginas deles depois de salvar.':
+    'Shows it in the big preview, without saving. The preview shows names, badge, bar and giving; the other elements appear on their own pages after saving.',
+  'Ver na prévia': 'Show in preview',
+  'Salvar e usar': 'Save and use',
+  'Modelos próprios': 'Custom styles',
+  'Crie o seu próprio modelo com a ajuda de uma IA: formatos, bordas, transparências. O programa entrega um prompt com tudo o que a IA precisa saber; ela devolve um código, que é colado aqui. As cores continuam sendo as do tema, e os textos, posições e animações de entrada continuam por conta do programa.':
+    'Create your own style with the help of an AI: shapes, borders, transparency. The program hands out a prompt with everything the AI needs to know; it returns a code, which is pasted here. The colors are still the ones of the theme, and texts, positions and entrance animations stay with the program.',
+  'Descreva o estilo e copie o prompt': 'Describe the style and copy the prompt',
+  'Ex.: faixas com o canto direito chanfrado, uma linha fina de destaque em cima e fundo levemente transparente':
+    'E.g. bars with a chamfered right corner, a thin highlight line on top and a slightly transparent background',
+  'Elementos que a IA vai desenhar. Os outros ficam no modelo em uso.':
+    'Elements the AI will draw. The others stay on the style in use.',
+  'Copiar prompt para a IA': 'Copy prompt for the AI',
+  'Cole o prompt em uma IA (ChatGPT, Claude, Gemini ou outra)':
+    'Paste the prompt into an AI (ChatGPT, Claude, Gemini or another)',
+  'Se o resultado não agradar, peça ajustes na mesma conversa e traga o código novo.':
+    'If the result is not right, ask for changes in the same conversation and bring the new code.',
+  'Cole aqui o código que ela escreveu': 'Paste here the code it wrote',
+  'Novo modelo': 'New style',
+  'Placas transparentes, que desfocam a imagem atrás, em qualquer modelo':
+    'Clear plates that blur the picture behind them, on any style',
+  'Efeito de vidro em qualquer modelo': 'Glass effect on any style',
+  'Efeito de vidro (liquid glass)': 'Glass effect (liquid glass)',
+  'As placas ficam transparentes, desfocam a imagem atrás e ganham um brilho na borda. Funciona em qualquer modelo; fica melhor com cores claras e texto branco.':
+    'The plates become clear, blur the picture behind them and get a bright rim. Works on any style; looks best with light colors and white text.',
 };

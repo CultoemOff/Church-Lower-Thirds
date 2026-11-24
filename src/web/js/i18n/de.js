@@ -993,4 +993,57 @@ export default {
   'O Windows não deixou abrir o instalador. Ele já foi baixado: use "Mostrar o instalador".':
     'Windows hat das Öffnen des Installationsprogramms nicht zugelassen. Es wurde bereits geladen: Verwenden Sie „Installationsprogramm anzeigen“.',
   'Atualização cancelada.': 'Aktualisierung abgebrochen.',
+  Próprio: 'Eigene',
+  'Clique para ver os modelos temáticos': 'Klicken, um die Themenvorlagen zu sehen',
+  'Para ministérios e datas especiais: jovens, crianças, mulheres, coral, banda, Natal e Páscoa.':
+    'Für Dienste und besondere Anlässe: Jugend, Kinder, Frauen, Chor, Band, Weihnachten und Ostern.',
+  'O desenho pode ser trocado em "Fonte e forma".':
+    'Die Zeichnung lässt sich unter „Schrift und Form“ ändern.',
+  'Cole aqui o código que a IA escreveu: o programa confere na hora.':
+    'Fügen Sie hier den Code der KI ein: Das Programm prüft ihn sofort.',
+  'Regras aceitas: {n}. Desenha: {list}.': 'Akzeptierte Regeln: {n}. Gestaltet: {list}.',
+  'Nenhuma regra pôde ser usada. Confira se colou só o código CSS.':
+    'Keine Regel konnte verwendet werden. Prüfen Sie, ob nur der CSS-Code eingefügt wurde.',
+  'Seletores ignorados ({n}): cada um precisa começar pelo nome de um elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment).':
+    'Ignorierte Selektoren ({n}): Jeder muss mit dem Namen eines Elements beginnen (.lower, .top, .ticker, .card, .agenda, .social, .comment).',
+  'Linhas ignoradas ({n}): o modelo não pode buscar nada na internet.':
+    'Ignorierte Zeilen ({n}): Die Vorlage darf nichts aus dem Internet laden.',
+  'Trechos ignorados ({n}): só CSS simples é aceito.':
+    'Ignorierte Teile ({n}): Nur einfaches CSS wird akzeptiert.',
+  'Dê um nome ao modelo.': 'Geben Sie der Vorlage einen Namen.',
+  'Há modelos demais: exclua um antes de criar outro.':
+    'Zu viele Vorlagen: Löschen Sie eine, bevor Sie eine neue anlegen.',
+  'Modelo "{name}" aplicado em: {list}.': 'Vorlage „{name}“ angewendet auf: {list}.',
+  'Excluir o modelo "{name}"?': 'Vorlage „{name}“ löschen?',
+  'Prompt copiado. Cole em uma IA e traga de volta o código que ela escrever.':
+    'Prompt kopiert. Fügen Sie ihn in eine KI ein und bringen Sie den Code zurück, den sie schreibt.',
+  'Usar este modelo': 'Diese Vorlage verwenden',
+  'Nome do modelo': 'Name der Vorlage',
+  'Ex.: Faixas chanfradas': 'z. B. Abgeschrägte Balken',
+  'Código que a IA escreveu (CSS)': 'Code der KI (CSS)',
+  'Mostra na prévia grande, sem salvar. A prévia mostra nomes, selo, barra e ofertas; os outros elementos aparecem nas páginas deles depois de salvar.':
+    'Zeigt es in der großen Vorschau, ohne zu speichern. Die Vorschau zeigt Namen, Emblem, Leiste und Spenden; die anderen Elemente erscheinen nach dem Speichern auf ihren Seiten.',
+  'Ver na prévia': 'In Vorschau zeigen',
+  'Salvar e usar': 'Speichern und verwenden',
+  'Modelos próprios': 'Eigene Vorlagen',
+  'Crie o seu próprio modelo com a ajuda de uma IA: formatos, bordas, transparências. O programa entrega um prompt com tudo o que a IA precisa saber; ela devolve um código, que é colado aqui. As cores continuam sendo as do tema, e os textos, posições e animações de entrada continuam por conta do programa.':
+    'Erstellen Sie mit Hilfe einer KI eine eigene Vorlage: Formen, Ränder, Transparenz. Das Programm liefert einen Prompt mit allem, was die KI wissen muss; sie gibt einen Code zurück, der hier eingefügt wird. Die Farben bleiben die des Themas, und Texte, Positionen und Einstiegsanimationen bleiben Sache des Programms.',
+  'Descreva o estilo e copie o prompt': 'Stil beschreiben und Prompt kopieren',
+  'Ex.: faixas com o canto direito chanfrado, uma linha fina de destaque em cima e fundo levemente transparente':
+    'z. B. Balken mit abgeschrägter rechter Ecke, einer feinen Akzentlinie oben und leicht transparentem Hintergrund',
+  'Elementos que a IA vai desenhar. Os outros ficam no modelo em uso.':
+    'Elemente, die die KI gestaltet. Die anderen bleiben bei der verwendeten Vorlage.',
+  'Copiar prompt para a IA': 'Prompt für die KI kopieren',
+  'Cole o prompt em uma IA (ChatGPT, Claude, Gemini ou outra)':
+    'Prompt in eine KI einfügen (ChatGPT, Claude, Gemini oder eine andere)',
+  'Se o resultado não agradar, peça ajustes na mesma conversa e traga o código novo.':
+    'Wenn das Ergebnis nicht gefällt, bitten Sie im selben Gespräch um Änderungen und bringen Sie den neuen Code mit.',
+  'Cole aqui o código que ela escreveu': 'Hier den Code einfügen, den sie geschrieben hat',
+  'Novo modelo': 'Neue Vorlage',
+  'Placas transparentes, que desfocam a imagem atrás, em qualquer modelo':
+    'Durchsichtige Flächen, die das Bild dahinter weichzeichnen, bei jeder Vorlage',
+  'Efeito de vidro em qualquer modelo': 'Glaseffekt bei jeder Vorlage',
+  'Efeito de vidro (liquid glass)': 'Glaseffekt (Liquid Glass)',
+  'As placas ficam transparentes, desfocam a imagem atrás e ganham um brilho na borda. Funciona em qualquer modelo; fica melhor com cores claras e texto branco.':
+    'Die Flächen werden durchsichtig, zeichnen das Bild dahinter weich und erhalten einen hellen Rand. Funktioniert mit jeder Vorlage; am besten mit hellen Farben und weißem Text.',
 };

@@ -160,6 +160,9 @@ export default {
     'O Windows deste computador não deixou o programa abrir o instalador sozinho. Já foi transferido e verificado: clique em "Mostrar o instalador" e abra o ficheiro com dois cliques. As definições são mantidas.',
   'Se o pedido de permissão não aparecer, clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.':
     'Se o pedido de permissão não aparecer, clique em "Mostrar o instalador" e abra o ficheiro com dois cliques. As definições são mantidas.',
+  'Mostra na prévia grande, sem salvar. A prévia mostra nomes, selo, barra e ofertas; os outros elementos aparecem nas páginas deles depois de salvar.':
+    'Mostra na pré-visualização grande, sem guardar. A pré-visualização mostra nomes, selo, barra e ofertas; os outros elementos aparecem nas respetivas páginas depois de guardar.',
+  'Salvar e usar': 'Guardar e usar',
   'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui você confere e ajusta a aparência.':
     'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui pode conferir e ajustar o aspeto.',
   'Use o mesmo tamanho do vídeo do seu OBS. Os gráficos se ajustam sozinhos: tudo o que você configurou fica igual em qualquer um deles.':
@@ -220,4 +223,18 @@ export default {
   'Excluir o perfil "{name}"?': 'Eliminar o perfil "{name}"?',
   'Cada perfil guarda uma aparência completa: modelo, cores, fontes e logo.':
     'Cada perfil guarda uma aparência completa: modelo, cores, tipos de letra e logótipo.',
+  'Nenhuma regra pôde ser usada. Confira se colou só o código CSS.':
+    'Nenhuma regra pôde ser usada. Confirme se colou só o código CSS.',
+  'Linhas ignoradas ({n}): o modelo não pode buscar nada na internet.':
+    'Linhas ignoradas ({n}): o modelo não pode ir buscar nada à internet.',
+  'Ver na prévia': 'Ver na pré-visualização',
+  'Excluir o modelo "{name}"?': 'Eliminar o modelo "{name}"?',
+  'Há modelos demais: exclua um antes de criar outro.':
+    'Há modelos a mais: elimine um antes de criar outro.',
+  'Placas transparentes, que desfocam a imagem atrás, em qualquer modelo':
+    'Placas transparentes, que desfocam a imagem por trás, em qualquer modelo',
+  'Cole o prompt em uma IA (ChatGPT, Claude, Gemini ou outra)':
+    'Cole o prompt numa IA (ChatGPT, Claude, Gemini ou outra)',
+  'Prompt copiado. Cole em uma IA e traga de volta o código que ela escrever.':
+    'Prompt copiado. Cole-o numa IA e traga de volta o código que ela escrever.',
 };

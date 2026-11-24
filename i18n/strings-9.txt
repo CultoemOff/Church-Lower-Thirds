@@ -1173,3 +1173,219 @@ Update cancelled.
 Actualización cancelada.
 Aggiornamento annullato.
 Aktualisierung abgebrochen.
+
+Próprio
+Custom
+Propio
+Personale
+Eigene
+
+Clique para ver os modelos temáticos
+Click to see the themed styles
+Haga clic para ver los modelos temáticos
+Fai clic per vedere i modelli tematici
+Klicken, um die Themenvorlagen zu sehen
+
+Para ministérios e datas especiais: jovens, crianças, mulheres, coral, banda, Natal e Páscoa.
+For ministries and special dates: youth, kids, women, choir, band, Christmas and Easter.
+Para ministerios y fechas especiales: jóvenes, niños, mujeres, coro, banda, Navidad y Pascua.
+Per ministeri e date speciali: giovani, bambini, donne, coro, band, Natale e Pasqua.
+Für Dienste und besondere Anlässe: Jugend, Kinder, Frauen, Chor, Band, Weihnachten und Ostern.
+
+O desenho pode ser trocado em "Fonte e forma".
+The drawing can be changed in "Font and shape".
+El dibujo se puede cambiar en "Fuente y forma".
+Il disegno si può cambiare in "Carattere e forma".
+Die Zeichnung lässt sich unter „Schrift und Form“ ändern.
+
+Cole aqui o código que a IA escreveu: o programa confere na hora.
+Paste here the code the AI wrote: the program checks it at once.
+Pegue aquí el código que escribió la IA: el programa lo revisa al instante.
+Incolla qui il codice scritto dall’IA: il programma lo controlla subito.
+Fügen Sie hier den Code der KI ein: Das Programm prüft ihn sofort.
+
+Regras aceitas: {n}. Desenha: {list}.
+Rules accepted: {n}. Draws: {list}.
+Reglas aceptadas: {n}. Dibuja: {list}.
+Regole accettate: {n}. Disegna: {list}.
+Akzeptierte Regeln: {n}. Gestaltet: {list}.
+
+Nenhuma regra pôde ser usada. Confira se colou só o código CSS.
+No rule could be used. Check that only the CSS code was pasted.
+No se pudo usar ninguna regla. Compruebe que pegó solo el código CSS.
+Nessuna regola utilizzabile. Controlla di aver incollato solo il codice CSS.
+Keine Regel konnte verwendet werden. Prüfen Sie, ob nur der CSS-Code eingefügt wurde.
+
+Seletores ignorados ({n}): cada um precisa começar pelo nome de um elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment).
+Selectors ignored ({n}): each one must start with the name of an element (.lower, .top, .ticker, .card, .agenda, .social, .comment).
+Selectores ignorados ({n}): cada uno debe empezar por el nombre de un elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment).
+Selettori ignorati ({n}): ognuno deve iniziare con il nome di un elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment).
+Ignorierte Selektoren ({n}): Jeder muss mit dem Namen eines Elements beginnen (.lower, .top, .ticker, .card, .agenda, .social, .comment).
+
+Linhas ignoradas ({n}): o modelo não pode buscar nada na internet.
+Lines ignored ({n}): the style cannot fetch anything from the internet.
+Líneas ignoradas ({n}): el modelo no puede traer nada de internet.
+Righe ignorate ({n}): il modello non può caricare nulla da internet.
+Ignorierte Zeilen ({n}): Die Vorlage darf nichts aus dem Internet laden.
+
+Trechos ignorados ({n}): só CSS simples é aceito.
+Parts ignored ({n}): only plain CSS is accepted.
+Partes ignoradas ({n}): solo se acepta CSS simple.
+Parti ignorate ({n}): è accettato solo CSS semplice.
+Ignorierte Teile ({n}): Nur einfaches CSS wird akzeptiert.
+
+Dê um nome ao modelo.
+Give the style a name.
+Póngale un nombre al modelo.
+Dai un nome al modello.
+Geben Sie der Vorlage einen Namen.
+
+Há modelos demais: exclua um antes de criar outro.
+Too many styles: delete one before creating another.
+Hay demasiados modelos: elimine uno antes de crear otro.
+Ci sono troppi modelli: eliminane uno prima di crearne un altro.
+Zu viele Vorlagen: Löschen Sie eine, bevor Sie eine neue anlegen.
+
+Modelo "{name}" aplicado em: {list}.
+Style "{name}" applied to: {list}.
+Modelo "{name}" aplicado en: {list}.
+Modello "{name}" applicato a: {list}.
+Vorlage „{name}“ angewendet auf: {list}.
+
+Excluir o modelo "{name}"?
+Delete the style "{name}"?
+¿Eliminar el modelo "{name}"?
+Eliminare il modello "{name}"?
+Vorlage „{name}“ löschen?
+
+Prompt copiado. Cole em uma IA e traga de volta o código que ela escrever.
+Prompt copied. Paste it into an AI and bring back the code it writes.
+Prompt copiado. Péguelo en una IA y traiga de vuelta el código que escriba.
+Prompt copiato. Incollalo in un’IA e riporta qui il codice che scrive.
+Prompt kopiert. Fügen Sie ihn in eine KI ein und bringen Sie den Code zurück, den sie schreibt.
+
+Usar este modelo
+Use this style
+Usar este modelo
+Usa questo modello
+Diese Vorlage verwenden
+
+Nome do modelo
+Name of the style
+Nombre del modelo
+Nome del modello
+Name der Vorlage
+
+Ex.: Faixas chanfradas
+E.g. Chamfered bars
+Ej.: Franjas biseladas
+Es.: Fasce smussate
+z. B. Abgeschrägte Balken
+
+Código que a IA escreveu (CSS)
+Code the AI wrote (CSS)
+Código que escribió la IA (CSS)
+Codice scritto dall’IA (CSS)
+Code der KI (CSS)
+
+Mostra na prévia grande, sem salvar. A prévia mostra nomes, selo, barra e ofertas; os outros elementos aparecem nas páginas deles depois de salvar.
+Shows it in the big preview, without saving. The preview shows names, badge, bar and giving; the other elements appear on their own pages after saving.
+Lo muestra en la vista previa grande, sin guardar. La vista previa muestra nombres, sello, barra y ofrendas; los demás elementos aparecen en sus páginas después de guardar.
+Lo mostra nell’anteprima grande, senza salvare. L’anteprima mostra nomi, badge, barra e offerte; gli altri elementi appaiono nelle loro pagine dopo il salvataggio.
+Zeigt es in der großen Vorschau, ohne zu speichern. Die Vorschau zeigt Namen, Emblem, Leiste und Spenden; die anderen Elemente erscheinen nach dem Speichern auf ihren Seiten.
+
+Ver na prévia
+Show in preview
+Ver en la vista previa
+Mostra in anteprima
+In Vorschau zeigen
+
+Salvar e usar
+Save and use
+Guardar y usar
+Salva e usa
+Speichern und verwenden
+
+Modelos próprios
+Custom styles
+Modelos propios
+Modelli personali
+Eigene Vorlagen
+
+Crie o seu próprio modelo com a ajuda de uma IA: formatos, bordas, transparências. O programa entrega um prompt com tudo o que a IA precisa saber; ela devolve um código, que é colado aqui. As cores continuam sendo as do tema, e os textos, posições e animações de entrada continuam por conta do programa.
+Create your own style with the help of an AI: shapes, borders, transparency. The program hands out a prompt with everything the AI needs to know; it returns a code, which is pasted here. The colors are still the ones of the theme, and texts, positions and entrance animations stay with the program.
+Cree su propio modelo con la ayuda de una IA: formas, bordes, transparencias. El programa entrega un prompt con todo lo que la IA necesita saber; ella devuelve un código, que se pega aquí. Los colores siguen siendo los del tema, y los textos, posiciones y animaciones de entrada siguen a cargo del programa.
+Crea il tuo modello con l’aiuto di un’IA: forme, bordi, trasparenze. Il programma fornisce un prompt con tutto ciò che l’IA deve sapere; lei restituisce un codice, da incollare qui. I colori restano quelli del tema, e testi, posizioni e animazioni d’entrata restano a carico del programma.
+Erstellen Sie mit Hilfe einer KI eine eigene Vorlage: Formen, Ränder, Transparenz. Das Programm liefert einen Prompt mit allem, was die KI wissen muss; sie gibt einen Code zurück, der hier eingefügt wird. Die Farben bleiben die des Themas, und Texte, Positionen und Einstiegsanimationen bleiben Sache des Programms.
+
+Descreva o estilo e copie o prompt
+Describe the style and copy the prompt
+Describa el estilo y copie el prompt
+Descrivi lo stile e copia il prompt
+Stil beschreiben und Prompt kopieren
+
+Ex.: faixas com o canto direito chanfrado, uma linha fina de destaque em cima e fundo levemente transparente
+E.g. bars with a chamfered right corner, a thin highlight line on top and a slightly transparent background
+Ej.: franjas con la esquina derecha biselada, una línea fina de realce arriba y fondo ligeramente transparente
+Es.: fasce con l’angolo destro smussato, una linea sottile in risalto in alto e sfondo leggermente trasparente
+z. B. Balken mit abgeschrägter rechter Ecke, einer feinen Akzentlinie oben und leicht transparentem Hintergrund
+
+Elementos que a IA vai desenhar. Os outros ficam no modelo em uso.
+Elements the AI will draw. The others stay on the style in use.
+Elementos que la IA va a dibujar. Los demás quedan en el modelo en uso.
+Elementi che l’IA disegnerà. Gli altri restano sul modello in uso.
+Elemente, die die KI gestaltet. Die anderen bleiben bei der verwendeten Vorlage.
+
+Copiar prompt para a IA
+Copy prompt for the AI
+Copiar prompt para la IA
+Copia il prompt per l’IA
+Prompt für die KI kopieren
+
+Cole o prompt em uma IA (ChatGPT, Claude, Gemini ou outra)
+Paste the prompt into an AI (ChatGPT, Claude, Gemini or another)
+Pegue el prompt en una IA (ChatGPT, Claude, Gemini u otra)
+Incolla il prompt in un’IA (ChatGPT, Claude, Gemini o un’altra)
+Prompt in eine KI einfügen (ChatGPT, Claude, Gemini oder eine andere)
+
+Se o resultado não agradar, peça ajustes na mesma conversa e traga o código novo.
+If the result is not right, ask for changes in the same conversation and bring the new code.
+Si el resultado no convence, pida ajustes en la misma conversación y traiga el código nuevo.
+Se il risultato non convince, chiedi modifiche nella stessa conversazione e riporta il nuovo codice.
+Wenn das Ergebnis nicht gefällt, bitten Sie im selben Gespräch um Änderungen und bringen Sie den neuen Code mit.
+
+Cole aqui o código que ela escreveu
+Paste here the code it wrote
+Pegue aquí el código que escribió
+Incolla qui il codice che ha scritto
+Hier den Code einfügen, den sie geschrieben hat
+
+Novo modelo
+New style
+Nuevo modelo
+Nuovo modello
+Neue Vorlage
+
+Placas transparentes, que desfocam a imagem atrás, em qualquer modelo
+Clear plates that blur the picture behind them, on any style
+Placas transparentes, que desenfocan la imagen de atrás, en cualquier modelo
+Lastre trasparenti, che sfocano l’immagine dietro, su qualsiasi modello
+Durchsichtige Flächen, die das Bild dahinter weichzeichnen, bei jeder Vorlage
+
+Efeito de vidro em qualquer modelo
+Glass effect on any style
+Efecto de vidrio en cualquier modelo
+Effetto vetro su qualsiasi modello
+Glaseffekt bei jeder Vorlage
+
+Efeito de vidro (liquid glass)
+Glass effect (liquid glass)
+Efecto de vidrio (liquid glass)
+Effetto vetro (liquid glass)
+Glaseffekt (Liquid Glass)
+
+As placas ficam transparentes, desfocam a imagem atrás e ganham um brilho na borda. Funciona em qualquer modelo; fica melhor com cores claras e texto branco.
+The plates become clear, blur the picture behind them and get a bright rim. Works on any style; looks best with light colors and white text.
+Las placas quedan transparentes, desenfocan la imagen de atrás y ganan un brillo en el borde. Funciona en cualquier modelo; queda mejor con colores claros y texto blanco.
+Le lastre diventano trasparenti, sfocano l’immagine dietro e hanno un bordo luminoso. Funziona con qualsiasi modello; rende meglio con colori chiari e testo bianco.
+Die Flächen werden durchsichtig, zeichnen das Bild dahinter weich und erhalten einen hellen Rand. Funktioniert mit jeder Vorlage; am besten mit hellen Farben und weißem Text.

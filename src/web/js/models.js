@@ -226,7 +226,7 @@ export const PALETTES = [
     '#374151',
   ],
   [
-    'Vidro claro',
+    'Vidro líquido',
     solid('#ffffff'),
     solid('#ffffff'),
     grad('#0a84ff', '#5ac8fa', 135),
@@ -318,7 +318,7 @@ export const MODELS = [
     name: 'Vidro líquido',
     hint: 'Vidro claro com brilho nas bordas, que entra como uma gota d’água',
     font: 'Inter',
-    palette: 'Vidro claro',
+    palette: 'Vidro líquido',
     opacity: 100,
     radius: 26,
     shadow: 'soft',
@@ -764,11 +764,12 @@ export function ownColors(config) {
 export function applyModel(config, model, { reset = false } = {}) {
   const c = structuredClone,
     [, main, surface, accent, t1, t2] = paletteNamed(model.palette),
-    // Colors made for glass (white, see-through) do not work on a solid plate.
-    kept = !reset && ownColors(config) && !(paletteOf(config.theme)?.[6] && !model.glass);
+    kept = !reset && ownColors(config);
   config.brand.font = model.font;
   if (!kept)
     Object.assign(config.theme, {
+      // The glass colors turn every plate into glass, on any model (see the overlay).
+      glass: !!paletteNamed(model.palette)[6],
       main: c(main),
       surface: c(surface),
       accent: c(accent),
@@ -780,6 +781,8 @@ export function applyModel(config, model, { reset = false } = {}) {
     radius: model.radius,
     shadow: model.shadow,
     decor: model.decor || '',
+    // A ready-made model takes the place of the church's own one.
+    custom: '',
     suggested: model.palette,
   });
   for (const el of THEMED_ELEMENTS) {

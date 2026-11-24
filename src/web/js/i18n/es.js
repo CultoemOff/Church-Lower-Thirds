@@ -991,4 +991,57 @@ export default {
   'O Windows não deixou abrir o instalador. Ele já foi baixado: use "Mostrar o instalador".':
     'Windows no dejó abrir el instalador. Ya se descargó: use "Mostrar el instalador".',
   'Atualização cancelada.': 'Actualización cancelada.',
+  Próprio: 'Propio',
+  'Clique para ver os modelos temáticos': 'Haga clic para ver los modelos temáticos',
+  'Para ministérios e datas especiais: jovens, crianças, mulheres, coral, banda, Natal e Páscoa.':
+    'Para ministerios y fechas especiales: jóvenes, niños, mujeres, coro, banda, Navidad y Pascua.',
+  'O desenho pode ser trocado em "Fonte e forma".':
+    'El dibujo se puede cambiar en "Fuente y forma".',
+  'Cole aqui o código que a IA escreveu: o programa confere na hora.':
+    'Pegue aquí el código que escribió la IA: el programa lo revisa al instante.',
+  'Regras aceitas: {n}. Desenha: {list}.': 'Reglas aceptadas: {n}. Dibuja: {list}.',
+  'Nenhuma regra pôde ser usada. Confira se colou só o código CSS.':
+    'No se pudo usar ninguna regla. Compruebe que pegó solo el código CSS.',
+  'Seletores ignorados ({n}): cada um precisa começar pelo nome de um elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment).':
+    'Selectores ignorados ({n}): cada uno debe empezar por el nombre de un elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment).',
+  'Linhas ignoradas ({n}): o modelo não pode buscar nada na internet.':
+    'Líneas ignoradas ({n}): el modelo no puede traer nada de internet.',
+  'Trechos ignorados ({n}): só CSS simples é aceito.':
+    'Partes ignoradas ({n}): solo se acepta CSS simple.',
+  'Dê um nome ao modelo.': 'Póngale un nombre al modelo.',
+  'Há modelos demais: exclua um antes de criar outro.':
+    'Hay demasiados modelos: elimine uno antes de crear otro.',
+  'Modelo "{name}" aplicado em: {list}.': 'Modelo "{name}" aplicado en: {list}.',
+  'Excluir o modelo "{name}"?': '¿Eliminar el modelo "{name}"?',
+  'Prompt copiado. Cole em uma IA e traga de volta o código que ela escrever.':
+    'Prompt copiado. Péguelo en una IA y traiga de vuelta el código que escriba.',
+  'Usar este modelo': 'Usar este modelo',
+  'Nome do modelo': 'Nombre del modelo',
+  'Ex.: Faixas chanfradas': 'Ej.: Franjas biseladas',
+  'Código que a IA escreveu (CSS)': 'Código que escribió la IA (CSS)',
+  'Mostra na prévia grande, sem salvar. A prévia mostra nomes, selo, barra e ofertas; os outros elementos aparecem nas páginas deles depois de salvar.':
+    'Lo muestra en la vista previa grande, sin guardar. La vista previa muestra nombres, sello, barra y ofrendas; los demás elementos aparecen en sus páginas después de guardar.',
+  'Ver na prévia': 'Ver en la vista previa',
+  'Salvar e usar': 'Guardar y usar',
+  'Modelos próprios': 'Modelos propios',
+  'Crie o seu próprio modelo com a ajuda de uma IA: formatos, bordas, transparências. O programa entrega um prompt com tudo o que a IA precisa saber; ela devolve um código, que é colado aqui. As cores continuam sendo as do tema, e os textos, posições e animações de entrada continuam por conta do programa.':
+    'Cree su propio modelo con la ayuda de una IA: formas, bordes, transparencias. El programa entrega un prompt con todo lo que la IA necesita saber; ella devuelve un código, que se pega aquí. Los colores siguen siendo los del tema, y los textos, posiciones y animaciones de entrada siguen a cargo del programa.',
+  'Descreva o estilo e copie o prompt': 'Describa el estilo y copie el prompt',
+  'Ex.: faixas com o canto direito chanfrado, uma linha fina de destaque em cima e fundo levemente transparente':
+    'Ej.: franjas con la esquina derecha biselada, una línea fina de realce arriba y fondo ligeramente transparente',
+  'Elementos que a IA vai desenhar. Os outros ficam no modelo em uso.':
+    'Elementos que la IA va a dibujar. Los demás quedan en el modelo en uso.',
+  'Copiar prompt para a IA': 'Copiar prompt para la IA',
+  'Cole o prompt em uma IA (ChatGPT, Claude, Gemini ou outra)':
+    'Pegue el prompt en una IA (ChatGPT, Claude, Gemini u otra)',
+  'Se o resultado não agradar, peça ajustes na mesma conversa e traga o código novo.':
+    'Si el resultado no convence, pida ajustes en la misma conversación y traiga el código nuevo.',
+  'Cole aqui o código que ela escreveu': 'Pegue aquí el código que escribió',
+  'Novo modelo': 'Nuevo modelo',
+  'Placas transparentes, que desfocam a imagem atrás, em qualquer modelo':
+    'Placas transparentes, que desenfocan la imagen de atrás, en cualquier modelo',
+  'Efeito de vidro em qualquer modelo': 'Efecto de vidrio en cualquier modelo',
+  'Efeito de vidro (liquid glass)': 'Efecto de vidrio (liquid glass)',
+  'As placas ficam transparentes, desfocam a imagem atrás e ganham um brilho na borda. Funciona em qualquer modelo; fica melhor com cores claras e texto branco.':
+    'Las placas quedan transparentes, desenfocan la imagen de atrás y ganan un brillo en el borde. Funciona en cualquier modelo; queda mejor con colores claros y texto blanco.',
 };

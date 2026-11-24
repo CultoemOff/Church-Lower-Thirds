@@ -39,6 +39,14 @@ import {
   guideSourceProps,
 } from './js/obs-guide.js';
 import { BUNDLED_FONTS } from './js/fonts.js';
+import {
+  applyCustom,
+  buildPrompt,
+  CUSTOM,
+  CUSTOM_ELEMENTS,
+  customCovers,
+  scopeCss,
+} from './js/custom.js';
 import { applyModel, MODELS, modelTemplate, ownColors, paletteOf, PALETTES } from './js/models.js';
 import { autoLocalize, lang, LANGUAGES, t, useLanguage } from './js/i18n.js';
 
@@ -61,6 +69,7 @@ let config = null,
 const NAMES = {
   classic: 'Clássico',
   glass: 'Vidro',
+  custom: 'Próprio',
   ribbon: 'Faixa inclinada',
   minimal: 'Só texto',
   pill: 'Cápsula',
@@ -322,6 +331,368 @@ function modelGallery(where, themed) {
   );
 }
 /**
+ * The themed models (ministries and special dates) stay folded until asked for: they are
+ * many, and most weeks nobody needs them. Their pictures only load once the block opens.
+ */
+function themedFold(where) {
+  return keep(
+    `${where}-themed-fold`,
+    () => {
+      const box = h(
+        'details',
+        { class: 'fold' + (where === 'page' ? ' card' : '') },
+        h(
+          'summary',
+          { title: 'Clique para ver os modelos temáticos' },
+          h('h3', {}, 'Modelos temáticos'),
+          h(
+            'span',
+            {},
+            'Para ministérios e datas especiais: jovens, crianças, mulheres, coral, banda, Natal e Páscoa.',
+          ),
+          h('i', { class: 'caret' }),
+        ),
+        where === 'page' ? hint('O desenho pode ser trocado em "Fonte e forma".') : null,
+        modelGallery(where, true),
+      );
+      let stored = '';
+      try {
+        stored = localStorage.getItem('cltThemedOpen') || '';
+      } catch {
+        // No storage: it starts closed.
+      }
+      // Open when that is how the person left it, or while one of them is in use.
+      box.open = stored === '1' || (stored !== '0' && !!currentModel()?.themed);
+      box.addEventListener('toggle', () => {
+        try {
+          localStorage.setItem('cltThemedOpen', box.open ? '1' : '0');
+        } catch {
+          // Without storage it just does not remember.
+        }
+      });
+      return box;
+    },
+    () => modelGallery(where, true),
+  );
+}
+// ---------- The church's own models ----------
+// A look written as CSS, usually by an AI from the prompt this page hands out. The CSS is
+// read rule by rule (js/custom.js): what it may not do is left out, and the page says so.
+const pageName = (id) => t(PAGES.find((p) => p[0] === id)?.[1] || id);
+const usualTemplates = () =>
+  Object.fromEntries(CUSTOM_ELEMENTS.map((el) => [el, modelTemplate(MODELS[0], el)]));
+// What the person is asking the AI for, and the model being written (null = editor closed).
+let customWish = '',
+  customParts = new Set(CUSTOM_ELEMENTS),
+  customEdit = null,
+  promptShown = '';
+/** Shows a CSS in the big preview without saving it ('' = back to what is saved). */
+const tryCustom = (css) =>
+  $('#preview')?.contentWindow?.postMessage({ type: 'draft', css }, location.origin);
+/** What the program understood of a pasted CSS, in plain words. */
+function customReport(css) {
+  if (!css.trim())
+    return [hint('Cole aqui o código que a IA escreveu: o programa confere na hora.')];
+  const r = scopeCss(css),
+    count = (why) => r.dropped.filter((d) => d[0] === why).length,
+    odd = count('rule') + count('nested') + count('unreadable');
+  const line = (cls, text) => h('p', { class: 'hint ' + cls, 'data-raw': '' }, text);
+  return [
+    r.rules
+      ? line(
+          'ok',
+          t('Regras aceitas: {n}. Desenha: {list}.', {
+            n: r.rules,
+            list: r.covered.map(pageName).join(', '),
+          }),
+        )
+      : line('bad', t('Nenhuma regra pôde ser usada. Confira se colou só o código CSS.')),
+    count('selector')
+      ? line(
+          'warn',
+          t(
+            'Seletores ignorados ({n}): cada um precisa começar pelo nome de um elemento (.lower, .top, .ticker, .card, .agenda, .social, .comment).',
+            { n: count('selector') },
+          ),
+        )
+      : null,
+    count('address')
+      ? line(
+          'warn',
+          t('Linhas ignoradas ({n}): o modelo não pode buscar nada na internet.', {
+            n: count('address'),
+          }),
+        )
+      : null,
+    odd ? line('warn', t('Trechos ignorados ({n}): só CSS simples é aceito.', { n: odd })) : null,
+  ];
+}
+function saveCustom() {
+  const name = customEdit.name.trim().slice(0, 40),
+    css = customEdit.css;
+  if (!name) return toast(t('Dê um nome ao modelo.'));
+  if (!scopeCss(css).rules)
+    return toast(t('Nenhuma regra pôde ser usada. Confira se colou só o código CSS.'));
+  if (!customEdit.id && config.customModels.length >= 40)
+    return toast(t('Há modelos demais: exclua um antes de criar outro.'));
+  let model = config.customModels.find((m) => m.id === customEdit.id);
+  if (model) Object.assign(model, { name, css });
+  else {
+    const id = [...crypto.getRandomValues(new Uint8Array(5))]
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('');
+    config.customModels.push((model = { id, name, css }));
+  }
+  customEdit = null;
+  tryCustom('');
+  useCustom(model);
+}
+function useCustom(model) {
+  const covered = applyCustom(config, model, usualTemplates());
+  afterSave = () => setTimeout(replayPreview, 350);
+  save();
+  renderForm();
+  toast(
+    t('Modelo "{name}" aplicado em: {list}.', {
+      name: model.name,
+      list: covered.map(pageName).join(', '),
+    }),
+  );
+}
+function removeCustom(model) {
+  if (!confirm(t('Excluir o modelo "{name}"?', { name: model.name }))) return;
+  config.customModels = config.customModels.filter((m) => m !== model);
+  if (config.theme.custom === model.id) {
+    // Its elements go back to the first ready-made model.
+    config.theme.custom = '';
+    const usual = usualTemplates();
+    for (const el of CUSTOM_ELEMENTS)
+      if (config[el].template === CUSTOM) config[el].template = usual[el];
+  }
+  if (customEdit?.id === model.id) customEdit = null;
+  save();
+  renderForm();
+}
+async function copyPrompt() {
+  const lang = {
+    'pt-BR': 'Brazilian Portuguese',
+    'pt-PT': 'European Portuguese',
+    es: 'Spanish',
+    it: 'Italian',
+    de: 'German',
+  };
+  const text = await buildPrompt({
+    wish: customWish,
+    elements: [...customParts],
+    language: lang[document.documentElement.lang] || 'English',
+  });
+  try {
+    await navigator.clipboard.writeText(text);
+    promptShown = '';
+    toast(t('Prompt copiado. Cole em uma IA e traga de volta o código que ela escrever.'));
+  } catch {
+    // The browser did not let the page copy: the text is shown to be copied by hand.
+    promptShown = text;
+  }
+  renderForm();
+}
+function customCard() {
+  const models = config.customModels;
+  const gallery = models.length
+    ? h(
+        'div',
+        { class: 'themes' },
+        models.map((m) =>
+          h(
+            'div',
+            { class: 'customItem' },
+            h(
+              'button',
+              {
+                type: 'button',
+                class: config.theme.custom === m.id ? 'active' : '',
+                title: 'Usar este modelo',
+                onclick: () => useCustom(m),
+              },
+              keep(`custom-shot-${m.id}`, () =>
+                h(
+                  'span',
+                  { class: 'themeShot' },
+                  h('iframe', {
+                    src: `/overlay?preview=model&model=custom:${m.id}`,
+                    loading: 'lazy',
+                    tabindex: '-1',
+                    title: m.name,
+                  }),
+                ),
+              ),
+              h('strong', { 'data-raw': '' }, m.name),
+              h('small', { 'data-raw': '' }, customCovers(m.css).map(pageName).join(', ')),
+            ),
+            h(
+              'div',
+              { class: 'customActions' },
+              h(
+                'button',
+                {
+                  type: 'button',
+                  onclick: () => {
+                    customEdit = { id: m.id, name: m.name, css: m.css };
+                    renderForm();
+                  },
+                },
+                'Editar',
+              ),
+              h('button', { type: 'button', onclick: () => removeCustom(m) }, 'Excluir'),
+            ),
+          ),
+        ),
+      )
+    : null;
+  const report = h(
+    'div',
+    { class: 'customReport' },
+    ...(customEdit ? customReport(customEdit.css) : []),
+  );
+  const editor = customEdit
+    ? h(
+        'div',
+        { class: 'customEditor' },
+        field(
+          'Nome do modelo',
+          h('input', {
+            value: customEdit.name,
+            maxlength: 40,
+            placeholder: t('Ex.: Faixas chanfradas'),
+            'data-raw': '',
+            oninput: (e) => (customEdit.name = e.target.value),
+          }),
+        ),
+        field(
+          'Código que a IA escreveu (CSS)',
+          h('textarea', {
+            class: 'code',
+            spellcheck: 'false',
+            'data-raw': '',
+            value: customEdit.css,
+            oninput: (e) => {
+              customEdit.css = e.target.value;
+              report.replaceChildren(...customReport(customEdit.css).filter(Boolean));
+            },
+          }),
+          { wide: true },
+        ),
+        report,
+        h(
+          'div',
+          { class: 'customActions' },
+          h(
+            'button',
+            {
+              type: 'button',
+              title:
+                'Mostra na prévia grande, sem salvar. A prévia mostra nomes, selo, barra e ofertas; os outros elementos aparecem nas páginas deles depois de salvar.',
+              onclick: () => {
+                tryCustom(customEdit.css);
+                setTimeout(replayPreview, 200);
+              },
+            },
+            'Ver na prévia',
+          ),
+          h('button', { type: 'button', class: 'primary', onclick: saveCustom }, 'Salvar e usar'),
+          h(
+            'button',
+            {
+              type: 'button',
+              onclick: () => {
+                customEdit = null;
+                tryCustom('');
+                renderForm();
+              },
+            },
+            'Cancelar',
+          ),
+        ),
+      )
+    : null;
+  return card(
+    'Modelos próprios',
+    hint(
+      'Crie o seu próprio modelo com a ajuda de uma IA: formatos, bordas, transparências. O programa entrega um prompt com tudo o que a IA precisa saber; ela devolve um código, que é colado aqui. As cores continuam sendo as do tema, e os textos, posições e animações de entrada continuam por conta do programa.',
+    ),
+    gallery,
+    h(
+      'ol',
+      { class: 'customSteps' },
+      h(
+        'li',
+        {},
+        h('b', {}, 'Descreva o estilo e copie o prompt'),
+        h('textarea', {
+          value: customWish,
+          rows: 2,
+          placeholder: t(
+            'Ex.: faixas com o canto direito chanfrado, uma linha fina de destaque em cima e fundo levemente transparente',
+          ),
+          'data-raw': '',
+          oninput: (e) => (customWish = e.target.value),
+        }),
+        h(
+          'div',
+          { class: 'chips' },
+          CUSTOM_ELEMENTS.map((el) =>
+            h(
+              'button',
+              {
+                type: 'button',
+                class: customParts.has(el) ? 'active' : '',
+                title: 'Elementos que a IA vai desenhar. Os outros ficam no modelo em uso.',
+                onclick: () => {
+                  customParts.has(el) ? customParts.delete(el) : customParts.add(el);
+                  if (!customParts.size) customParts.add(el);
+                  renderForm();
+                },
+              },
+              pageName(el),
+            ),
+          ),
+        ),
+        h(
+          'button',
+          { type: 'button', class: 'primary', onclick: copyPrompt },
+          'Copiar prompt para a IA',
+        ),
+        promptShown
+          ? h('textarea', { class: 'code', readonly: true, 'data-raw': '', value: promptShown })
+          : null,
+      ),
+      h(
+        'li',
+        {},
+        h('b', {}, 'Cole o prompt em uma IA (ChatGPT, Claude, Gemini ou outra)'),
+        hint('Se o resultado não agradar, peça ajustes na mesma conversa e traga o código novo.'),
+      ),
+      h(
+        'li',
+        {},
+        h('b', {}, 'Cole aqui o código que ela escreveu'),
+        editor ||
+          h(
+            'button',
+            {
+              type: 'button',
+              onclick: () => {
+                customEdit = { id: '', name: '', css: '' };
+                renderForm();
+              },
+            },
+            'Novo modelo',
+          ),
+      ),
+    ),
+  );
+}
+/**
  * The ready-made colors, each as a small name bar. The one in use is marked, and so is the
  * one the model in use suggests.
  */
@@ -331,14 +702,18 @@ const paletteGallery = () => {
   return h(
     'div',
     { class: 'palettes' },
-    PALETTES.filter((p) => !p[6] || model?.glass || p === now).map((p) => {
+    // The glass comes first: it is an effect as much as a set of colors.
+    [...PALETTES.filter((p) => p[6]), ...PALETTES.filter((p) => !p[6])].map((p) => {
       const [name, main, surface, accent, t1, t2] = p;
       return h(
         'button',
         {
           type: 'button',
-          class: p === now ? 'active' : '',
-          title: 'Troca só as cores, sem mexer no modelo',
+          // The glass colors are in use only while the glass itself is on.
+          class: p === now && !!p[6] === !!config.theme.glass ? 'active' : '',
+          title: p[6]
+            ? 'Placas transparentes, que desfocam a imagem atrás, em qualquer modelo'
+            : 'Troca só as cores, sem mexer no modelo',
           onclick: () => applyPalette(p),
         },
         h(
@@ -354,6 +729,7 @@ const paletteGallery = () => {
         ),
         h('strong', {}, name),
         model?.palette === name ? h('small', {}, 'Sugerida para este modelo') : null,
+        p[6] ? h('small', {}, 'Efeito de vidro em qualquer modelo') : null,
       );
     }),
   );
@@ -651,6 +1027,11 @@ function fill(path, label, { tip } = {}) {
   draw();
   return field(label, box, { tip });
 }
+/** The church's own model can be picked for an element while it draws that element. */
+function withCustom(el, list) {
+  const model = config.customModels.find((m) => m.id === config.theme.custom);
+  return model && customCovers(model.css).includes(el) ? [...list, CUSTOM] : list;
+}
 function chips(path, list) {
   return h(
     'div',
@@ -944,9 +1325,11 @@ async function uploadLogo(file) {
   set('brand.logo', r.url);
   renderForm();
 }
-function applyPalette([name, main, second, accent, t1, t2]) {
+function applyPalette([name, main, second, accent, t1, t2, glass]) {
   const c = structuredClone;
   Object.assign(config.theme, {
+    // The glass colors turn every plate into glass; any other set goes back to solid.
+    glass: !!glass,
     main: c(main),
     surface: c(second),
     accent: c(accent),
@@ -1492,18 +1875,8 @@ const pages = {
         ),
       () => modelGallery('page', false),
     ),
-    keep(
-      'page-themed-card',
-      () =>
-        card(
-          'Modelos temáticos',
-          hint(
-            'Para ministérios e datas especiais: jovens, crianças, mulheres, coral, banda, Natal e Páscoa. O desenho pode ser trocado em "Fonte e forma".',
-          ),
-          modelGallery('page', true),
-        ),
-      () => modelGallery('page', true),
-    ),
+    themedFold('page'),
+    customCard(),
     card(
       'Cores prontas',
       hint('Troca só as cores, sem mexer no modelo. Depois, se quiser, ajuste cada cor abaixo.'),
@@ -1529,6 +1902,9 @@ const pages = {
         range('theme.radius', 'Cantos arredondados', 0, 60, ' px'),
         range('theme.opacity', 'Opacidade do fundo', 10, 100, '%', {
           tip: 'Menos de 100% deixa a imagem da câmera aparecer por trás.',
+        }),
+        check('theme.glass', 'Efeito de vidro (liquid glass)', {
+          tip: 'As placas ficam transparentes, desfocam a imagem atrás e ganham um brilho na borda. Funciona em qualquer modelo; fica melhor com cores claras e texto branco.',
         }),
         select('theme.shadow', 'Sombra', names(SHADOWS), { tip: 'Brilho usa a cor de destaque.' }),
         range('theme.shadowStrength', 'Força da sombra', 0, 100, '%'),
@@ -1587,7 +1963,7 @@ const pages = {
   ],
 
   lower: () => [
-    card('Modelo', chips('lower.template', LOWER_TEMPLATES)),
+    card('Modelo', chips('lower.template', withCustom('lower', LOWER_TEMPLATES))),
     card(
       'Nomes e textos',
       h(
@@ -1764,7 +2140,7 @@ const pages = {
   ],
 
   top: () => [
-    card('Modelo', chips('top.template', TOP_TEMPLATES)),
+    card('Modelo', chips('top.template', withCustom('top', TOP_TEMPLATES))),
     appearance('top'),
     card(
       'O que aparece',
@@ -1864,7 +2240,7 @@ const pages = {
   ],
 
   card: () => [
-    card('Modelo', chips('card.template', CARD_TEMPLATES)),
+    card('Modelo', chips('card.template', withCustom('card', CARD_TEMPLATES))),
     appearance('card'),
     card(
       'Conteúdo',
@@ -1905,7 +2281,7 @@ const pages = {
   ],
 
   ticker: () => [
-    card('Modelo', chips('ticker.template', TICKER_TEMPLATES)),
+    card('Modelo', chips('ticker.template', withCustom('ticker', TICKER_TEMPLATES))),
     appearance('ticker'),
     card(
       'Textos que rolam',
@@ -1953,7 +2329,7 @@ const pages = {
   ],
 
   agenda: () => [
-    card('Modelo', chips('agenda.template', AGENDA_TEMPLATES)),
+    card('Modelo', chips('agenda.template', withCustom('agenda', AGENDA_TEMPLATES))),
     appearance('agenda'),
     card(
       'Dias e horários',
@@ -1996,7 +2372,7 @@ const pages = {
   ],
 
   social: () => [
-    card('Modelo', chips('social.template', SOCIAL_TEMPLATES)),
+    card('Modelo', chips('social.template', withCustom('social', SOCIAL_TEMPLATES))),
     appearance('social'),
     card(
       'Redes',
@@ -2100,7 +2476,7 @@ const pages = {
   ],
 
   comment: () => [
-    card('Modelo', chips('comment.template', COMMENT_TEMPLATES)),
+    card('Modelo', chips('comment.template', withCustom('comment', COMMENT_TEMPLATES))),
     appearance('comment'),
     card(
       'Comentário',
@@ -2828,9 +3204,7 @@ const WIZARD = [
         'Escolha um modelo e todos os elementos já ficam prontos, com as cores que mais combinam. Se preferir outras cores, troque logo abaixo.',
       ),
       modelGallery('wizard', false),
-      h('h3', {}, 'Modelos temáticos'),
-      hint('Para ministérios e datas especiais.'),
-      modelGallery('wizard', true),
+      themedFold('wizard'),
       h('h3', {}, 'Cores prontas'),
       keptNote(),
       paletteGallery(),

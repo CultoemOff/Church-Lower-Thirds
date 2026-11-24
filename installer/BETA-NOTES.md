@@ -1,5 +1,11 @@
 **Versão beta para testes — somente Windows.** Programa novo, separado do PTZ Control Web.
 
+### Novidades da beta.14
+
+- **Modelos próprios**: em "Tema global", a igreja cria o seu próprio modelo com a ajuda de uma IA. O programa entrega um **prompt** (botão "Copiar prompt para a IA") com tudo o que a IA precisa saber: tamanho da tela, a estrutura de cada elemento, as cores do tema como variáveis e as regras. A IA devolve um código (CSS), que é colado no programa. O programa confere na hora o que foi colado (diz quantas regras aceitou, quais elementos o modelo desenha e o que ignorou), mostra na prévia antes de salvar e guarda o modelo com um nome, na galeria, junto dos prontos. O modelo muda só a aparência (formatos, bordas, transparências); textos, posições, cores do tema e animações de entrada continuam por conta do programa. Os elementos que o modelo não desenha ficam no modelo em uso. Por segurança, o código não pode buscar nada na internet nem mexer fora dos elementos.
+- **Vidro líquido em qualquer modelo**: a cor pronta "Vidro líquido" (a primeira da lista) agora serve para todos os modelos: as placas ficam transparentes, desfocam a imagem atrás e ganham um brilho na borda. Em "Fonte e forma" há também a caixa **Efeito de vidro (liquid glass)**, para ligar o efeito com qualquer conjunto de cores.
+- **Modelos temáticos recolhidos**: o bloco fica fechado e abre com um clique (o programa lembra como foi deixado).
+
 ### Novidades da beta.13
 
 - **Atualização automática, nova tentativa de correção**: o programa trabalha escondido, e o Windows mostra um pedido de permissão feito por um programa escondido minimizado, piscando na barra de tarefas, onde passa despercebido. Agora, depois de baixar, abre uma **janela por cima de tudo** ("a nova versão está pronta: clique em OK e autorize"); com o clique, o pedido de permissão do Windows abre na frente, como depois de dois cliques no instalador. O instalador passa a ser salvo na pasta **Downloads** (computadores de empresa costumam recusar programas na pasta temporária) e o programa apaga o arquivo depois de instalado. A página mostra cada etapa e, se algo falhar ou demorar, o botão **Mostrar o instalador** abre a pasta com o arquivo já baixado e conferido.
