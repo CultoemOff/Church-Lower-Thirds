@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
+import { resolve } from 'node:path';
 import type { AddressInfo } from 'node:net';
 import {
   downloadVerifiedSetup,
@@ -61,7 +62,7 @@ test('checksum list: finds the installer by name', () => {
 
 test('each account of the computer has its own files folder', () => {
   // Chosen in the installer: wins, also over the folder used before.
-  assert.equal(userFilesFolder('/srv/igreja/lt', '/old', '/home/maria'), '/srv/igreja/lt');
+  assert.equal(userFilesFolder('/srv/igreja/lt', '/old', '/home/maria'), resolve('/srv/igreja/lt'));
   // Nothing chosen (another account, or a start at login): the folder already in use,
   // or "Church Lower Thirds" in this account's own Documents the first time.
   assert.equal(userFilesFolder(undefined, '/home/joao/x', '/home/joao'), '/home/joao/x');
