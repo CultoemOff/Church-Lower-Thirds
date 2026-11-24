@@ -9,7 +9,7 @@ appDir = fso.GetParentFolderName(WScript.ScriptFullName)
 shell.Run """" & fso.BuildPath(shell.ExpandEnvironmentStrings("%SystemRoot%"), "System32\wscript.exe") & """ """ & fso.BuildPath(appDir, "start-server.vbs") & """", 0, False
 WScript.Sleep 1500
 port = "8795"
-note = shell.ExpandEnvironmentStrings("%APPDATA%") & "\Lower Third Web\location.json"
+note = shell.ExpandEnvironmentStrings("%APPDATA%") & "\Church Lower Thirds\location.json"
 On Error Resume Next
 If fso.FileExists(note) Then
   text = fso.OpenTextFile(note, 1).ReadAll

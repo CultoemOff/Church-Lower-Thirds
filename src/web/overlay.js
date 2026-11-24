@@ -551,7 +551,7 @@ addEventListener('message', (e) => {
 // ---- Layout editor: drag to move, drag the corner to resize ----
 const SIZE_LIMITS = { bug: [40, 500] };
 function enableEdit() {
-  const tell = (message) => parent.postMessage({ source: 'ltw-edit', ...message }, location.origin);
+  const tell = (message) => parent.postMessage({ source: 'clt-edit', ...message }, location.origin);
   for (const [el, root] of Object.entries(roots)) {
     const scaler = root.querySelector('.scaler');
     const handle = document.createElement('div');

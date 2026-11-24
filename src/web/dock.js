@@ -17,7 +17,7 @@ import { autoLocalize, t, useLanguage } from './js/i18n.js';
 // Models, colors and fonts are in the settings page, opened by the gear.
 let config = null,
   live = null,
-  tab = localStorage.ltwTab || 'lower';
+  tab = localStorage.cltTab || 'lower';
 const built = {}; // panes are built once, so typing is never interrupted by an update
 const editing = { lower: '', agenda: '' };
 document.documentElement.classList.toggle('inObs', !!window.obsstudio);
@@ -687,7 +687,7 @@ function refresh() {
             (live[id].on || (id === 'top' && live.bug.on) ? 'on' : ''),
           title,
           onclick: () => {
-            tab = localStorage.ltwTab = id;
+            tab = localStorage.cltTab = id;
             refresh();
           },
         },

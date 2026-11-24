@@ -28,7 +28,7 @@ export function resolveLanguage(choice, browser = navigator.language || 'pt-BR')
   return 'en';
 }
 
-export let lang = resolveLanguage(localStorage.ltwLang);
+export let lang = resolveLanguage(localStorage.cltLang);
 document.documentElement.lang = lang;
 
 /** t('Salvar'), t('Tema "{name}" aplicado', { name }) */
@@ -40,8 +40,8 @@ export function t(key, params) {
 
 /** The language saved in the program wins; a change reloads the panel once. */
 export function useLanguage(choice) {
-  if ((localStorage.ltwLang || 'auto') === choice) return;
-  localStorage.ltwLang = choice;
+  if ((localStorage.cltLang || 'auto') === choice) return;
+  localStorage.cltLang = choice;
   if (resolveLanguage(choice) !== lang) location.reload();
 }
 

@@ -15,7 +15,7 @@ export function installInfoFile(
     return join(
       env.ProgramData || 'C:\\ProgramData',
       'Culto em Off',
-      'Lower Third Web',
+      'Church Lower Thirds',
       'install.json',
     );
   return join(appDataDir(platform, env), 'install.json');
@@ -25,7 +25,7 @@ export function installInfoFile(
  * Each account of the computer has its own files (settings, names, images, OBS sources),
  * so one person never changes another's. `chosen` is the folder picked in the installer,
  * handed to the server it starts for the person at the computer; `remembered` is the folder
- * this account already uses. An account that never chose gets "Lower Third Web" in its own
+ * this account already uses. An account that never chose gets "Church Lower Thirds" in its own
  * Documents.
  */
 export function userFilesFolder(
@@ -34,7 +34,7 @@ export function userFilesFolder(
   home: string,
 ) {
   if (chosen && isAbsolute(chosen)) return resolve(chosen);
-  return remembered || join(home, 'Documents', 'Lower Third Web');
+  return remembered || join(home, 'Documents', 'Church Lower Thirds');
 }
 
 /** Tells one account's server from another's without exposing the account name. */
@@ -52,7 +52,8 @@ export function appDataDir(
   home = homedir(),
 ) {
   if (platform === 'win32')
-    return join(env.APPDATA || join(home, 'AppData', 'Roaming'), 'Lower Third Web');
-  if (platform === 'darwin') return join(home, 'Library', 'Application Support', 'Lower Third Web');
-  return join(env.XDG_CONFIG_HOME || join(home, '.config'), 'lower-third-web');
+    return join(env.APPDATA || join(home, 'AppData', 'Roaming'), 'Church Lower Thirds');
+  if (platform === 'darwin')
+    return join(home, 'Library', 'Application Support', 'Church Lower Thirds');
+  return join(env.XDG_CONFIG_HOME || join(home, '.config'), 'church-lower-thirds');
 }

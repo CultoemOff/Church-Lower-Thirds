@@ -1,4 +1,4 @@
-# Stops the Lower Third Web server that runs from the given install folder. Used by the
+# Stops the Church Lower Thirds server that runs from the given install folder. Used by the
 # installer before upgrading and before uninstalling, so files are not locked.
 param([Parameter(Mandatory = $true)][string]$AppDir)
 

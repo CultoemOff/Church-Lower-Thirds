@@ -58,10 +58,10 @@ const install: { language?: string } = readJson(installInfoFile());
 const locationFile = join(appDataDir(), 'location.json');
 const previousFolder: string | undefined = readJson(locationFile).folder;
 const userFolder =
-  process.env.LTW_DATA_DIR || userFilesFolder(argument('folder'), previousFolder, homedir());
+  process.env.CLT_DATA_DIR || userFilesFolder(argument('folder'), previousFolder, homedir());
 const owner = ownerId(userInfo().username, homedir());
 const remember = (port: number) => {
-  if (process.env.LTW_DATA_DIR) return;
+  if (process.env.CLT_DATA_DIR) return;
   try {
     mkdirSync(appDataDir(), { recursive: true });
     writeFileSync(locationFile, JSON.stringify({ folder: userFolder, port }));
@@ -69,7 +69,7 @@ const remember = (port: number) => {
     // Everything still works for this run; it is simply worked out again next time.
   }
 };
-const dataDir = process.env.LTW_DATA_DIR || join(userFolder, 'Data');
+const dataDir = process.env.CLT_DATA_DIR || join(userFolder, 'Data');
 const mediaDir = join(dataDir, 'media');
 let sourcesDir = '';
 const configFile = join(dataDir, 'config.json');
@@ -84,7 +84,7 @@ async function loadStore() {
   // Another folder chosen in the installer: the settings and images go along.
   if (
     previousFolder &&
-    !process.env.LTW_DATA_DIR &&
+    !process.env.CLT_DATA_DIR &&
     resolve(previousFolder) !== resolve(userFolder) &&
     !existsSync(configFile) &&
     existsSync(join(previousFolder, 'Data', 'config.json'))
@@ -147,7 +147,7 @@ const fail = (r: Response, e: unknown, status = 400) =>
   r.status(status).json({ error: (e as Error).message || String(e) });
 
 app.get('/api/health', (_q, r) =>
-  r.json({ ok: true, app: 'lower-third-web', version: appVersion, owner }),
+  r.json({ ok: true, app: 'church-lower-thirds', version: appVersion, owner }),
 );
 app.get('/api/state', (_q, r) => r.json(state()));
 
@@ -352,8 +352,8 @@ app.get('/api/backup', async (_q, r) => {
   for (const f of await readdir(mediaDir).catch(() => []))
     if (JSON.stringify(config).includes(`/media/${f}`))
       media[f] = (await readFile(join(mediaDir, f))).toString('base64');
-  r.set('Content-Disposition', 'attachment; filename="lower-third-web-backup.json"').json({
-    app: 'lower-third-web',
+  r.set('Content-Disposition', 'attachment; filename="church-lower-thirds-backup.json"').json({
+    app: 'church-lower-thirds',
     version: appVersion,
     config,
     media,
@@ -361,8 +361,8 @@ app.get('/api/backup', async (_q, r) => {
 });
 app.post('/api/restore', async (q, r) => {
   try {
-    if (q.body?.app !== 'lower-third-web' || !q.body.config)
-      throw new Error('Not a Lower Third Web backup');
+    if (q.body?.app !== 'church-lower-thirds' || !q.body.config)
+      throw new Error('Not a Church Lower Thirds backup');
     for (const [name, data] of Object.entries(q.body.media || {}))
       if (/^[a-f0-9]{16}\.(png|jpe?g|webp|gif|svg)$/.test(name))
         await writeFile(join(mediaDir, name), Buffer.from(String(data), 'base64'));
@@ -419,10 +419,10 @@ app.post('/api/update/install', async (_q, r) => {
         '-WindowStyle',
         'Hidden',
         '-Command',
-        "Start-Process -FilePath $env:LTW_SETUP -ArgumentList '/SILENT','/SUPPRESSMSGBOXES','/NORESTART'",
+        "Start-Process -FilePath $env:CLT_SETUP -ArgumentList '/SILENT','/SUPPRESSMSGBOXES','/NORESTART'",
       ],
       {
-        env: { ...process.env, LTW_SETUP: setup },
+        env: { ...process.env, CLT_SETUP: setup },
         detached: true,
         stdio: 'ignore',
         windowsHide: true,
@@ -477,7 +477,7 @@ async function ownerOf(p: number) {
       signal: AbortSignal.timeout(1500),
     });
     const h = (await r.json()) as { app?: string; owner?: string };
-    return h.app === 'lower-third-web' ? h.owner || 'unknown' : undefined;
+    return h.app === 'church-lower-thirds' ? h.owner || 'unknown' : undefined;
   } catch {
     return undefined;
   }
@@ -488,7 +488,7 @@ const listen = (p: number): Promise<number> =>
       server.off('listening', onListening);
       if (e.code !== 'EADDRINUSE') return fail(e);
       if ((await ownerOf(p)) === owner) {
-        console.log(`Lower Third Web is already running: http://127.0.0.1:${p}/settings`);
+        console.log(`Church Lower Thirds is already running: http://127.0.0.1:${p}/settings`);
         process.exit(0);
       }
       if (p < defaultPort + 9) ok(listen(p + 1));
@@ -515,5 +515,5 @@ sourcesDir = await writeSourceFiles(userFolder, baseUrl).catch((e) => {
   console.error(`Could not write the OBS source files: ${(e as Error).message}`);
   return '';
 });
-console.log(`Lower Third Web — by Culto em Off: ${baseUrl}/settings`);
+console.log(`Church Lower Thirds — by Culto em Off: ${baseUrl}/settings`);
 console.log(`Persistent data: ${configFile}`);

@@ -28,7 +28,7 @@ export async function api(path, { method = 'GET', body, raw, type } = {}) {
     const data = await r.json().catch(() => ({}));
     return r.ok ? data : { error: data.error || `HTTP ${r.status}` };
   } catch {
-    return { error: 'O programa não está respondendo. Abra o Lower Third Web de novo.' };
+    return { error: 'O programa não está respondendo. Abra o Church Lower Thirds de novo.' };
   }
 }
 
@@ -54,7 +54,7 @@ const ERRORS = [
   [/Type a name or a title/, 'Digite um nome ou um texto.'],
   [/Name not found/, 'Esse nome não existe mais.'],
   [/Use a PNG, JPG/, 'Use uma imagem PNG, JPG, WebP, GIF ou SVG.'],
-  [/Not a Lower Third Web backup/, 'Esse arquivo não é um backup do Lower Third Web.'],
+  [/Not a Church Lower Thirds backup/, 'Esse arquivo não é um backup do Church Lower Thirds.'],
   [/QR text is too long/, 'O texto do QR Code é longo demais.'],
   [/QR text is empty/, 'O QR Code está sem texto.'],
   [/Update check failed/, 'Não foi possível procurar atualizações agora.'],
@@ -68,12 +68,12 @@ const ERRORS = [
 export const friendly = (msg) => (ERRORS.find(([re]) => re.test(msg)) || [, msg])[1];
 
 export function theme() {
-  const saved = ['dark', 'light'].includes(localStorage.ltwTheme) ? localStorage.ltwTheme : 'dark';
+  const saved = ['dark', 'light'].includes(localStorage.cltTheme) ? localStorage.cltTheme : 'dark';
   document.documentElement.dataset.theme = saved;
   return saved;
 }
 export function toggleTheme() {
-  localStorage.ltwTheme = theme() === 'dark' ? 'light' : 'dark';
+  localStorage.cltTheme = theme() === 'dark' ? 'light' : 'dark';
   return theme();
 }
 

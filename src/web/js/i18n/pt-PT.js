@@ -89,11 +89,11 @@ export default {
   'O arquivo guarda todas as configurações, os nomes e o logo. Serve para levar tudo para outro computador.':
     'O ficheiro guarda todas as definições, os nomes e o logo. Serve para levar tudo para outro computador.',
   'Salvar backup': 'Guardar backup',
-  'Esse arquivo não é um backup do Lower Third Web.':
-    'Esse ficheiro não é um backup do Lower Third Web.',
+  'Esse arquivo não é um backup do Church Lower Thirds.':
+    'Esse ficheiro não é um backup do Church Lower Thirds.',
   'Restaurar de um arquivo': 'Restaurar de um ficheiro',
-  'O programa não está respondendo. Abra o Lower Third Web de novo.':
-    'O programa não está a responder. Abra o Lower Third Web de novo.',
+  'O programa não está respondendo. Abra o Church Lower Thirds de novo.':
+    'O programa não está a responder. Abra o Church Lower Thirds de novo.',
   'Preencha a chave PIX nas configurações.': 'Preencha a chave PIX nas definições.',
   'Código PIX inválido: copie de novo o "PIX copia e cola" do aplicativo do banco.':
     'Código PIX inválido: copie de novo o "PIX copia e cola" da aplicação do banco.',

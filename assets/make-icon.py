@@ -1,4 +1,4 @@
-# Renders assets/lower-third-web.svg into the Windows icon (installer, shortcuts, uninstall
+# Renders assets/church-lower-thirds.svg into the Windows icon (installer, shortcuts, uninstall
 # entry) and the browser favicon. Dev-only (Python + Playwright); the outputs are committed.
 #   python assets/make-icon.py
 import io, os, struct
@@ -6,7 +6,7 @@ from PIL import Image
 from playwright.sync_api import sync_playwright
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SVG = open(os.path.join(HERE, 'lower-third-web.svg')).read()
+SVG = open(os.path.join(HERE, 'church-lower-thirds.svg')).read()
 SIZES = [16, 20, 24, 32, 40, 48, 64, 96, 128, 256]
 
 
@@ -50,17 +50,17 @@ with sync_playwright() as p:
     images = [render(page, s) for s in SIZES]
     browser.close()
 
-write_ico(images, os.path.join(HERE, 'lower-third-web.ico'))
+write_ico(images, os.path.join(HERE, 'church-lower-thirds.ico'))
 web_icons = os.path.join(HERE, '..', 'src', 'web', 'icons')
 open(os.path.join(web_icons, 'app.svg'), 'w').write(SVG)
 images[SIZES.index(32)].save(os.path.join(web_icons, 'app-32.png'))
 images[SIZES.index(256)].resize((180, 180), Image.LANCZOS).save(os.path.join(web_icons, 'app-180.png'))
 
 # Check: every entry must decode at its declared size (a broken .ico once broke the installer build).
-ico = Image.open(os.path.join(HERE, 'lower-third-web.ico'))
+ico = Image.open(os.path.join(HERE, 'church-lower-thirds.ico'))
 found = sorted(ico.info['sizes'])
 for s in found:
     ico.size = s
     ico.load()
     assert ico.size == s, s
-print('ico sizes:', [s[0] for s in found], os.path.getsize(os.path.join(HERE, 'lower-third-web.ico')), 'bytes')
+print('ico sizes:', [s[0] for s in found], os.path.getsize(os.path.join(HERE, 'church-lower-thirds.ico')), 'bytes')

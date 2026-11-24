@@ -28,7 +28,7 @@ const rel = (tag: string, extra: Partial<Release> = {}): Release => ({
   prerelease: tag.includes('-'),
   assets: [
     {
-      name: `Lower-Third-Web-Setup-${tag.slice(1)}.exe`,
+      name: `Church-Lower-Thirds-Setup-${tag.slice(1)}.exe`,
       browser_download_url: `https://example/${tag}.exe`,
     },
     { name: 'SHA256SUMS.txt', browser_download_url: `https://example/${tag}.txt` },
@@ -54,8 +54,8 @@ test('the release offered depends on what is installed', () => {
 });
 
 test('checksum list: finds the installer by name', () => {
-  const sums = `${'a'.repeat(64)} *Lower-Third-Web-Setup-0.1.0.exe\r\n${'b'.repeat(64)}  other.txt\r\n`;
-  assert.equal(hashFromSums(sums, 'Lower-Third-Web-Setup-0.1.0.exe'), 'a'.repeat(64));
+  const sums = `${'a'.repeat(64)} *Church-Lower-Thirds-Setup-0.1.0.exe\r\n${'b'.repeat(64)}  other.txt\r\n`;
+  assert.equal(hashFromSums(sums, 'Church-Lower-Thirds-Setup-0.1.0.exe'), 'a'.repeat(64));
   assert.equal(hashFromSums(sums, 'missing.exe'), undefined);
 });
 
@@ -63,16 +63,19 @@ test('each account of the computer has its own files folder', () => {
   // Chosen in the installer: wins, also over the folder used before.
   assert.equal(userFilesFolder('/srv/igreja/lt', '/old', '/home/maria'), '/srv/igreja/lt');
   // Nothing chosen (another account, or a start at login): the folder already in use,
-  // or "Lower Third Web" in this account's own Documents the first time.
+  // or "Church Lower Thirds" in this account's own Documents the first time.
   assert.equal(userFilesFolder(undefined, '/home/joao/x', '/home/joao'), '/home/joao/x');
   assert.match(
     userFilesFolder(undefined, undefined, '/home/joao'),
-    /joao.Documents.Lower Third Web$/,
+    /joao.Documents.Church Lower Thirds$/,
   );
-  assert.match(userFilesFolder('not/absolute', '', '/home/ana'), /ana.Documents.Lower Third Web$/);
+  assert.match(
+    userFilesFolder('not/absolute', '', '/home/ana'),
+    /ana.Documents.Church Lower Thirds$/,
+  );
   assert.match(
     installInfoFile('win32', { ProgramData: 'C:\\ProgramData' }),
-    /Culto em Off.Lower Third Web.install\.json$/,
+    /Culto em Off.Church Lower Thirds.install\.json$/,
   );
 });
 
@@ -84,7 +87,7 @@ test('two accounts never look like the same owner', () => {
 
 test('the installer is only accepted when its SHA-256 matches the published list', async () => {
   const setup = Buffer.from('pretend this is the installer '.repeat(2000));
-  let sums = `${createHash('sha256').update(setup).digest('hex')} *Lower-Third-Web-Setup-9.9.9.exe\n`;
+  let sums = `${createHash('sha256').update(setup).digest('hex')} *Church-Lower-Thirds-Setup-9.9.9.exe\n`;
   const web = createServer((q, r) => r.end(q.url === '/sums' ? sums : setup)).listen(
     0,
     '127.0.0.1',
@@ -95,13 +98,13 @@ test('the installer is only accepted when its SHA-256 matches the published list
     current: '0.1.0',
     newer: true,
     page: '',
-    setupName: 'Lower-Third-Web-Setup-9.9.9.exe',
+    setupName: 'Church-Lower-Thirds-Setup-9.9.9.exe',
     setupUrl: `${at}/setup`,
     sumsUrl: `${at}/sums`,
   };
   try {
     assert.deepEqual(readFileSync(await downloadVerifiedSetup(info)), setup);
-    sums = `${'0'.repeat(64)} *Lower-Third-Web-Setup-9.9.9.exe\n`;
+    sums = `${'0'.repeat(64)} *Church-Lower-Thirds-Setup-9.9.9.exe\n`;
     await assert.rejects(downloadVerifiedSetup(info), /checksum mismatch/);
     await assert.rejects(downloadVerifiedSetup({ ...info, sumsUrl: undefined }), /not available/);
   } finally {

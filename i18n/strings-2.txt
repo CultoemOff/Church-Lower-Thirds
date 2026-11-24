@@ -1024,11 +1024,11 @@ Guardar copia
 Salva backup
 Sicherung speichern
 
-Esse arquivo não é um backup do Lower Third Web.
-This file is not a Lower Third Web backup.
-Ese archivo no es una copia de seguridad de Lower Third Web.
-Questo file non è un backup di Lower Third Web.
-Diese Datei ist keine Sicherung von Lower Third Web.
+Esse arquivo não é um backup do Church Lower Thirds.
+This file is not a Church Lower Thirds backup.
+Ese archivo no es una copia de seguridad de Church Lower Thirds.
+Questo file non è un backup di Church Lower Thirds.
+Diese Datei ist keine Sicherung von Church Lower Thirds.
 
 Backup restaurado.
 Backup restored.
@@ -1078,11 +1078,11 @@ Sin conexión con el programa
 Nessuna connessione al programma
 Keine Verbindung zum Programm
 
-O programa não está respondendo. Abra o Lower Third Web de novo.
-The program is not responding. Open Lower Third Web again.
-El programa no responde. Abra Lower Third Web de nuevo.
-Il programma non risponde. Apri di nuovo Lower Third Web.
-Das Programm antwortet nicht. Lower Third Web bitte erneut öffnen.
+O programa não está respondendo. Abra o Church Lower Thirds de novo.
+The program is not responding. Open Church Lower Thirds again.
+El programa no responde. Abra Church Lower Thirds de nuevo.
+Il programma non risponde. Apri di nuovo Church Lower Thirds.
+Das Programm antwortet nicht. Church Lower Thirds bitte erneut öffnen.
 
 Preencha a chave PIX nas configurações.
 Fill in the PIX key in the settings.

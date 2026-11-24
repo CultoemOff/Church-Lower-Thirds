@@ -7,15 +7,15 @@ import { pipeline } from 'node:stream/promises';
 
 /**
  * In-app updates. CI publishes every version as a GitHub release tagged "v<version>" with
- * the Windows installer (Lower-Third-Web-Setup-<version>.exe) and SHA256SUMS.txt; betas are
+ * the Windows installer (Church-Lower-Thirds-Setup-<version>.exe) and SHA256SUMS.txt; betas are
  * pre-releases. The program lists the releases, picks the newest one that applies and, on
  * request, downloads the installer, checks its SHA-256 and runs it.
  *
  * The releases must be public for this to work: GitHub answers 404 for a private repository.
  */
 export const RELEASES_API =
-  'https://api.github.com/repos/CultoemOff/Lower-Third-Web/releases?per_page=30';
-export const RELEASES_PAGE = 'https://github.com/CultoemOff/Lower-Third-Web/releases';
+  'https://api.github.com/repos/CultoemOff/Church-Lower-Thirds/releases?per_page=30';
+export const RELEASES_PAGE = 'https://github.com/CultoemOff/Church-Lower-Thirds/releases';
 
 export interface UpdateInfo {
   current: string;
@@ -60,7 +60,7 @@ export function pickRelease(releases: Release[], current: string) {
   for (const r of releases) {
     const version = String(r.tag_name ?? '').match(/^v?(\d+\.\d+\.\d+(?:-[0-9A-Za-z.]+)?)$/)?.[1];
     if (!version || r.draft || (!beta && (r.prerelease || version.includes('-')))) continue;
-    if (!r.assets?.some((a) => /^Lower-Third-Web-Setup.*\.exe$/.test(a.name))) continue;
+    if (!r.assets?.some((a) => /^Church-Lower-Thirds-Setup.*\.exe$/.test(a.name))) continue;
     if (!best || newerThan(version, best.version)) best = { ...r, version };
   }
   return best;
@@ -81,15 +81,15 @@ let cache: { at: number; info: UpdateInfo } | undefined;
 export async function checkForUpdate(current: string, force = false): Promise<UpdateInfo> {
   if (!force && cache && Date.now() - cache.at < 10 * 60_000 && cache.info.current === current)
     return cache.info;
-  // LTW_UPDATE_API exists for tests only.
-  const r = await fetch(process.env.LTW_UPDATE_API || RELEASES_API, {
-    headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'Lower-Third-Web' },
+  // CLT_UPDATE_API exists for tests only.
+  const r = await fetch(process.env.CLT_UPDATE_API || RELEASES_API, {
+    headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'Church-Lower-Thirds' },
     signal: AbortSignal.timeout(8000),
   });
   if (!r.ok) throw new Error(`Update check failed (HTTP ${r.status})`);
   const list = (await r.json()) as Release[];
   const best = pickRelease(Array.isArray(list) ? list : [], current);
-  const setup = best?.assets?.find((a) => /^Lower-Third-Web-Setup.*\.exe$/.test(a.name));
+  const setup = best?.assets?.find((a) => /^Church-Lower-Thirds-Setup.*\.exe$/.test(a.name));
   const info: UpdateInfo = {
     current,
     latest: best?.version,

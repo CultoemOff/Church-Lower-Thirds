@@ -1,4 +1,6 @@
-# Lower Third Web — by Culto em Off
+# Church Lower Thirds — by Culto em Off
+
+**Free lower thirds & overlays for church live streams in OBS Studio.**
 
 Lower thirds e overlays para o OBS Studio, numa única fonte de navegador. Programa separado do PTZ Control Web. **Versão beta, somente Windows.**
 
@@ -17,7 +19,7 @@ Lower thirds e overlays para o OBS Studio, numa única fonte de navegador. Progr
 
 ## Fontes do OBS
 
-O programa escreve na pasta escolhida na instalação (`Documentos\Lower Third Web\OBS Sources`) um arquivo HTML por fonte, com nomes em inglês iguais em todo computador. Cada arquivo só espera o programa e abre o endereço correspondente:
+O programa escreve na pasta escolhida na instalação (`Documentos\Church Lower Thirds\OBS Sources`) um arquivo HTML por fonte, com nomes em inglês iguais em todo computador. Cada arquivo só espera o programa e abre o endereço correspondente:
 
 | Arquivo | Endereço | Elemento |
 |---|---|---|
@@ -53,11 +55,11 @@ npm run lint && npm run format:check && npm run typecheck
 
 ## Instalação, usuários e atualização
 
-- O programa fica em `C:\Program Files\Culto em Off\Lower Third Web`, ao lado dos outros programas do Culto em Off (cada um na sua subpasta). Por isso o instalador pede permissão de administrador.
-- **Cada usuário do Windows tem os seus arquivos e configurações.** A pasta escolhida no instalador vale para quem está usando o computador naquele momento; os outros usuários recebem `Documentos\Lower Third Web` no próprio perfil. O que cada conta usa fica anotado em `%APPDATA%\Lower Third Web\location.json` (pasta e porta).
+- O programa fica em `C:\Program Files\Culto em Off\Church Lower Thirds`, ao lado dos outros programas do Culto em Off (cada um na sua subpasta). Por isso o instalador pede permissão de administrador.
+- **Cada usuário do Windows tem os seus arquivos e configurações.** A pasta escolhida no instalador vale para quem está usando o computador naquele momento; os outros usuários recebem `Documentos\Church Lower Thirds` no próprio perfil. O que cada conta usa fica anotado em `%APPDATA%\Church Lower Thirds\location.json` (pasta e porta).
 - Com duas contas abertas ao mesmo tempo, a segunda usa a porta seguinte (8796…). Os arquivos de `OBS Sources` e o `Control Dock.html` de cada conta já apontam para a porta certa.
 - **Atualização:** o painel consulta as Releases deste repositório e mostra "Atualizar agora". O programa baixa o instalador, confere o SHA-256 com o `SHA256SUMS.txt` da release, executa em modo silencioso (o Windows pede permissão) e volta sozinho. Quem usa uma versão final só recebe versões finais; quem usa beta recebe também os betas. As Releases precisam ser públicas para a consulta funcionar.
 
-Sem instalador (desenvolvimento), a pasta dos arquivos é `Documentos/Lower Third Web` e pode ser trocada com `--folder <pasta>` ou `LTW_DATA_DIR`.
+Sem instalador (desenvolvimento), a pasta dos arquivos é `Documentos/Church Lower Thirds` e pode ser trocada com `--folder <pasta>` ou `CLT_DATA_DIR`.
 
 As marcas citadas pertencem aos seus donos. Este programa não é afiliado ao OBS Project.

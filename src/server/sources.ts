@@ -27,14 +27,14 @@ export function sourceHtml(title: string, baseUrl: string, path: string) {
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Lower Third Web - ${title}</title>
+    <title>Church Lower Thirds - ${title}</title>
     <style>
       html, body { margin: 0; background: transparent; overflow: hidden; }
     </style>
   </head>
   <body>
     <script>
-      // Lower Third Web (by Culto em Off). Add this file in OBS as a Browser source with
+      // Church Lower Thirds (by Culto em Off). Add this file in OBS as a Browser source with
       // "Local file" checked. It waits for the program on this computer, then opens the
       // element. Nothing to edit here: everything is set in the program's settings page.
       var base = ${JSON.stringify(baseUrl)};
@@ -51,7 +51,7 @@ export function sourceHtml(title: string, baseUrl: string, path: string) {
 `;
 }
 
-const README = `Lower Third Web - OBS sources
+const README = `Church Lower Thirds - OBS sources
 =============================
 
 Add any of these files in OBS Studio:
@@ -65,7 +65,7 @@ so you can keep them in different scenes. Do not use "All Elements" together wit
 single-element file in the same scene: that element would show twice.
 
 The "Data" folder next to this one keeps your settings, names and images.
-Copy the whole "Lower Third Web" folder to back everything up.
+Copy the whole "Church Lower Thirds" folder to back everything up.
 `;
 
 /** Writes (or refreshes) the source files; old files of this app that no longer apply are removed. */

@@ -31,7 +31,7 @@ import { autoLocalize, LANGUAGES, t, useLanguage } from './js/i18n.js';
 // Every change is saved at once and shows in the preview and in OBS.
 let config = null,
   live = null,
-  page = localStorage.ltwPage || 'home',
+  page = localStorage.cltPage || 'home',
   info = null,
   vertical = false,
   viewItem = '',
@@ -1830,7 +1830,7 @@ const pages = {
         { class: 'fillRow' },
         h(
           'a',
-          { href: '/api/backup', download: 'lower-third-web-backup.json' },
+          { href: '/api/backup', download: 'church-lower-thirds-backup.json' },
           h('button', { class: 'primary' }, 'Salvar backup'),
         ),
         h('input', {
@@ -1845,7 +1845,7 @@ const pages = {
             try {
               body = JSON.parse(await file.text());
             } catch {
-              return toast('Esse arquivo não é um backup do Lower Third Web.');
+              return toast('Esse arquivo não é um backup do Church Lower Thirds.');
             }
             const r = await api('/api/restore', { method: 'POST', body });
             toast(r.error ? friendly(r.error) : 'Backup restaurado.');
@@ -1933,7 +1933,7 @@ async function installUpdate() {
   renderForm();
 }
 function go(id) {
-  page = localStorage.ltwPage = id;
+  page = localStorage.cltPage = id;
   renderNav();
   renderForm();
   setPreview();

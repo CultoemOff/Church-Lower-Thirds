@@ -1,8 +1,8 @@
 {
-  "name": "lower-third-web",
+  "name": "church-lower-thirds",
   "version": "0.1.0-beta.1",
   "private": true,
-  "description": "Lower Third Web — by Culto em Off | Lower thirds e overlays para OBS Studio",
+  "description": "Church Lower Thirds — by Culto em Off | Free lower thirds & overlays for church live streams in OBS Studio",
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/server/index.ts",

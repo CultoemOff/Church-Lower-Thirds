@@ -1,4 +1,4 @@
-' Starts the Lower Third Web server, hidden, for the person logged in. Each Windows account
+' Starts the Church Lower Thirds server, hidden, for the person logged in. Each Windows account
 ' runs its own copy with its own settings. The installer passes the folder chosen for the
 ' person's files as the first argument.
 Option Explicit

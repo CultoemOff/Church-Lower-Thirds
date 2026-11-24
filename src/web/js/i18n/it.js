@@ -467,8 +467,8 @@ export default {
   'O arquivo guarda todas as configurações, os nomes e o logo. Serve para levar tudo para outro computador.':
     'Il file contiene tutte le impostazioni, i nomi e il logo. Serve per portare tutto su un altro computer.',
   'Salvar backup': 'Salva backup',
-  'Esse arquivo não é um backup do Lower Third Web.':
-    'Questo file non è un backup di Lower Third Web.',
+  'Esse arquivo não é um backup do Church Lower Thirds.':
+    'Questo file non è un backup di Church Lower Thirds.',
   'Backup restaurado.': 'Backup ripristinato.',
   'Restaurar de um arquivo': 'Ripristina da un file',
   'Prévia da fonte vertical (9:16), para Shorts, Reels e TikTok':
@@ -478,8 +478,8 @@ export default {
   'Mostrar no OBS': 'Mostra in OBS',
   'Programa ativo': 'Programma attivo',
   'Sem conexão com o programa': 'Nessuna connessione al programma',
-  'O programa não está respondendo. Abra o Lower Third Web de novo.':
-    'Il programma non risponde. Apri di nuovo Lower Third Web.',
+  'O programa não está respondendo. Abra o Church Lower Thirds de novo.':
+    'Il programma non risponde. Apri di nuovo Church Lower Thirds.',
   'Preencha a chave PIX nas configurações.': 'Inserisci la chiave PIX nelle impostazioni.',
   'A chave PIX é longa demais.': 'La chiave PIX è troppo lunga.',
   'Valor do PIX inválido.': 'Importo PIX non valido.',
