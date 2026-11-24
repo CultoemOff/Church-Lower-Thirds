@@ -10,6 +10,7 @@ on:
 jobs:
   windows:
     runs-on: windows-2022
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
@@ -64,23 +65,11 @@ jobs:
           $level = [regex]::Match($text, 'requestedExecutionLevel\s+level="(\w+)"').Groups[1].Value
           Write-Host "requestedExecutionLevel: $level"
           if ($level -ne 'asInvoker') { throw "The update button could not start this setup (manifest: '$level')" }
-      - name: Installer smoke test (install, run, uninstall)
+      - name: Installer test 1 of 5 - install
         shell: pwsh
+        timeout-minutes: 10
         run: |
-          $exe = "installer\output\Church-Lower-Thirds-Setup.exe"
-          $dir = Join-Path $env:ProgramFiles 'Culto em Off\Church Lower Thirds'
-          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
-          $userKey = 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{13D055BB-63D1-484E-820B-004089D86007}_is1'
-          $base = 'http://127.0.0.1:8795'
-          # Waits for the installer only. Start-Process -Wait would also wait for the server
-          # the installer leaves running, forever.
-          function Run-Setup([string[]]$Arguments) {
-            $p = Start-Process $exe -ArgumentList $Arguments -PassThru
-            $null = $p.Handle
-            if (-not $p.WaitForExit(600000)) { throw "Installer did not finish" }
-            $p.ExitCode
-          }
-
+          . .github\scripts\installer-test.ps1
           $code = Run-Setup '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART'
           if ($code -ne 0) { throw "Installer exited with $code" }
           $expected = "$dir\runtime\node.exe", "$dir\app\dist\server\index.js", "$dir\app\dist\web\overlay.html",
@@ -103,10 +92,13 @@ jobs:
           }
           if (-not $health) { throw "Installed server did not start" }
           if ($health.version -ne $version) { throw "Health returned $($health.version), expected $version" }
-
+      - name: Installer test 2 of 5 - pages, settings and controls
+        shell: pwsh
+        timeout-minutes: 10
+        run: |
+          . .github\scripts\installer-test.ps1
           # The folder chosen in the installer (Documents by default) gets the settings and
           # the OBS source files, with the same English names on every computer.
-          $files = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'Church Lower Thirds'
           # The program answers as soon as it is listening and writes the source files right
           # after: "sourcesDir" appears when they are all there.
           $info = $null
@@ -215,18 +207,14 @@ jobs:
           # An address that does not exist answers in JSON, without internals.
           try { Invoke-WebRequest "$base/api/nope" -UseBasicParsing | Out-Null; throw "Unknown address was accepted" }
           catch { if ($_.Exception.Message -match 'accepted') { throw } }
-          Write-Host "Installed server v$($health.version) OK; fonts: $(@($fonts).Count)"
-
+          Write-Host "Installed server v$version OK; fonts: $(@($fonts).Count)"
+      - name: Installer test 3 of 5 - update over itself, change of folder
+        shell: pwsh
+        timeout-minutes: 10
+        run: |
+          . .github\scripts\installer-test.ps1
           # The one-click update runs this same installer with /SILENT: the program comes
           # back by itself, in the same folder, with the same settings.
-          function Wait-Server {
-            $h = $null
-            for ($i = 0; $i -lt 40 -and -not $h; $i++) {
-              Start-Sleep -Milliseconds 500
-              try { $h = Invoke-RestMethod "$base/api/health" } catch {}
-            }
-            if (-not $h) { throw "Server did not come back" }
-          }
           $code = Run-Setup '/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART'
           if ($code -ne 0) { throw "Update run exited with $code" }
           Wait-Server
@@ -236,7 +224,6 @@ jobs:
           $mine = Get-Content (Join-Path $env:APPDATA 'Church Lower Thirds\location.json') -Raw | ConvertFrom-Json
           if ($mine.folder -ne $files -or $mine.port -ne 8795) { throw "location.json is wrong: $($mine | ConvertTo-Json -Compress)" }
           # Another folder chosen (accents included): the settings go along.
-          $other = Join-Path $env:RUNNER_TEMP 'Mídia da Igreja\Lower Third'
           $code = Run-Setup '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', "/FILES=`"$other`""
           if ($code -ne 0) { throw "Reinstall exited with $code" }
           Wait-Server
@@ -245,7 +232,11 @@ jobs:
           if ((Invoke-RestMethod "$base/api/state").config.pix.name -ne 'Igreja Teste') { throw "Settings did not follow to the new folder" }
           if (-not (Test-Path (Join-Path $other 'OBS Sources\Names.html'))) { throw "OBS source files missing in the new folder" }
           Write-Host "Update and folder change keep the settings."
-
+      - name: Installer test 4 of 5 - the update button, end to end
+        shell: pwsh
+        timeout-minutes: 12
+        run: |
+          . .github\scripts\installer-test.ps1
           # The "Update now" button, end to end: the program finds a newer release (a local
           # stand-in for GitHub offering this same installer as v99), downloads it, checks
           # the SHA-256, runs it, and comes back by itself.
@@ -296,9 +287,15 @@ jobs:
           if ((Invoke-RestMethod "$base/api/state").config.pix.name -ne 'Igreja Teste') { throw "Settings lost by the in-app update" }
           Stop-Process -Id $web.Id -Force -ErrorAction SilentlyContinue
           Write-Host "In-app update: downloaded, verified, installed and back on air."
-
-          Start-Process "$dir\unins000.exe" -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -Wait
-          for ($i = 0; $i -lt 60 -and ((Test-Path "$dir\runtime\node.exe") -or (Test-Path $userKey)); $i++) { Start-Sleep -Milliseconds 500 }
+      - name: Installer test 5 of 5 - uninstall
+        shell: pwsh
+        timeout-minutes: 10
+        run: |
+          . .github\scripts\installer-test.ps1
+          # The uninstaller hands the work to a copy of itself and leaves: wait for the result,
+          # not for the process.
+          Start-Process "$dir\unins000.exe" -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART'
+          for ($i = 0; $i -lt 240 -and ((Test-Path "$dir\runtime\node.exe") -or (Test-Path $userKey)); $i++) { Start-Sleep -Milliseconds 500 }
           foreach ($f in "$dir\runtime\node.exe", $userKey) {
             if (Test-Path $f) { throw "Left behind after uninstall: $f" }
           }

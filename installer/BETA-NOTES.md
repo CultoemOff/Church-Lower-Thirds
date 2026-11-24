@@ -1,5 +1,10 @@
 **Versão beta para testes — somente Windows.** Programa novo, separado do PTZ Control Web.
 
+### Novidades da beta.4
+
+- O repositório passou a ser público: o botão **Atualizar agora** encontra as versões novas em qualquer computador.
+- Nome exibido como "Church Lower Thirds by Culto em Off" nas janelas.
+
 ### Novidades da beta.3
 
 - **Modelo "Placa"** para nomes, cartão do QR Code e redes: placa escura com borda fina, quadro para o ícone ou o logo e fio na cor de destaque. No cartão, o QR Code sai na cor escura da própria placa.
