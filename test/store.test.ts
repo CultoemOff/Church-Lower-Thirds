@@ -108,17 +108,23 @@ test('a name that no longer exists is not left on air', () => {
   const c = cleanConfig({ lower: { items: [{ id: 'aaaa', line1: 'A' }] } });
   assert.deepEqual(
     cleanLive(
-      { lower: { on: true, item: 'zzzz' }, top: { on: 1 }, social: { on: true, item: 'nope' } },
+      {
+        lower: { on: true, item: 'zzzz' },
+        top: { on: 1 },
+        card: { pin: 'yes' },
+        social: { on: true, item: 'nope' },
+      },
       c,
     ),
     {
-      lower: { on: false, item: '' },
+      lower: { on: false, item: '', pin: false },
       top: { on: true },
-      card: { on: false },
+      // Pinned in the dock: it ignores the global time. The pin survives a restart.
+      card: { on: false, pin: true },
       bug: { on: false },
       ticker: { on: false },
-      agenda: { on: false },
-      social: { on: false, item: '' },
+      agenda: { on: false, pin: false },
+      social: { on: false, item: '', pin: false },
     },
   );
   assert.equal(cleanLive({ lower: { on: true, item: 'aaaa' } }, c).lower.on, true);
@@ -258,6 +264,18 @@ test('giving: PIX is one method among others, and old settings carry over', () =
   assert.equal(cleanConfig({ giving: { method: 'text' } }).giving.method, 'text');
   // Outside Brazil a first run does not start on PIX.
   assert.equal(firstConfig('pt-BR').giving.method, 'pix');
-  for (const lang of ['en', 'es', 'it', 'de', 'pt-PT'])
-    assert.equal(firstConfig(lang).giving.method, 'link', lang);
+  // ...but on what its main country uses: a phone-number app, a SEPA transfer or a link.
+  assert.deepEqual(
+    ['pt-PT', 'es', 'it', 'de', 'en'].map((l) => {
+      const g = firstConfig(l).giving;
+      return [g.method, g.app.name];
+    }),
+    [
+      ['app', 'MB WAY'],
+      ['app', 'Bizum'],
+      ['app', 'BANCOMAT Pay'],
+      ['sepa', 'Wero'],
+      ['link', 'Zelle'],
+    ],
+  );
 });

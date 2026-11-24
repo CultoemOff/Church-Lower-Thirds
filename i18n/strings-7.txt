@@ -1,0 +1,353 @@
+Fixar: o que você mostrar nesta aba fica na tela até esconder, mesmo quando o tempo acabar
+Pin: what you show on this tab stays on screen until you hide it, even when the time ends
+Fijar: lo que muestre en esta pestaña queda en pantalla hasta que lo oculte, aunque termine el tiempo
+Blocca: ciò che mostri in questa scheda resta sullo schermo finché non lo nascondi, anche a tempo scaduto
+Fixieren: Was auf diesem Reiter eingeblendet wird, bleibt bis zum Ausblenden sichtbar, auch nach Ablauf der Zeit
+
+Configurações avançadas: abre no navegador (modelos, cores, fontes, contribuições, logo)
+Advanced settings: opens in the browser (models, colors, fonts, giving, logo)
+Ajustes avanzados: se abre en el navegador (modelos, colores, fuentes, ofrendas, logo)
+Impostazioni avanzate: si apre nel browser (modelli, colori, caratteri, offerte, logo)
+Erweiterte Einstellungen: öffnet sich im Browser (Vorlagen, Farben, Schriften, Spenden, Logo)
+
+Mostra ou esconde uma prévia de como o elemento desta aba aparece na tela
+Shows or hides a preview of how the element of this tab appears on screen
+Muestra u oculta una vista previa de cómo aparece en pantalla el elemento de esta pestaña
+Mostra o nasconde un'anteprima di come appare sullo schermo l'elemento di questa scheda
+Zeigt oder verbirgt eine Vorschau, wie das Element dieses Reiters auf dem Bildschirm aussieht
+
+Endereços para o OBS, tutorial, resoluções e atalhos.
+Addresses for OBS, tutorial, resolutions and shortcuts.
+Direcciones para OBS, tutorial, resoluciones y atajos.
+Indirizzi per OBS, tutorial, risoluzioni e scorciatoie.
+Adressen für OBS, Anleitung, Auflösungen und Kurzbefehle.
+
+Salvar e restaurar tudo num arquivo, ou voltar às configurações iniciais.
+Save and restore everything in a file, or go back to the initial settings.
+Guardar y restaurar todo en un archivo, o volver a los ajustes iniciales.
+Salva e ripristina tutto in un file, oppure torna alle impostazioni iniziali.
+Alles in einer Datei sichern und wiederherstellen oder zu den Anfangseinstellungen zurückkehren.
+
+Azul institucional
+Institutional blue
+Azul institucional
+Blu istituzionale
+Klassisches Blau
+
+Barra azul com detalhe dourado: o visual clássico de transmissão
+Blue bar with a golden detail: the classic broadcast look
+Barra azul con detalle dorado: el aspecto clásico de transmisión
+Barra blu con dettaglio dorato: il classico aspetto televisivo
+Blaue Leiste mit goldenem Akzent: der klassische Sendelook
+
+Blocos retos e fortes, vermelho e azul-marinho, como nos noticiários
+Straight, strong blocks in red and navy, as in news programs
+Bloques rectos y fuertes, rojo y azul marino, como en los noticieros
+Blocchi netti e decisi, rosso e blu navy, come nei telegiornali
+Gerade, kräftige Blöcke in Rot und Marineblau, wie in Nachrichtensendungen
+
+Minimalista
+Minimalist
+Minimalista
+Minimalista
+Minimalistisch
+
+Quase só texto, com uma linha fina: discreto, para não disputar com a imagem
+Almost only text, with a thin line: discreet, so it does not compete with the picture
+Casi solo texto, con una línea fina: discreto, para no competir con la imagen
+Quasi solo testo, con una linea sottile: discreto, per non competere con l'immagine
+Fast nur Text mit einer feinen Linie: dezent, damit es dem Bild nicht die Schau stiehlt
+
+Clássico dourado
+Golden classic
+Clásico dorado
+Classico dorato
+Goldene Klassik
+
+Fonte serifada, preto quente e dourado: solene, para cultos tradicionais
+Serif font, warm black and gold: solemn, for traditional services
+Fuente con serifa, negro cálido y dorado: solemne, para cultos tradicionales
+Carattere con grazie, nero caldo e oro: solenne, per culti tradizionali
+Serifenschrift, warmes Schwarz und Gold: feierlich, für traditionelle Gottesdienste
+
+Luz da manhã
+Morning light
+Luz de la mañana
+Luce del mattino
+Morgenlicht
+
+Branco e claro, com laranja suave e formas arredondadas
+White and light, with soft orange and rounded shapes
+Blanco y claro, con naranja suave y formas redondeadas
+Bianco e chiaro, con arancione tenue e forme arrotondate
+Weiß und hell, mit sanftem Orange und runden Formen
+
+Neon
+Neon
+Neón
+Neon
+Neon
+
+Fundo escuro com brilho ciano e violeta: jovem e tecnológico
+Dark background with a cyan and violet glow: young and techy
+Fondo oscuro con brillo cian y violeta: joven y tecnológico
+Sfondo scuro con bagliore ciano e viola: giovane e tecnologico
+Dunkler Hintergrund mit Leuchten in Cyan und Violett: jung und technisch
+
+Arena
+Arena
+Arena
+Arena
+Arena
+
+Faixa inclinada, letras altas e cores quentes, no estilo das transmissões esportivas
+Slanted band, tall letters and warm colors, in the style of sports broadcasts
+Franja inclinada, letras altas y colores cálidos, al estilo de las transmisiones deportivas
+Fascia inclinata, lettere alte e colori caldi, nello stile delle trasmissioni sportive
+Schräges Band, hohe Buchstaben und warme Farben, im Stil von Sportübertragungen
+
+Jardim
+Garden
+Jardín
+Giardino
+Garten
+
+Verdes profundos com detalhe em verde-claro e amarelo, fonte serifada suave
+Deep greens with a light green and yellow detail, soft serif font
+Verdes profundos con detalle en verde claro y amarillo, fuente con serifa suave
+Verdi profondi con dettaglio verde chiaro e giallo, carattere con grazie morbido
+Tiefe Grüntöne mit hellgrünem und gelbem Akzent, weiche Serifenschrift
+
+Vinho real
+Royal burgundy
+Vino real
+Bordeaux reale
+Königliches Weinrot
+
+Vinho e dourado com letras de inscrição: festivo e solene
+Burgundy and gold with inscription-style letters: festive and solemn
+Vino y dorado con letras de inscripción: festivo y solemne
+Bordeaux e oro con lettere da iscrizione: festoso e solenne
+Weinrot und Gold mit Inschrift-Buchstaben: festlich und feierlich
+
+Aurora
+Aurora
+Aurora
+Aurora
+Aurora
+
+Degradê roxo e rosa com detalhe ciano: moderno e vibrante
+Purple and pink gradient with a cyan detail: modern and vibrant
+Degradado morado y rosa con detalle cian: moderno y vibrante
+Sfumatura viola e rosa con dettaglio ciano: moderno e vivace
+Verlauf in Violett und Pink mit Cyan-Akzent: modern und lebendig
+
+Cinza-escuro com um toque de vermelho: sóbrio, combina com qualquer logo
+Dark gray with a touch of red: sober, goes with any logo
+Gris oscuro con un toque de rojo: sobrio, combina con cualquier logo
+Grigio scuro con un tocco di rosso: sobrio, si abbina a qualsiasi logo
+Dunkelgrau mit einem Hauch Rot: schlicht, passt zu jedem Logo
+
+Azul-petróleo e azul, com detalhe em água-marinha
+Teal and blue, with an aquamarine detail
+Azul petróleo y azul, con detalle en aguamarina
+Blu petrolio e blu, con dettaglio acquamarina
+Petrol und Blau mit einem Akzent in Aquamarin
+
+Aplicativo de pagamento por telefone ou código
+Payment app by phone number or code
+Aplicación de pago por teléfono o código
+App di pagamento tramite telefono o codice
+Bezahl-App per Telefonnummer oder Code
+
+Nome do aplicativo
+App name
+Nombre de la aplicación
+Nome dell'app
+Name der App
+
+O aplicativo que as pessoas usam no seu país para enviar dinheiro pelo celular.
+The app people in your country use to send money from their phone.
+La aplicación que la gente usa en su país para enviar dinero desde el móvil.
+L'app che le persone usano nel tuo paese per inviare denaro dal telefono.
+Die App, mit der man in Ihrem Land Geld per Handy sendet.
+
+Telefone, código ou e-mail que recebe
+Phone, code or e-mail that receives
+Teléfono, código o correo que recibe
+Telefono, codice o e-mail che riceve
+Telefonnummer, Code oder E-Mail des Empfängers
+
+Imagem do QR Code (opcional)
+QR code image (optional)
+Imagen del código QR (opcional)
+Immagine del codice QR (facoltativa)
+QR-Code-Bild (optional)
+
+Escolha como a sua igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão e nos nomes marcados com "Contribuição da igreja".
+Choose how your church receives tithes and offerings. The QR code and the details appear on the card and on the names marked "Church giving".
+Elija cómo recibe su iglesia diezmos y ofrendas. El código QR y los datos aparecen en la tarjeta y en los nombres marcados con "Ofrenda de la iglesia".
+Scegli come la tua chiesa riceve decime e offerte. Il codice QR e i dati compaiono nella scheda e nei nomi contrassegnati con "Offerta della chiesa".
+Wählen Sie, wie Ihre Gemeinde Zehnten und Kollekte erhält. QR-Code und Angaben erscheinen auf der Karte und bei den Namen mit „Spende an die Gemeinde“.
+
+Escolha um e está pronto: cada tema traz o modelo, as cores e a fonte de todos os elementos. Depois, se quiser, ajuste os detalhes abaixo.
+Pick one and you are done: each theme brings the model, colors and font of every element. Then, if you like, adjust the details below.
+Elija uno y listo: cada tema trae el modelo, los colores y la fuente de todos los elementos. Después, si quiere, ajuste los detalles abajo.
+Scegline uno ed è fatta: ogni tema porta modello, colori e carattere di tutti gli elementi. Poi, se vuoi, regola i dettagli qui sotto.
+Eines wählen und fertig: Jedes Design bringt Vorlage, Farben und Schrift aller Elemente mit. Danach lassen sich unten die Details anpassen.
+
+Abre o assistente no passo do OBS
+Opens the assistant at the OBS step
+Abre el asistente en el paso de OBS
+Apre l'assistente al passo di OBS
+Öffnet den Assistenten beim OBS-Schritt
+
+Abrir o tutorial ilustrado
+Open the illustrated tutorial
+Abrir el tutorial ilustrado
+Apri il tutorial illustrato
+Bebilderte Anleitung öffnen
+
+1. O painel de controle (dock)
+1. The control panel (dock)
+1. El panel de control (dock)
+1. Il pannello di controllo (dock)
+1. Das Bedienfeld (Dock)
+
+2. Os gráficos (fonte de navegador)
+2. The graphics (browser source)
+2. Los gráficos (fuente de navegador)
+2. La grafica (sorgente browser)
+2. Die Grafiken (Browserquelle)
+
+Restaurar as configurações iniciais
+Restore the initial settings
+Restaurar los ajustes iniciales
+Ripristina le impostazioni iniziali
+Anfangseinstellungen wiederherstellen
+
+Apaga tudo o que foi configurado: nomes, textos, tema, contribuição, posições e listas salvas. O programa volta a como estava na primeira vez e o assistente de configuração abre de novo.
+Erases everything that was set up: names, texts, theme, giving, positions and saved lists. The program goes back to how it was the first time and the setup assistant opens again.
+Borra todo lo configurado: nombres, textos, tema, ofrenda, posiciones y listas guardadas. El programa vuelve a como estaba la primera vez y el asistente de configuración se abre de nuevo.
+Cancella tutto ciò che è stato configurato: nomi, testi, tema, offerta, posizioni ed elenchi salvati. Il programma torna com'era la prima volta e l'assistente di configurazione si riapre.
+Löscht alles Eingerichtete: Namen, Texte, Design, Spende, Positionen und gespeicherte Listen. Das Programm ist wieder wie beim ersten Start und der Einrichtungsassistent öffnet sich erneut.
+
+Não dá para desfazer. Salve um backup antes, se quiser guardar o que tem hoje.
+This cannot be undone. Save a backup first if you want to keep what you have today.
+No se puede deshacer. Guarde una copia de seguridad antes si quiere conservar lo que tiene hoy.
+Non si può annullare. Salva prima un backup se vuoi conservare ciò che hai oggi.
+Das lässt sich nicht rückgängig machen. Vorher eine Sicherung speichern, um den heutigen Stand zu behalten.
+
+Apagar tudo e recomeçar
+Erase everything and start over
+Borrar todo y empezar de nuevo
+Cancella tutto e ricomincia
+Alles löschen und neu beginnen
+
+Só abrir o assistente
+Just open the assistant
+Solo abrir el asistente
+Apri solo l'assistente
+Nur den Assistenten öffnen
+
+1. Painel de controle: dock do OBS
+1. Control panel: OBS dock
+1. Panel de control: dock de OBS
+1. Pannello di controllo: dock di OBS
+1. Bedienfeld: OBS-Dock
+
+2. Gráficos: fonte de navegador com todos os elementos
+2. Graphics: browser source with every element
+2. Gráficos: fuente de navegador con todos los elementos
+2. Grafica: sorgente browser con tutti gli elementi
+2. Grafiken: Browserquelle mit allen Elementen
+
+Apagar TODAS as configurações, nomes e textos e recomeçar do zero? Isto não pode ser desfeito.
+Erase ALL settings, names and texts and start from scratch? This cannot be undone.
+¿Borrar TODOS los ajustes, nombres y textos y empezar de cero? Esto no se puede deshacer.
+Cancellare TUTTE le impostazioni, i nomi e i testi e ricominciare da zero? Non si può annullare.
+ALLE Einstellungen, Namen und Texte löschen und von vorn beginnen? Das lässt sich nicht rückgängig machen.
+
+Configurações iniciais restauradas.
+Initial settings restored.
+Ajustes iniciales restaurados.
+Impostazioni iniziali ripristinate.
+Anfangseinstellungen wiederhergestellt.
+
+O assistente leva uns cinco minutos. Dá para pular um passo, ir direto a outro pela lista ao lado ou pular o assistente inteiro.
+The assistant takes about five minutes. You can skip a step, jump straight to another one from the list on the side, or skip the whole assistant.
+El asistente lleva unos cinco minutos. Puede saltar un paso, ir directo a otro desde la lista de al lado o saltar el asistente entero.
+L'assistente richiede circa cinque minuti. Puoi saltare un passo, andare direttamente a un altro dall'elenco a lato o saltare tutto l'assistente.
+Der Assistent dauert etwa fünf Minuten. Sie können einen Schritt überspringen, über die Liste direkt zu einem anderen gehen oder den ganzen Assistenten überspringen.
+
+Escolha um tema e todos os elementos já ficam prontos. Depois dá para ajustar as cores em "Tema global" ou dar a um elemento a própria aparência.
+Choose a theme and every element is ready. Later you can adjust the colors in "Global theme" or give an element its own appearance.
+Elija un tema y todos los elementos quedan listos. Después puede ajustar los colores en "Tema global" o dar a un elemento su propia apariencia.
+Scegli un tema e tutti gli elementi sono pronti. Poi puoi regolare i colori in "Tema globale" o dare a un elemento un aspetto proprio.
+Ein Design wählen und alle Elemente sind fertig. Später lassen sich die Farben unter „Globales Design“ anpassen oder einem Element ein eigenes Aussehen geben.
+
+Deixa este passo para depois
+Leaves this step for later
+Deja este paso para después
+Lascia questo passo per dopo
+Verschiebt diesen Schritt auf später
+
+Pular este passo
+Skip this step
+Saltar este paso
+Salta questo passo
+Schritt überspringen
+
+Docks de navegador personalizados
+Custom Browser Docks
+Paneles de navegador personalizados
+Pannelli browser personalizzati
+Benutzerdefinierte Browser-Docks
+
+Aplicar
+Apply
+Aplicar
+Applica
+Anwenden
+
+Cenas
+Scenes
+Escenas
+Scene
+Szenen
+
+Fontes
+Sources
+Fuentes
+Fonti
+Quellen
+
+Navegador
+Browser
+Navegador
+Browser
+Browser
+
+Propriedades
+Properties
+Propiedades
+Proprietà
+Eigenschaften
+
+Altura
+Height
+Alto
+Altezza
+Höhe
+
+Câmera
+Camera
+Cámara
+Telecamera
+Kamera
+
+Docks
+Docks
+Paneles
+Pannelli
+Docks

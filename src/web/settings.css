@@ -1057,3 +1057,142 @@ table.apiTable {
     grid-template-columns: 1fr;
   }
 }
+
+/* Corner buttons (OBS, backup) */
+.topNav {
+  display: flex;
+  gap: 6px;
+}
+.topNav button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.topNav button svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+.topNav button.active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+@media (max-width: 900px) {
+  .topNav button span {
+    display: none;
+  }
+}
+button.danger {
+  background: #c62828;
+  border-color: #c62828;
+  color: #fff;
+}
+button.danger:hover {
+  background: #b71c1c;
+}
+
+/* Ready-made themes: each one as a small picture of the screen */
+.themes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  gap: 10px;
+}
+.themes button {
+  display: grid;
+  gap: 5px;
+  padding: 7px;
+  text-align: left;
+  background: var(--panel2);
+  align-content: start;
+}
+.themes button.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+.themes strong {
+  font-size: 12.5px;
+}
+.themes small {
+  font-size: 10.5px;
+  line-height: 1.35;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: normal;
+}
+.themeShot {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  border-radius: 7px;
+  overflow: hidden;
+  /* Stands in for the camera picture. */
+  background: linear-gradient(140deg, #64748b, #334155 55%, #7c5a4a);
+}
+.themeShot i {
+  position: absolute;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.themeShot .shotBadge {
+  left: 6%;
+  top: 9%;
+  height: 13%;
+  padding: 0 5px 0 4px;
+  gap: 3px;
+  font-size: 6.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+.themeShot .shotBadge b {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+.themeShot .shotName {
+  left: 6%;
+  bottom: 20%;
+  height: 21%;
+  padding: 0 9px 0 0;
+  gap: 6px;
+  font-size: 10.5px;
+  font-weight: 800;
+}
+.themeShot .shotName b {
+  width: 4px;
+  align-self: stretch;
+}
+.themeShot .shotBar {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 11%;
+}
+.themeShot .shotBar b {
+  width: 18%;
+  align-self: stretch;
+}
+
+/* Drawings of where to click in OBS */
+.drawings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+.drawing {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #1c212b;
+}
+.drawing svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}

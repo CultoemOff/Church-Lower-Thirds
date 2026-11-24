@@ -60,6 +60,13 @@ test('the contribution QR and its text depend on the method', () => {
   c.giving.method = 'image';
   c.giving.image = '/media/0123456789abcdef.png';
   assert.equal(givingQr(c), '/media/0123456789abcdef.png');
+  // A payment app: its name and the number that receives; the QR only if one was uploaded.
+  c.giving.method = 'app';
+  c.giving.app = { name: 'Bizum', id: '01234' };
+  assert.equal(givingText(c), 'Bizum: 01234');
+  assert.equal(givingQr(c), '/media/0123456789abcdef.png');
+  c.giving.image = '';
+  assert.equal(givingQr(c), '');
   c.giving.method = 'text';
   c.giving.details = 'Banco 000\nConta 1';
   assert.equal(givingQr(c), '');

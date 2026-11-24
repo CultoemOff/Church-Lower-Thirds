@@ -21,6 +21,7 @@ import {
   ELEMENTS,
   firstConfig,
   liveDefaults,
+  TIMED,
   newId,
   resolveItem,
   resolveSocial,
@@ -223,16 +224,20 @@ app.delete('/api/lower/items/:id', async (q, r) => {
 
 // ---- On air ----
 const timers = new Map<ElementName, NodeJS.Timeout>();
+const isTimed = (el: ElementName): el is (typeof TIMED)[number] =>
+  (TIMED as readonly string[]).includes(el);
 function setOn(el: ElementName, on: boolean, item?: string) {
   clearTimeout(timers.get(el));
-  if (el === 'lower' || el === 'social') live[el] = { on, item: item ?? live[el].item };
-  else live[el] = { on };
+  live[el].on = on;
+  if (el === 'lower' || el === 'social') live[el].item = item ?? live[el].item;
   // Names, the QR card and social networks come and go: one time on screen for all of
   // them. The agenda leaves after its last day, unless it is set to repeat.
   let seconds = 0;
   if (el === 'lower' || el === 'card' || el === 'social') seconds = config.timing.autoHide;
   else if (el === 'agenda' && !config.agenda.loop)
     seconds = config.agenda.days.length * config.agenda.seconds;
+  // Pinned in the dock: it stays until someone hides it.
+  if (isTimed(el) && live[el].pin) seconds = 0;
   if (on && seconds > 0)
     timers.set(
       el,
@@ -252,8 +257,18 @@ function liveCommand(q: Request, r: Response) {
     return void r.json({ ok: true, live });
   }
   if (!ELEMENTS.includes(el)) return void r.status(404).json({ error: 'Unknown element' });
+  // Pin: the element ignores the global time. Unpinning one that is on air starts the
+  // time again from now.
+  if (['pin', 'unpin', 'togglepin'].includes(action)) {
+    if (!isTimed(el)) return void r.status(400).json({ error: 'This element has no time to pin' });
+    live[el].pin = action === 'pin' || (action === 'togglepin' && !live[el].pin);
+    if (live[el].on) setOn(el, true);
+    saveStore().catch(() => {});
+    sendLive();
+    return void r.json({ ok: true, live });
+  }
   if (!['show', 'hide', 'toggle'].includes(action))
-    return void r.status(400).json({ error: 'Use show, hide or toggle' });
+    return void r.status(400).json({ error: 'Use show, hide, toggle, pin, unpin or togglepin' });
   if (action !== 'hide' && !config.enabled[el])
     return void r.status(409).json({ error: 'This category is disabled in the settings' });
   if (el === 'lower' || el === 'social') {
@@ -308,6 +323,10 @@ app.get('/api/giving', (_q, r) => {
     if (g.method === 'text') {
       if (!g.details) throw new Error('Enter the bank details to show');
       return void r.json({ ok: true, method: g.method });
+    }
+    if (g.method === 'app') {
+      if (!g.app.id.trim()) throw new Error('Enter the number or code that receives');
+      return void r.json({ ok: true, method: g.method, image: g.image });
     }
     r.json({ ok: true, method: g.method, payload: givingCode() });
   } catch (e) {
@@ -380,6 +399,21 @@ app.get('/api/backup', async (_q, r) => {
     config,
     media,
   });
+});
+// Back to how the program was on its first run: every setting, name and text is replaced
+// by the samples. The uploaded image files stay in the folder, unused.
+app.post('/api/reset', async (_q, r) => {
+  try {
+    config = firstConfig(config.language === 'auto' ? install.language || 'auto' : config.language);
+    for (const e of ELEMENTS) clearTimeout(timers.get(e));
+    live = cleanLive(liveDefaults(), config);
+    await saveStore();
+    sendConfig();
+    sendLive();
+    r.json({ ok: true, config });
+  } catch (e) {
+    fail(r, e);
+  }
 });
 app.post('/api/restore', async (q, r) => {
   try {

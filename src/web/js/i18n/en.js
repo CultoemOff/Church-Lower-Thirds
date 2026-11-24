@@ -710,4 +710,88 @@ export default {
   Voltar: 'Back',
   Concluir: 'Finish',
   Avançar: 'Next',
+  'Fixar: o que você mostrar nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
+    'Pin: what you show on this tab stays on screen until you hide it, even when the time ends',
+  'Configurações avançadas: abre no navegador (modelos, cores, fontes, contribuições, logo)':
+    'Advanced settings: opens in the browser (models, colors, fonts, giving, logo)',
+  'Mostra ou esconde uma prévia de como o elemento desta aba aparece na tela':
+    'Shows or hides a preview of how the element of this tab appears on screen',
+  'Endereços para o OBS, tutorial, resoluções e atalhos.':
+    'Addresses for OBS, tutorial, resolutions and shortcuts.',
+  'Salvar e restaurar tudo num arquivo, ou voltar às configurações iniciais.':
+    'Save and restore everything in a file, or go back to the initial settings.',
+  'Azul institucional': 'Institutional blue',
+  'Barra azul com detalhe dourado: o visual clássico de transmissão':
+    'Blue bar with a golden detail: the classic broadcast look',
+  'Blocos retos e fortes, vermelho e azul-marinho, como nos noticiários':
+    'Straight, strong blocks in red and navy, as in news programs',
+  Minimalista: 'Minimalist',
+  'Quase só texto, com uma linha fina: discreto, para não disputar com a imagem':
+    'Almost only text, with a thin line: discreet, so it does not compete with the picture',
+  'Clássico dourado': 'Golden classic',
+  'Fonte serifada, preto quente e dourado: solene, para cultos tradicionais':
+    'Serif font, warm black and gold: solemn, for traditional services',
+  'Luz da manhã': 'Morning light',
+  'Branco e claro, com laranja suave e formas arredondadas':
+    'White and light, with soft orange and rounded shapes',
+  Neon: 'Neon',
+  'Fundo escuro com brilho ciano e violeta: jovem e tecnológico':
+    'Dark background with a cyan and violet glow: young and techy',
+  Arena: 'Arena',
+  'Faixa inclinada, letras altas e cores quentes, no estilo das transmissões esportivas':
+    'Slanted band, tall letters and warm colors, in the style of sports broadcasts',
+  Jardim: 'Garden',
+  'Verdes profundos com detalhe em verde-claro e amarelo, fonte serifada suave':
+    'Deep greens with a light green and yellow detail, soft serif font',
+  'Vinho real': 'Royal burgundy',
+  'Vinho e dourado com letras de inscrição: festivo e solene':
+    'Burgundy and gold with inscription-style letters: festive and solemn',
+  Aurora: 'Aurora',
+  'Degradê roxo e rosa com detalhe ciano: moderno e vibrante':
+    'Purple and pink gradient with a cyan detail: modern and vibrant',
+  'Cinza-escuro com um toque de vermelho: sóbrio, combina com qualquer logo':
+    'Dark gray with a touch of red: sober, goes with any logo',
+  'Azul-petróleo e azul, com detalhe em água-marinha': 'Teal and blue, with an aquamarine detail',
+  'Aplicativo de pagamento por telefone ou código': 'Payment app by phone number or code',
+  'Nome do aplicativo': 'App name',
+  'O aplicativo que as pessoas usam no seu país para enviar dinheiro pelo celular.':
+    'The app people in your country use to send money from their phone.',
+  'Telefone, código ou e-mail que recebe': 'Phone, code or e-mail that receives',
+  'Imagem do QR Code (opcional)': 'QR code image (optional)',
+  'Escolha como a sua igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão e nos nomes marcados com "Contribuição da igreja".':
+    'Choose how your church receives tithes and offerings. The QR code and the details appear on the card and on the names marked "Church giving".',
+  'Escolha um e está pronto: cada tema traz o modelo, as cores e a fonte de todos os elementos. Depois, se quiser, ajuste os detalhes abaixo.':
+    'Pick one and you are done: each theme brings the model, colors and font of every element. Then, if you like, adjust the details below.',
+  'Abre o assistente no passo do OBS': 'Opens the assistant at the OBS step',
+  'Abrir o tutorial ilustrado': 'Open the illustrated tutorial',
+  '1. O painel de controle (dock)': '1. The control panel (dock)',
+  '2. Os gráficos (fonte de navegador)': '2. The graphics (browser source)',
+  'Restaurar as configurações iniciais': 'Restore the initial settings',
+  'Apaga tudo o que foi configurado: nomes, textos, tema, contribuição, posições e listas salvas. O programa volta a como estava na primeira vez e o assistente de configuração abre de novo.':
+    'Erases everything that was set up: names, texts, theme, giving, positions and saved lists. The program goes back to how it was the first time and the setup assistant opens again.',
+  'Não dá para desfazer. Salve um backup antes, se quiser guardar o que tem hoje.':
+    'This cannot be undone. Save a backup first if you want to keep what you have today.',
+  'Apagar tudo e recomeçar': 'Erase everything and start over',
+  'Só abrir o assistente': 'Just open the assistant',
+  '1. Painel de controle: dock do OBS': '1. Control panel: OBS dock',
+  '2. Gráficos: fonte de navegador com todos os elementos':
+    '2. Graphics: browser source with every element',
+  'Apagar TODAS as configurações, nomes e textos e recomeçar do zero? Isto não pode ser desfeito.':
+    'Erase ALL settings, names and texts and start from scratch? This cannot be undone.',
+  'Configurações iniciais restauradas.': 'Initial settings restored.',
+  'O assistente leva uns cinco minutos. Dá para pular um passo, ir direto a outro pela lista ao lado ou pular o assistente inteiro.':
+    'The assistant takes about five minutes. You can skip a step, jump straight to another one from the list on the side, or skip the whole assistant.',
+  'Escolha um tema e todos os elementos já ficam prontos. Depois dá para ajustar as cores em "Tema global" ou dar a um elemento a própria aparência.':
+    'Choose a theme and every element is ready. Later you can adjust the colors in "Global theme" or give an element its own appearance.',
+  'Deixa este passo para depois': 'Leaves this step for later',
+  'Pular este passo': 'Skip this step',
+  'Docks de navegador personalizados': 'Custom Browser Docks',
+  Aplicar: 'Apply',
+  Cenas: 'Scenes',
+  Fontes: 'Sources',
+  Navegador: 'Browser',
+  Propriedades: 'Properties',
+  Altura: 'Height',
+  Câmera: 'Camera',
+  Docks: 'Docks',
 };

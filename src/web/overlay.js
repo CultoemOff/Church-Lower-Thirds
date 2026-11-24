@@ -64,6 +64,15 @@ function setImage(img, src) {
   if (img.getAttribute('src') !== src)
     src ? img.setAttribute('src', src) : img.removeAttribute('src');
 }
+// In the previews of the settings, a QR that cannot be made yet (the church has not filled
+// in how it receives) shows a sample one, so the layout can still be judged. On air an
+// incomplete QR stays empty: nothing wrong is ever broadcast.
+const SAMPLE_QR = qrUrl('url', 'https://example.org');
+if (preview)
+  for (const img of document.querySelectorAll('.card .qrw img, .lower .qr img'))
+    img.addEventListener('error', () => {
+      if (img.getAttribute('src') !== SAMPLE_QR) img.setAttribute('src', SAMPLE_QR);
+    });
 const font = (c) => fontCss(c.font || config.brand.font);
 // Elements enter from the edge they sit on.
 const from = { left: [-1, 0], right: [1, 0], center: [0, 1], top: [0, -1], bottom: [0, 1] };
@@ -243,7 +252,8 @@ function renderCard() {
     root = roots.card,
     box = $('card', '.box');
   root.dataset.template = c.template;
-  root.dataset.pos = c.position;
+  // In the theme preview several elements show together: the card moves out of the way.
+  root.dataset.pos = preview === 'theme' ? 'center-right' : c.position;
   const side = c.position.endsWith('left')
     ? 'left'
     : c.position.endsWith('right')

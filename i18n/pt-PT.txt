@@ -96,3 +96,30 @@ Clique com o botão direito na fonte e escolha Atualizar.
 
 Como a igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão. Se não for usar, pule este passo.
 Como a igreja recebe dízimos e ofertas. O código QR e os dados aparecem no cartão. Se não for usar, salte este passo.
+
+Pular este passo
+Saltar este passo
+
+Deixa este passo para depois
+Deixa este passo para depois
+
+O assistente leva uns cinco minutos. Dá para pular um passo, ir direto a outro pela lista ao lado ou pular o assistente inteiro.
+O assistente demora uns cinco minutos. Pode saltar um passo, ir diretamente a outro pela lista ao lado ou saltar o assistente inteiro.
+
+O aplicativo que as pessoas usam no seu país para enviar dinheiro pelo celular.
+A aplicação que as pessoas usam no seu país para enviar dinheiro pelo telemóvel.
+
+Aplicativo de pagamento por telefone ou código
+Aplicação de pagamento por telemóvel ou código
+
+Nome do aplicativo
+Nome da aplicação
+
+Telefone, código ou e-mail que recebe
+Telemóvel, código ou e-mail que recebe
+
+Fixar: o que você mostrar nesta aba fica na tela até esconder, mesmo quando o tempo acabar
+Fixar: o que mostrar neste separador fica no ecrã até esconder, mesmo quando o tempo acabar
+
+Não dá para desfazer. Salve um backup antes, se quiser guardar o que tem hoje.
+Não é possível desfazer. Guarde uma cópia de segurança antes, se quiser manter o que tem hoje.

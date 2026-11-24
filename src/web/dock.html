@@ -18,6 +18,12 @@
             class="timeSelect"
             title="Tempo na tela: quanto tempo nomes, QR Code e redes sociais ficam antes de sair sozinhos"
           ></select
+          ><button
+            id="pinToggle"
+            class="iconBtn"
+            title="Fixar: o que você mostrar nesta aba fica na tela até esconder, mesmo quando o tempo acabar"
+          >
+            <img src="/icons/pin.svg" alt="" /></button
           ><button id="hideAll" class="iconBtn" title="Tirar tudo do ar">
             <img src="/icons/hide.svg" alt="" /></button
           ><button id="themeToggle" class="iconBtn" title="Tema claro / escuro">
@@ -25,7 +31,7 @@
           ><button
             id="openSettings"
             class="iconBtn"
-            title="Configurações avançadas: abre no navegador (modelos, cores, fontes, PIX, logo)"
+            title="Configurações avançadas: abre no navegador (modelos, cores, fontes, contribuições, logo)"
           >
             <img src="/icons/settings.svg" alt="" />
           </button>
@@ -33,6 +39,17 @@
       </header>
       <nav id="tabs" class="tabs"></nav>
       <section id="pane" class="panel pane"></section>
+      <section id="look" class="panel look">
+        <button
+          id="lookToggle"
+          type="button"
+          class="lookToggle"
+          title="Mostra ou esconde uma prévia de como o elemento desta aba aparece na tela"
+        >
+          <span>Prévia</span><i></i>
+        </button>
+        <div id="lookBox" class="lookBox"></div>
+      </section>
       <footer>
         <span>Desenvolvido por</span>
         <a href="https://www.youtube.com/@CultoemOff" target="_blank" rel="noopener noreferrer"

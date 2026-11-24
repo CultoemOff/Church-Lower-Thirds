@@ -27,8 +27,16 @@ import {
   TICKER_TEMPLATES,
   TOP_TEMPLATES,
 } from './js/look.js';
+import {
+  guideAddSource,
+  guideDocked,
+  guideDockDialog,
+  guideDockMenu,
+  guideOrder,
+  guideSourceProps,
+} from './js/obs-guide.js';
 import { BUNDLED_FONTS } from './js/fonts.js';
-import { autoLocalize, LANGUAGES, t, useLanguage } from './js/i18n.js';
+import { autoLocalize, lang, LANGUAGES, t, useLanguage } from './js/i18n.js';
 
 // Global settings, opened in the normal browser so the OBS dock can stay small.
 // Every change is saved at once and shows in the preview and in OBS.
@@ -181,17 +189,19 @@ const PAGES = [
     'obs',
     'OBS e atalhos',
     'Instalação',
-    'Fontes de navegador, painel do OBS, resoluções e atalhos.',
+    'Endereços para o OBS, tutorial, resoluções e atalhos.',
     svg('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.500"/>'),
   ],
   [
     'backup',
     'Backup',
     'Instalação',
-    'Salvar e restaurar tudo num arquivo.',
+    'Salvar e restaurar tudo num arquivo, ou voltar às configurações iniciais.',
     svg('<path d="M12 4v11M7.500 10.500L12 15l4.500-4.500M5 19h14"/>'),
   ],
 ];
+/** Pages opened from the top right corner instead of the menu on the left. */
+const CORNER = ['obs', 'backup'];
 const ELEMENTS = ['lower', 'top', 'ticker', 'card', 'agenda', 'social', 'bug'];
 const WEIGHTS = [
   [300, 'Leve'],
@@ -272,19 +282,42 @@ const PALETTES = [
   ],
 ];
 
-// Complete looks: models, colors and font for every element at once.
+// Complete looks: colors, font, shape and the model of every element, all at once.
+// main = the name bar, surface = the background of the other elements, accent = details.
 const THEMES = [
+  {
+    name: 'Azul institucional',
+    hint: 'Barra azul com detalhe dourado: o visual clássico de transmissão',
+    font: 'Montserrat',
+    main: grad('#2463eb', '#4f46e5', 100),
+    surface: grad('#0f172a', '#1e293b', 90),
+    accent: grad('#fbbf24', '#f59e0b', 180),
+    t1: '#ffffff',
+    t2: '#e2e8f0',
+    opacity: 94,
+    radius: 14,
+    shadow: 'soft',
+    templates: {
+      lower: 'classic',
+      top: 'bar',
+      ticker: 'full',
+      card: 'vertical',
+      agenda: 'card',
+      social: 'pill',
+    },
+  },
   {
     name: 'Céu noturno',
     hint: 'Azul-noite translúcido, detalhes em azul-céu, cantos bem arredondados',
-    swatch: 'linear-gradient(120deg, #020617, #0f172a 60%, #7dd3fc 60%)',
     font: 'Outfit',
-    dark: grad('#020617', '#0f172a', 120),
+    main: grad('#020617', '#0f172a', 120),
+    surface: grad('#020617', '#0f172a', 120),
     accent: grad('#7dd3fc', '#38bdf8', 90),
     t1: '#ffffff',
     t2: '#cbd5e1',
     opacity: 82,
     radius: 22,
+    shadow: 'soft',
     templates: {
       lower: 'glass',
       top: 'bar',
@@ -297,14 +330,16 @@ const THEMES = [
   {
     name: 'Vidro líquido',
     hint: 'Vidro claro e arredondado, com brilho nas bordas',
-    swatch: 'linear-gradient(135deg, #ffffffcc, #ffffff33 45%, #9ec5ff55 70%, #ffffffaa)',
     font: 'Inter',
-    dark: solid('#ffffff'),
+    main: solid('#ffffff'),
+    surface: solid('#ffffff'),
     accent: grad('#0a84ff', '#5ac8fa', 135),
     t1: '#ffffff',
     t2: '#f1f5f9',
     opacity: 100,
     radius: 26,
+    shadow: 'soft',
+    glass: true,
     templates: {
       lower: 'liquid',
       top: 'liquid',
@@ -314,19 +349,313 @@ const THEMES = [
       social: 'liquid',
     },
   },
+  {
+    name: 'Telejornal',
+    hint: 'Blocos retos e fortes, vermelho e azul-marinho, como nos noticiários',
+    font: 'Oswald',
+    main: solid('#c1121f'),
+    surface: solid('#0b1f3a'),
+    accent: solid('#ffd60a'),
+    t1: '#ffffff',
+    t2: '#e2e8f0',
+    opacity: 100,
+    radius: 3,
+    shadow: 'hard',
+    templates: {
+      lower: 'news',
+      top: 'bar',
+      ticker: 'full',
+      card: 'horizontal',
+      agenda: 'banner',
+      social: 'card',
+    },
+  },
+  {
+    name: 'Minimalista',
+    hint: 'Quase só texto, com uma linha fina: discreto, para não disputar com a imagem',
+    font: 'Manrope',
+    main: solid('#111827'),
+    surface: solid('#111827'),
+    accent: solid('#ffffff'),
+    t1: '#ffffff',
+    t2: '#d1d5db',
+    opacity: 78,
+    radius: 10,
+    shadow: 'none',
+    templates: {
+      lower: 'underline',
+      top: 'pills',
+      ticker: 'minimal',
+      card: 'frame',
+      agenda: 'card',
+      social: 'pill',
+    },
+  },
+  {
+    name: 'Clássico dourado',
+    hint: 'Fonte serifada, preto quente e dourado: solene, para cultos tradicionais',
+    font: 'Playfair Display',
+    main: grad('#292524', '#1c1917', 100),
+    surface: solid('#1c1917'),
+    accent: grad('#fde68a', '#d4a017', 135),
+    t1: '#fffbeb',
+    t2: '#fde68a',
+    opacity: 94,
+    radius: 6,
+    shadow: 'soft',
+    templates: {
+      lower: 'split',
+      top: 'stack',
+      ticker: 'floating',
+      card: 'frame',
+      agenda: 'center',
+      social: 'card',
+    },
+  },
+  {
+    name: 'Luz da manhã',
+    hint: 'Branco e claro, com laranja suave e formas arredondadas',
+    font: 'Raleway',
+    main: solid('#ffffff'),
+    surface: solid('#f8fafc'),
+    accent: grad('#f59e0b', '#f97316', 120),
+    t1: '#0f172a',
+    t2: '#475569',
+    opacity: 96,
+    radius: 28,
+    shadow: 'soft',
+    templates: {
+      lower: 'pill',
+      top: 'pills',
+      ticker: 'floating',
+      card: 'vertical',
+      agenda: 'card',
+      social: 'pill',
+    },
+  },
+  {
+    name: 'Neon',
+    hint: 'Fundo escuro com brilho ciano e violeta: jovem e tecnológico',
+    font: 'Poppins',
+    main: solid('#0a0a0f'),
+    surface: solid('#0a0a0f'),
+    accent: grad('#22d3ee', '#a855f7', 120),
+    t1: '#ffffff',
+    t2: '#a5f3fc',
+    opacity: 86,
+    radius: 14,
+    shadow: 'glow',
+    templates: {
+      lower: 'neon',
+      top: 'bar',
+      ticker: 'floating',
+      card: 'ticket',
+      agenda: 'card',
+      social: 'card',
+    },
+  },
+  {
+    name: 'Arena',
+    hint: 'Faixa inclinada, letras altas e cores quentes, no estilo das transmissões esportivas',
+    font: 'Bebas Neue',
+    main: grad('#f97316', '#dc2626', 110),
+    surface: solid('#111827'),
+    accent: solid('#fde047'),
+    t1: '#ffffff',
+    t2: '#ffedd5',
+    opacity: 100,
+    radius: 0,
+    shadow: 'hard',
+    templates: {
+      lower: 'ribbon',
+      top: 'bar',
+      ticker: 'full',
+      card: 'ticket',
+      agenda: 'banner',
+      social: 'card',
+    },
+  },
+  {
+    name: 'Jardim',
+    hint: 'Verdes profundos com detalhe em verde-claro e amarelo, fonte serifada suave',
+    font: 'Lora',
+    main: grad('#166534', '#14532d', 100),
+    surface: solid('#052e16'),
+    accent: grad('#bbf7d0', '#facc15', 135),
+    t1: '#ffffff',
+    t2: '#d1fae5',
+    opacity: 92,
+    radius: 18,
+    shadow: 'soft',
+    templates: {
+      lower: 'stack',
+      top: 'stack',
+      ticker: 'floating',
+      card: 'vertical',
+      agenda: 'center',
+      social: 'pill',
+    },
+  },
+  {
+    name: 'Vinho real',
+    hint: 'Vinho e dourado com letras de inscrição: festivo e solene',
+    font: 'Cinzel',
+    main: grad('#7f1d1d', '#450a0a', 100),
+    surface: solid('#1c1917'),
+    accent: grad('#fde68a', '#d4a017', 135),
+    t1: '#ffffff',
+    t2: '#fde68a',
+    opacity: 96,
+    radius: 8,
+    shadow: 'soft',
+    templates: {
+      lower: 'classic',
+      top: 'bar',
+      ticker: 'full',
+      card: 'frame',
+      agenda: 'banner',
+      social: 'card',
+    },
+  },
+  {
+    name: 'Aurora',
+    hint: 'Degradê roxo e rosa com detalhe ciano: moderno e vibrante',
+    font: 'Google Sans',
+    main: grad('#7c3aed', '#db2777', 110),
+    surface: solid('#1e1b4b'),
+    accent: grad('#22d3ee', '#a78bfa', 135),
+    t1: '#ffffff',
+    t2: '#ede9fe',
+    opacity: 92,
+    radius: 20,
+    shadow: 'soft',
+    templates: {
+      lower: 'split',
+      top: 'pills',
+      ticker: 'floating',
+      card: 'horizontal',
+      agenda: 'card',
+      social: 'pill',
+    },
+  },
+  {
+    name: 'Grafite',
+    hint: 'Cinza-escuro com um toque de vermelho: sóbrio, combina com qualquer logo',
+    font: 'Inter',
+    main: grad('#1f2937', '#111827', 180),
+    surface: solid('#111827'),
+    accent: solid('#ef4444'),
+    t1: '#ffffff',
+    t2: '#d1d5db',
+    opacity: 92,
+    radius: 8,
+    shadow: 'soft',
+    templates: {
+      lower: 'minimal',
+      top: 'bar',
+      ticker: 'minimal',
+      card: 'horizontal',
+      agenda: 'card',
+      social: 'card',
+    },
+  },
+  {
+    name: 'Oceano',
+    hint: 'Azul-petróleo e azul, com detalhe em água-marinha',
+    font: 'Outfit',
+    main: grad('#0e7490', '#1d4ed8', 110),
+    surface: solid('#082f49'),
+    accent: grad('#67e8f9', '#34d399', 135),
+    t1: '#ffffff',
+    t2: '#cffafe',
+    opacity: 90,
+    radius: 30,
+    shadow: 'soft',
+    templates: {
+      lower: 'pill',
+      top: 'pills',
+      ticker: 'floating',
+      card: 'vertical',
+      agenda: 'card',
+      social: 'pill',
+    },
+  },
 ];
+/** The theme in use, when the global theme still matches one of the ready-made ones. */
+const currentTheme = () =>
+  THEMES.find(
+    (k) =>
+      config.brand.font === k.font &&
+      JSON.stringify([config.theme.main, config.theme.surface, config.theme.accent]) ===
+        JSON.stringify([k.main, k.surface, k.accent]) &&
+      THEMED_ELEMENTS.every((el) => config[el].template === k.templates[el] && !config[el].custom),
+  );
+/**
+ * Every ready-made theme as a small picture of the screen (badge, name bar, bottom bar)
+ * in its own colors and font: one click and all elements are ready.
+ */
+const themeGallery = () => {
+  const now = currentTheme();
+  return h(
+    'div',
+    { class: 'themes' },
+    THEMES.map((k) => {
+      const glass = k.glass ? 'backdrop-filter:blur(3px);border:1px solid #ffffff99;' : '';
+      const surface = k.glass
+        ? 'background:#ffffff40;'
+        : `background:${fillCss(k.surface, k.opacity)};`;
+      const main = k.glass ? 'background:#ffffff55;' : `background:${fillCss(k.main, k.opacity)};`;
+      const round = Math.min(k.radius, 14) / 2;
+      return h(
+        'button',
+        {
+          type: 'button',
+          class: k === now ? 'active' : '',
+          title: k.hint,
+          onclick: () => applyTheme(k),
+        },
+        h(
+          'span',
+          { class: 'themeShot', style: `font-family:"${k.font}",system-ui` },
+          h(
+            'i',
+            {
+              class: 'shotBadge',
+              style: `${surface}${glass}border-radius:${round}px;color:${k.t1}`,
+            },
+            h('b', { style: `background:${fillCss(k.accent)}` }),
+            'AO VIVO',
+          ),
+          h(
+            'i',
+            { class: 'shotName', style: `${main}${glass}border-radius:${round}px;color:${k.t1}` },
+            h('b', { style: `background:${fillCss(k.accent)}` }),
+            h('span', { 'data-raw': '' }, 'Pr. João Silva'),
+          ),
+          h(
+            'i',
+            { class: 'shotBar', style: `${surface}${glass}color:${k.t2}` },
+            h('b', { style: `background:${fillCss(k.accent)}` }),
+          ),
+        ),
+        h('strong', {}, k.name),
+        h('small', {}, k.hint),
+      );
+    }),
+  );
+};
 function applyTheme(look) {
   const c = structuredClone;
   config.brand.font = look.font;
   Object.assign(config.theme, {
-    main: c(look.dark),
-    surface: c(look.dark),
+    main: c(look.main),
+    surface: c(look.surface),
     accent: c(look.accent),
     text1: look.t1,
     text2: look.t2,
     opacity: look.opacity,
     radius: look.radius,
-    shadow: 'soft',
+    shadow: look.shadow,
   });
   // A ready-made theme is a complete look: every element goes back to following it.
   for (const el of THEMED_ELEMENTS)
@@ -836,11 +1165,67 @@ function applyPalette([, main, second, accent, t1, t2]) {
   renderForm();
   toast('Cores aplicadas ao tema global.');
 }
+/**
+ * The ways of giving, with the one of this language's main country first: PIX in Brazil,
+ * the phone-number payment app elsewhere.
+ */
+function givingMethods() {
+  const list = [
+    ['pix', 'PIX (Brasil)'],
+    ['app', 'Aplicativo de pagamento por telefone ou código'],
+    ['sepa', 'Transferência bancária SEPA (zona do euro)'],
+    ['link', 'Link: página de doações ou serviço de pagamentos'],
+    ['image', 'Imagem de QR Code pronta, do banco ou do aplicativo'],
+    ['text', 'Só os dados bancários, sem QR Code'],
+  ];
+  const first = lang === 'pt-BR' ? 'pix' : 'app';
+  return list.sort((a, b) => (b[0] === first) - (a[0] === first));
+}
+/** Name and receiving number of the payment app, plus its QR image when the church has one. */
+const appFields = () => [
+  textInput('giving.app.name', 'Nome do aplicativo', {
+    max: 30,
+    tip: 'O aplicativo que as pessoas usam no seu país para enviar dinheiro pelo celular.',
+  }),
+  textInput('giving.app.id', 'Telefone, código ou e-mail que recebe', { max: 80 }),
+  qrImageField('Imagem do QR Code (opcional)'),
+];
+const qrImageField = (label) =>
+  field(
+    label,
+    h(
+      'div',
+      { class: 'rowline' },
+      h('input', {
+        type: 'file',
+        accept: 'image/png,image/jpeg,image/webp,image/svg+xml',
+        onchange: (e) => uploadGivingQr(e.target.files[0]),
+      }),
+      config.giving.image
+        ? h(
+            'button',
+            {
+              title: 'Tira a imagem enviada',
+              onclick: () => {
+                set('giving.image', '');
+                renderForm();
+              },
+            },
+            'Remover',
+          )
+        : null,
+    ),
+    {
+      wide: true,
+      tip: 'Use a imagem que o banco ou o aplicativo de pagamentos gerou para a igreja. Fundo branco e boa resolução leem melhor.',
+    },
+  );
 /** Something was typed for the chosen way of giving (it may still be wrong). */
 function givingFilled() {
   const g = config.giving;
   return !!{
     pix: config.pix.key || config.pix.payload,
+    app: g.app.id,
     sepa: g.sepa.iban,
     link: g.link,
     image: g.image,
@@ -872,7 +1257,7 @@ async function checkGiving() {
         givingFilled() ? 'bad' : '',
       ),
     );
-  if (method === 'text')
+  if (method === 'text' || (method === 'app' && !r.image))
     return box.replaceChildren(hint('Os dados acima aparecem no cartão, sem QR Code.', 'ok'));
   const test = {
     pix: 'Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o nome que aparece.',
@@ -880,13 +1265,14 @@ async function checkGiving() {
     link: 'Teste antes do culto: aponte a câmera do celular para este QR Code e confira a página que abre.',
     image:
       'Teste antes do culto: aponte o celular para a tela e confira se o QR Code da imagem é lido.',
+    app: 'Teste antes do culto: aponte o celular para a tela e confira se o QR Code da imagem é lido.',
   }[method];
   box.replaceChildren(
     h(
       'div',
       { class: 'pixBox' },
       h('img', {
-        src: method === 'image' ? r.image : `/api/qr.svg?kind=giving&v=${Date.now()}`,
+        src: r.image || `/api/qr.svg?kind=giving&v=${Date.now()}`,
         alt: 'QR Code da contribuição',
       }),
       h(
@@ -1158,21 +1544,13 @@ const pages = {
     card(
       'Contribuições: dízimos e ofertas',
       hint(
-        'O PIX só existe no Brasil. Escolha como a sua igreja recebe: o QR Code e os dados aparecem no cartão e nos nomes marcados com "Contribuição da igreja".',
+        'Escolha como a sua igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão e nos nomes marcados com "Contribuição da igreja".',
       ),
       grid(
-        select(
-          'giving.method',
-          'Como as pessoas contribuem',
-          [
-            ['pix', 'PIX (Brasil)'],
-            ['sepa', 'Transferência bancária SEPA (zona do euro)'],
-            ['link', 'Link: página de doações ou serviço de pagamentos'],
-            ['image', 'Imagem de QR Code pronta, do banco ou do aplicativo'],
-            ['text', 'Só os dados bancários, sem QR Code'],
-          ],
-          { rerender: true, wide: true },
-        ),
+        select('giving.method', 'Como as pessoas contribuem', givingMethods(), {
+          rerender: true,
+          wide: true,
+        }),
         ...(config.giving.method === 'pix'
           ? [
               select(
@@ -1248,39 +1626,8 @@ const pages = {
               }),
             ]
           : []),
-        ...(config.giving.method === 'image'
-          ? [
-              field(
-                'Imagem do QR Code',
-                h(
-                  'div',
-                  { class: 'rowline' },
-                  h('input', {
-                    type: 'file',
-                    accept: 'image/png,image/jpeg,image/webp,image/svg+xml',
-                    onchange: (e) => uploadGivingQr(e.target.files[0]),
-                  }),
-                  config.giving.image
-                    ? h(
-                        'button',
-                        {
-                          title: 'Tira a imagem enviada',
-                          onclick: () => {
-                            set('giving.image', '');
-                            renderForm();
-                          },
-                        },
-                        'Remover',
-                      )
-                    : null,
-                ),
-                {
-                  wide: true,
-                  tip: 'Use a imagem que o banco ou o aplicativo de pagamentos gerou para a igreja. Fundo branco e boa resolução leem melhor.',
-                },
-              ),
-            ]
-          : []),
+        ...(config.giving.method === 'image' ? [qrImageField('Imagem do QR Code')] : []),
+        ...(config.giving.method === 'app' ? appFields() : []),
         field(
           config.giving.method === 'text'
             ? 'Dados bancários mostrados no cartão'
@@ -1305,19 +1652,10 @@ const pages = {
   theme: () => [
     card(
       'Temas prontos',
-      h(
-        'div',
-        { class: 'palettes' },
-        THEMES.map((look) =>
-          h(
-            'button',
-            { type: 'button', title: look.hint, onclick: () => applyTheme(look) },
-            h('i', { style: `background:${look.swatch}` }),
-            look.name,
-          ),
-        ),
+      hint(
+        'Escolha um e está pronto: cada tema traz o modelo, as cores e a fonte de todos os elementos. Depois, se quiser, ajuste os detalhes abaixo.',
       ),
-      hint('Um tema pronto troca o modelo, as cores e a fonte de todos os elementos de uma vez.'),
+      themeGallery(),
     ),
     card(
       'Cores prontas',
@@ -1964,7 +2302,19 @@ const pages = {
       );
     const label = (el) => PAGES.find(([id]) => id === el)?.[1] || 'Todos os elementos';
     return [
-      card('Endereços para copiar', ...mainAddresses()),
+      card(
+        'Endereços para copiar',
+        ...mainAddresses(),
+        h('div', { style: 'height:10px' }),
+        h(
+          'button',
+          {
+            title: 'Abre o assistente no passo do OBS',
+            onclick: () => openWizard(WIZARD.findIndex((w) => w.id === 'dock')),
+          },
+          'Abrir o tutorial ilustrado',
+        ),
+      ),
       card(
         'Tamanho das fontes no OBS',
         grid(
@@ -1982,7 +2332,37 @@ const pages = {
         ),
       ),
       card(
-        '1. Os gráficos (fonte de navegador)',
+        '1. O painel de controle (dock)',
+        h(
+          'div',
+          { class: 'drawings' },
+          drawing(guideDockMenu(t)),
+          drawing(guideDockDialog(t, dockUrl())),
+          drawing(guideDocked(t)),
+        ),
+        h(
+          'ol',
+          { class: 'steps' },
+          h('li', {}, 'No OBS, abra o menu Docks → Docks de navegador personalizados.'),
+          h('li', {}, 'Dê o nome "Church Lower Thirds" e cole o endereço abaixo.'),
+          h(
+            'li',
+            {},
+            'Encaixe o painel onde preferir: ele se ajusta a um espaço alto ou largo. A engrenagem dele abre esta página.',
+          ),
+        ),
+        h('div', { style: 'height:8px' }),
+        copy(base + '/dock'),
+      ),
+      card(
+        '2. Os gráficos (fonte de navegador)',
+        h(
+          'div',
+          { class: 'drawings' },
+          drawing(guideAddSource(t)),
+          drawing(guideSourceProps(t, sourceUrl('all', obsVertical), w, hgt)),
+          drawing(guideOrder(t)),
+        ),
         h(
           'div',
           { class: 'fillRow' },
@@ -2059,22 +2439,6 @@ const pages = {
         ),
       ),
       card(
-        '2. O painel (dock)',
-        h(
-          'ol',
-          { class: 'steps' },
-          h('li', {}, 'No OBS, abra o menu Docks → Docks de navegador personalizados.'),
-          h('li', {}, 'Dê o nome "Church Lower Thirds" e cole o endereço abaixo.'),
-          h(
-            'li',
-            {},
-            'Encaixe o painel onde preferir: ele se ajusta a um espaço alto ou largo. A engrenagem dele abre esta página.',
-          ),
-        ),
-        h('div', { style: 'height:8px' }),
-        copy(base + '/dock'),
-      ),
-      card(
         'Stream Deck, Companion e outros',
         hint(
           'Estes endereços mostram e escondem os elementos sem plugin. No Stream Deck, use a ação "Site" com "Acessar em segundo plano".',
@@ -2135,6 +2499,21 @@ const pages = {
           },
         }),
         h('button', { onclick: () => $('#restoreFile').click() }, 'Restaurar de um arquivo'),
+      ),
+    ),
+    card(
+      'Restaurar as configurações iniciais',
+      hint(
+        'Apaga tudo o que foi configurado: nomes, textos, tema, contribuição, posições e listas salvas. O programa volta a como estava na primeira vez e o assistente de configuração abre de novo.',
+        'bad',
+      ),
+      hint('Não dá para desfazer. Salve um backup antes, se quiser guardar o que tem hoje.'),
+      h('div', { style: 'height:10px' }),
+      h(
+        'div',
+        { class: 'fillRow' },
+        h('button', { class: 'danger', onclick: resetEverything }, 'Apagar tudo e recomeçar'),
+        h('button', { onclick: () => openWizard(0) }, 'Só abrir o assistente'),
       ),
     ),
   ],
@@ -2251,8 +2630,10 @@ function eye(el) {
 function renderNav() {
   const nodes = [];
   let group = '';
+  const corner = [];
   for (const [id, label, g, desc, icon] of PAGES) {
-    if (g !== group) nodes.push(h('div', { class: 'group' }, (group = g)));
+    const top = CORNER.includes(id);
+    if (!top && g !== group) nodes.push(h('div', { class: 'group' }, (group = g)));
     const b = h('button', {
       class: id === page ? 'active' : '',
       title: desc,
@@ -2265,9 +2646,10 @@ function renderNav() {
       b.classList.toggle('off', !config.enabled[id]);
       b.append(eye(id));
     }
-    nodes.push(b);
+    (top ? corner : nodes).push(b);
   }
   $('#nav').replaceChildren(...nodes);
+  $('#topNav').replaceChildren(...corner);
   const current = PAGES.find(([id]) => id === page) || PAGES[0];
   $('#pageTitle').textContent = current[1];
   $('#pageDesc').textContent = current[3];
@@ -2312,14 +2694,39 @@ const outputSize = (tall = false) =>
 const mainAddresses = () => {
   const [w, hgt] = outputSize();
   return [
-    h('span', { class: 'addrLabel' }, 'Gráficos: fonte de navegador com todos os elementos'),
-    copyRow(sourceUrl(), { primary: true }),
-    hint(t('No OBS: Fontes → + → Navegador. Largura {w}, altura {h}.', { w, h: hgt })),
-    h('span', { class: 'addrLabel' }, 'Painel de controle: dock do OBS'),
+    h('span', { class: 'addrLabel' }, '1. Painel de controle: dock do OBS'),
     copyRow(dockUrl(), { primary: true }),
     hint('No OBS: menu Docks → Docks de navegador personalizados.'),
+    h('span', { class: 'addrLabel' }, '2. Gráficos: fonte de navegador com todos os elementos'),
+    copyRow(sourceUrl(), { primary: true }),
+    hint(t('No OBS: Fontes → + → Navegador. Largura {w}, altura {h}.', { w, h: hgt })),
   ];
 };
+/** A drawing of where to click in OBS (see js/obs-guide.js). */
+const drawing = (svgText) => {
+  const box = h('div', { class: 'drawing' });
+  box.innerHTML = svgText;
+  return box;
+};
+
+// ---------- Back to the first run ----------
+async function resetEverything() {
+  if (
+    !confirm(
+      t(
+        'Apagar TODAS as configurações, nomes e textos e recomeçar do zero? Isto não pode ser desfeito.',
+      ),
+    )
+  )
+    return;
+  const r = await api('/api/reset', { method: 'POST' });
+  if (r.error) return toast(friendly(r.error));
+  config = r.config;
+  toast('Configurações iniciais restauradas.');
+  renderNav();
+  go('home');
+  openWizard(0);
+}
 
 // ---------- Setup assistant ----------
 let wizardStep = null,
@@ -2359,7 +2766,9 @@ const WIZARD = [
       hint(
         'Esta página de configurações serve para preparar tudo com calma. Durante o culto você usa só o painel do OBS.',
       ),
-      hint('O assistente leva uns cinco minutos. Dá para pular qualquer passo e voltar depois.'),
+      hint(
+        'O assistente leva uns cinco minutos. Dá para pular um passo, ir direto a outro pela lista ao lado ou pular o assistente inteiro.',
+      ),
     ],
   },
   {
@@ -2401,34 +2810,9 @@ const WIZARD = [
     preview: 'theme',
     body: () => [
       hint(
-        'Escolha um ponto de partida. Todos os elementos seguem este tema; depois, cada um pode ter a própria aparência.',
+        'Escolha um tema e todos os elementos já ficam prontos. Depois dá para ajustar as cores em "Tema global" ou dar a um elemento a própria aparência.',
       ),
-      h('span', { class: 'addrLabel' }, 'Temas prontos'),
-      h(
-        'div',
-        { class: 'palettes' },
-        THEMES.map((look) =>
-          h(
-            'button',
-            { type: 'button', title: look.hint, onclick: () => applyTheme(look) },
-            h('i', { style: `background:${look.swatch}` }),
-            look.name,
-          ),
-        ),
-      ),
-      h('span', { class: 'addrLabel' }, 'Cores prontas'),
-      h(
-        'div',
-        { class: 'palettes' },
-        PALETTES.map((p) =>
-          h(
-            'button',
-            { type: 'button', onclick: () => applyPalette(p) },
-            h('i', { style: `background:${fillCss(p[1])};border-bottom:6px solid ${p[3].a}` }),
-            p[0],
-          ),
-        ),
-      ),
+      themeGallery(),
     ],
   },
   {
@@ -2440,18 +2824,10 @@ const WIZARD = [
           'Como a igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão. Se não for usar, pule este passo.',
         ),
         grid(
-          select(
-            'giving.method',
-            'Como as pessoas contribuem',
-            [
-              ['pix', 'PIX (Brasil)'],
-              ['sepa', 'Transferência bancária SEPA (zona do euro)'],
-              ['link', 'Link: página de doações ou serviço de pagamentos'],
-              ['image', 'Imagem de QR Code pronta, do banco ou do aplicativo'],
-              ['text', 'Só os dados bancários, sem QR Code'],
-            ],
-            { rerender: true, wide: true },
-          ),
+          select('giving.method', 'Como as pessoas contribuem', givingMethods(), {
+            rerender: true,
+            wide: true,
+          }),
           ...(m === 'pix'
             ? [
                 textInput('pix.key', 'Chave PIX', {
@@ -2477,19 +2853,8 @@ const WIZARD = [
                 }),
               ]
             : []),
-          ...(m === 'image'
-            ? [
-                field(
-                  'Imagem do QR Code',
-                  h('input', {
-                    type: 'file',
-                    accept: 'image/png,image/jpeg,image/webp,image/svg+xml',
-                    onchange: (e) => uploadGivingQr(e.target.files[0]),
-                  }),
-                  { wide: true },
-                ),
-              ]
-            : []),
+          ...(m === 'image' ? [qrImageField('Imagem do QR Code')] : []),
+          ...(m === 'app' ? appFields() : []),
           field(
             m === 'text'
               ? 'Dados bancários mostrados no cartão'
@@ -2509,6 +2874,29 @@ const WIZARD = [
     },
   },
   {
+    id: 'dock',
+    title: 'Painel no OBS',
+    body: () => [
+      h(
+        'ol',
+        { class: 'steps' },
+        h('li', {}, 'No OBS, abra o menu Docks → Docks de navegador personalizados.'),
+        h('li', {}, 'Dê o nome "Church Lower Thirds" e cole o endereço abaixo.'),
+        h('li', {}, 'Encaixe o painel onde preferir: ele se ajusta a um espaço alto ou largo.'),
+      ),
+      copyRow(dockUrl(), { primary: true }),
+      h(
+        'div',
+        { class: 'drawings' },
+        drawing(guideDockMenu(t)),
+        drawing(guideDockDialog(t, dockUrl())),
+        drawing(guideDocked(t)),
+      ),
+      hint('A engrenagem do painel abre esta página de configurações.'),
+    ],
+  },
+  {
+    id: 'source',
     title: 'Gráficos no OBS',
     body: () => {
       const [w, hgt] = outputSize();
@@ -2522,25 +2910,18 @@ const WIZARD = [
           h('li', {}, 'Deixe a fonte por cima das câmeras.'),
         ),
         copyRow(sourceUrl(), { primary: true }),
+        h(
+          'div',
+          { class: 'drawings' },
+          drawing(guideAddSource(t)),
+          drawing(guideSourceProps(t, sourceUrl(), w, hgt)),
+          drawing(guideOrder(t)),
+        ),
         hint(
           'Este endereço mostra todos os elementos numa fonte só. Para separar por cena, há um endereço para cada elemento em "OBS e atalhos".',
         ),
       ];
     },
-  },
-  {
-    title: 'Painel no OBS',
-    body: () => [
-      h(
-        'ol',
-        { class: 'steps' },
-        h('li', {}, 'No OBS, abra o menu Docks → Docks de navegador personalizados.'),
-        h('li', {}, 'Dê o nome "Church Lower Thirds" e cole o endereço abaixo.'),
-        h('li', {}, 'Encaixe o painel onde preferir: ele se ajusta a um espaço alto ou largo.'),
-      ),
-      copyRow(dockUrl(), { primary: true }),
-      hint('A engrenagem do painel abre esta página de configurações.'),
-    ],
   },
   {
     title: 'Teste',
@@ -2645,6 +3026,13 @@ function renderWizard() {
         wizardStep > 0
           ? h('button', { onclick: () => openWizard(wizardStep - 1) }, 'Voltar')
           : null,
+        last
+          ? null
+          : h(
+              'button',
+              { title: 'Deixa este passo para depois', onclick: () => openWizard(wizardStep + 1) },
+              'Pular este passo',
+            ),
         last
           ? h('button', { class: 'primary', onclick: closeWizard }, 'Concluir')
           : h('button', { class: 'primary', onclick: () => openWizard(wizardStep + 1) }, 'Avançar'),

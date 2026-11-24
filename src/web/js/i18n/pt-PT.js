@@ -145,6 +145,25 @@ export default {
     'A engrenagem do painel abre esta página de definições.',
   'A fonte de navegador precisa estar por cima das câmeras, na cena que está no ar.':
     'A fonte de navegador precisa estar por cima das câmaras, na cena que está no ar.',
+  'Fixar: o que você mostrar nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
+    'Fixar: o que mostrar neste separador fica no ecrã até esconder, mesmo quando o tempo acabar',
+  'Configurações avançadas: abre no navegador (modelos, cores, fontes, contribuições, logo)':
+    'Definições avançadas: abre no navegador (modelos, cores, fontes, contribuições, logo)',
+  'Mostra ou esconde uma prévia de como o elemento desta aba aparece na tela':
+    'Mostra ou esconde uma prévia de como o elemento desta separador aparece no ecrã',
+  'Salvar e restaurar tudo num arquivo, ou voltar às configurações iniciais.':
+    'Guardar e restaurar tudo num ficheiro, ou voltar às definições iniciais.',
+  'Nome do aplicativo': 'Nome da aplicação',
+  'O aplicativo que as pessoas usam no seu país para enviar dinheiro pelo celular.':
+    'A aplicação que as pessoas usam no seu país para enviar dinheiro pelo telemóvel.',
+  'Restaurar as configurações iniciais': 'Restaurar as definições iniciais',
+  'Não dá para desfazer. Salve um backup antes, se quiser guardar o que tem hoje.':
+    'Não é possível desfazer. Guarde uma cópia de segurança antes, se quiser manter o que tem hoje.',
+  'Apagar TODAS as configurações, nomes e textos e recomeçar do zero? Isto não pode ser desfeito.':
+    'Apagar TODAS as definições, nomes e textos e recomeçar do zero? Isto não pode ser desfeito.',
+  'Configurações iniciais restauradas.': 'Definições iniciais restauradas.',
+  'O assistente leva uns cinco minutos. Dá para pular um passo, ir direto a outro pela lista ao lado ou pular o assistente inteiro.':
+    'O assistente demora uns cinco minutos. Pode saltar um passo, ir diretamente a outro pela lista ao lado ou saltar o assistente inteiro.',
   'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui você confere e ajusta a aparência.':
     'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui pode conferir e ajustar o aspeto.',
   'Use o mesmo tamanho do vídeo do seu OBS. Os gráficos se ajustam sozinhos: tudo o que você configurou fica igual em qualquer um deles.':
@@ -175,4 +194,9 @@ export default {
     'Clique com o botão direito na fonte e escolha Atualizar.',
   'Como a igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão. Se não for usar, pule este passo.':
     'Como a igreja recebe dízimos e ofertas. O código QR e os dados aparecem no cartão. Se não for usar, salte este passo.',
+  'Pular este passo': 'Saltar este passo',
+  'Deixa este passo para depois': 'Deixa este passo para depois',
+  'Aplicativo de pagamento por telefone ou código':
+    'Aplicação de pagamento por telemóvel ou código',
+  'Telefone, código ou e-mail que recebe': 'Telemóvel, código ou e-mail que recebe',
 };

@@ -722,4 +722,89 @@ export default {
   Voltar: 'Zurück',
   Concluir: 'Fertigstellen',
   Avançar: 'Weiter',
+  'Fixar: o que você mostrar nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
+    'Fixieren: Was auf diesem Reiter eingeblendet wird, bleibt bis zum Ausblenden sichtbar, auch nach Ablauf der Zeit',
+  'Configurações avançadas: abre no navegador (modelos, cores, fontes, contribuições, logo)':
+    'Erweiterte Einstellungen: öffnet sich im Browser (Vorlagen, Farben, Schriften, Spenden, Logo)',
+  'Mostra ou esconde uma prévia de como o elemento desta aba aparece na tela':
+    'Zeigt oder verbirgt eine Vorschau, wie das Element dieses Reiters auf dem Bildschirm aussieht',
+  'Endereços para o OBS, tutorial, resoluções e atalhos.':
+    'Adressen für OBS, Anleitung, Auflösungen und Kurzbefehle.',
+  'Salvar e restaurar tudo num arquivo, ou voltar às configurações iniciais.':
+    'Alles in einer Datei sichern und wiederherstellen oder zu den Anfangseinstellungen zurückkehren.',
+  'Azul institucional': 'Klassisches Blau',
+  'Barra azul com detalhe dourado: o visual clássico de transmissão':
+    'Blaue Leiste mit goldenem Akzent: der klassische Sendelook',
+  'Blocos retos e fortes, vermelho e azul-marinho, como nos noticiários':
+    'Gerade, kräftige Blöcke in Rot und Marineblau, wie in Nachrichtensendungen',
+  Minimalista: 'Minimalistisch',
+  'Quase só texto, com uma linha fina: discreto, para não disputar com a imagem':
+    'Fast nur Text mit einer feinen Linie: dezent, damit es dem Bild nicht die Schau stiehlt',
+  'Clássico dourado': 'Goldene Klassik',
+  'Fonte serifada, preto quente e dourado: solene, para cultos tradicionais':
+    'Serifenschrift, warmes Schwarz und Gold: feierlich, für traditionelle Gottesdienste',
+  'Luz da manhã': 'Morgenlicht',
+  'Branco e claro, com laranja suave e formas arredondadas':
+    'Weiß und hell, mit sanftem Orange und runden Formen',
+  Neon: 'Neon',
+  'Fundo escuro com brilho ciano e violeta: jovem e tecnológico':
+    'Dunkler Hintergrund mit Leuchten in Cyan und Violett: jung und technisch',
+  Arena: 'Arena',
+  'Faixa inclinada, letras altas e cores quentes, no estilo das transmissões esportivas':
+    'Schräges Band, hohe Buchstaben und warme Farben, im Stil von Sportübertragungen',
+  Jardim: 'Garten',
+  'Verdes profundos com detalhe em verde-claro e amarelo, fonte serifada suave':
+    'Tiefe Grüntöne mit hellgrünem und gelbem Akzent, weiche Serifenschrift',
+  'Vinho real': 'Königliches Weinrot',
+  'Vinho e dourado com letras de inscrição: festivo e solene':
+    'Weinrot und Gold mit Inschrift-Buchstaben: festlich und feierlich',
+  Aurora: 'Aurora',
+  'Degradê roxo e rosa com detalhe ciano: moderno e vibrante':
+    'Verlauf in Violett und Pink mit Cyan-Akzent: modern und lebendig',
+  'Cinza-escuro com um toque de vermelho: sóbrio, combina com qualquer logo':
+    'Dunkelgrau mit einem Hauch Rot: schlicht, passt zu jedem Logo',
+  'Azul-petróleo e azul, com detalhe em água-marinha':
+    'Petrol und Blau mit einem Akzent in Aquamarin',
+  'Aplicativo de pagamento por telefone ou código': 'Bezahl-App per Telefonnummer oder Code',
+  'Nome do aplicativo': 'Name der App',
+  'O aplicativo que as pessoas usam no seu país para enviar dinheiro pelo celular.':
+    'Die App, mit der man in Ihrem Land Geld per Handy sendet.',
+  'Telefone, código ou e-mail que recebe': 'Telefonnummer, Code oder E-Mail des Empfängers',
+  'Imagem do QR Code (opcional)': 'QR-Code-Bild (optional)',
+  'Escolha como a sua igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão e nos nomes marcados com "Contribuição da igreja".':
+    'Wählen Sie, wie Ihre Gemeinde Zehnten und Kollekte erhält. QR-Code und Angaben erscheinen auf der Karte und bei den Namen mit „Spende an die Gemeinde“.',
+  'Escolha um e está pronto: cada tema traz o modelo, as cores e a fonte de todos os elementos. Depois, se quiser, ajuste os detalhes abaixo.':
+    'Eines wählen und fertig: Jedes Design bringt Vorlage, Farben und Schrift aller Elemente mit. Danach lassen sich unten die Details anpassen.',
+  'Abre o assistente no passo do OBS': 'Öffnet den Assistenten beim OBS-Schritt',
+  'Abrir o tutorial ilustrado': 'Bebilderte Anleitung öffnen',
+  '1. O painel de controle (dock)': '1. Das Bedienfeld (Dock)',
+  '2. Os gráficos (fonte de navegador)': '2. Die Grafiken (Browserquelle)',
+  'Restaurar as configurações iniciais': 'Anfangseinstellungen wiederherstellen',
+  'Apaga tudo o que foi configurado: nomes, textos, tema, contribuição, posições e listas salvas. O programa volta a como estava na primeira vez e o assistente de configuração abre de novo.':
+    'Löscht alles Eingerichtete: Namen, Texte, Design, Spende, Positionen und gespeicherte Listen. Das Programm ist wieder wie beim ersten Start und der Einrichtungsassistent öffnet sich erneut.',
+  'Não dá para desfazer. Salve um backup antes, se quiser guardar o que tem hoje.':
+    'Das lässt sich nicht rückgängig machen. Vorher eine Sicherung speichern, um den heutigen Stand zu behalten.',
+  'Apagar tudo e recomeçar': 'Alles löschen und neu beginnen',
+  'Só abrir o assistente': 'Nur den Assistenten öffnen',
+  '1. Painel de controle: dock do OBS': '1. Bedienfeld: OBS-Dock',
+  '2. Gráficos: fonte de navegador com todos os elementos':
+    '2. Grafiken: Browserquelle mit allen Elementen',
+  'Apagar TODAS as configurações, nomes e textos e recomeçar do zero? Isto não pode ser desfeito.':
+    'ALLE Einstellungen, Namen und Texte löschen und von vorn beginnen? Das lässt sich nicht rückgängig machen.',
+  'Configurações iniciais restauradas.': 'Anfangseinstellungen wiederhergestellt.',
+  'O assistente leva uns cinco minutos. Dá para pular um passo, ir direto a outro pela lista ao lado ou pular o assistente inteiro.':
+    'Der Assistent dauert etwa fünf Minuten. Sie können einen Schritt überspringen, über die Liste direkt zu einem anderen gehen oder den ganzen Assistenten überspringen.',
+  'Escolha um tema e todos os elementos já ficam prontos. Depois dá para ajustar as cores em "Tema global" ou dar a um elemento a própria aparência.':
+    'Ein Design wählen und alle Elemente sind fertig. Später lassen sich die Farben unter „Globales Design“ anpassen oder einem Element ein eigenes Aussehen geben.',
+  'Deixa este passo para depois': 'Verschiebt diesen Schritt auf später',
+  'Pular este passo': 'Schritt überspringen',
+  'Docks de navegador personalizados': 'Benutzerdefinierte Browser-Docks',
+  Aplicar: 'Anwenden',
+  Cenas: 'Szenen',
+  Fontes: 'Quellen',
+  Navegador: 'Browser',
+  Propriedades: 'Eigenschaften',
+  Altura: 'Höhe',
+  Câmera: 'Kamera',
+  Docks: 'Docks',
 };

@@ -74,7 +74,7 @@ export interface SavedCard {
   qr: 'giving' | 'url';
   qrText: string;
 }
-export const GIVING_METHODS = ['pix', 'sepa', 'link', 'image', 'text'];
+export const GIVING_METHODS = ['pix', 'app', 'sepa', 'link', 'image', 'text'];
 export const ANIMATIONS = ['slide', 'rise', 'fade', 'wipe', 'zoom', 'blur', 'bounce', 'flip'];
 export const SHADOWS = ['none', 'soft', 'hard', 'glow'];
 const CORNERS = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
@@ -140,14 +140,17 @@ export function defaults() {
       payload: '',
     },
     /**
-     * How people contribute. PIX only exists in Brazil, so the QR can also come from a SEPA
-     * transfer (euro area), any link (giving page, PayPal…), or a QR image the bank or app
-     * gave the church; "text" shows only the bank details, without a QR.
+     * How people contribute. PIX only exists in Brazil; other countries have their own
+     * phone-number apps (`app`: the church writes the app's name and the number, code or
+     * e-mail that receives). The QR can also come from a SEPA transfer (euro area), any link
+     * (giving page, payment service), or a QR image the bank or app gave the church; "text"
+     * shows only the bank details, without a QR.
      */
     giving: {
       method: 'pix',
       link: '',
       image: '',
+      app: { name: '', id: '' },
       sepa: { name: '', iban: '', bic: '', amount: '', reference: '' },
       /** Shown beside the QR, one item per line: bank, branch, account, IBAN, document… */
       details: '',
@@ -382,22 +385,25 @@ export const ELEMENTS: ElementName[] = [
 ];
 
 export interface Live {
-  lower: { on: boolean; item: string };
+  /** pin: stays on screen when the global time ends, until hidden by hand */
+  lower: { on: boolean; item: string; pin: boolean };
   top: { on: boolean };
-  card: { on: boolean };
+  card: { on: boolean; pin: boolean };
   bug: { on: boolean };
   ticker: { on: boolean };
-  agenda: { on: boolean };
-  social: { on: boolean; item: string };
+  agenda: { on: boolean; pin: boolean };
+  social: { on: boolean; item: string; pin: boolean };
 }
+/** Elements that leave by themselves, and so can be pinned. */
+export const TIMED = ['lower', 'card', 'agenda', 'social'] as const;
 export const liveDefaults = (): Live => ({
-  lower: { on: false, item: '' },
+  lower: { on: false, item: '', pin: false },
   top: { on: false },
-  card: { on: false },
+  card: { on: false, pin: false },
   bug: { on: false },
   ticker: { on: false },
-  agenda: { on: false },
-  social: { on: false, item: '' },
+  agenda: { on: false, pin: false },
+  social: { on: false, item: '', pin: false },
 });
 
 const HEX = /^#[0-9a-f]{6}$/i;
@@ -598,17 +604,25 @@ export function cleanLive(raw: unknown, config: Config): Live {
   const exists = !!findItem(config, item);
   const ok = config.enabled;
   return {
-    lower: { on: ok.lower && !!r.lower?.on && exists, item: exists ? item : '' },
+    lower: {
+      on: ok.lower && !!r.lower?.on && exists,
+      item: exists ? item : '',
+      pin: !!r.lower?.pin,
+    },
     top: { on: ok.top && !!r.top?.on },
-    card: { on: ok.card && !!r.card?.on },
+    card: { on: ok.card && !!r.card?.on, pin: !!r.card?.pin },
     bug: { on: ok.bug && !!r.bug?.on },
     ticker: { on: ok.ticker && !!r.ticker?.on },
-    agenda: { on: ok.agenda && !!r.agenda?.on && config.agenda.days.length > 0 },
+    agenda: {
+      on: ok.agenda && !!r.agenda?.on && config.agenda.days.length > 0,
+      pin: !!r.agenda?.pin,
+    },
     social: (() => {
       const found = config.social.items.some((i) => i.id === r.social?.item);
       return {
         on: ok.social && !!r.social?.on && found,
         item: found ? String(r.social?.item) : '',
+        pin: !!r.social?.pin,
       };
     })(),
   };
@@ -741,12 +755,24 @@ const SAMPLES: Record<string, Record<string, unknown>> = {
 };
 
 /** The configuration of a first run: defaults with the sample texts in `language`. */
+/**
+ * The everyday way of sending money by phone in the main country of each language, as a
+ * starting point (the church can write any other name). German starts on the SEPA transfer,
+ * whose QR code the banking apps there read.
+ */
+export const LOCAL_GIVING: Record<string, { method: string; app: string }> = {
+  'pt-PT': { method: 'app', app: 'MB WAY' },
+  es: { method: 'app', app: 'Bizum' },
+  it: { method: 'app', app: 'BANCOMAT Pay' },
+  de: { method: 'sepa', app: 'Wero' },
+  en: { method: 'link', app: 'Zelle' },
+};
 export function firstConfig(language: string): Config {
   const c = defaults();
   if (LANGUAGES.includes(language)) c.language = language;
-  // PIX only exists in Brazil: elsewhere the church starts from a link to its giving page.
-  if (language !== 'pt-BR' && language !== 'auto' && LANGUAGES.includes(language))
-    c.giving.method = 'link';
+  // PIX only exists in Brazil: each language starts from what its main country uses.
+  const local = LOCAL_GIVING[language];
+  if (local) Object.assign(c.giving, { method: local.method, app: { name: local.app, id: '' } });
   const t = SAMPLES[language] as Record<string, never> | undefined;
   if (!t) return c;
   const pair = (v: unknown) => v as [string, string];

@@ -94,7 +94,8 @@ export function themed(config, el) {
  */
 export function givingQr(config, options) {
   const g = config.giving;
-  if (g.method === 'image') return g.image;
+  // A payment app works by phone number or code; its QR, when the church has one, is an image.
+  if (g.method === 'image' || g.method === 'app') return g.image;
   if (g.method === 'text') return '';
   return qrUrl('giving', '', options);
 }
@@ -104,6 +105,7 @@ export function givingText(config) {
   const g = config.giving;
   if (g.details) return g.details;
   if (g.method === 'pix') return config.pix.mode === 'key' ? config.pix.key : '';
+  if (g.method === 'app') return [g.app.name, g.app.id].filter(Boolean).join(': ');
   if (g.method === 'sepa')
     return g.sepa.iban
       .replace(/\s+/g, '')
@@ -116,7 +118,15 @@ export function givingText(config) {
 /** Short tag for lists: what kind of contribution QR the church uses. */
 export const givingTag = (config) =>
   ({ pix: 'PIX', sepa: 'SEPA', link: 'QR', image: 'QR', text: 'TXT' })[config.giving.method] ||
+  config.giving.app.name.slice(0, 10).toUpperCase() ||
   'QR';
+/** What the offering is called on buttons: PIX in Brazil, the local app elsewhere. */
+export const givingName = (config) =>
+  config.giving.method === 'pix'
+    ? 'PIX'
+    : config.giving.method === 'app' && config.giving.app.name
+      ? config.giving.app.name
+      : '';
 
 export const LOWER_TEMPLATES = [
   'classic',

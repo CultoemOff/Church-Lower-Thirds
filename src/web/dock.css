@@ -429,3 +429,68 @@ footer {
   background: #f0a52a;
   box-shadow: 0 0 0 2px var(--panel);
 }
+
+/* Pin: what is shown on this tab stays when the global time ends. */
+#pinToggle.active {
+  background: #f0a52a;
+  border-color: #f0a52a;
+}
+#pinToggle.active img {
+  filter: brightness(0);
+}
+
+/* Preview of the element of the current tab */
+.look {
+  flex: none;
+  padding: 0;
+  overflow: hidden;
+}
+.lookToggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  padding: 6px 10px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.lookToggle i {
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-135deg);
+  margin-top: 4px;
+}
+.look.open .lookToggle i {
+  transform: rotate(45deg);
+  margin-top: -3px;
+}
+.lookBox {
+  display: none;
+}
+.look.open .lookBox {
+  display: block;
+  aspect-ratio: 16 / 9;
+  max-height: 34vh;
+  margin: 0 auto;
+}
+.lookBox iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  pointer-events: none;
+}
+/* A wide, short dock has no room for it. */
+@media (max-height: 420px) {
+  .look {
+    display: none;
+  }
+}

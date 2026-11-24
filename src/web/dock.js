@@ -9,7 +9,7 @@ import {
   toast,
   toggleTheme,
 } from './js/common.js';
-import { givingTag, NETWORKS, SOCIAL_ICONS } from './js/look.js';
+import { givingName, givingTag, NETWORKS, SOCIAL_ICONS } from './js/look.js';
 import { autoLocalize, t, useLanguage } from './js/i18n.js';
 
 // The panel that lives in an OBS dock. Each tab has the text fields on top (or on the left
@@ -36,8 +36,9 @@ const TABS = [
   ['agenda', 'Agenda', 'Dias e horários dos cultos, um dia de cada vez'],
   ['social', 'Redes', 'Redes sociais: "Siga-nos no…"'],
 ];
-// PIX is the word in Brazil; everywhere else the button talks about the offering.
-const givingName = () => (config.giving.method === 'pix' ? 'PIX' : 'Oferta');
+// PIX in Brazil, the church's payment app elsewhere, or simply "Giving".
+const givingLabel = () => givingName(config) || t('Oferta');
+const PINNABLE = ['lower', 'card', 'agenda', 'social'];
 const TIMES = [0, 5, 8, 10, 15, 20, 30, 45, 60, 120];
 
 async function command(path, options = { method: 'POST' }) {
@@ -212,7 +213,7 @@ function buildCard() {
       ...[
         [
           'giving',
-          givingName(),
+          givingLabel(),
           'QR Code da contribuição da igreja: PIX, transferência, link ou imagem (escolha nas configurações)',
         ],
         ['url', 'Link', 'QR Code que abre um site, uma inscrição, uma rede social…'],
@@ -699,7 +700,7 @@ function refresh() {
         },
         h('i'),
         id === 'card'
-          ? h('span', { 'data-raw': '' }, `QR / ${t(givingName())}`)
+          ? h('span', { 'data-raw': '' }, `QR / ${givingLabel()}`)
           : h('span', {}, label),
       ),
     ),
@@ -723,6 +724,12 @@ function refresh() {
     b.classList.toggle('hidden', !config.enabled[b.dataset.toggle]);
   for (const b of pane.querySelectorAll('[data-toggle]'))
     b.classList.toggle('on', !!live[b.dataset.toggle].on);
+  renderLook();
+  // The pin belongs to what leaves by itself: names, QR card, schedule and social.
+  const pin = $('#pinToggle'),
+    timed = PINNABLE.includes(tab);
+  pin.classList.toggle('hidden', !timed);
+  pin.classList.toggle('active', timed && !!live[tab].pin);
   const time = $('#autoHide'),
     value = config.timing.autoHide;
   const options = [...new Set([...TIMES, value])].sort((a, b) => a - b);
@@ -738,7 +745,27 @@ function refresh() {
 }
 
 $('#autoHide').onchange = (e) => patch({ 'timing.autoHide': Number(e.target.value) });
+$('#pinToggle').onclick = () => PINNABLE.includes(tab) && command(`/api/live/${tab}/togglepin`);
 $('#hideAll').onclick = () => command('/api/live/all/hide');
+
+// ---------- Preview: how the element of this tab looks on screen ----------
+// Open by default only where there is room for it; the choice is remembered.
+let lookOpen = (localStorage.cltLook ?? (innerHeight >= 640 ? '1' : '0')) === '1';
+function renderLook() {
+  const box = $('#lookBox');
+  $('#look').classList.toggle('open', lookOpen);
+  const src = lookOpen && tab ? `/overlay?preview=${tab}` : '';
+  const frame = box.querySelector('iframe');
+  if (!src) return void box.replaceChildren();
+  // Same element: the page inside follows the settings by itself.
+  if (frame?.getAttribute('src') !== src)
+    box.replaceChildren(h('iframe', { src, title: 'Prévia', tabindex: '-1' }));
+}
+$('#lookToggle').onclick = () => {
+  lookOpen = !lookOpen;
+  localStorage.cltLook = lookOpen ? '1' : '0';
+  renderLook();
+};
 $('#openSettings').onclick = () => command('/api/open-settings');
 
 autoLocalize();

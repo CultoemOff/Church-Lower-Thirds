@@ -719,4 +719,89 @@ export default {
   Voltar: 'Volver',
   Concluir: 'Finalizar',
   Avançar: 'Siguiente',
+  'Fixar: o que você mostrar nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
+    'Fijar: lo que muestre en esta pestaña queda en pantalla hasta que lo oculte, aunque termine el tiempo',
+  'Configurações avançadas: abre no navegador (modelos, cores, fontes, contribuições, logo)':
+    'Ajustes avanzados: se abre en el navegador (modelos, colores, fuentes, ofrendas, logo)',
+  'Mostra ou esconde uma prévia de como o elemento desta aba aparece na tela':
+    'Muestra u oculta una vista previa de cómo aparece en pantalla el elemento de esta pestaña',
+  'Endereços para o OBS, tutorial, resoluções e atalhos.':
+    'Direcciones para OBS, tutorial, resoluciones y atajos.',
+  'Salvar e restaurar tudo num arquivo, ou voltar às configurações iniciais.':
+    'Guardar y restaurar todo en un archivo, o volver a los ajustes iniciales.',
+  'Azul institucional': 'Azul institucional',
+  'Barra azul com detalhe dourado: o visual clássico de transmissão':
+    'Barra azul con detalle dorado: el aspecto clásico de transmisión',
+  'Blocos retos e fortes, vermelho e azul-marinho, como nos noticiários':
+    'Bloques rectos y fuertes, rojo y azul marino, como en los noticieros',
+  Minimalista: 'Minimalista',
+  'Quase só texto, com uma linha fina: discreto, para não disputar com a imagem':
+    'Casi solo texto, con una línea fina: discreto, para no competir con la imagen',
+  'Clássico dourado': 'Clásico dorado',
+  'Fonte serifada, preto quente e dourado: solene, para cultos tradicionais':
+    'Fuente con serifa, negro cálido y dorado: solemne, para cultos tradicionales',
+  'Luz da manhã': 'Luz de la mañana',
+  'Branco e claro, com laranja suave e formas arredondadas':
+    'Blanco y claro, con naranja suave y formas redondeadas',
+  Neon: 'Neón',
+  'Fundo escuro com brilho ciano e violeta: jovem e tecnológico':
+    'Fondo oscuro con brillo cian y violeta: joven y tecnológico',
+  Arena: 'Arena',
+  'Faixa inclinada, letras altas e cores quentes, no estilo das transmissões esportivas':
+    'Franja inclinada, letras altas y colores cálidos, al estilo de las transmisiones deportivas',
+  Jardim: 'Jardín',
+  'Verdes profundos com detalhe em verde-claro e amarelo, fonte serifada suave':
+    'Verdes profundos con detalle en verde claro y amarillo, fuente con serifa suave',
+  'Vinho real': 'Vino real',
+  'Vinho e dourado com letras de inscrição: festivo e solene':
+    'Vino y dorado con letras de inscripción: festivo y solemne',
+  Aurora: 'Aurora',
+  'Degradê roxo e rosa com detalhe ciano: moderno e vibrante':
+    'Degradado morado y rosa con detalle cian: moderno y vibrante',
+  'Cinza-escuro com um toque de vermelho: sóbrio, combina com qualquer logo':
+    'Gris oscuro con un toque de rojo: sobrio, combina con cualquier logo',
+  'Azul-petróleo e azul, com detalhe em água-marinha':
+    'Azul petróleo y azul, con detalle en aguamarina',
+  'Aplicativo de pagamento por telefone ou código': 'Aplicación de pago por teléfono o código',
+  'Nome do aplicativo': 'Nombre de la aplicación',
+  'O aplicativo que as pessoas usam no seu país para enviar dinheiro pelo celular.':
+    'La aplicación que la gente usa en su país para enviar dinero desde el móvil.',
+  'Telefone, código ou e-mail que recebe': 'Teléfono, código o correo que recibe',
+  'Imagem do QR Code (opcional)': 'Imagen del código QR (opcional)',
+  'Escolha como a sua igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão e nos nomes marcados com "Contribuição da igreja".':
+    'Elija cómo recibe su iglesia diezmos y ofrendas. El código QR y los datos aparecen en la tarjeta y en los nombres marcados con "Ofrenda de la iglesia".',
+  'Escolha um e está pronto: cada tema traz o modelo, as cores e a fonte de todos os elementos. Depois, se quiser, ajuste os detalhes abaixo.':
+    'Elija uno y listo: cada tema trae el modelo, los colores y la fuente de todos los elementos. Después, si quiere, ajuste los detalles abajo.',
+  'Abre o assistente no passo do OBS': 'Abre el asistente en el paso de OBS',
+  'Abrir o tutorial ilustrado': 'Abrir el tutorial ilustrado',
+  '1. O painel de controle (dock)': '1. El panel de control (dock)',
+  '2. Os gráficos (fonte de navegador)': '2. Los gráficos (fuente de navegador)',
+  'Restaurar as configurações iniciais': 'Restaurar los ajustes iniciales',
+  'Apaga tudo o que foi configurado: nomes, textos, tema, contribuição, posições e listas salvas. O programa volta a como estava na primeira vez e o assistente de configuração abre de novo.':
+    'Borra todo lo configurado: nombres, textos, tema, ofrenda, posiciones y listas guardadas. El programa vuelve a como estaba la primera vez y el asistente de configuración se abre de nuevo.',
+  'Não dá para desfazer. Salve um backup antes, se quiser guardar o que tem hoje.':
+    'No se puede deshacer. Guarde una copia de seguridad antes si quiere conservar lo que tiene hoy.',
+  'Apagar tudo e recomeçar': 'Borrar todo y empezar de nuevo',
+  'Só abrir o assistente': 'Solo abrir el asistente',
+  '1. Painel de controle: dock do OBS': '1. Panel de control: dock de OBS',
+  '2. Gráficos: fonte de navegador com todos os elementos':
+    '2. Gráficos: fuente de navegador con todos los elementos',
+  'Apagar TODAS as configurações, nomes e textos e recomeçar do zero? Isto não pode ser desfeito.':
+    '¿Borrar TODOS los ajustes, nombres y textos y empezar de cero? Esto no se puede deshacer.',
+  'Configurações iniciais restauradas.': 'Ajustes iniciales restaurados.',
+  'O assistente leva uns cinco minutos. Dá para pular um passo, ir direto a outro pela lista ao lado ou pular o assistente inteiro.':
+    'El asistente lleva unos cinco minutos. Puede saltar un paso, ir directo a otro desde la lista de al lado o saltar el asistente entero.',
+  'Escolha um tema e todos os elementos já ficam prontos. Depois dá para ajustar as cores em "Tema global" ou dar a um elemento a própria aparência.':
+    'Elija un tema y todos los elementos quedan listos. Después puede ajustar los colores en "Tema global" o dar a un elemento su propia apariencia.',
+  'Deixa este passo para depois': 'Deja este paso para después',
+  'Pular este passo': 'Saltar este paso',
+  'Docks de navegador personalizados': 'Paneles de navegador personalizados',
+  Aplicar: 'Aplicar',
+  Cenas: 'Escenas',
+  Fontes: 'Fuentes',
+  Navegador: 'Navegador',
+  Propriedades: 'Propiedades',
+  Altura: 'Alto',
+  Câmera: 'Cámara',
+  Docks: 'Paneles',
 };
