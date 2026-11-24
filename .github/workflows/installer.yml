@@ -107,7 +107,13 @@ jobs:
           # The folder chosen in the installer (Documents by default) gets the settings and
           # the OBS source files, with the same English names on every computer.
           $files = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'Church Lower Thirds'
-          $info = Invoke-RestMethod "$base/api/info"
+          # The program answers as soon as it is listening and writes the source files right
+          # after: "sourcesDir" appears when they are all there.
+          $info = $null
+          for ($i = 0; $i -lt 40 -and -not $info.sourcesDir; $i++) {
+            if ($i) { Start-Sleep -Milliseconds 500 }
+            $info = Invoke-RestMethod "$base/api/info"
+          }
           if ($info.folder -ne $files) { throw "Files folder is $($info.folder), expected $files" }
           foreach ($f in 'Data\config.json', 'OBS Sources\All Elements.html', 'OBS Sources\Names.html', 'OBS Sources\Corner Badge.html',
             'OBS Sources\Ticker.html', 'OBS Sources\QR Card.html', 'OBS Sources\Schedule.html', 'OBS Sources\Social.html',
