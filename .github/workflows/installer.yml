@@ -214,6 +214,12 @@ jobs:
           ConvertTo-Json -Depth 5 @(@{ tag_name = 'v99.0.0'; html_url = 'http://127.0.0.1:8899/'; assets = $assets }) |
             Set-Content (Join-Path $rel 'releases.json') -Encoding utf8
           $web = Start-Process python -ArgumentList '-m', 'http.server', '8899', '--bind', '127.0.0.1' -WorkingDirectory $rel -PassThru -WindowStyle Hidden
+          $listed = $null
+          for ($i = 0; $i -lt 60 -and -not $listed; $i++) {
+            Start-Sleep -Milliseconds 500
+            try { $listed = Invoke-RestMethod 'http://127.0.0.1:8899/releases.json' } catch {}
+          }
+          if (-not $listed) { throw "The stand-in release server did not start" }
           & powershell -NoProfile -ExecutionPolicy Bypass -File "$dir\stop-server.ps1" -AppDir $dir
           $env:CLT_UPDATE_API = 'http://127.0.0.1:8899/releases.json'
           $old = Start-Process "$dir\runtime\node.exe" -ArgumentList "`"$dir\app\dist\server\index.js`"" -WorkingDirectory "$dir\app" -PassThru -WindowStyle Hidden
