@@ -1,0 +1,1415 @@
+Desenvolvido por
+Developed by
+Desarrollado por
+Sviluppato da
+Entwickelt von
+
+Tempo na tela: quanto tempo nomes, QR Code e redes sociais ficam antes de sair sozinhos
+Time on screen: how long names, QR code and social networks stay before leaving by themselves
+Tiempo en pantalla: cuánto permanecen los nombres, el código QR y las redes antes de salir solos
+Tempo a schermo: quanto restano nomi, codice QR e social prima di uscire da soli
+Zeit im Bild: wie lange Namen, QR-Code und soziale Netzwerke bleiben, bevor sie von selbst verschwinden
+
+Tirar tudo do ar
+Take everything off air
+Quitar todo del aire
+Togli tutto dallo schermo
+Alles ausblenden
+
+Tema claro / escuro
+Light / dark theme
+Tema claro / oscuro
+Tema chiaro / scuro
+Helles / dunkles Design
+
+Configurações avançadas: abre no navegador (modelos, cores, fontes, PIX, logo)
+Advanced settings: opens in the browser (styles, colors, fonts, PIX, logo)
+Ajustes avanzados: se abre en el navegador (modelos, colores, fuentes, PIX, logo)
+Impostazioni avanzate: si apre nel browser (modelli, colori, caratteri, PIX, logo)
+Erweiterte Einstellungen: öffnet im Browser (Vorlagen, Farben, Schriften, PIX, Logo)
+
+Conectando…
+Connecting…
+Conectando…
+Connessione…
+Verbinde…
+
+Prévia
+Preview
+Vista previa
+Anteprima
+Vorschau
+
+Repetir animação
+Replay animation
+Repetir animación
+Ripeti animazione
+Animation wiederholen
+
+O fundo da prévia simula a imagem da câmera. No OBS o fundo é transparente.
+The preview background stands in for the camera picture. In OBS the background is transparent.
+El fondo de la vista previa simula la imagen de la cámara. En OBS el fondo es transparente.
+Lo sfondo dell'anteprima simula l'immagine della camera. In OBS lo sfondo è trasparente.
+Der Hintergrund der Vorschau steht für das Kamerabild. In OBS ist der Hintergrund transparent.
+
+Idioma dos painéis
+Language of the panels
+Idioma de los paneles
+Lingua dei pannelli
+Sprache der Bedienfelder
+
+Mostra de novo a animação de entrada
+Plays the entrance animation again
+Muestra de nuevo la animación de entrada
+Mostra di nuovo l'animazione di entrata
+Spielt die Einblend-Animation noch einmal ab
+
+Mostra ou esconde este elemento no OBS agora
+Shows or hides this element in OBS now
+Muestra u oculta este elemento en OBS ahora
+Mostra o nasconde subito questo elemento in OBS
+Blendet dieses Element jetzt in OBS ein oder aus
+
+Nomes
+Names
+Nombres
+Nomi
+Namen
+
+Nomes e legendas (lower third)
+Names and captions (lower third)
+Nombres y rótulos (lower third)
+Nomi e didascalie (lower third)
+Namen und Untertitel (Bauchbinde)
+
+Cartão com QR Code do PIX ou de um link
+Card with the PIX QR code or a link QR code
+Tarjeta con el código QR de PIX o de un enlace
+Scheda con il codice QR del PIX o di un link
+Karte mit dem QR-Code für PIX oder für einen Link
+
+Superior
+Top
+Superior
+Alto
+Oben
+
+Selo no canto da tela: logo, nome, AO VIVO, horário e recados
+Badge in a corner of the screen: logo, name, LIVE, time and messages
+Sello en una esquina de la pantalla: logo, nombre, EN VIVO, hora y avisos
+Badge in un angolo dello schermo: logo, nome, IN DIRETTA, ora e avvisi
+Badge in einer Bildecke: Logo, Name, LIVE, Uhrzeit und Hinweise
+
+Inferior
+Bottom
+Inferior
+Basso
+Unten
+
+Barra inferior: texto rolando o tempo todo
+Bottom bar: text scrolling all the time
+Barra inferior: texto desplazándose todo el tiempo
+Barra inferiore: testo che scorre continuamente
+Untere Leiste: durchlaufender Text
+
+Agenda
+Schedule
+Agenda
+Programma
+Programm
+
+Dias e horários dos cultos, um dia de cada vez
+Service days and times, one day at a time
+Días y horarios de los cultos, un día a la vez
+Giorni e orari dei culti, un giorno alla volta
+Tage und Zeiten der Gottesdienste, ein Tag nach dem anderen
+
+Redes
+Social
+Redes
+Social
+Soziale
+
+Redes sociais: "Siga-nos no…"
+Social networks: "Follow us on…"
+Redes sociales: "Síganos en…"
+Social: "Seguici su…"
+Soziale Netzwerke: „Folgt uns auf…“
+
+Nome
+Name
+Nombre
+Nome
+Name
+
+Legenda (cargo, texto)
+Caption (role, text)
+Rótulo (cargo, texto)
+Didascalia (ruolo, testo)
+Untertitel (Funktion, Text)
+
+Mostra na tela o que está escrito, sem precisar salvar (Enter)
+Shows what is typed on screen, no need to save (Enter)
+Muestra en pantalla lo escrito, sin necesidad de guardar (Enter)
+Mostra a schermo quello che è scritto, senza salvare (Invio)
+Zeigt das Geschriebene im Bild, ohne zu speichern (Enter)
+
+Mostrar
+Show
+Mostrar
+Mostra
+Einblenden
+
+Guarda na lista para mostrar depois com um clique
+Keeps it in the list to show later with one click
+Guarda en la lista para mostrar después con un clic
+Salva nella lista per mostrarlo dopo con un clic
+Legt es in der Liste ab, um es später mit einem Klick zu zeigen
+
+Salvar na lista
+Save to list
+Guardar en la lista
+Salva nella lista
+In Liste speichern
+
+Sai da edição sem alterar
+Leaves editing without changing anything
+Sale de la edición sin cambiar nada
+Esce dalla modifica senza cambiare nulla
+Beendet die Bearbeitung ohne Änderung
+
+Cancelar
+Cancel
+Cancelar
+Annulla
+Abbrechen
+
+Lista
+List
+Lista
+Lista
+Liste
+
+Atualizar no ar
+Update on air
+Actualizar al aire
+Aggiorna in onda
+Im Bild aktualisieren
+
+Salvar alteração
+Save change
+Guardar cambio
+Salva modifica
+Änderung speichern
+
+No ar:
+On air:
+Al aire:
+In onda:
+Im Bild:
+
+No ar: clique para esconder
+On air: click to hide
+Al aire: clic para ocultar
+In onda: clic per nascondere
+Im Bild: zum Ausblenden klicken
+
+Clique para mostrar na tela
+Click to show on screen
+Clic para mostrar en pantalla
+Clic per mostrare a schermo
+Zum Einblenden klicken
+
+Editar o texto
+Edit the text
+Editar el texto
+Modifica il testo
+Text bearbeiten
+
+Remover da lista
+Remove from list
+Quitar de la lista
+Rimuovi dalla lista
+Aus der Liste entfernen
+
+Nada salvo ainda. Escreva acima e clique em "Salvar na lista".
+Nothing saved yet. Type above and click "Save to list".
+Nada guardado todavía. Escriba arriba y haga clic en "Guardar en la lista".
+Ancora niente di salvato. Scrivi sopra e fai clic su "Salva nella lista".
+Noch nichts gespeichert. Oben schreiben und auf „In Liste speichern“ klicken.
+
+Link do QR Code: https://…
+QR code link: https://…
+Enlace del código QR: https://…
+Link del codice QR: https://…
+Link für den QR-Code: https://…
+
+Título
+Title
+Título
+Titolo
+Titel
+
+Texto de apoio
+Supporting text
+Texto de apoyo
+Testo di supporto
+Zusatztext
+
+QR Code do PIX da igreja (a chave fica nas configurações)
+QR code of the church's PIX (the key is in the settings)
+Código QR del PIX de la iglesia (la clave está en los ajustes)
+Codice QR del PIX della chiesa (la chiave è nelle impostazioni)
+QR-Code für das PIX der Gemeinde (der Schlüssel steht in den Einstellungen)
+
+QR Code que abre um site, uma inscrição, uma rede social…
+QR code that opens a site, a sign-up form, a social network…
+Código QR que abre un sitio, una inscripción, una red social…
+Codice QR che apre un sito, un'iscrizione, un social…
+QR-Code, der eine Website, eine Anmeldung, ein soziales Netzwerk öffnet…
+
+Escreva o link do QR Code.
+Type the QR code link.
+Escriba el enlace del código QR.
+Scrivi il link del codice QR.
+Bitte den Link für den QR-Code eingeben.
+
+Mostra o cartão com o que está escrito acima
+Shows the card with what is typed above
+Muestra la tarjeta con lo escrito arriba
+Mostra la scheda con quello che è scritto sopra
+Zeigt die Karte mit dem oben Geschriebenen
+
+Tira o cartão da tela
+Takes the card off the screen
+Quita la tarjeta de la pantalla
+Toglie la scheda dallo schermo
+Blendet die Karte aus
+
+Esconder
+Hide
+Ocultar
+Nascondi
+Ausblenden
+
+Guarda este QR Code na lista
+Keeps this QR code in the list
+Guarda este código QR en la lista
+Salva questo codice QR nella lista
+Legt diesen QR-Code in der Liste ab
+
+QR Codes salvos
+Saved QR codes
+Códigos QR guardados
+Codici QR salvati
+Gespeicherte QR-Codes
+
+Clique para mostrar este QR Code
+Click to show this QR code
+Clic para mostrar este código QR
+Clic per mostrare questo codice QR
+Klicken, um diesen QR-Code zu zeigen
+
+PIX da igreja
+Church's PIX
+PIX de la iglesia
+PIX della chiesa
+PIX der Gemeinde
+
+Salve aqui o PIX e os links que você mais usa.
+Save here the PIX and the links you use most.
+Guarde aquí el PIX y los enlaces que más usa.
+Salva qui il PIX e i link che usi di più.
+Hier das PIX und die meistgenutzten Links speichern.
+
+O que aparece no selo
+What shows in the badge
+Qué aparece en el sello
+Cosa appare nel badge
+Was im Badge erscheint
+
+Mostra só este texto agora, no lugar da lista (Enter)
+Shows only this text now, instead of the list (Enter)
+Muestra solo este texto ahora, en lugar de la lista (Enter)
+Mostra solo questo testo ora, al posto della lista (Invio)
+Zeigt jetzt nur diesen Text statt der Liste (Enter)
+
+Mostrar agora
+Show now
+Mostrar ahora
+Mostra ora
+Jetzt zeigen
+
+Guarda este texto na lista
+Keeps this text in the list
+Guarda este texto en la lista
+Salva questo testo nella lista
+Legt diesen Text in der Liste ab
+
+clique: mostrar só este
+click: show only this one
+clic: mostrar solo este
+clic: mostra solo questo
+Klick: nur diesen zeigen
+
+clique: mostrar ou esconder
+click: show or hide
+clic: mostrar u ocultar
+clic: mostra o nascondi
+Klick: ein- oder ausblenden
+
+clique: mostrar
+click: show
+clic: mostrar
+clic: mostra
+Klick: zeigen
+
+Fixo:
+Pinned:
+Fijo:
+Fisso:
+Fest:
+
+Volta a mostrar os textos da lista
+Goes back to showing the texts of the list
+Vuelve a mostrar los textos de la lista
+Torna a mostrare i testi della lista
+Zeigt wieder die Texte der Liste
+
+Voltar à lista
+Back to the list
+Volver a la lista
+Torna alla lista
+Zurück zur Liste
+
+Fixo: clique para voltar à lista
+Pinned: click to go back to the list
+Fijo: clic para volver a la lista
+Fisso: clic per tornare alla lista
+Fest: klicken, um zur Liste zurückzukehren
+
+Clique para mostrar só este texto
+Click to show only this text
+Clic para mostrar solo este texto
+Clic per mostrare solo questo testo
+Klicken, um nur diesen Text zu zeigen
+
+Editar: leva o texto para o campo acima e tira da lista
+Edit: moves the text to the field above and takes it out of the list
+Editar: lleva el texto al campo de arriba y lo quita de la lista
+Modifica: porta il testo nel campo sopra e lo toglie dalla lista
+Bearbeiten: holt den Text ins Feld oben und nimmt ihn aus der Liste
+
+A lista está vazia.
+The list is empty.
+La lista está vacía.
+La lista è vuota.
+Die Liste ist leer.
+
+Dia (ex.: Domingo)
+Day (e.g. Sunday)
+Día (ej.: Domingo)
+Giorno (es.: Domenica)
+Tag (z. B. Sonntag)
+
+Horários, um por linha
+Times, one per line
+Horarios, uno por línea
+Orari, uno per riga
+Zeiten, eine pro Zeile
+
+Guarda este dia na agenda
+Keeps this day in the schedule
+Guarda este día en la agenda
+Salva questo giorno nel programma
+Legt diesen Tag im Programm ab
+
+Adicionar dia
+Add day
+Añadir día
+Aggiungi giorno
+Tag hinzufügen
+
+Mostrar a agenda
+Show the schedule
+Mostrar la agenda
+Mostra il programma
+Programm zeigen
+
+Mostra um dia de cada vez, passando para o próximo, e sai depois do último
+Shows one day at a time, moving on to the next, and leaves after the last one
+Muestra un día a la vez, pasando al siguiente, y sale después del último
+Mostra un giorno alla volta, passando al successivo, ed esce dopo l'ultimo
+Zeigt einen Tag nach dem anderen und verschwindet nach dem letzten
+
+Dias
+Days
+Días
+Giorni
+Tage
+
+{n} s por dia
+{n} s per day
+{n} s por día
+{n} s per giorno
+{n} s pro Tag
+
+repete
+repeats
+se repite
+si ripete
+wiederholt sich
+
+Clique para editar este dia
+Click to edit this day
+Clic para editar este día
+Clic per modificare questo giorno
+Klicken, um diesen Tag zu bearbeiten
+
+Mostrar antes
+Show earlier
+Mostrar antes
+Mostra prima
+Früher zeigen
+
+Remover da agenda
+Remove from the schedule
+Quitar de la agenda
+Rimuovi dal programma
+Aus dem Programm entfernen
+
+Adicione os dias de culto e os horários de cada um.
+Add the service days and the times of each one.
+Añada los días de culto y los horarios de cada uno.
+Aggiungi i giorni di culto e gli orari di ciascuno.
+Die Gottesdiensttage und ihre Zeiten hinzufügen.
+
+Rede social
+Social network
+Red social
+Social
+Soziales Netzwerk
+
+@ da igreja ou endereço
+Church @ or address
+@ de la iglesia o dirección
+@ della chiesa o indirizzo
+@ der Gemeinde oder Adresse
+
+Adiciona a rede aos botões (Enter)
+Adds the network to the buttons (Enter)
+Añade la red a los botones (Enter)
+Aggiunge il social ai pulsanti (Invio)
+Fügt das Netzwerk zu den Tasten hinzu (Enter)
+
+Adicionar rede
+Add network
+Añadir red
+Aggiungi social
+Netzwerk hinzufügen
+
+Na tela aparece: "{prefix} Instagram" e o @. O texto e o modelo ficam nas configurações.
+On screen: "{prefix} Instagram" and the @. The text and the style are in the settings.
+En pantalla aparece: "{prefix} Instagram" y la @. El texto y el modelo están en los ajustes.
+A schermo appare: "{prefix} Instagram" e la @. Il testo e il modello sono nelle impostazioni.
+Im Bild steht: „{prefix} Instagram“ und das @. Text und Vorlage stehen in den Einstellungen.
+
+Mostrar na tela:
+Show on screen:
+Mostrar en pantalla:
+Mostra a schermo:
+Einblenden:
+
+Rede
+Network
+Red
+Social
+Netzwerk
+
+Remover
+Remove
+Quitar
+Rimuovi
+Entfernen
+
+Adicione o Instagram, o YouTube…
+Add Instagram, YouTube…
+Añada Instagram, YouTube…
+Aggiungi Instagram, YouTube…
+Instagram, YouTube… hinzufügen
+
+Selo superior
+Corner badge
+Sello superior
+Badge in alto
+Eck-Badge
+
+Mostra ou esconde o selo do canto da tela
+Shows or hides the corner badge
+Muestra u oculta el sello de la esquina
+Mostra o nasconde il badge nell'angolo
+Blendet das Eck-Badge ein oder aus
+
+Logo solto
+Logo alone
+Logo suelto
+Logo da solo
+Logo einzeln
+
+Mostra ou esconde o logo sozinho em outro canto da tela
+Shows or hides the logo alone in another corner of the screen
+Muestra u oculta el logo solo en otra esquina de la pantalla
+Mostra o nasconde il logo da solo in un altro angolo dello schermo
+Blendet das Logo allein in einer anderen Bildecke ein oder aus
+
+Ao vivo
+Live
+En vivo
+In diretta
+Live
+
+Hora
+Time
+Hora
+Ora
+Uhrzeit
+
+Recados
+Messages
+Avisos
+Avvisi
+Hinweise
+
+Recado para mostrar agora
+Message to show now
+Aviso para mostrar ahora
+Avviso da mostrare ora
+Hinweis, der jetzt gezeigt wird
+
+Barra inferior
+Bottom bar
+Barra inferior
+Barra inferiore
+Untere Leiste
+
+Mostra ou esconde a barra inferior, com o texto rolando
+Shows or hides the bottom bar, with the scrolling text
+Muestra u oculta la barra inferior, con el texto desplazándose
+Mostra o nasconde la barra inferiore, con il testo che scorre
+Blendet die untere Leiste mit dem Lauftext ein oder aus
+
+Textos que rolam
+Scrolling texts
+Textos que se desplazan
+Testi che scorrono
+Lauftexte
+
+Texto para rolar agora
+Text to scroll now
+Texto para desplazar ahora
+Testo da far scorrere ora
+Text, der jetzt durchläuft
+
+Fica
+Stays
+Fijo
+Resta
+Bleibt
+
+Clássico
+Classic
+Clásico
+Classico
+Klassisch
+
+Vidro
+Glass
+Vidrio
+Vetro
+Glas
+
+Faixa inclinada
+Slanted ribbon
+Franja inclinada
+Fascia inclinata
+Schräges Band
+
+Só texto
+Text only
+Solo texto
+Solo testo
+Nur Text
+
+Cápsula
+Capsule
+Cápsula
+Capsula
+Kapsel
+
+Bloco duplo
+Split block
+Bloque doble
+Blocco doppio
+Doppelblock
+
+Sublinhado
+Underline
+Subrayado
+Sottolineato
+Unterstrichen
+
+Telejornal
+Newscast
+Noticiero
+Telegiornale
+Nachrichten
+
+Cartões
+Cards
+Tarjetas
+Schede
+Karten
+
+Vidro líquido
+Liquid glass
+Vidrio líquido
+Vetro liquido
+Flüssiges Glas
+
+Barra
+Bar
+Barra
+Barra
+Leiste
+
+Cápsulas
+Capsules
+Cápsulas
+Capsule
+Kapseln
+
+Cartão
+Card
+Tarjeta
+Scheda
+Karte
+
+Faixa larga
+Wide strip
+Franja ancha
+Fascia larga
+Breites Band
+
+Painel central
+Center panel
+Panel central
+Pannello centrale
+Mittelfeld
+
+Barra cheia
+Full bar
+Barra completa
+Barra piena
+Volle Leiste
+
+Barra grande
+Large bar
+Barra grande
+Barra grande
+Große Leiste
+
+Barra fina
+Thin bar
+Barra fina
+Barra sottile
+Schmale Leiste
+
+Flutuante
+Floating
+Flotante
+Flottante
+Schwebend
+
+Ilhas
+Islands
+Islas
+Isole
+Inseln
+
+Aba central
+Center tab
+Pestaña central
+Linguetta centrale
+Mittlerer Reiter
+
+Deitado
+Horizontal
+Horizontal
+Orizzontale
+Liegend
+
+Ingresso
+Ticket
+Entrada
+Biglietto
+Ticket
+
+Moldura
+Frame
+Marco
+Cornice
+Rahmen
+
+Deslizar
+Slide
+Deslizar
+Scorri
+Gleiten
+
+Subir
+Rise
+Subir
+Sali
+Aufsteigen
+
+Esmaecer
+Fade
+Desvanecer
+Dissolvenza
+Überblenden
+
+Revelar
+Reveal
+Revelar
+Rivela
+Aufdecken
+
+Zoom
+Zoom
+Zoom
+Zoom
+Zoom
+
+Desfoque
+Blur
+Desenfoque
+Sfocatura
+Unschärfe
+
+Quicar
+Bounce
+Rebotar
+Rimbalzo
+Federn
+
+Girar
+Flip
+Girar
+Ruota
+Klappen
+
+Sem sombra
+No shadow
+Sin sombra
+Senza ombra
+Kein Schatten
+
+Suave
+Soft
+Suave
+Morbida
+Weich
+
+Dura
+Hard
+Dura
+Netta
+Hart
+
+Brilho
+Glow
+Brillo
+Bagliore
+Leuchten
+
+Visão geral
+Overview
+Resumen
+Panoramica
+Übersicht
+
+O que está no ar agora e os primeiros passos.
+What is on air now and the first steps.
+Qué está al aire ahora y los primeros pasos.
+Cosa è in onda ora e i primi passi.
+Was gerade im Bild ist und die ersten Schritte.
+
+Geral e PIX
+General and PIX
+General y PIX
+Generale e PIX
+Allgemein und PIX
+
+Igreja
+Church
+Iglesia
+Chiesa
+Gemeinde
+
+Nome, logo, idioma, temas, tempo na tela e a chave PIX.
+Name, logo, language, themes, time on screen and the PIX key.
+Nombre, logo, idioma, temas, tiempo en pantalla y la clave PIX.
+Nome, logo, lingua, temi, tempo a schermo e la chiave PIX.
+Name, Logo, Sprache, Designs, Zeit im Bild und der PIX-Schlüssel.
+
+Elementos
+Elements
+Elementos
+Elementi
+Elemente
+
+O lower third: nome e legenda de quem está falando.
+The lower third: name and caption of whoever is speaking.
+El lower third: nombre y rótulo de quien está hablando.
+Il lower third: nome e didascalia di chi sta parlando.
+Die Bauchbinde: Name und Untertitel der sprechenden Person.
+
+Selo num canto da tela com logo, nome, AO VIVO e horário.
+Badge in a corner of the screen with logo, name, LIVE and time.
+Sello en una esquina de la pantalla con logo, nombre, EN VIVO y hora.
+Badge in un angolo dello schermo con logo, nome, IN DIRETTA e ora.
+Badge in einer Bildecke mit Logo, Name, LIVE und Uhrzeit.
+
+Texto rolando o tempo todo na parte de baixo.
+Text scrolling all the time at the bottom.
+Texto desplazándose todo el tiempo en la parte inferior.
+Testo che scorre continuamente in basso.
+Durchlaufender Text am unteren Bildrand.
+
+Cartão QR / PIX
+QR / PIX card
+Tarjeta QR / PIX
+Scheda QR / PIX
+QR- / PIX-Karte
+
+Cartão com o QR Code do PIX ou de um link.
+Card with the PIX QR code or a link QR code.
+Tarjeta con el código QR de PIX o de un enlace.
+Scheda con il codice QR del PIX o di un link.
+Karte mit dem QR-Code für PIX oder für einen Link.
+
+Dias e horários dos cultos, um dia de cada vez.
+Service days and times, one day at a time.
+Días y horarios de los cultos, un día a la vez.
+Giorni e orari dei culti, un giorno alla volta.
+Tage und Zeiten der Gottesdienste, ein Tag nach dem anderen.
+
+Redes sociais
+Social networks
+Redes sociales
+Social
+Soziale Netzwerke
+
+"Siga-nos no…" com o @ da igreja.
+"Follow us on…" with the church's @.
+"Síganos en…" con la @ de la iglesia.
+"Seguici su…" con la @ della chiesa.
+„Folgt uns auf…“ mit dem @ der Gemeinde.
+
+O logo sozinho num canto da tela.
+The logo alone in a corner of the screen.
+El logo solo en una esquina de la pantalla.
+Il logo da solo in un angolo dello schermo.
+Das Logo allein in einer Bildecke.
+
+Posições na tela
+Positions on screen
+Posiciones en pantalla
+Posizioni a schermo
+Positionen im Bild
+
+Tela
+Screen
+Pantalla
+Schermo
+Bild
+
+Arraste cada elemento para o lugar e ajuste o tamanho.
+Drag each element into place and adjust its size.
+Arrastre cada elemento a su lugar y ajuste el tamaño.
+Trascina ogni elemento al suo posto e regola la dimensione.
+Jedes Element an seinen Platz ziehen und die Größe anpassen.
+
+OBS e atalhos
+OBS and shortcuts
+OBS y atajos
+OBS e scorciatoie
+OBS und Kurzbefehle
+
+Instalação
+Setup
+Instalación
+Installazione
+Einrichtung
+
+Fontes de navegador, painel do OBS, resoluções e atalhos.
+Browser sources, OBS dock, resolutions and shortcuts.
+Fuentes de navegador, panel de OBS, resoluciones y atajos.
+Sorgenti browser, pannello di OBS, risoluzioni e scorciatoie.
+Browserquellen, OBS-Dock, Auflösungen und Kurzbefehle.
+
+Backup
+Backup
+Copia de seguridad
+Backup
+Sicherung
+
+Salvar e restaurar tudo num arquivo.
+Save and restore everything in one file.
+Guardar y restaurar todo en un archivo.
+Salva e ripristina tutto in un file.
+Alles in einer Datei sichern und wiederherstellen.
+
+Leve
+Light
+Ligera
+Leggero
+Leicht
+
+Normal
+Regular
+Normal
+Normale
+Normal
+
+Médio
+Medium
+Media
+Medio
+Mittel
+
+Seminegrito
+Semibold
+Seminegrita
+Semigrassetto
+Halbfett
+
+Negrito
+Bold
+Negrita
+Grassetto
+Fett
+
+Extra negrito
+Extra bold
+Extra negrita
+Extra grassetto
+Extrafett
+
+Preto
+Black
+Negra
+Nero
+Schwarz
+
+Azul real
+Royal blue
+Azul real
+Blu reale
+Königsblau
+
+Vinho e ouro
+Wine and gold
+Vino y oro
+Vino e oro
+Weinrot und Gold
+
+Verde esperança
+Hope green
+Verde esperanza
+Verde speranza
+Hoffnungsgrün
+
+Roxo aurora
+Aurora purple
+Púrpura aurora
+Viola aurora
+Aurora-Violett
+
+Grafite
+Graphite
+Grafito
+Grafite
+Graphit
+
+Claro
+Light
+Claro
+Chiaro
+Hell
+
+Pôr do sol
+Sunset
+Atardecer
+Tramonto
+Sonnenuntergang
+
+Oceano
+Ocean
+Océano
+Oceano
+Ozean
+
+Céu noturno
+Night sky
+Cielo nocturno
+Cielo notturno
+Nachthimmel
+
+Azul-noite translúcido, detalhes em azul-céu, cantos bem arredondados
+Translucent midnight blue, sky-blue details, well-rounded corners
+Azul noche translúcido, detalles en azul cielo, esquinas muy redondeadas
+Blu notte traslucido, dettagli azzurro cielo, angoli molto arrotondati
+Durchscheinendes Nachtblau, himmelblaue Details, stark gerundete Ecken
+
+Vidro claro e arredondado, com brilho nas bordas
+Clear, rounded glass with a bright rim
+Vidrio claro y redondeado, con brillo en los bordes
+Vetro chiaro e arrotondato, con riflessi sui bordi
+Klares, rundes Glas mit leuchtendem Rand
+
+Tema "{name}" aplicado a todos os elementos.
+Theme "{name}" applied to every element.
+Tema "{name}" aplicado a todos los elementos.
+Tema "{name}" applicato a tutti gli elementi.
+Design „{name}“ auf alle Elemente angewendet.
+
+Salvando…
+Saving…
+Guardando…
+Salvataggio…
+Speichere…
+
+Salvo
+Saved
+Guardado
+Salvato
+Gespeichert
+
+Fontes do programa
+Fonts included
+Fuentes del programa
+Caratteri del programma
+Mitgelieferte Schriften
+
+Fonte do sistema
+System font
+Fuente del sistema
+Carattere di sistema
+Systemschrift
+
+Usar a fonte geral
+Use the general font
+Usar la fuente general
+Usa il carattere generale
+Allgemeine Schrift verwenden
+
+Instaladas neste computador
+Installed on this computer
+Instaladas en este ordenador
+Installati su questo computer
+Auf diesem Computer installiert
+
+Primeiro as fontes que vêm com o programa; depois, todas as instaladas neste computador.
+First the fonts that come with the program; then every font installed on this computer.
+Primero las fuentes que vienen con el programa; después, todas las instaladas en este ordenador.
+Prima i caratteri inclusi nel programma; poi tutti quelli installati su questo computer.
+Zuerst die mitgelieferten Schriften, danach alle auf diesem Computer installierten.
+
+Cor única
+Single color
+Color único
+Colore unico
+Eine Farbe
+
+Duas cores que se misturam
+Two colors that blend
+Dos colores que se mezclan
+Due colori che si fondono
+Zwei Farben, die ineinander übergehen
+
+Degradê
+Gradient
+Degradado
+Sfumatura
+Verlauf
+
+Cor inicial
+Start color
+Color inicial
+Colore iniziale
+Startfarbe
+
+Cor
+Color
+Color
+Colore
+Farbe
+
+Cor final
+End color
+Color final
+Colore finale
+Endfarbe
+
+Direção do degradê
+Gradient direction
+Dirección del degradado
+Direzione della sfumatura
+Richtung des Verlaufs
+
+Em cima, à esquerda
+Top left
+Arriba a la izquierda
+In alto a sinistra
+Oben links
+
+Em cima, à direita
+Top right
+Arriba a la derecha
+In alto a destra
+Oben rechts
+
+Embaixo, à esquerda
+Bottom left
+Abajo a la izquierda
+In basso a sinistra
+Unten links
+
+Embaixo, à direita
+Bottom right
+Abajo a la derecha
+In basso a destra
+Unten rechts
+
+Em cima, no centro
+Top center
+Arriba al centro
+In alto al centro
+Oben mittig
+
+Embaixo, no centro
+Bottom center
+Abajo al centro
+In basso al centro
+Unten mittig
+
+No meio, à esquerda
+Middle left
+En medio a la izquierda
+A metà a sinistra
+Mitte links
+
+No meio, à direita
+Middle right
+En medio a la derecha
+A metà a destra
+Mitte rechts
+
+No centro da tela
+Center of the screen
+En el centro de la pantalla
+Al centro dello schermo
+In der Bildmitte
+
+Posição e tamanho
+Position and size
+Posición y tamaño
+Posizione e dimensione
+Position und Größe
+
+Este elemento foi arrastado para um lugar próprio na aba "Posições na tela".
+This element was dragged to its own place in the "Positions on screen" page.
+Este elemento fue arrastrado a un lugar propio en "Posiciones en pantalla".
+Questo elemento è stato trascinato in una posizione propria in "Posizioni a schermo".
+Dieses Element wurde unter „Positionen im Bild“ an einen eigenen Platz gezogen.
+
+Voltar ao lugar padrão
+Back to the default place
+Volver al lugar predeterminado
+Torna alla posizione predefinita
+Zurück zum Standardplatz
+
+Lugar na tela
+Place on screen
+Lugar en pantalla
+Posizione a schermo
+Platz im Bild
+
+Tamanho
+Size
+Tamaño
+Dimensione
+Größe
+
+Distância da lateral
+Distance from the side
+Distancia del lateral
+Distanza dal lato
+Abstand zur Seite
+
+Distância de cima / de baixo
+Distance from top / bottom
+Distancia de arriba / de abajo
+Distanza dall'alto / dal basso
+Abstand nach oben / unten
+
+Cores e texto
+Colors and text
+Colores y texto
+Colori e testo
+Farben und Text
+
+Cor de fundo
+Background color
+Color de fondo
+Colore di sfondo
+Hintergrundfarbe
+
+Cor de destaque
+Accent color
+Color de realce
+Colore di risalto
+Akzentfarbe
+
+Texto principal
+Main text
+Texto principal
+Testo principale
+Haupttext
+
+Fonte
+Font
+Fuente
+Carattere
+Schrift
+
+Peso do texto
+Text weight
+Grosor del texto
+Spessore del testo
+Schriftstärke
+
+Descer
+Move down
+Bajar
+Scendi
+Nach unten
+
++ Adicionar
++ Add
++ Añadir
++ Aggiungi
++ Hinzufügen
+
+Efeitos e animação
+Effects and animation
+Efectos y animación
+Effetti e animazione
+Effekte und Animation
+
+Animação de entrada e saída
+Entrance and exit animation
+Animación de entrada y salida
+Animazione di entrata e uscita
+Ein- und Ausblend-Animation
+
+Duração da animação
+Animation length
+Duración de la animación
+Durata dell'animazione
+Dauer der Animation
+
+Sombra
+Shadow
+Sombra
+Ombra
+Schatten
+
+Brilho usa a cor de destaque.
+Glow uses the accent color.
+El brillo usa el color de realce.
+Il bagliore usa il colore di risalto.
+Leuchten nutzt die Akzentfarbe.
+
+Força da sombra
+Shadow strength
+Fuerza de la sombra
+Intensità dell'ombra
+Schattenstärke
+
+Opacidade do fundo
+Background opacity
+Opacidad del fondo
+Opacità dello sfondo
+Deckkraft des Hintergrunds
+
+Menos de 100% deixa a imagem da câmera aparecer por trás.
+Less than 100% lets the camera picture show through.
+Menos de 100% deja ver la imagen de la cámara por detrás.
+Meno del 100% lascia intravedere l'immagine della camera.
+Unter 100 % scheint das Kamerabild durch.
+
+Cantos arredondados
+Rounded corners
+Esquinas redondeadas
+Angoli arrotondati
+Abgerundete Ecken
+
+O QR Code leva para
+The QR code leads to
+El código QR lleva a
+Il codice QR porta a
+Der QR-Code führt zu
+
+Um link (site, inscrição, redes sociais)
+A link (site, sign-up, social networks)
+Un enlace (sitio, inscripción, redes sociales)
+Un link (sito, iscrizione, social)
+Einem Link (Website, Anmeldung, soziale Netzwerke)
+
+Link do QR Code
+QR code link
+Enlace del código QR
+Link del codice QR
+Link für den QR-Code
+
+Cores aplicadas ao lower third, à barra e ao cartão.
+Colors applied to the lower third, the bar and the card.
+Colores aplicados al lower third, a la barra y a la tarjeta.
+Colori applicati al lower third, alla barra e alla scheda.
+Farben auf Bauchbinde, Leiste und Karte angewendet.
+
+Preencha a chave para gerar o QR Code.
+Fill in the key to create the QR code.
+Complete la clave para generar el código QR.
+Inserisci la chiave per generare il codice QR.
+Schlüssel eintragen, um den QR-Code zu erzeugen.
+
+QR Code do PIX
+PIX QR code
+Código QR de PIX
+Codice QR del PIX
+PIX-QR-Code
+
+Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o nome que aparece.
+Test before the service: point the bank app at this QR code and check the name it shows.
+Pruebe antes del culto: apunte la aplicación del banco a este código QR y verifique el nombre que aparece.
+Prova prima del culto: inquadra questo codice QR con l'app della banca e controlla il nome che appare.
+Vor dem Gottesdienst testen: die Banking-App auf diesen QR-Code richten und den angezeigten Namen prüfen.
+
+PIX copia e cola:
+PIX copy and paste:
+PIX copia y pega:
+PIX copia e incolla:
+PIX „Copia e Cola“:

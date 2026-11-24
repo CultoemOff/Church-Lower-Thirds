@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Church Lower Thirds — by Culto em Off</title>
+    <link rel="stylesheet" href="/ui.css" />
+    <link rel="stylesheet" href="/dock.css" />
+    <link rel="icon" type="image/svg+xml" href="/icons/app.svg" />
+  </head>
+  <body>
+    <main class="dock">
+      <header>
+        <div class="brand"><strong>LOWER THIRD</strong></div>
+        <div class="headerActions">
+          <select
+            id="autoHide"
+            class="timeSelect"
+            title="Tempo na tela: quanto tempo nomes, QR Code e redes sociais ficam antes de sair sozinhos"
+          ></select
+          ><button id="hideAll" class="iconBtn" title="Tirar tudo do ar">
+            <img src="/icons/hide.svg" alt="" /></button
+          ><button id="themeToggle" class="iconBtn" title="Tema claro / escuro">
+            <img src="/icons/sun.svg" alt="" /></button
+          ><button
+            id="openSettings"
+            class="iconBtn"
+            title="Configurações avançadas: abre no navegador (modelos, cores, fontes, PIX, logo)"
+          >
+            <img src="/icons/settings.svg" alt="" />
+          </button>
+        </div>
+      </header>
+      <nav id="tabs" class="tabs"></nav>
+      <section id="pane" class="panel pane"></section>
+      <footer>
+        <span>Desenvolvido por</span>
+        <a href="https://www.youtube.com/@CultoemOff" target="_blank" rel="noopener noreferrer"
+          >Culto em Off</a
+        ><span id="appVersion" class="appVersion"></span>
+      </footer>
+    </main>
+    <script type="module" src="/dock.js"></script>
+  </body>
+</html>
