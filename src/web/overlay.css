@@ -1972,6 +1972,28 @@ img:not([src]) {
 }
 
 /* =====================================================================
+   CUSTOM: the plain start of the church's own models. Their CSS (js/custom.js) takes it
+   from here; the other elements already have a plate in their base rules.
+   ===================================================================== */
+.lower[data-template='custom'] .box {
+  align-items: center;
+  gap: 18px;
+  padding: 14px 30px;
+  background: var(--fill);
+  border-radius: var(--radius);
+}
+.lower[data-template='custom'] .logo img {
+  height: 68px;
+  max-width: 160px;
+}
+.top[data-template='custom'] .box {
+  gap: 14px;
+  padding: 0 18px;
+  background: var(--fill);
+  border-radius: var(--radius);
+}
+
+/* =====================================================================
    FREE PLACEMENT (dragged in the layout editor) and the editor itself
    ===================================================================== */
 .el[data-free] {

@@ -27,7 +27,7 @@ Na primeira vez, um assistente explica esses passos com ilustrações e deixa tu
 - **Redes sociais e avisos**: 7 modelos; um item por vez ou todos em sequência, com contador e linha do tempo. Os ícones são genéricos (não os logotipos das redes); a igreja pode enviar os seus.
 - **Logo** no canto da tela.
 - **Perfis de culto**: aparências completas (modelo, cores, fontes, logo, posições) salvas com um nome, como "Perfil 1", "Culto de mulheres" ou "Natal". Criam-se, renomeiam-se e excluem-se no seletor do alto das configurações, e trocam-se num clique ali, no painel do OBS ou por Stream Deck.
-- **Tema global**: cores com degradê, fonte, cantos, sombra e opacidade que todos os elementos seguem; cada elemento pode ter aparência própria. 24 modelos prontos, mostrados em miniaturas reais (com o nome e o logo da igreja), cada um com as cores sugeridas, e 29 conjuntos de cores prontas para trocar. As cores que a igreja escolhe continuam ao trocar de modelo. Dez são **temáticos**: Jovem, Kids, Feminino, Coral, Banda, Natal, Natal Kids, Natal no Egito, Páscoa e Páscoa Kids, com desenhos próprios (flores, estrelas, notas musicais, estrela de Belém e manjedoura, sol e pirâmides, lírios e cruz, túmulo vazio).
+- **Tema global**: cores com degradê, fonte, cantos, sombra e opacidade que todos os elementos seguem; cada elemento pode ter aparência própria. 24 modelos prontos, mostrados em miniaturas reais (com o nome e o logo da igreja), cada um com as cores sugeridas, e 29 conjuntos de cores prontas para trocar. As cores que a igreja escolhe continuam ao trocar de modelo. A cor pronta "Vidro líquido" (ou a caixa "Efeito de vidro") aplica o liquid glass em qualquer modelo. **Modelos próprios**: o programa entrega um prompt para qualquer IA escrever o CSS de um modelo novo; o código colado é conferido regra a regra (`src/web/js/custom.js`), só alcança os elementos e não busca nada na internet. Dez são **temáticos**: Jovem, Kids, Feminino, Coral, Banda, Natal, Natal Kids, Natal no Egito, Páscoa e Páscoa Kids, com desenhos próprios (flores, estrelas, notas musicais, estrela de Belém e manjedoura, sol e pirâmides, lírios e cruz, túmulo vazio).
 - 19 fontes incluídas (`src/web/fonts`, licença SIL OFL 1.1) e todas as instaladas no computador; 11 animações de entrada e saída, entre elas gota d’água, linha que se abre e deslize com rastro.
 - **Painel do OBS** com abas, responsivo, com o tempo na tela, botão de fixar e prévia.
 - Posições na tela arrastando; layout horizontal e vertical; cada elemento como fonte separada ou todos numa só.
@@ -38,16 +38,16 @@ Na primeira vez, um assistente explica esses passos com ilustrações e deixa tu
 
 O programa escreve na pasta escolhida na instalação (`Documentos\Church Lower Thirds\OBS Sources`) um arquivo HTML por fonte, com nomes em inglês iguais em todo computador. Cada arquivo só espera o programa e abre o endereço correspondente.
 
-| Arquivo | Endereço | Elemento |
-|---|---|---|
-| `All Elements.html` | `/source/all` | todos |
-| `Names.html` | `/source/names` | nomes (lower third) |
-| `Corner Badge.html` | `/source/badge` | selo superior |
-| `Ticker.html` | `/source/ticker` | barra inferior |
-| `QR Card.html` | `/source/qr-card` | cartão QR / oferta |
-| `Schedule.html` | `/source/schedule` | agenda |
-| `Social.html` | `/source/social` | redes sociais |
-| `Logo.html` | `/source/logo` | logo |
+| Arquivo             | Endereço           | Elemento            |
+| ------------------- | ------------------ | ------------------- |
+| `All Elements.html` | `/source/all`      | todos               |
+| `Names.html`        | `/source/names`    | nomes (lower third) |
+| `Corner Badge.html` | `/source/badge`    | selo superior       |
+| `Ticker.html`       | `/source/ticker`   | barra inferior      |
+| `QR Card.html`      | `/source/qr-card`  | cartão QR / oferta  |
+| `Schedule.html`     | `/source/schedule` | agenda              |
+| `Social.html`       | `/source/social`   | redes sociais       |
+| `Logo.html`         | `/source/logo`     | logo                |
 
 Os arquivos `… (Vertical).html` abrem o mesmo endereço com `?layout=vertical` (palco de 1080 × 1920). Painel do OBS: `http://127.0.0.1:8795/dock`. Configurações: `http://127.0.0.1:8795/settings`.
 

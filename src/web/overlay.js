@@ -15,7 +15,8 @@ import {
   SOCIAL_ICONS,
   themed,
 } from './js/look.js';
-import { applyModel, MODELS } from './js/models.js';
+import { applyCustom, scopeCss, selectors } from './js/custom.js';
+import { applyModel, MODELS, modelTemplate } from './js/models.js';
 
 // The browser source page. Everything is laid out on a 1920x1080 stage (1080x1920 with
 // ?layout=vertical) and scaled to the source size, so the same settings look the same at
@@ -43,12 +44,17 @@ const vertical = params.get('layout') === 'vertical';
 // ?preview=model&model=<id>: the small picture of a ready-made model in the settings. The
 // saved settings are drawn with that model put on, on a smaller stage so that the
 // elements, at their real size, can be told apart in a small frame.
+// "custom:<id>" is one of the church's own models.
+const shotCustom = preview === 'model' ? params.get('model')?.match(/^custom:(.+)$/)?.[1] : '';
 const shot =
-  preview === 'model' ? MODELS.find((m) => m.id === params.get('model')) || MODELS[0] : null;
-const W = shot ? 1440 : vertical ? 1080 : 1920,
-  H = shot ? 810 : vertical ? 1920 : 1080;
+  preview === 'model' && !shotCustom
+    ? MODELS.find((m) => m.id === params.get('model')) || MODELS[0]
+    : null;
+const small = !!shot || !!shotCustom;
+const W = small ? 1440 : vertical ? 1080 : 1920,
+  H = small ? 810 : vertical ? 1920 : 1080;
 // Several elements shown together, to judge a whole look.
-const together = preview === 'theme' || !!shot;
+const together = preview === 'theme' || small;
 // ?edit=1: the settings page's layout editor. Everything is shown, still, and can be
 // dragged to a new place or resized by its corner.
 const edit = params.get('edit') === '1';
@@ -57,6 +63,8 @@ const roots = Object.fromEntries(
 );
 const $ = (el, sel) => roots[el].querySelector(sel);
 let config = null,
+  // The settings as the server sent them; `config` is what is drawn (see dress()).
+  saved = null,
   live = null,
   givingStamp = '';
 const shown = {
@@ -70,6 +78,42 @@ const shown = {
   comment: {},
 };
 
+// ---- Custom models ----
+// The CSS of the church's own model, read rule by rule before use (js/custom.js).
+const customStyle = document.head.appendChild(document.createElement('style'));
+// A model being written in the settings page: shown in its previews before it is saved.
+let draft = null,
+  customText = null;
+/** The settings to draw: as saved, or with the model of a picture or of a draft put on. */
+function dress() {
+  if (!saved) return;
+  config = saved;
+  const tried = draft || (shotCustom && saved.customModels.find((m) => m.id === shotCustom));
+  if (shot || tried) config = structuredClone(saved);
+  if (shot) applyModel(config, shot);
+  if (tried) {
+    if (!config.customModels.some((m) => m.id === tried.id)) config.customModels.push(tried);
+    // What the model does not draw stays as it is; out of an earlier custom model it
+    // falls back to the first ready-made one.
+    applyCustom(
+      config,
+      tried,
+      Object.fromEntries(Object.keys(roots).map((el) => [el, modelTemplate(MODELS[0], el)])),
+    );
+  }
+  const model = config.customModels.find((m) => m.id === config.theme.custom);
+  if ((model?.css || '') !== customText) {
+    customText = model?.css || '';
+    customStyle.textContent = customText ? scopeCss(customText).css : '';
+  }
+}
+addEventListener('message', (e) => {
+  if (e.origin !== location.origin || e.data?.type !== 'draft' || !preview) return;
+  draft = e.data.css ? { id: 'draft', name: '', css: String(e.data.css) } : null;
+  dress();
+  apply();
+});
+
 function fit() {
   const s = Math.min(innerWidth / W, innerHeight / H) || 1;
   stage.style.transform = `scale(${s})`;
@@ -77,7 +121,7 @@ function fit() {
 addEventListener('resize', fit);
 fit();
 if (preview) document.documentElement.classList.add('preview');
-if (shot) document.documentElement.classList.add('compact');
+if (small) document.documentElement.classList.add('compact');
 if (edit) document.documentElement.classList.add('edit');
 if (vertical) document.documentElement.classList.add('vertical');
 
@@ -98,6 +142,50 @@ if (preview)
       if (img.getAttribute('src') !== SAMPLE_QR) img.setAttribute('src', SAMPLE_QR);
     });
 const font = (c) => fontCss(c.font || config.brand.font);
+
+// ---- Glass (theme.glass): the look of liquid glass on any model ----
+// The plates become clear (their color at a third of its strength) and blur what is behind
+// them, with a bright rim. Which parts are plates is read from the stylesheet itself: every
+// rule that paints a background with the plate colors. So each model, today's and the ones
+// still to come, gets the effect without a list to keep.
+const GLASS = 0.3;
+/** How solid the plates of an element are, in %. */
+const plate = (c) => (c.opacity ?? 100) * (config.theme.glass ? GLASS : 1);
+{
+  const parts = [];
+  for (const sheet of document.styleSheets) {
+    let rules = [];
+    try {
+      rules = sheet.cssRules;
+    } catch {
+      // A stylesheet from elsewhere: not ours.
+    }
+    for (const r of rules) {
+      if (!(r instanceof CSSStyleRule)) continue;
+      const paint = [r.style.background, r.style.backgroundImage, r.style.backgroundColor];
+      if (!paint.some((v) => /var\(--fill2?(-soft)?\)/.test(v))) continue;
+      for (const sel of selectors(r.selectorText)) {
+        const m = sel.match(/^\.(lower|top|ticker|card|agenda|social|comment)(?![\w-])/);
+        // The liquid models are glass already, in their own way.
+        if (m && !sel.includes("'liquid'") && !sel.includes('"liquid"'))
+          parts.push(`.${m[1]}[data-glass]${sel.slice(m[0].length)}`);
+      }
+    }
+  }
+  if (parts.length)
+    document.head.appendChild(document.createElement('style')).textContent = `
+.el[data-glass] .scaler { filter: none; }
+${parts.join(',\n')} {
+  -webkit-backdrop-filter: blur(22px) saturate(1.7);
+  backdrop-filter: blur(22px) saturate(1.7);
+  box-shadow:
+    inset 0 0 0 1.5px rgba(255, 255, 255, 0.5),
+    inset 0 2px 1px rgba(255, 255, 255, 0.8),
+    inset 0 -18px 26px -14px rgba(0, 0, 0, 0.18),
+    0 16px 40px -10px rgba(0, 0, 0, 0.36);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.28);
+}`;
+}
 // Elements enter from the edge they sit on.
 const from = { left: [-1, 0], right: [1, 0], center: [0, 1], top: [0, -1], bottom: [0, 1] };
 function common(el, c, side) {
@@ -122,8 +210,9 @@ function common(el, c, side) {
     shadow: shadowCss(c.shadow, c.shadowStrength, c.accent?.a || '#ffffff'),
     radius: (c.radius ?? 0) + 'px',
   });
+  root.toggleAttribute('data-glass', !!c.fill && !!config.theme.glass);
   if (c.fill) {
-    root.style.setProperty('--fill-glass', fillCss(c.fill, (c.opacity ?? 100) * 0.3));
+    root.style.setProperty('--fill-glass', fillCss(c.fill, (c.opacity ?? 100) * GLASS));
     // A logo drawn on the plate keeps its own colors while they can be read there.
     const dark = onColor(c.fill.a) === '#ffffff',
       text = c.text1 || c.text;
@@ -139,7 +228,7 @@ function place(el) {
   const c = config[el],
     root = roots[el],
     // The picture of a model has its own stage: places chosen by dragging do not fit it.
-    on = !shot && canMove(el) && (vertical ? c.vfree : c.free);
+    on = !small && canMove(el) && (vertical ? c.vfree : c.free);
   root.toggleAttribute('data-free', on);
   if (on) setVars(root, { fx: (vertical ? c.vx : c.x) + 'px', fy: (vertical ? c.vy : c.y) + 'px' });
 }
@@ -161,10 +250,10 @@ function renderLower() {
   root.dataset.pos = c.position;
   common('lower', c, c.template === 'news' ? 'bottom' : c.position);
   setVars(root, {
-    fill: fillCss(c.fill, c.opacity),
-    fill2: fillCss(c.fill2, c.opacity),
-    'fill-soft': fillCss(c.fill, c.opacity * 0.72),
-    'fill2-soft': fillCss(c.fill2, c.opacity * 0.72),
+    fill: fillCss(c.fill, plate(c)),
+    fill2: fillCss(c.fill2, plate(c)),
+    'fill-soft': fillCss(c.fill, plate(c) * 0.72),
+    'fill2-soft': fillCss(c.fill2, plate(c) * 0.72),
     accent: fillCss(c.accent),
     'accent-a': c.accent.a,
     'on-accent': onColor(c.accent.type === 'gradient' ? c.accent.b : c.accent.a),
@@ -251,7 +340,7 @@ function renderTop() {
   root.dataset.pos = c.position;
   common('top', c, sideOf(c.position));
   setVars(root, {
-    fill: fillCss(c.fill, c.opacity),
+    fill: fillCss(c.fill, plate(c)),
     accent: fillCss(c.accent),
     'accent-a': c.accent.a,
     'on-accent': onColor(c.accent.type === 'gradient' ? c.accent.b : c.accent.a),
@@ -295,7 +384,7 @@ function renderCard() {
     box = $('card', '.box');
   root.dataset.template = c.template;
   // In the theme preview several elements show together: the card moves out of the way.
-  root.dataset.pos = shot ? 'top-right' : together ? 'center-right' : c.position;
+  root.dataset.pos = small ? 'top-right' : together ? 'center-right' : c.position;
   const side = c.position.endsWith('left')
     ? 'left'
     : c.position.endsWith('right')
@@ -303,7 +392,7 @@ function renderCard() {
       : 'center';
   common('card', c, side);
   setVars(root, {
-    fill: fillCss(c.fill, c.opacity),
+    fill: fillCss(c.fill, plate(c)),
     accent: fillCss(c.accent),
     'accent-a': c.accent.a,
     'on-accent': onColor(c.accent.type === 'gradient' ? c.accent.b : c.accent.a),
@@ -367,8 +456,8 @@ function renderTicker() {
   root.dataset.template = c.template;
   common('ticker', c, 'bottom');
   setVars(root, {
-    fill: fillCss(c.fill, c.opacity),
-    'fill-soft': fillCss(c.fill, c.opacity * 0.35),
+    fill: fillCss(c.fill, plate(c)),
+    'fill-soft': fillCss(c.fill, plate(c) * 0.35),
     accent: fillCss(c.accent),
     'accent-a': c.accent.a,
     'on-accent': onColor(c.accent.type === 'gradient' ? c.accent.b : c.accent.a),
@@ -486,8 +575,8 @@ function renderAgenda() {
     c.template === 'banner' ? 'bottom-center' : c.template === 'center' ? 'center' : c.position;
   common('agenda', c, c.template === 'banner' ? 'bottom' : sideOf(c.position));
   setVars(root, {
-    fill: fillCss(c.fill, c.opacity),
-    'fill-soft': fillCss(c.fill, c.opacity * 0.35),
+    fill: fillCss(c.fill, plate(c)),
+    'fill-soft': fillCss(c.fill, plate(c) * 0.35),
     accent: fillCss(c.accent),
     'accent-a': c.accent.a,
     'on-accent': onColor(c.accent.type === 'gradient' ? c.accent.b : c.accent.a),
@@ -573,8 +662,8 @@ function renderSocial() {
   root.dataset.pos = c.position;
   common('social', c, sideOf(c.position));
   setVars(root, {
-    fill: fillCss(c.fill, c.opacity),
-    'fill-soft': fillCss(c.fill, c.opacity * 0.35),
+    fill: fillCss(c.fill, plate(c)),
+    'fill-soft': fillCss(c.fill, plate(c) * 0.35),
     accent: fillCss(c.accent),
     'accent-a': c.accent.a,
     'on-accent': onColor(c.accent.type === 'gradient' ? c.accent.b : c.accent.a),
@@ -622,7 +711,7 @@ function renderComment() {
   root.dataset.pos = c.position;
   common('comment', c, sideOf(c.position));
   setVars(root, {
-    fill: fillCss(c.fill, c.opacity),
+    fill: fillCss(c.fill, plate(c)),
     accent: fillCss(c.accent),
     'accent-a': c.accent.a,
     'on-accent': onColor(c.accent.type === 'gradient' ? c.accent.b : c.accent.a),
@@ -783,8 +872,8 @@ function connect() {
     if (e.config) {
       const giving = (c) => JSON.stringify([c.pix, c.giving]);
       if (config && giving(e.config) !== giving(config)) givingStamp = String(Date.now());
-      config = e.config;
-      if (shot) applyModel(config, shot);
+      saved = e.config;
+      dress();
     }
     if (e.live) live = e.live;
     apply();

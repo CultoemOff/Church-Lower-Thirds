@@ -246,15 +246,17 @@ test('another model keeps the colors the user chose', () => {
     JSON.stringify(PALETTES.find((p: unknown[]) => p[0] === third.palette).slice(1, 6)),
   );
 
-  // Colors made for glass do not go along to a solid model.
-  const onGlass = PALETTES.find((p: unknown[]) => p[6] && p[0] !== glass.palette);
-  if (onGlass) {
-    applyModel(c, glass, { reset: true });
-    [, c.theme.main, c.theme.surface, c.theme.accent, c.theme.text1, c.theme.text2] =
-      structuredClone(onGlass);
-    assert.equal(ownColors(c), true);
-    assert.equal(applyModel(c, first), false);
-  }
+  // The glass colors switch the glass on with the model that suggests them, and a model
+  // with solid colors switches it off; kept colors keep the glass as it is.
+  applyModel(c, glass, { reset: true });
+  assert.equal(c.theme.glass, true);
+  assert.equal(cleanConfig(structuredClone(c)).theme.glass, true);
+  assert.equal(applyModel(c, first), false);
+  assert.equal(c.theme.glass, false);
+  c.theme.glass = true;
+  c.theme.text1 = '#fefefe';
+  assert.equal(applyModel(c, second), true);
+  assert.equal(c.theme.glass, true);
 
   // Settings from before: colors changed by hand count as chosen, ready-made ones do not.
   const old = defaults();
