@@ -430,12 +430,6 @@ Hora
 Ora
 Uhrzeit
 
-Data embaixo da hora
-Date under the time
-Fecha debajo de la hora
-Data sotto l'ora
-Datum unter der Uhrzeit
-
 Mostrar segundos
 Show seconds
 Mostrar segundos

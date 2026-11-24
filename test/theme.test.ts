@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { cleanConfig, defaults } from '../src/server/store.js';
 import {
   // @ts-expect-error browser module without type declarations
+  dateText,
   decorFor,
   decorName,
   DECORS,
@@ -140,9 +141,36 @@ test('drawings of the themed models: the usual one, the one picked in the theme,
   assert.equal(cleanConfig({ theme: { decor: 'easter' } }).theme.decor, 'easter');
   // A drawing with its own proportions (the sun and pyramids of "Natal no Egito").
   c.theme.decor = 'egypt';
-  assert.match(decorFor(c, 'lower', 'floral'), /^<svg[^>]*viewBox="0 0 200 106.33"/);
+  // The name plate and the card show the complete logo; the badge, the sun and pyramids.
+  assert.match(decorFor(c, 'lower', 'floral'), /^<svg[^>]*viewBox="0 0 300 189.24"/);
+  assert.match(decorFor(c, 'top', 'floral'), /^<svg[^>]*viewBox="0 0 200 106.33"/);
   assert.equal(decorName(c, 'floral'), 'egypt');
   assert.equal(decorName(c, 'classic'), '');
   for (const name of DECORS)
     assert.equal(cleanConfig({ theme: { decor: name } }).theme.decor, name);
+});
+
+test('date of the corner badge: day of the week, date or both, in three styles', () => {
+  const day = new Date(2026, 10, 24, 12);
+  const both = { showDate: true, showWeekday: true };
+  assert.equal(dateText(day, 'pt-BR', { ...both, dateStyle: 'short' }), 'ter, 24 de nov');
+  assert.equal(
+    dateText(day, 'pt-BR', { ...both, dateStyle: 'long' }),
+    'terça-feira, 24 de novembro',
+  );
+  assert.equal(dateText(day, 'pt-BR', { ...both, dateStyle: 'numeric' }), 'ter, 24/11/2026');
+  assert.equal(
+    dateText(day, 'pt-BR', { showDate: true, showWeekday: false, dateStyle: 'numeric' }),
+    '24/11/2026',
+  );
+  // By itself the day of the week is written in full.
+  assert.equal(
+    dateText(day, 'pt-BR', { showDate: false, showWeekday: true, dateStyle: 'short' }),
+    'terça-feira',
+  );
+  assert.equal(dateText(day, 'en-US', { ...both, dateStyle: 'long' }), 'Tuesday, November 24');
+  assert.equal(
+    dateText(day, 'pt-BR', { showDate: false, showWeekday: false, dateStyle: 'short' }),
+    '',
+  );
 });

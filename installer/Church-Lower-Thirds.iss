@@ -31,6 +31,10 @@ ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 DisableProgramGroupPage=yes
 ShowLanguageDialog=auto
+; The installer stops the running program by itself (stop-server.ps1, see [Code]), by the
+; path of its node.exe. Windows' Restart Manager is left out: it asks console programs to
+; close with Ctrl+C, which reaches every program sharing that console.
+CloseApplications=no
 
 [Languages]
 Name: "ptbr"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"

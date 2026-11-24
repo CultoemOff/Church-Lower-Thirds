@@ -1,4 +1,5 @@
 import {
+  dateText,
   decorFor,
   decorName,
   fillCss,
@@ -110,7 +111,13 @@ function common(el, c, side) {
     shadow: shadowCss(c.shadow, c.shadowStrength, c.accent?.a || '#ffffff'),
     radius: (c.radius ?? 0) + 'px',
   });
-  if (c.fill) root.style.setProperty('--fill-glass', fillCss(c.fill, (c.opacity ?? 100) * 0.3));
+  if (c.fill) {
+    root.style.setProperty('--fill-glass', fillCss(c.fill, (c.opacity ?? 100) * 0.3));
+    // A logo drawn on the plate keeps its own colors while they can be read there.
+    const dark = onColor(c.fill.a) === '#ffffff',
+      text = c.text1 || c.text;
+    setVars(root, { 'logo-ink': dark ? text : '#793b13', 'logo-sub': dark ? text : '#1d1d1b' });
+  }
   place(el);
 }
 
@@ -221,9 +228,7 @@ function tick() {
       });
   $('top', '.time').textContent = time(c.clockSeconds);
   $('ticker', '.time').textContent = time(false);
-  $('top', '.date').textContent = now
-    .toLocaleDateString(locale(), { weekday: 'short', day: '2-digit', month: 'short' })
-    .replace(/\./g, '');
+  $('top', '.date').textContent = dateText(now, locale(), c);
 }
 setInterval(tick, 1000);
 function renderTop() {
@@ -254,8 +259,11 @@ function renderTop() {
   box.classList.toggle('has-name', !!name);
   box.classList.toggle('has-msg', messages.length > 0);
   box.classList.toggle('has-live', c.showLive && !!c.liveText);
-  box.classList.toggle('has-clock', c.showClock);
-  box.classList.toggle('has-date', c.showClock && c.showDate);
+  // The date can be there with the time or by itself.
+  const dated = c.showDate || c.showWeekday;
+  box.classList.toggle('has-clock', c.showClock || dated);
+  box.classList.toggle('no-time', !c.showClock);
+  box.classList.toggle('has-date', dated);
   tick();
   const key = JSON.stringify([messages, c.order, c.interval]);
   if (key !== messageKey) {

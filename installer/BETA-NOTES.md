@@ -2,7 +2,10 @@
 
 ### Novidades da beta.7
 
-- **Modelo temático "Natal no Egito"**, para a cantata: placas em tons de areia e marrom, com o sol e as pirâmides (os mesmos traços e cores da arte da cantata) nascendo sobre a borda de cada placa. Cores sugeridas "Deserto"; há também "Noite no deserto".
+- **Modelo temático "Natal no Egito"**, para a cantata: placas em tons de areia e marrom com o **logo completo** (o sol, as pirâmides, o letreiro e a linha "Cantata ICT 2026", com os traços e as cores da arte) na placa do nome e no cartão do QR Code; no selo superior e nas redes ficam o sol e as pirâmides. Cores sugeridas "Deserto"; há também "Noite no deserto".
+- A fonte do letreiro é a **Khepri**, que é comercial e por isso não vem com o programa. Se ela estiver instalada no computador, o modelo usa a Khepri nos nomes e textos; se não estiver, usa a Cinzel.
+- **Selo superior: data e dia da semana**, cada um com a sua opção, junto com o horário ou sozinhos, em três formatos (curta, por extenso, em números). O painel do OBS ganhou o botão "Data".
+- Instalador: a atualização deixa de usar o "Restart Manager" do Windows para fechar o programa (ele já é fechado pelo próprio instalador).
 
 ### Novidades da beta.6
 

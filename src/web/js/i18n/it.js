@@ -322,7 +322,6 @@ export default {
   'Selo "AO VIVO"': 'Badge "IN DIRETTA"',
   'Texto do selo': 'Testo del badge',
   Horário: 'Ora',
-  'Data embaixo da hora': "Data sotto l'ora",
   'Mostrar segundos': 'Mostra i secondi',
   'Formato 12 horas': 'Formato 12 ore',
   'Recados (texto que se reveza)': 'Avvisi (testo che si alterna)',
@@ -849,9 +848,17 @@ export default {
   'Adesivos em tons alegres, com o túmulo vazio e a pedra removida: para a Páscoa das crianças':
     'Adesivi in toni allegri, con il sepolcro vuoto e la pietra rotolata via: per la Pasqua dei bambini',
   'Natal no Egito': 'Natale in Egitto',
-  'Tons de areia e marrom, com o sol e as pirâmides nascendo sobre as placas: para a cantata de Natal':
-    'Toni di sabbia e marrone, con il sole e le piramidi che sorgono sulle targhe: per la cantata di Natale',
   'Natal no Egito: sol e pirâmides': 'Natale in Egitto: sole e piramidi',
   Deserto: 'Deserto',
   'Noite no deserto': 'Notte nel deserto',
+  'Tons de areia e marrom com o logo da cantata: o sol, as pirâmides e o letreiro':
+    'Toni di sabbia e marrone con il logo della cantata: il sole, le piramidi e la scritta',
+  'Dia da semana': 'Giorno della settimana',
+  'Como a data aparece': 'Come appare la data',
+  Curta: 'Breve',
+  'Por extenso': 'Per esteso',
+  'Em números': 'In numeri',
+  'Com o horário ligado, a data fica embaixo dele; sozinha, fica no lugar dele.':
+    'Con l’orario attivo, la data sta sotto; da sola, ne prende il posto.',
+  Data: 'Data',
 };

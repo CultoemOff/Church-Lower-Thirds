@@ -182,7 +182,7 @@ export const PALETTES = [
     grad('#fdf0cf', '#f5cf7c', 180),
     grad('#fdf0cf', '#f5cf7c', 180),
     grad('#9a4f1c', '#793b13', 135),
-    '#6f3410',
+    '#793b13',
     '#93531f',
   ],
   [
@@ -664,8 +664,9 @@ export const MODELS = [
   {
     id: 'egypt',
     name: 'Natal no Egito',
-    hint: 'Tons de areia e marrom, com o sol e as pirâmides nascendo sobre as placas: para a cantata de Natal',
-    font: 'Cinzel',
+    hint: 'Tons de areia e marrom com o logo da cantata: o sol, as pirâmides e o letreiro',
+    // The typeface of the logo where it is installed; elsewhere it falls back (fonts.css).
+    font: 'Khepri',
     palette: 'Deserto',
     opacity: 100,
     radius: 10,

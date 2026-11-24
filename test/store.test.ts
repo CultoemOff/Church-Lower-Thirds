@@ -325,3 +325,16 @@ test('social: an own phrase per item, new kinds, and all of them in sequence', (
     'plaque',
   );
 });
+
+test('corner badge: date and day of the week each have a switch; old settings keep both', () => {
+  const fresh = defaults().top;
+  assert.equal(fresh.showDate, false);
+  assert.equal(fresh.showWeekday, false);
+  assert.equal(fresh.dateStyle, 'short');
+  // "Date under the time" used to show the day of the week too.
+  assert.equal(cleanConfig({ top: { showDate: true } }).top.showWeekday, true);
+  assert.equal(cleanConfig({ top: { showDate: true, showWeekday: false } }).top.showWeekday, false);
+  assert.equal(cleanConfig({ top: { showDate: false } }).top.showWeekday, false);
+  assert.equal(cleanConfig({ top: { dateStyle: 'nope' } }).top.dateStyle, 'short');
+  assert.equal(cleanConfig({ top: { dateStyle: 'long' } }).top.dateStyle, 'long');
+});

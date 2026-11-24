@@ -325,7 +325,6 @@ export default {
   'Selo "AO VIVO"': '„LIVE“-Marke',
   'Texto do selo': 'Text der Marke',
   Horário: 'Uhrzeit',
-  'Data embaixo da hora': 'Datum unter der Uhrzeit',
   'Mostrar segundos': 'Sekunden zeigen',
   'Formato 12 horas': '12-Stunden-Format',
   'Recados (texto que se reveza)': 'Hinweise (wechselnder Text)',
@@ -854,9 +853,17 @@ export default {
   'Adesivos em tons alegres, com o túmulo vazio e a pedra removida: para a Páscoa das crianças':
     'Aufkleber in fröhlichen Farben, mit dem leeren Grab und dem weggerollten Stein: für das Osterfest der Kinder',
   'Natal no Egito': 'Weihnachten in Ägypten',
-  'Tons de areia e marrom, com o sol e as pirâmides nascendo sobre as placas: para a cantata de Natal':
-    'Sand- und Brauntöne, mit Sonne und Pyramiden, die über den Tafeln aufgehen: für die Weihnachtskantate',
   'Natal no Egito: sol e pirâmides': 'Weihnachten in Ägypten: Sonne und Pyramiden',
   Deserto: 'Wüste',
   'Noite no deserto': 'Wüstennacht',
+  'Tons de areia e marrom com o logo da cantata: o sol, as pirâmides e o letreiro':
+    'Sand- und Brauntöne mit dem Logo der Kantate: Sonne, Pyramiden und Schriftzug',
+  'Dia da semana': 'Wochentag',
+  'Como a data aparece': 'So erscheint das Datum',
+  Curta: 'Kurz',
+  'Por extenso': 'Ausgeschrieben',
+  'Em números': 'In Zahlen',
+  'Com o horário ligado, a data fica embaixo dele; sozinha, fica no lugar dele.':
+    'Bei eingeschalteter Uhrzeit steht das Datum darunter; allein nimmt es deren Platz ein.',
+  Data: 'Datum',
 };
