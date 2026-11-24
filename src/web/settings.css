@@ -1154,6 +1154,21 @@ button.danger:hover {
 }
 
 /* Ready-made models: each one as a small live picture of the overlay */
+/* What stays when the model changes, with the way back to the model's own colors. */
+.keptNote {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.keptNote .hint {
+  flex: 1 1 260px;
+  margin: 0;
+}
 .themes {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));

@@ -845,8 +845,8 @@ export default {
     'Service profile: changes the style, the colors, the fonts and the logo at once. Create and adjust the profiles in the settings.',
   'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo':
     'Service profile: changes the style, the colors, the fonts and the logo at once',
-  'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.':
-    "Start with the style: it sets the shape, the font and the animation of every element and already brings the colors that suit it best. The pictures show each style with the church's name and logo; the entrance animation is shown in the big preview.",
+  'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As cores que a igreja já escolheu continuam ao trocar de modelo. As figuras mostram cada modelo como ele vai ficar, com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.':
+    "Start with the style: it sets the shape, the font and the animation of every element and already brings the colors that suit it best. Colors the church has already chosen stay when the style changes. The pictures show each style as it will look, with the church's name and logo; the entrance animation is shown in the big preview.",
   'Trocar de perfil de culto (pelo nome)': 'Change the service profile (by name)',
   'Nome do novo perfil (ex.: Culto de mulheres, Natal)':
     "Name of the new profile (e.g. Women's service, Christmas)",
@@ -924,4 +924,11 @@ export default {
   'Mostrar o balão ao lado do texto': 'Show the balloon beside the text',
   'Comentário (o último escrito)': 'Comment (the last one typed)',
   'Escreva o comentário antes de mostrar.': 'Type the comment before showing it.',
+  'Modelo "{name}" aplicado. As cores escolhidas foram mantidas.':
+    'Style "{name}" applied. The chosen colors were kept.',
+  'Ao trocar de modelo, as cores escolhidas e os elementos com aparência própria continuam como estão.':
+    'When the style changes, the chosen colors and the elements with their own look stay as they are.',
+  'Ao trocar de modelo, as cores escolhidas continuam como estão.':
+    'When the style changes, the chosen colors stay as they are.',
+  'Usar as cores do modelo ({colors})': "Use the style's colors ({colors})",
 };

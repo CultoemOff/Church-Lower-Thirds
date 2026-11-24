@@ -740,30 +740,58 @@ export function modelTemplate(model, el) {
   return model.radius < 10 ? 'card' : 'bubble';
 }
 /** Puts a model, with the colors it suggests, into a configuration (nothing is saved here). */
-export function applyModel(config, model) {
+const COLOR_KEYS = ['main', 'surface', 'accent', 'text1', 'text2'];
+const colorsOf = (theme) => JSON.stringify(COLOR_KEYS.map((k) => theme[k]));
+/** The ready-made colors a theme has right now; none when one of them was changed by hand. */
+export const paletteOf = (theme) =>
+  PALETTES.find((p) => JSON.stringify(p.slice(1, 6)) === colorsOf(theme));
+/**
+ * True when the colors of the theme are the user's own choice: other than the ones the
+ * model in use suggested. In settings from before that was written down, colors changed by
+ * hand count as chosen and ready-made ones do not.
+ */
+export function ownColors(config) {
+  const now = paletteOf(config.theme),
+    suggested = paletteNamed(config.theme.suggested);
+  return suggested ? JSON.stringify(suggested.slice(1, 6)) !== colorsOf(config.theme) : !now;
+}
+/**
+ * Puts a model on: format, font, animation and places of every element. The colors it
+ * suggests come along only while the user did not choose their own: colors chosen in the
+ * theme stay, and so does an element switched to its own appearance. `reset` takes the
+ * whole look of the model, suggested colors included. Says whether colors were kept.
+ */
+export function applyModel(config, model, { reset = false } = {}) {
   const c = structuredClone,
-    [, main, surface, accent, t1, t2] = paletteNamed(model.palette);
+    [, main, surface, accent, t1, t2] = paletteNamed(model.palette),
+    // Colors made for glass (white, see-through) do not work on a solid plate.
+    kept = !reset && ownColors(config) && !(paletteOf(config.theme)?.[6] && !model.glass);
   config.brand.font = model.font;
+  if (!kept)
+    Object.assign(config.theme, {
+      main: c(main),
+      surface: c(surface),
+      accent: c(accent),
+      text1: t1,
+      text2: t2,
+    });
   Object.assign(config.theme, {
-    main: c(main),
-    surface: c(surface),
-    accent: c(accent),
-    text1: t1,
-    text2: t2,
     opacity: model.opacity,
     radius: model.radius,
     shadow: model.shadow,
     decor: model.decor || '',
+    suggested: model.palette,
   });
-  // A model is a complete look: every element goes back to following the theme.
-  for (const el of THEMED_ELEMENTS)
+  for (const el of THEMED_ELEMENTS) {
     Object.assign(config[el], {
       template: modelTemplate(model, el),
-      custom: false,
       // The bottom bar always comes up from the edge it sits on.
       animation: (el !== 'ticker' && model.animation) || BASE_ANIMATION[el],
     });
+    if (reset) config[el].custom = false;
+  }
   // Some models also say where things go (and undo a free placement made by dragging).
   for (const [el, spot] of Object.entries(model.place || {}))
     Object.assign(config[el], spot, { free: false, vfree: false });
+  return kept;
 }

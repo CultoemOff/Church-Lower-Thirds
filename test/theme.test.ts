@@ -15,7 +15,7 @@ import {
   THEMED_ELEMENTS,
 } from '../src/web/js/look.js';
 // @ts-expect-error browser module without type declarations
-import { applyModel, MODELS, modelTemplate, PALETTES } from '../src/web/js/models.js';
+import { applyModel, MODELS, modelTemplate, ownColors, PALETTES } from '../src/web/js/models.js';
 
 test('every element follows the global theme until it is given its own appearance', () => {
   const c = defaults();
@@ -106,14 +106,17 @@ test('ready-made models: each one is complete, suggests existing colors and is s
     );
     if (model.decor) assert.ok(DECORS.includes(model.decor), `${model.id}: drawing`);
     const c = defaults();
-    c.card.custom = true;
-    applyModel(c, model);
+    assert.equal(applyModel(c, model), false, `${model.id}: suggested colors`);
     // Nothing a model sets is refused or changed by the server.
     assert.deepEqual({ ...cleanConfig(structuredClone(c)), profiles: [] }, c, model.id);
-    for (const el of THEMED_ELEMENTS) {
+    for (const el of THEMED_ELEMENTS)
       assert.equal(c[el as 'lower'].template, modelTemplate(model, el), `${model.id}: ${el}`);
-      assert.equal(c[el as 'lower'].custom, false);
-    }
+    assert.equal(c.theme.suggested, model.palette);
+    assert.deepEqual(
+      [c.theme.main, c.theme.surface, c.theme.accent, c.theme.text1, c.theme.text2],
+      PALETTES.find((p: unknown[]) => p[0] === model.palette).slice(1, 6),
+      `${model.id}: colors`,
+    );
     assert.equal(c.theme.decor, model.decor || '');
     assert.equal(c.brand.font, model.font);
   }
@@ -186,4 +189,78 @@ test('date of the corner badge: day of the week, date or both, in three styles',
     dateText(day, 'pt-BR', { showDate: false, showWeekday: false, dateStyle: 'short' }),
     '',
   );
+});
+
+test('another model keeps the colors the user chose', () => {
+  const model = (id: string) => MODELS.find((m: { id: string }) => m.id === id),
+    [first, second, third] = MODELS.filter((m: { glass?: boolean }) => !m.glass),
+    glass = MODELS.find((m: { glass?: boolean }) => m.glass),
+    colors = (c: ReturnType<typeof defaults>) =>
+      JSON.stringify([c.theme.main, c.theme.surface, c.theme.accent, c.theme.text1, c.theme.text2]);
+  assert.ok(model(first.id) && glass && first.palette !== second.palette);
+
+  // Untouched: every model brings the colors it suggests.
+  const c = defaults();
+  assert.equal(ownColors(c), false);
+  applyModel(c, first);
+  assert.equal(applyModel(c, second), false);
+  assert.equal(c.theme.suggested, second.palette);
+
+  // One color changed by hand: the colors stay, the format of the other model comes.
+  c.theme.accent = { type: 'solid', a: '#ff0066', b: '#ff0066', angle: 90 };
+  c.theme.text1 = '#fafafa';
+  c.card.custom = true;
+  c.card.accent = { type: 'solid', a: '#00aa55', b: '#00aa55', angle: 90 };
+  const mine = colors(c);
+  assert.equal(ownColors(c), true);
+  for (const m of [third, first, glass]) {
+    assert.equal(applyModel(c, m), true, m.id);
+    assert.equal(colors(c), mine, m.id);
+    assert.equal(c.lower.template, modelTemplate(m, 'lower'));
+    assert.equal(c.theme.radius, m.radius);
+    assert.equal(c.brand.font, m.font);
+    // An element with its own appearance keeps it.
+    assert.equal(c.card.custom, true);
+    assert.equal(c.card.accent.a, '#00aa55');
+    assert.equal(c.card.template, modelTemplate(m, 'card'));
+  }
+  // The server keeps what tells the two cases apart.
+  assert.equal(cleanConfig(structuredClone(c)).theme.suggested, glass.palette);
+
+  // Other ready-made colors, picked by the user, also stay.
+  const other = PALETTES.find(
+    (p: unknown[]) => !p[6] && ![first.palette, second.palette, third.palette].includes(p[0]),
+  );
+  applyModel(c, first, { reset: true });
+  assert.equal(ownColors(c), false);
+  assert.equal(c.card.custom, false);
+  [, c.theme.main, c.theme.surface, c.theme.accent, c.theme.text1, c.theme.text2] =
+    structuredClone(other);
+  assert.equal(applyModel(c, second), true);
+  assert.equal(colors(c), JSON.stringify(other.slice(1, 6)));
+  // Back to the suggested ones by choosing them: the next model brings its own again.
+  applyModel(c, second, { reset: true });
+  assert.equal(applyModel(c, third), false);
+  assert.equal(
+    colors(c),
+    JSON.stringify(PALETTES.find((p: unknown[]) => p[0] === third.palette).slice(1, 6)),
+  );
+
+  // Colors made for glass do not go along to a solid model.
+  const onGlass = PALETTES.find((p: unknown[]) => p[6] && p[0] !== glass.palette);
+  if (onGlass) {
+    applyModel(c, glass, { reset: true });
+    [, c.theme.main, c.theme.surface, c.theme.accent, c.theme.text1, c.theme.text2] =
+      structuredClone(onGlass);
+    assert.equal(ownColors(c), true);
+    assert.equal(applyModel(c, first), false);
+  }
+
+  // Settings from before: colors changed by hand count as chosen, ready-made ones do not.
+  const old = defaults();
+  old.theme.suggested = '';
+  assert.equal(ownColors(old), false);
+  old.theme.main = { type: 'solid', a: '#112233', b: '#112233', angle: 90 };
+  assert.equal(applyModel(old, second), true);
+  assert.equal(old.theme.main.a, '#112233');
 });

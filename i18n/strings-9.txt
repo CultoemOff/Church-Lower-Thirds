@@ -604,11 +604,11 @@ Perfil de culto: cambia de una vez el modelo, los colores, las fuentes y el logo
 Profilo del culto: cambia in una volta il modello, i colori, i caratteri e il logo
 Gottesdienst-Profil: wechselt Vorlage, Farben, Schriften und Logo auf einmal
 
-Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.
-Start with the style: it sets the shape, the font and the animation of every element and already brings the colors that suit it best. The pictures show each style with the church's name and logo; the entrance animation is shown in the big preview.
-Empiece por el modelo: define la forma, la fuente y la animación de todos los elementos y ya trae los colores que mejor combinan. Las figuras muestran cada modelo con el nombre y el logo de la iglesia; la animación de entrada aparece en la vista previa grande.
-Inizia dal modello: definisce la forma, il carattere e l’animazione di tutti gli elementi e porta già i colori più adatti. Le figure mostrano ogni modello con il nome e il logo della chiesa; l’animazione d’entrata appare nell’anteprima grande.
-Beginnen Sie mit der Vorlage: Sie bestimmt Form, Schrift und Animation aller Elemente und bringt die passendsten Farben gleich mit. Die Bilder zeigen jede Vorlage mit Namen und Logo der Gemeinde; die Einstiegsanimation zeigt die große Vorschau.
+Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As cores que a igreja já escolheu continuam ao trocar de modelo. As figuras mostram cada modelo como ele vai ficar, com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.
+Start with the style: it sets the shape, the font and the animation of every element and already brings the colors that suit it best. Colors the church has already chosen stay when the style changes. The pictures show each style as it will look, with the church's name and logo; the entrance animation is shown in the big preview.
+Empiece por el modelo: define la forma, la fuente y la animación de todos los elementos y ya trae los colores que mejor combinan. Los colores que la iglesia ya eligió se mantienen al cambiar de modelo. Las figuras muestran cada modelo tal como quedará, con el nombre y el logo de la iglesia; la animación de entrada aparece en la vista previa grande.
+Inizia dal modello: definisce la forma, il carattere e l’animazione di tutti gli elementi e porta già i colori più adatti. I colori che la chiesa ha già scelto restano quando si cambia modello. Le figure mostrano ogni modello come apparirà, con il nome e il logo della chiesa; l’animazione d’entrata appare nell’anteprima grande.
+Beginnen Sie mit der Vorlage: Sie bestimmt Form, Schrift und Animation aller Elemente und bringt die passendsten Farben gleich mit. Farben, die die Gemeinde schon gewählt hat, bleiben beim Wechsel der Vorlage erhalten. Die Bilder zeigen jede Vorlage so, wie sie aussehen wird, mit Namen und Logo der Gemeinde; die Einstiegsanimation zeigt die große Vorschau.
 
 Trocar de perfil de culto (pelo nome)
 Change the service profile (by name)
@@ -945,3 +945,27 @@ Type the comment before showing it.
 Escriba el comentario antes de mostrarlo.
 Scrivi il commento prima di mostrarlo.
 Schreiben Sie den Kommentar, bevor Sie ihn zeigen.
+
+Modelo "{name}" aplicado. As cores escolhidas foram mantidas.
+Style "{name}" applied. The chosen colors were kept.
+Modelo "{name}" aplicado. Se mantuvieron los colores elegidos.
+Modello "{name}" applicato. I colori scelti sono stati mantenuti.
+Vorlage „{name}“ angewendet. Die gewählten Farben wurden beibehalten.
+
+Ao trocar de modelo, as cores escolhidas e os elementos com aparência própria continuam como estão.
+When the style changes, the chosen colors and the elements with their own look stay as they are.
+Al cambiar de modelo, los colores elegidos y los elementos con apariencia propia siguen como están.
+Quando si cambia modello, i colori scelti e gli elementi con aspetto proprio restano come sono.
+Beim Wechsel der Vorlage bleiben die gewählten Farben und die Elemente mit eigenem Aussehen, wie sie sind.
+
+Ao trocar de modelo, as cores escolhidas continuam como estão.
+When the style changes, the chosen colors stay as they are.
+Al cambiar de modelo, los colores elegidos siguen como están.
+Quando si cambia modello, i colori scelti restano come sono.
+Beim Wechsel der Vorlage bleiben die gewählten Farben, wie sie sind.
+
+Usar as cores do modelo ({colors})
+Use the style's colors ({colors})
+Usar los colores del modelo ({colors})
+Usa i colori del modello ({colors})
+Farben der Vorlage verwenden ({colors})

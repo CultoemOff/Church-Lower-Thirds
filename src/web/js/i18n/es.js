@@ -854,8 +854,8 @@ export default {
     'Perfil de culto: cambia de una vez el modelo, los colores, las fuentes y el logo. Cree y ajuste los perfiles en la configuración.',
   'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo':
     'Perfil de culto: cambia de una vez el modelo, los colores, las fuentes y el logo',
-  'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.':
-    'Empiece por el modelo: define la forma, la fuente y la animación de todos los elementos y ya trae los colores que mejor combinan. Las figuras muestran cada modelo con el nombre y el logo de la iglesia; la animación de entrada aparece en la vista previa grande.',
+  'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As cores que a igreja já escolheu continuam ao trocar de modelo. As figuras mostram cada modelo como ele vai ficar, com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.':
+    'Empiece por el modelo: define la forma, la fuente y la animación de todos los elementos y ya trae los colores que mejor combinan. Los colores que la iglesia ya eligió se mantienen al cambiar de modelo. Las figuras muestran cada modelo tal como quedará, con el nombre y el logo de la iglesia; la animación de entrada aparece en la vista previa grande.',
   'Trocar de perfil de culto (pelo nome)': 'Cambiar de perfil de culto (por el nombre)',
   'Nome do novo perfil (ex.: Culto de mulheres, Natal)':
     'Nombre del nuevo perfil (p. ej.: Culto de mujeres, Navidad)',
@@ -933,4 +933,11 @@ export default {
   'Mostrar o balão ao lado do texto': 'Mostrar el globo al lado del texto',
   'Comentário (o último escrito)': 'Comentario (el último escrito)',
   'Escreva o comentário antes de mostrar.': 'Escriba el comentario antes de mostrarlo.',
+  'Modelo "{name}" aplicado. As cores escolhidas foram mantidas.':
+    'Modelo "{name}" aplicado. Se mantuvieron los colores elegidos.',
+  'Ao trocar de modelo, as cores escolhidas e os elementos com aparência própria continuam como estão.':
+    'Al cambiar de modelo, los colores elegidos y los elementos con apariencia propia siguen como están.',
+  'Ao trocar de modelo, as cores escolhidas continuam como estão.':
+    'Al cambiar de modelo, los colores elegidos siguen como están.',
+  'Usar as cores do modelo ({colors})': 'Usar los colores del modelo ({colors})',
 };

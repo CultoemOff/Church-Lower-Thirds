@@ -856,8 +856,8 @@ export default {
     'Gottesdienst-Profil: wechselt Vorlage, Farben, Schriften und Logo auf einmal. Profile werden in den Einstellungen angelegt und angepasst.',
   'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo':
     'Gottesdienst-Profil: wechselt Vorlage, Farben, Schriften und Logo auf einmal',
-  'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.':
-    'Beginnen Sie mit der Vorlage: Sie bestimmt Form, Schrift und Animation aller Elemente und bringt die passendsten Farben gleich mit. Die Bilder zeigen jede Vorlage mit Namen und Logo der Gemeinde; die Einstiegsanimation zeigt die große Vorschau.',
+  'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As cores que a igreja já escolheu continuam ao trocar de modelo. As figuras mostram cada modelo como ele vai ficar, com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.':
+    'Beginnen Sie mit der Vorlage: Sie bestimmt Form, Schrift und Animation aller Elemente und bringt die passendsten Farben gleich mit. Farben, die die Gemeinde schon gewählt hat, bleiben beim Wechsel der Vorlage erhalten. Die Bilder zeigen jede Vorlage so, wie sie aussehen wird, mit Namen und Logo der Gemeinde; die Einstiegsanimation zeigt die große Vorschau.',
   'Trocar de perfil de culto (pelo nome)': 'Gottesdienst-Profil wechseln (nach Name)',
   'Nome do novo perfil (ex.: Culto de mulheres, Natal)':
     'Name des neuen Profils (z. B. Frauengottesdienst, Weihnachten)',
@@ -935,4 +935,11 @@ export default {
   'Mostrar o balão ao lado do texto': 'Sprechblase neben dem Text zeigen',
   'Comentário (o último escrito)': 'Kommentar (der zuletzt eingetippte)',
   'Escreva o comentário antes de mostrar.': 'Schreiben Sie den Kommentar, bevor Sie ihn zeigen.',
+  'Modelo "{name}" aplicado. As cores escolhidas foram mantidas.':
+    'Vorlage „{name}“ angewendet. Die gewählten Farben wurden beibehalten.',
+  'Ao trocar de modelo, as cores escolhidas e os elementos com aparência própria continuam como estão.':
+    'Beim Wechsel der Vorlage bleiben die gewählten Farben und die Elemente mit eigenem Aussehen, wie sie sind.',
+  'Ao trocar de modelo, as cores escolhidas continuam como estão.':
+    'Beim Wechsel der Vorlage bleiben die gewählten Farben, wie sie sind.',
+  'Usar as cores do modelo ({colors})': 'Farben der Vorlage verwenden ({colors})',
 };
