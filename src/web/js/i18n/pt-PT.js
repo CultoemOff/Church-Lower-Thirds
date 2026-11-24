@@ -147,6 +147,8 @@ export default {
   'O assistente leva uns cinco minutos. Dá para pular um passo, ir direto a outro pela lista ao lado ou pular o assistente inteiro.':
     'O assistente demora uns cinco minutos. Pode saltar um passo, ir diretamente a outro pela lista ao lado ou saltar o assistente inteiro.',
   'Arquivo grande demais.': 'Ficheiro demasiado grande.',
+  'O Windows deste computador não deixou o programa abrir o instalador sozinho (é comum em computadores de empresa). Baixe o instalador e abra-o você mesmo: as configurações são mantidas.':
+    'O Windows deste computador não deixou o programa abrir o instalador sozinho (é comum em computadores de empresa). Transfira o instalador e abra-o: as configurações são mantidas.',
   'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui você confere e ajusta a aparência.':
     'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui pode conferir e ajustar o aspeto.',
   'Use o mesmo tamanho do vídeo do seu OBS. Os gráficos se ajustam sozinhos: tudo o que você configurou fica igual em qualquer um deles.':

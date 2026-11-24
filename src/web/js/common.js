@@ -74,6 +74,10 @@ const ERRORS = [
   [/Update check failed/, 'Não foi possível procurar atualizações agora.'],
   [/Update download|Update checksum/, 'Não foi possível baixar a atualização. Tente de novo.'],
   [/Already up to date/, 'O programa já está atualizado.'],
+  [
+    /Windows did not start the installer/,
+    'O Windows não deixou abrir o instalador. Baixe a nova versão pelo botão ao lado.',
+  ],
   [/category is disabled/, 'Esta categoria está desativada nas configurações.'],
   [/Agenda is empty/, 'A agenda está vazia: adicione um dia.'],
   [/Unknown setting/, 'Esta versão do painel não combina com o programa: recarregue o painel.'],

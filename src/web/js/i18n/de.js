@@ -866,4 +866,9 @@ export default {
   'Com o horário ligado, a data fica embaixo dele; sozinha, fica no lugar dele.':
     'Bei eingeschalteter Uhrzeit steht das Datum darunter; allein nimmt es deren Platz ein.',
   Data: 'Datum',
+  'O Windows não deixou abrir o instalador. Baixe a nova versão pelo botão ao lado.':
+    'Windows hat das Installationsprogramm nicht öffnen lassen. Laden Sie die neue Version über die Schaltfläche daneben herunter.',
+  'Baixar o instalador': 'Installationsprogramm herunterladen',
+  'O Windows deste computador não deixou o programa abrir o instalador sozinho (é comum em computadores de empresa). Baixe o instalador e abra-o você mesmo: as configurações são mantidas.':
+    'Windows hat auf diesem Computer nicht zugelassen, dass das Programm das Installationsprogramm selbst öffnet (auf Firmencomputern üblich). Laden Sie es herunter und öffnen Sie es selbst: Die Einstellungen bleiben erhalten.',
 };

@@ -854,4 +854,9 @@ export default {
   'Com o horário ligado, a data fica embaixo dele; sozinha, fica no lugar dele.':
     'With the time on, the date goes under it; by itself, it takes its place.',
   Data: 'Date',
+  'O Windows não deixou abrir o instalador. Baixe a nova versão pelo botão ao lado.':
+    'Windows did not let the installer open. Download the new version with the button beside it.',
+  'Baixar o instalador': 'Download the installer',
+  'O Windows deste computador não deixou o programa abrir o instalador sozinho (é comum em computadores de empresa). Baixe o instalador e abra-o você mesmo: as configurações são mantidas.':
+    'Windows on this computer did not let the program open the installer by itself (common on company computers). Download the installer and open it yourself: the settings are kept.',
 };
