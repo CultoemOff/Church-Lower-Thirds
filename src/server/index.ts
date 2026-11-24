@@ -648,5 +648,5 @@ sourcesDir = await writeSourceFiles(userFolder, baseUrl).catch((e) => {
   console.error(`Could not write the OBS source files: ${(e as Error).message}`);
   return '';
 });
-console.log(`Church Lower Thirds — by Culto em Off: ${baseUrl}/settings`);
+console.log(`Church Lower Thirds by Culto em Off: ${baseUrl}/settings`);
 console.log(`Persistent data: ${configFile}`);
