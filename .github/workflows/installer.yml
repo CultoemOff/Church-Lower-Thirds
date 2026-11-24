@@ -154,6 +154,10 @@ jobs:
           catch { Write-Host "Update check not available yet: $($_.Exception.Message)" }
           # Settings round trip, PIX code and QR image.
           $state = Invoke-RestMethod "$base/api/state"
+          # An English installation starts on "link", not on PIX: each language starts from
+          # what its main country uses.
+          if ($state.config.language -eq 'en' -and $state.config.giving.method -ne 'link') { throw "English first run started on $($state.config.giving.method)" }
+          $state.config.giving.method = 'pix'
           $state.config.pix.key = '12.345.678/0001-90'
           $state.config.pix.name = 'Igreja Teste'
           $state.config.pix.city = 'Sao Paulo'
