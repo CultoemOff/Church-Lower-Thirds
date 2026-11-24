@@ -1,5 +1,9 @@
 **Versão beta para testes — somente Windows.** Programa novo, separado do PTZ Control Web.
 
+### Novidades da beta.5
+
+- **Ícone novo**, da mesma família do PTZ Control Web: fundo azul com a cruz e, no terço inferior, a tarja de nome com o fio dourado. Vale para o instalador, os atalhos e as abas do navegador.
+
 ### Novidades da beta.4
 
 - O repositório passou a ser público: o botão **Atualizar agora** encontra as versões novas em qualquer computador.
