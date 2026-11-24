@@ -1,6 +1,3 @@
-Salve aqui o PIX e os links que você mais usa.
-Guarde aqui o PIX e as ligações que mais usa.
-
 No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui você confere e ajusta a aparência.
 No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui pode conferir e ajustar o aspeto.
 
@@ -115,9 +112,6 @@ Nome da aplicação
 Telefone, código ou e-mail que recebe
 Telemóvel, código ou e-mail que recebe
 
-Fixar: o que você mostrar nesta aba fica na tela até esconder, mesmo quando o tempo acabar
-Fixar: o que mostrar neste separador fica no ecrã até esconder, mesmo quando o tempo acabar
-
 Não dá para desfazer. Salve um backup antes, se quiser guardar o que tem hoje.
 Não é possível desfazer. Guarde uma cópia de segurança antes, se quiser manter o que tem hoje.
 
@@ -138,3 +132,6 @@ Guardar como novo perfil
 
 Para um perfil novo: salve com um nome e depois escolha o modelo, as cores e o logo dele.
 Para um perfil novo: guarde com um nome e depois escolha o modelo, as cores e o logótipo.
+
+Cada oferta tem o seu título e o seu QR Code: dízimos e ofertas, missões, uma campanha, uma inscrição. No painel do OBS, na aba "Ofertas e Dízimos", um clique mostra a que você escolher.
+Cada oferta tem o seu título e o seu QR Code: dízimos e ofertas, missões, uma campanha, uma inscrição. No painel do OBS, no separador "Ofertas e Dízimos", um clique mostra a que escolher.

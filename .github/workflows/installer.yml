@@ -163,6 +163,18 @@ jobs:
           if ($pix.payload -notmatch '^000201.*6304[0-9A-F]{4}$') { throw "Unexpected PIX code: $($pix.payload)" }
           $qr = Invoke-WebRequest "$base/api/qr.svg?kind=giving" -UseBasicParsing
           if ($qr.Headers['Content-Type'] -notmatch 'svg') { throw "QR served as $($qr.Headers['Content-Type'])" }
+          # An offering with its own PIX key, and a comment typed by hand.
+          $qr = Invoke-WebRequest "$base/api/qr.svg?kind=pixkey&text=missoes%40igreja.org" -UseBasicParsing
+          if ($qr.Headers['Content-Type'] -notmatch 'svg') { throw "QR of another PIX key served as $($qr.Headers['Content-Type'])" }
+          $patch = @{ 'comment.user' = '@maria'; 'comment.said' = 'Que culto abençoado!' } | ConvertTo-Json
+          Invoke-RestMethod "$base/api/patch" -Method Post -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($patch)) | Out-Null
+          $c = Invoke-RestMethod "$base/api/live/comment/show" -Method Post
+          if (-not $c.live.comment.on) { throw "The comment did not go on air" }
+          # Service profiles: a new one, back to the first by its name.
+          $p = Invoke-RestMethod "$base/api/profile/add" -Method Post -ContentType 'application/json' -Body (@{ name = 'Natal' } | ConvertTo-Json)
+          if ($p.config.profiles.Count -ne 2) { throw "Profile not created" }
+          $p = Invoke-RestMethod "$base/api/profile/use?n=1"
+          if ($p.profile -ne 'padrao') { throw "Profile not changed: $($p.profile)" }
           # PIX only exists in Brazil: the same QR from a SEPA transfer and from a link.
           $patch = @{ 'giving.method' = 'sepa'; 'giving.sepa.name' = 'Igreja Teste'; 'giving.sepa.iban' = 'PT50 0002 0123 1234 5678 9015 4' } | ConvertTo-Json
           Invoke-RestMethod "$base/api/patch" -Method Post -ContentType 'application/json' -Body $patch | Out-Null

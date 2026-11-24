@@ -134,6 +134,7 @@ test('a name that no longer exists is not left on air', () => {
       ticker: { on: false },
       agenda: { on: false, pin: false },
       social: { on: false, item: '', pin: false },
+      comment: { on: false, pin: false },
     },
   );
   assert.equal(cleanLive({ lower: { on: true, item: 'aaaa' } }, c).lower.on, true);
@@ -398,4 +399,42 @@ test('service profiles: each keeps a whole look; the texts are the same in all o
   assert.equal(fixed.profiles.length, 1);
   assert.equal(fixed.profiles[0].name, 'Só nome');
   assert.equal(fixed.profile, fixed.profiles[0].id);
+});
+
+test('comments: typed by hand, kept in a list, on air only while there is a text', () => {
+  const c = cleanConfig({
+    comment: {
+      user: ' @maria ',
+      said: 'Amém!',
+      template: 'nope',
+      saved: [{ user: 'João', text: ' Glória a Deus ' }, { user: 'x', text: '' }, 5],
+    },
+  });
+  assert.equal(c.comment.template, 'bubble');
+  assert.equal(c.comment.said, 'Amém!');
+  assert.deepEqual(
+    c.comment.saved.map((s) => [s.user, s.text]),
+    [['João', 'Glória a Deus']],
+  );
+  const live = liveDefaults();
+  live.comment.on = true;
+  assert.equal(cleanLive(live, c).comment.on, true);
+  c.comment.said = '  ';
+  assert.equal(cleanLive(live, c).comment.on, false);
+  // An offering with its own PIX key is one of the kinds of a saved QR card.
+  const o = cleanConfig({
+    card: {
+      qr: 'pixkey',
+      qrText: 'missoes@igreja.org',
+      saved: [
+        { title: 'Missões', qr: 'pixkey', qrText: 'a@b.c' },
+        { title: 'Site', qr: 'zzz' },
+      ],
+    },
+  });
+  assert.equal(o.card.qr, 'pixkey');
+  assert.deepEqual(
+    o.card.saved.map((s) => s.qr),
+    ['pixkey', 'giving'],
+  );
 });

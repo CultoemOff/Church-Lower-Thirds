@@ -35,39 +35,52 @@ header {
   font-weight: 700;
   max-width: 132px;
 }
+/* Real tabs, attached to the panel below them; the chosen one opens onto the panel. They
+   are many: in a narrow dock they take two rows. */
 .tabs {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(74px, 1fr));
-  gap: 4px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
   flex: none;
+  /* Down onto the top edge of the panel (the dock's own gap, plus the edge). */
+  margin-bottom: -8px;
+  padding: 0 2px;
 }
 .tabs button {
+  flex: 1 1 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  height: 30px;
-  padding: 0 6px;
+  height: 31px;
+  padding: 0 11px;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  background: var(--panel);
-  min-width: 0;
-}
-.tabs button span {
-  overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  border-radius: 9px 9px 0 0;
+  box-shadow: none;
+}
+.tabs button:hover {
+  color: var(--text);
 }
 .tabs button.active {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
+  color: var(--text);
+  background: var(--panel);
+  border-color: var(--border);
+  box-shadow: inset 0 2px 0 var(--accent);
 }
 .tabs i,
 .item > i,
-.toggle > i {
+.toggle > i,
+.paneState > i {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -80,7 +93,57 @@ header {
 .tabs button.on i {
   display: block;
   background: var(--live);
-  box-shadow: 0 0 0 2px #fff6;
+}
+.tabPanel {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+/* The bar of the tab: on air or not, the pin and the eye of this element. */
+.paneBar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 1px 1px 0 4px;
+}
+.paneState {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.paneState.on {
+  color: var(--live);
+}
+.paneState.on > i {
+  background: var(--live);
+}
+.paneActions {
+  display: flex;
+  gap: 5px;
+}
+.paneActions .iconBtn {
+  width: 30px;
+  height: 28px;
+}
+.eyeBtn svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+.eyeBtn.on {
+  background: var(--live);
+  border-color: var(--live);
+  color: #fff;
 }
 .pane {
   flex: 1 1 auto;
@@ -353,9 +416,6 @@ header {
   .editor {
     overflow-y: auto;
   }
-  .tabs {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
 }
 /* Short docks: no footer, tighter rows */
 @media (max-height: 330px) {
@@ -431,11 +491,11 @@ footer {
 }
 
 /* Pin: what is shown on this tab stays when the global time ends. */
-#pinToggle.active {
+#tabPin.active {
   background: #f0a52a;
   border-color: #f0a52a;
 }
-#pinToggle.active img {
+#tabPin.active img {
   filter: brightness(0);
 }
 

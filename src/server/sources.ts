@@ -15,6 +15,7 @@ export const SOURCES = [
   { slug: 'qr-card', file: 'QR Card', element: 'card' },
   { slug: 'schedule', file: 'Schedule', element: 'agenda' },
   { slug: 'social', file: 'Social', element: 'social' },
+  { slug: 'comments', file: 'Comments', element: 'comment' },
   { slug: 'logo', file: 'Logo', element: 'bug' },
 ] as const;
 

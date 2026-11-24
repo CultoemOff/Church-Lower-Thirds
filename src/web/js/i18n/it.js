@@ -55,9 +55,7 @@ export default {
   'Tira o cartão da tela': 'Toglie la scheda dallo schermo',
   Esconder: 'Nascondi',
   'Guarda este QR Code na lista': 'Salva questo codice QR nella lista',
-  'QR Codes salvos': 'Codici QR salvati',
   'Clique para mostrar este QR Code': 'Clic per mostrare questo codice QR',
-  'Salve aqui o PIX e os links que você mais usa.': 'Salva qui il PIX e i link che usi di più.',
   'O que aparece no selo': 'Cosa appare nel badge',
   'Mostra só este texto agora, no lugar da lista (Enter)':
     'Mostra solo questo testo ora, al posto della lista (Invio)',
@@ -78,7 +76,6 @@ export default {
   'Horários, um por linha': 'Orari, uno per riga',
   'Guarda este dia na agenda': 'Salva questo giorno nel programma',
   'Adicionar dia': 'Aggiungi giorno',
-  'Mostrar a agenda': 'Mostra il programma',
   'Mostra um dia de cada vez, passando para o próximo, e sai depois do último':
     "Mostra un giorno alla volta, passando al successivo, ed esce dopo l'ultimo",
   Dias: 'Giorni',
@@ -100,7 +97,6 @@ export default {
   Remover: 'Rimuovi',
   'Adicione o Instagram, o YouTube…': 'Aggiungi Instagram, YouTube…',
   'Selo superior': 'Badge in alto',
-  'Mostra ou esconde o selo do canto da tela': "Mostra o nasconde il badge nell'angolo",
   'Logo solto': 'Logo da solo',
   'Mostra ou esconde o logo sozinho em outro canto da tela':
     'Mostra o nasconde il logo da solo in un altro angolo dello schermo',
@@ -109,8 +105,6 @@ export default {
   Recados: 'Avvisi',
   'Recado para mostrar agora': 'Avviso da mostrare ora',
   'Barra inferior': 'Barra inferiore',
-  'Mostra ou esconde a barra inferior, com o texto rolando':
-    'Mostra o nasconde la barra inferiore, con il testo che scorre',
   'Textos que rolam': 'Testi che scorrono',
   'Texto para rolar agora': 'Testo da far scorrere ora',
   Clássico: 'Classico',
@@ -498,16 +492,9 @@ export default {
   'O programa já está atualizado.': 'Il programma è già aggiornato.',
   'Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.':
     "Ogni utente del computer ha la propria cartella e le proprie impostazioni: uno non modifica quelle dell'altro.",
-  'Cartão com QR Code: a contribuição da igreja ou um link':
-    "Scheda con codice QR: l'offerta della chiesa o un link",
   Oferta: 'Offerta',
-  'QR Code da contribuição da igreja: PIX, transferência, link ou imagem (escolha nas configurações)':
-    "Codice QR dell'offerta della chiesa: PIX, bonifico, link o immagine (scegli nelle impostazioni)",
   'Contribuição da igreja': 'Offerta della chiesa',
   'Geral e contribuições': 'Generale e offerte',
-  'Cartão QR / Oferta': 'Scheda QR / Offerta',
-  'Cartão com o QR Code da contribuição ou de um link.':
-    "Scheda con il codice QR dell'offerta o di un link.",
   'Preencha os dados acima para ver o resultado.':
     'Compila i dati qui sopra per vedere il risultato.',
   'Os dados acima aparecem no cartão, sem QR Code.':
@@ -658,8 +645,6 @@ export default {
   Voltar: 'Indietro',
   Concluir: 'Fine',
   Avançar: 'Avanti',
-  'Fixar: o que você mostrar nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
-    'Blocca: ciò che mostri in questa scheda resta sullo schermo finché non lo nascondi, anche a tempo scaduto',
   'Configurações avançadas: abre no navegador (modelos, cores, fontes, contribuições, logo)':
     'Impostazioni avanzate: si apre nel browser (modelli, colori, caratteri, offerte, logo)',
   'Endereços para o OBS, tutorial, resoluções e atalhos.':
@@ -895,4 +880,54 @@ export default {
     'Ci sono troppi profili: eliminane uno prima di crearne un altro.',
   Tempo: 'Tempo',
   'sem limite': 'senza limite',
+  'Fixar: o que for mostrado nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
+    'Blocca: ciò che viene mostrato da questa scheda resta sullo schermo finché non lo nascondi, anche a tempo scaduto',
+  'Mostra ou esconde na tela o elemento desta aba':
+    'Mostra o nasconde sullo schermo l’elemento di questa scheda',
+  'Ofertas e Dízimos': 'Offerte e Decime',
+  'Cartão com QR Code: ofertas, dízimos, missões, um link…':
+    'Scheda con codice QR: offerte, decime, missioni, un link…',
+  Comentários: 'Commenti',
+  'Um comentário digitado na hora: quem escreveu e o que disse':
+    'Un commento scritto al momento: chi l’ha scritto e cosa dice',
+  'Escreva a chave PIX desta oferta.': 'Scrivi la chiave PIX di questa offerta.',
+  Principal: 'Principale',
+  'QR Code da contribuição principal da igreja: PIX, transferência, link ou imagem (escolha nas configurações)':
+    'Codice QR del contributo principale della chiesa: PIX, bonifico, link o immagine (si sceglie nelle impostazioni)',
+  'Outra chave PIX': 'Un’altra chiave PIX',
+  'QR Code de PIX com outra chave, para uma oferta específica':
+    'Codice QR PIX con un’altra chiave, per un’offerta specifica',
+  'Chave PIX desta oferta': 'Chiave PIX di questa offerta',
+  'Ofertas salvas': 'Offerte salvate',
+  'Contribuição principal': 'Contributo principale',
+  'Salve aqui cada oferta: dízimos, missões, uma campanha, um link…':
+    'Salva qui ogni offerta: decime, missioni, una campagna, un link…',
+  'Quem escreveu (nome ou @usuário)': 'Chi l’ha scritto (nome o @utente)',
+  'O comentário': 'Il commento',
+  'Mostra na tela o comentário escrito acima (Enter)':
+    'Mostra sullo schermo il commento scritto sopra (Invio)',
+  'Guarda este comentário na lista para mostrar depois':
+    'Conserva questo commento nell’elenco per mostrarlo dopo',
+  'Comentários salvos': 'Commenti salvati',
+  'Clique para mostrar este comentário': 'Clicca per mostrare questo commento',
+  'Escreva o comentário acima e mostre na hora, ou salve para depois.':
+    'Scrivi il commento qui sopra e mostralo subito, oppure salvalo per dopo.',
+  Balão: 'Fumetto',
+  'Cartão com QR Code: ofertas, dízimos, missões, uma campanha ou um link.':
+    'Scheda con codice QR: offerte, decime, missioni, una campagna o un link.',
+  'Um comentário digitado na hora, com o nome de quem escreveu.':
+    'Un commento scritto al momento, con il nome di chi l’ha scritto.',
+  'Contribuição principal da igreja': 'Contributo principale della chiesa',
+  'Outra chave PIX (uma oferta específica)': 'Un’altra chiave PIX (un’offerta specifica)',
+  'Cada oferta tem o seu título e o seu QR Code: dízimos e ofertas, missões, uma campanha, uma inscrição. No painel do OBS, na aba "Ofertas e Dízimos", um clique mostra a que você escolher.':
+    'Ogni offerta ha il suo titolo e il suo codice QR: decime e offerte, missioni, una campagna, un’iscrizione. Nel pannello di OBS, nella scheda "Offerte e Decime", un clic mostra quella che scegli.',
+  'Nova oferta': 'Nuova offerta',
+  'Título (ex.: Missões)': 'Titolo (es.: Missioni)',
+  'De onde vem o QR Code desta oferta': 'Da dove viene il codice QR di questa offerta',
+  Comentário: 'Commento',
+  'O comentário é escrito no painel do OBS, na aba "Comentários": o nome de quem escreveu e o que disse. Ele sai sozinho depois do tempo escolhido no painel, a não ser que esteja fixado. Aqui, enquanto nada foi escrito, a prévia mostra um exemplo.':
+    'Il commento si scrive nel pannello di OBS, nella scheda "Commenti": il nome di chi l’ha scritto e cosa dice. Esce da solo dopo il tempo scelto nel pannello, a meno che non sia bloccato. Qui, finché non è stato scritto nulla, l’anteprima mostra un esempio.',
+  'Mostrar o balão ao lado do texto': 'Mostra il fumetto accanto al testo',
+  'Comentário (o último escrito)': 'Commento (l’ultimo scritto)',
+  'Escreva o comentário antes de mostrar.': 'Scrivi il commento prima di mostrarlo.',
 };

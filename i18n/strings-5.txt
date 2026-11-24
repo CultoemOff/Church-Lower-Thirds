@@ -1,20 +1,8 @@
-Cartão com QR Code: a contribuição da igreja ou um link
-Card with a QR code: the church's giving or a link
-Tarjeta con código QR: la ofrenda de la iglesia o un enlace
-Scheda con codice QR: l'offerta della chiesa o un link
-Karte mit QR-Code: die Spende der Gemeinde oder ein Link
-
 Oferta
 Giving
 Ofrenda
 Offerta
 Spende
-
-QR Code da contribuição da igreja: PIX, transferência, link ou imagem (escolha nas configurações)
-QR code of the church's giving: PIX, bank transfer, link or image (choose in the settings)
-Código QR de la ofrenda de la iglesia: PIX, transferencia, enlace o imagen (elija en los ajustes)
-Codice QR dell'offerta della chiesa: PIX, bonifico, link o immagine (scegli nelle impostazioni)
-QR-Code für die Spende der Gemeinde: PIX, Überweisung, Link oder Bild (in den Einstellungen wählen)
 
 Contribuição da igreja
 Church giving
@@ -27,18 +15,6 @@ General and giving
 General y ofrendas
 Generale e offerte
 Allgemein und Spenden
-
-Cartão QR / Oferta
-QR / Giving card
-Tarjeta QR / Ofrenda
-Scheda QR / Offerta
-QR- / Spendenkarte
-
-Cartão com o QR Code da contribuição ou de um link.
-Card with the QR code for giving or for a link.
-Tarjeta con el código QR de la ofrenda o de un enlace.
-Scheda con il codice QR dell'offerta o di un link.
-Karte mit dem QR-Code für die Spende oder für einen Link.
 
 Preencha os dados acima para ver o resultado.
 Fill in the details above to see the result.

@@ -21,7 +21,8 @@ Na primeira vez, um assistente explica esses passos com ilustrações e deixa tu
 - **Nomes** (lower third): 15 modelos; texto escrito na hora ou salvo numa lista; logo e QR Code opcionais em cada item.
 - **Selo superior**: 7 modelos, num canto da tela, com logo, nome da igreja, "AO VIVO", horário, data, dia da semana e recados; cada parte é opcional.
 - **Barra inferior**: 4 modelos, com texto rolando. Os nomes sobem sozinhos quando ela está no ar.
-- **Cartão QR / Oferta**: 9 modelos. A contribuição pode ser PIX (pela chave ou pelo "copia e cola" do banco), aplicativo de pagamento por telefone ou código, transferência SEPA (QR EPC), um link, uma imagem de QR Code enviada ou só os dados bancários. Também faz QR Code de qualquer link.
+- **Comentários**: um comentário digitado na hora (quem escreveu e o que disse), com lista de salvos; 6 modelos.
+- **Ofertas e Dízimos** (cartão com QR Code): 9 modelos e várias ofertas salvas, cada uma com o seu título e o seu QR Code (a contribuição principal, outra chave PIX ou um link). A contribuição pode ser PIX (pela chave ou pelo "copia e cola" do banco), aplicativo de pagamento por telefone ou código, transferência SEPA (QR EPC), um link, uma imagem de QR Code enviada ou só os dados bancários. Também faz QR Code de qualquer link.
 - **Agenda**: 4 modelos; mostra um dia por vez.
 - **Redes sociais e avisos**: 7 modelos; um item por vez ou todos em sequência, com contador e linha do tempo. Os ícones são genéricos (não os logotipos das redes); a igreja pode enviar os seus.
 - **Logo** no canto da tela.

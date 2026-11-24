@@ -84,6 +84,7 @@ const ERRORS = [
   ],
   [/category is disabled/, 'Esta categoria está desativada nas configurações.'],
   [/Agenda is empty/, 'A agenda está vazia: adicione um dia.'],
+  [/Comment is empty/, 'Escreva o comentário antes de mostrar.'],
   [/Unknown setting/, 'Esta versão do painel não combina com o programa: recarregue o painel.'],
   [/HTTP 413|too large/i, 'Arquivo grande demais (máximo de 8 MB).'],
 ];

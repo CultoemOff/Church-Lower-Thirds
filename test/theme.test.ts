@@ -15,7 +15,7 @@ import {
   THEMED_ELEMENTS,
 } from '../src/web/js/look.js';
 // @ts-expect-error browser module without type declarations
-import { applyModel, MODELS, PALETTES } from '../src/web/js/models.js';
+import { applyModel, MODELS, modelTemplate, PALETTES } from '../src/web/js/models.js';
 
 test('every element follows the global theme until it is given its own appearance', () => {
   const c = defaults();
@@ -111,7 +111,7 @@ test('ready-made models: each one is complete, suggests existing colors and is s
     // Nothing a model sets is refused or changed by the server.
     assert.deepEqual({ ...cleanConfig(structuredClone(c)), profiles: [] }, c, model.id);
     for (const el of THEMED_ELEMENTS) {
-      assert.equal(c[el as 'lower'].template, model.templates[el], `${model.id}: ${el}`);
+      assert.equal(c[el as 'lower'].template, modelTemplate(model, el), `${model.id}: ${el}`);
       assert.equal(c[el as 'lower'].custom, false);
     }
     assert.equal(c.theme.decor, model.decor || '');
@@ -120,6 +120,19 @@ test('ready-made models: each one is complete, suggests existing colors and is s
   // Two models may share shapes and font: then the drawing tells them apart.
   const look = (m: { font: string; decor?: string; templates: object }) =>
     JSON.stringify([m.font, m.decor || '', m.templates]);
+  // Comments follow the family of the model.
+  const comment = (id: string) =>
+    modelTemplate(
+      MODELS.find((m: { id: string }) => m.id === id),
+      'comment',
+    );
+  assert.deepEqual(['institutional', 'news', 'liquid', 'kids', 'egypt'].map(comment), [
+    'bubble',
+    'card',
+    'liquid',
+    'kids',
+    'floral',
+  ]);
   assert.equal(new Set(MODELS.map(look)).size, MODELS.length);
 });
 

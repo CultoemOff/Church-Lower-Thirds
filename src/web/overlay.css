@@ -1743,6 +1743,114 @@ img:not([src]) {
 }
 
 /* =====================================================================
+   COMMENT: who wrote it and what it says, typed by hand in the dock
+   ===================================================================== */
+.comment .box {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  max-width: 920px;
+  color: var(--t1);
+  background: var(--fill);
+  border-radius: var(--radius);
+  padding: 18px 34px 20px 20px;
+}
+.comment .icon {
+  display: none;
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+  place-items: center;
+}
+.comment .has-icon .icon {
+  display: grid;
+}
+.comment .icon svg {
+  width: 34px;
+  height: 34px;
+}
+.comment .texts {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-self: center;
+}
+.comment .user {
+  display: none;
+  font-size: 23px;
+  line-height: 1.15;
+  font-weight: 800;
+  color: var(--accent-a);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.comment .has-user .user {
+  display: block;
+}
+.comment .said {
+  font-size: 34px;
+  line-height: 1.24;
+  font-weight: var(--w1);
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+  /* A long comment is cut after four lines. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+}
+.comment.in .icon {
+  animation: icon-pop calc(var(--dur) * 1.1) cubic-bezier(0.3, 1.6, 0.5, 1) both;
+  animation-delay: calc(var(--dur) * 0.3);
+}
+/* --- bubble: a speech balloon, with its tip on the side it sits --- */
+.comment[data-template='bubble'] .box {
+  border-radius: max(var(--radius), 26px);
+}
+.comment[data-template='bubble'] .box::after {
+  content: '';
+  position: absolute;
+  left: 42px;
+  bottom: -11px;
+  width: 26px;
+  height: 26px;
+  background: var(--fill);
+  border-radius: 0 0 7px 0;
+  transform: rotate(45deg);
+  z-index: -1;
+}
+.comment[data-template='bubble'][data-pos$='right'] .box::after {
+  left: auto;
+  right: 42px;
+}
+.comment[data-template='bubble'][data-pos^='top'] .box::after {
+  bottom: auto;
+  top: -11px;
+}
+/* --- card: a plate with an accent edge and a quotation mark --- */
+.comment[data-template='card'] .box {
+  padding-left: 24px;
+  border-left: 10px solid var(--accent-a);
+}
+.comment[data-template='card'] .icon {
+  border-radius: min(14px, var(--radius));
+}
+.comment[data-template='liquid'] .icon {
+  background: rgba(255, 255, 255, 0.28);
+  color: var(--t1);
+}
+.comment[data-template='liquid'] .user {
+  color: var(--t1);
+  opacity: 0.85;
+}
+
+/* =====================================================================
    LIQUID GLASS (every element): clear, rounded, bright rim, soft depth
    ===================================================================== */
 .el[data-template='liquid'] .scaler {
@@ -1754,7 +1862,8 @@ img:not([src]) {
 .card[data-template='liquid'] .box,
 .ticker[data-template='liquid'] .box,
 .agenda[data-template='liquid'] .box,
-.social[data-template='liquid'] .box {
+.social[data-template='liquid'] .box,
+.comment[data-template='liquid'] .box {
   background:
     linear-gradient(
       135deg,
@@ -2186,7 +2295,8 @@ img:not([src]) {
    ===================================================================== */
 .top .deco,
 .card .deco,
-.social .deco {
+.social .deco,
+.comment .deco {
   display: none;
 }
 .el[data-template='youth'] .deco,
@@ -2278,7 +2388,8 @@ img:not([src]) {
 .lower[data-template='floral'] .box,
 .top[data-template='floral'] .box,
 .card[data-template='floral'] .box,
-.social[data-template='floral'] .box {
+.social[data-template='floral'] .box,
+.comment[data-template='floral'] .box {
   position: relative;
   background: var(--fill);
   border-radius: var(--radius);
@@ -2287,7 +2398,8 @@ img:not([src]) {
 .lower[data-template='floral'] .box::before,
 .top[data-template='floral'] .box::before,
 .card[data-template='floral'] .box::before,
-.social[data-template='floral'] .box::before {
+.social[data-template='floral'] .box::before,
+.comment[data-template='floral'] .box::before {
   content: '';
   position: absolute;
   inset: 7px;
@@ -2475,7 +2587,8 @@ img:not([src]) {
 .card[data-template='floral'][data-decor='egypt'] .head {
   padding-top: 184px;
 }
-.social[data-template='floral'][data-decor='egypt'] .deco {
+.social[data-template='floral'][data-decor='egypt'] .deco,
+.comment[data-template='floral'][data-decor='egypt'] .deco {
   top: auto;
   right: 40px;
   bottom: calc(100% - 1px);
@@ -2492,10 +2605,12 @@ img:not([src]) {
   }
 }
 /* Over the social plate it comes up from behind the edge: what is still below stays cut off. */
-.social.in[data-template='floral'][data-decor='egypt'] .deco {
+.social.in[data-template='floral'][data-decor='egypt'] .deco,
+.comment.in[data-template='floral'][data-decor='egypt'] .deco {
   animation: none;
 }
-.social.in[data-template='floral'][data-decor='egypt'] .deco svg {
+.social.in[data-template='floral'][data-decor='egypt'] .deco svg,
+.comment.in[data-template='floral'][data-decor='egypt'] .deco svg {
   animation: deco-rise calc(var(--dur) * 1.5) cubic-bezier(0.2, 0.8, 0.2, 1) both;
   animation-delay: calc(var(--dur) * 0.55);
 }
@@ -2523,7 +2638,8 @@ img:not([src]) {
 .lower[data-template='kids'] .box,
 .top[data-template='kids'] .box,
 .card[data-template='kids'] .box,
-.social[data-template='kids'] .box {
+.social[data-template='kids'] .box,
+.comment[data-template='kids'] .box {
   position: relative;
   overflow: visible;
   background: var(--fill);
@@ -2847,4 +2963,84 @@ img:not([src]) {
   top: -30px;
   width: 54px;
   height: 54px;
+}
+
+/* ---------- comments in the themed models ---------- */
+.comment[data-template='floral'] .box {
+  padding: 22px 40px 24px 24px;
+}
+.comment[data-template='floral'] .icon {
+  background: none;
+  color: var(--accent-a);
+  box-shadow: inset 0 0 0 2px var(--accent-a);
+}
+.comment[data-template='floral'] .user {
+  color: var(--t2);
+  font-size: 19px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.comment[data-template='floral'] .deco,
+.comment[data-template='kids'] .deco {
+  right: -26px;
+  top: -32px;
+  width: 80px;
+  height: 80px;
+}
+.comment[data-template='kids'] .box {
+  padding: 16px 40px 18px 18px;
+}
+.comment[data-template='kids'] .icon {
+  border: 5px solid #fff;
+}
+.comment[data-template='kids'] .user {
+  color: var(--t1);
+  opacity: 0.9;
+}
+.comment[data-template='youth'] .box {
+  overflow: visible;
+  gap: 0;
+  align-items: stretch;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+}
+.comment[data-template='youth'] .box::before {
+  content: '';
+  flex: none;
+  width: 22px;
+  background:
+    repeating-linear-gradient(-45deg, var(--accent-a) 0 9px, transparent 9px 18px), var(--fill);
+}
+.comment[data-template='youth'] .icon {
+  width: 84px;
+  height: auto;
+  min-height: 84px;
+  border-radius: 0;
+}
+.comment[data-template='youth'] .texts {
+  align-self: stretch;
+  justify-content: center;
+  background: var(--fill);
+  padding: 14px 62px 14px 22px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 30px) 100%, 0 100%);
+}
+.comment[data-template='youth'] .user {
+  display: none;
+  align-self: flex-start;
+  padding: 5px 12px 4px;
+  font-size: 17px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--on-accent);
+  background: var(--accent);
+}
+.comment[data-template='youth'] .has-user .user {
+  display: block;
+}
+.comment[data-template='youth'] .deco {
+  right: -16px;
+  top: -28px;
+  width: 52px;
+  height: 52px;
 }

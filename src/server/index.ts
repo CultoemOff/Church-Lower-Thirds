@@ -280,7 +280,8 @@ function setOn(el: ElementName, on: boolean, item?: string) {
   // Names, the QR card and social networks come and go: one time on screen for all of
   // them. The agenda leaves after its last day, unless it is set to repeat.
   let seconds = 0;
-  if (el === 'lower' || el === 'card' || el === 'social') seconds = config.timing.autoHide;
+  if (el === 'lower' || el === 'card' || el === 'social' || el === 'comment')
+    seconds = config.timing.autoHide;
   else if (el === 'agenda' && !config.agenda.loop)
     seconds = config.agenda.days.length * config.agenda.seconds;
   // Pinned in the dock: it stays until someone hides it.
@@ -329,6 +330,8 @@ function liveCommand(q: Request, r: Response) {
   } else {
     if (el === 'agenda' && action !== 'hide' && !config.agenda.days.length)
       return void r.status(404).json({ error: 'Agenda is empty' });
+    if (el === 'comment' && action !== 'hide' && !config.comment.said.trim())
+      return void r.status(404).json({ error: 'Comment is empty' });
     setOn(el, action === 'show' || (action === 'toggle' && !live[el].on));
   }
   sendLive();
@@ -382,7 +385,16 @@ app.get('/api/giving', (_q, r) => {
 });
 app.get('/api/qr.svg', (q, r) => {
   try {
-    const text = q.query.kind === 'giving' ? givingCode() : String(q.query.text ?? '');
+    // giving = the church's main way; pixkey = the same receiver with another PIX key
+    // (an offering with its own key: missions, a purchase…); anything else = the text itself.
+    const kind = q.query.kind,
+      given = String(q.query.text ?? '');
+    const text =
+      kind === 'giving'
+        ? givingCode()
+        : kind === 'pixkey'
+          ? pixPayload({ ...config.pix, key: given })
+          : given;
     const svg = qrSvg(text, {
       dark: String(q.query.dark ?? '#000000'),
       light: String(q.query.light ?? '#ffffff'),

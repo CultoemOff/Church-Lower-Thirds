@@ -55,6 +55,7 @@ export const CARD_TEMPLATES = [
 ];
 export const TICKER_TEMPLATES = ['full', 'floating', 'minimal', 'liquid'];
 export const AGENDA_TEMPLATES = ['card', 'banner', 'center', 'liquid'];
+export const COMMENT_TEMPLATES = ['bubble', 'card', 'liquid', 'youth', 'kids', 'floral'];
 export const SOCIAL_TEMPLATES = ['pill', 'card', 'liquid', 'plaque', 'youth', 'kids', 'floral'];
 export const NETWORKS = [
   'instagram',
@@ -90,8 +91,14 @@ export interface SavedCard {
   id: string;
   title: string;
   subtitle: string;
-  qr: 'giving' | 'url';
+  /** giving = the church's main way; pixkey = another PIX key (qrText); url = a link or text */
+  qr: 'giving' | 'pixkey' | 'url';
   qrText: string;
+}
+export interface SavedComment {
+  id: string;
+  user: string;
+  text: string;
 }
 const GIVING_METHODS = ['pix', 'app', 'sepa', 'link', 'image', 'text'];
 export const ANIMATIONS = [
@@ -153,6 +160,7 @@ export function defaults() {
       card: true,
       agenda: true,
       social: true,
+      comment: true,
       bug: true,
     },
     /** How long names and the QR card stay on screen, in seconds (0 = until hidden). */
@@ -427,6 +435,34 @@ export function defaults() {
         },
       ] as SocialItem[],
     },
+    /** A comment typed by hand (from the chat, a message…): who wrote it and what it says. */
+    comment: {
+      /** false = follows the global theme; true = uses the colors, font and effects below */
+      custom: false,
+      template: 'bubble',
+      fill: fill('#0f172a', '#1e293b', 90),
+      accent: fill('#fbbf24', '#f59e0b', 180),
+      text: '#ffffff',
+      text2: '#e2e8f0',
+      font: '',
+      weight: 700,
+      size: 100,
+      radius: 22,
+      opacity: 96,
+      shadow: 'soft',
+      shadowStrength: 60,
+      animation: 'rise',
+      duration: 600,
+      position: 'bottom-left',
+      marginX: 90,
+      marginY: 250,
+      ...free(),
+      showIcon: true,
+      /** On air now: who wrote it and what was said */
+      user: '',
+      said: '',
+      saved: [] as SavedComment[],
+    },
     bug: {
       position: 'top-right',
       size: 150,
@@ -455,7 +491,8 @@ export interface Profile {
   look: Record<string, Record<string, unknown>>;
 }
 export type Config = ReturnType<typeof defaults>;
-export type ElementName = 'lower' | 'top' | 'card' | 'bug' | 'ticker' | 'agenda' | 'social';
+export type ElementName =
+  'lower' | 'top' | 'card' | 'bug' | 'ticker' | 'agenda' | 'social' | 'comment';
 export const ELEMENTS: ElementName[] = [
   'lower',
   'top',
@@ -464,6 +501,7 @@ export const ELEMENTS: ElementName[] = [
   'ticker',
   'agenda',
   'social',
+  'comment',
 ];
 
 export interface Live {
@@ -475,9 +513,10 @@ export interface Live {
   ticker: { on: boolean };
   agenda: { on: boolean; pin: boolean };
   social: { on: boolean; item: string; pin: boolean };
+  comment: { on: boolean; pin: boolean };
 }
 /** Elements that leave by themselves, and so can be pinned. */
-export const TIMED = ['lower', 'card', 'agenda', 'social'] as const;
+export const TIMED = ['lower', 'card', 'agenda', 'social', 'comment'] as const;
 export const liveDefaults = (): Live => ({
   lower: { on: false, item: '', pin: false },
   top: { on: false },
@@ -486,6 +525,7 @@ export const liveDefaults = (): Live => ({
   ticker: { on: false },
   agenda: { on: false, pin: false },
   social: { on: false, item: '', pin: false },
+  comment: { on: false, pin: false },
 });
 
 const HEX = /^#[0-9a-f]{6}$/i;
@@ -534,6 +574,9 @@ const CHOICES: Record<string, string[]> = {
   'ticker.template': TICKER_TEMPLATES,
   'agenda.template': AGENDA_TEMPLATES,
   'social.template': SOCIAL_TEMPLATES,
+  'comment.template': COMMENT_TEMPLATES,
+  'comment.position': PLACES,
+  'card.qr': ['giving', 'pixkey', 'url'],
   animation: ANIMATIONS,
   shadow: SHADOWS,
   'top.dateStyle': ['short', 'long', 'numeric'],
@@ -597,13 +640,18 @@ function clean(def: unknown, raw: unknown, path: string, key: string): unknown {
           id: typeof r.id === 'string' && /^[a-z0-9]{4,20}$/i.test(r.id) ? r.id : newId(),
           title: text(r.title, 60).trim(),
           subtitle: text(r.subtitle, 90).trim(),
-          qr: r.qr === 'url' ? 'url' : 'giving',
+          qr: r.qr === 'url' || r.qr === 'pixkey' ? r.qr : 'giving',
           qrText: text(r.qrText, 600).trim(),
         };
         return c.title || c.qrText ? c : undefined;
       })
       .filter((c): c is SavedCard => !!c && !seen.has(c.id) && !!seen.add(c.id));
   }
+  if (path === 'comment.saved')
+    return list<SavedComment>(raw, def, 60, (r) => {
+      const c = { id: id(r.id), user: text(r.user, 60).trim(), text: text(r.text, 280).trim() };
+      return c.text ? c : undefined;
+    });
   if (path === 'agenda.days')
     return list<AgendaDay>(raw, def, 14, (r) => {
       const d = {
@@ -711,6 +759,7 @@ const CONTENT: Record<ElementName, string[]> = {
   ticker: ['messages', 'pinned', 'label'],
   agenda: ['title', 'days'],
   social: ['items', 'prefix'],
+  comment: ['user', 'said', 'saved'],
   bug: [],
 };
 /** The look of a configuration: logo, font, theme and the appearance of every element. */
@@ -815,6 +864,10 @@ export function cleanLive(raw: unknown, config: Config): Live {
         pin: !!r.social?.pin,
       };
     })(),
+    comment: {
+      on: ok.comment && !!r.comment?.on && !!config.comment.said.trim(),
+      pin: !!r.comment?.pin,
+    },
   };
 }
 

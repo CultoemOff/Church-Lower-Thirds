@@ -18,14 +18,8 @@
             class="timeSelect"
             title="Tempo na tela: quanto tempo nomes, QR Code e redes sociais ficam antes de sair sozinhos"
           ></select
-          ><button
-            id="pinToggle"
-            class="iconBtn"
-            title="Fixar: o que você mostrar nesta aba fica na tela até esconder, mesmo quando o tempo acabar"
-          >
-            <img src="/icons/pin.svg" alt="" /></button
           ><button id="hideAll" class="iconBtn" title="Tirar tudo do ar">
-            <img src="/icons/hide.svg" alt="" /></button
+            <img src="/icons/clear.svg" alt="" /></button
           ><button id="themeToggle" class="iconBtn" title="Tema claro / escuro">
             <img src="/icons/sun.svg" alt="" /></button
           ><button
@@ -38,7 +32,25 @@
         </div>
       </header>
       <nav id="tabs" class="tabs"></nav>
-      <section id="pane" class="panel pane"></section>
+      <section class="panel tabPanel">
+        <div class="paneBar">
+          <span id="paneState" class="paneState"><i></i><b></b></span>
+          <span class="paneActions">
+            <button
+              id="tabPin"
+              class="iconBtn"
+              title="Fixar: o que for mostrado nesta aba fica na tela até esconder, mesmo quando o tempo acabar"
+            >
+              <img src="/icons/pin.svg" alt="" /></button
+            ><button
+              id="tabEye"
+              class="iconBtn eyeBtn"
+              title="Mostra ou esconde na tela o elemento desta aba"
+            ></button>
+          </span>
+        </div>
+        <div id="pane" class="pane"></div>
+      </section>
       <section id="profileBar" class="panel profileBar">
         <label for="profile">Perfil</label>
         <select

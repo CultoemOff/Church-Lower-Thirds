@@ -54,9 +54,7 @@ export default {
   'Tira o cartão da tela': 'Takes the card off the screen',
   Esconder: 'Hide',
   'Guarda este QR Code na lista': 'Keeps this QR code in the list',
-  'QR Codes salvos': 'Saved QR codes',
   'Clique para mostrar este QR Code': 'Click to show this QR code',
-  'Salve aqui o PIX e os links que você mais usa.': 'Save here the PIX and the links you use most.',
   'O que aparece no selo': 'What shows in the badge',
   'Mostra só este texto agora, no lugar da lista (Enter)':
     'Shows only this text now, instead of the list (Enter)',
@@ -77,7 +75,6 @@ export default {
   'Horários, um por linha': 'Times, one per line',
   'Guarda este dia na agenda': 'Keeps this day in the schedule',
   'Adicionar dia': 'Add day',
-  'Mostrar a agenda': 'Show the schedule',
   'Mostra um dia de cada vez, passando para o próximo, e sai depois do último':
     'Shows one day at a time, moving on to the next, and leaves after the last one',
   Dias: 'Days',
@@ -99,7 +96,6 @@ export default {
   Remover: 'Remove',
   'Adicione o Instagram, o YouTube…': 'Add Instagram, YouTube…',
   'Selo superior': 'Corner badge',
-  'Mostra ou esconde o selo do canto da tela': 'Shows or hides the corner badge',
   'Logo solto': 'Logo alone',
   'Mostra ou esconde o logo sozinho em outro canto da tela':
     'Shows or hides the logo alone in another corner of the screen',
@@ -108,8 +104,6 @@ export default {
   Recados: 'Messages',
   'Recado para mostrar agora': 'Message to show now',
   'Barra inferior': 'Bottom bar',
-  'Mostra ou esconde a barra inferior, com o texto rolando':
-    'Shows or hides the bottom bar, with the scrolling text',
   'Textos que rolam': 'Scrolling texts',
   'Texto para rolar agora': 'Text to scroll now',
   Clássico: 'Classic',
@@ -496,16 +490,9 @@ export default {
   'O programa já está atualizado.': 'The program is already up to date.',
   'Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.':
     "Each user of the computer has their own folder and their own settings: one never changes another's.",
-  'Cartão com QR Code: a contribuição da igreja ou um link':
-    "Card with a QR code: the church's giving or a link",
   Oferta: 'Giving',
-  'QR Code da contribuição da igreja: PIX, transferência, link ou imagem (escolha nas configurações)':
-    "QR code of the church's giving: PIX, bank transfer, link or image (choose in the settings)",
   'Contribuição da igreja': 'Church giving',
   'Geral e contribuições': 'General and giving',
-  'Cartão QR / Oferta': 'QR / Giving card',
-  'Cartão com o QR Code da contribuição ou de um link.':
-    'Card with the QR code for giving or for a link.',
   'Preencha os dados acima para ver o resultado.': 'Fill in the details above to see the result.',
   'Os dados acima aparecem no cartão, sem QR Code.':
     'The details above appear on the card, without a QR code.',
@@ -652,8 +639,6 @@ export default {
   Voltar: 'Back',
   Concluir: 'Finish',
   Avançar: 'Next',
-  'Fixar: o que você mostrar nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
-    'Pin: what you show on this tab stays on screen until you hide it, even when the time ends',
   'Configurações avançadas: abre no navegador (modelos, cores, fontes, contribuições, logo)':
     'Advanced settings: opens in the browser (models, colors, fonts, giving, logo)',
   'Endereços para o OBS, tutorial, resoluções e atalhos.':
@@ -889,4 +874,54 @@ export default {
     'There are too many profiles: delete one before creating another.',
   Tempo: 'Time',
   'sem limite': 'no limit',
+  'Fixar: o que for mostrado nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
+    'Pin: what is shown from this tab stays on screen until hidden, even when the time ends',
+  'Mostra ou esconde na tela o elemento desta aba':
+    'Shows or hides the element of this tab on screen',
+  'Ofertas e Dízimos': 'Offerings & Tithes',
+  'Cartão com QR Code: ofertas, dízimos, missões, um link…':
+    'Card with a QR code: offerings, tithes, missions, a link…',
+  Comentários: 'Comments',
+  'Um comentário digitado na hora: quem escreveu e o que disse':
+    'A comment typed on the spot: who wrote it and what it says',
+  'Escreva a chave PIX desta oferta.': 'Type the PIX key of this offering.',
+  Principal: 'Main',
+  'QR Code da contribuição principal da igreja: PIX, transferência, link ou imagem (escolha nas configurações)':
+    "QR code of the church's main way of giving: PIX, transfer, link or image (chosen in the settings)",
+  'Outra chave PIX': 'Another PIX key',
+  'QR Code de PIX com outra chave, para uma oferta específica':
+    'PIX QR code with another key, for a specific offering',
+  'Chave PIX desta oferta': 'PIX key of this offering',
+  'Ofertas salvas': 'Saved offerings',
+  'Contribuição principal': 'Main way of giving',
+  'Salve aqui cada oferta: dízimos, missões, uma campanha, um link…':
+    'Save each offering here: tithes, missions, a campaign, a link…',
+  'Quem escreveu (nome ou @usuário)': 'Who wrote it (name or @user)',
+  'O comentário': 'The comment',
+  'Mostra na tela o comentário escrito acima (Enter)':
+    'Shows the comment written above on screen (Enter)',
+  'Guarda este comentário na lista para mostrar depois':
+    'Keeps this comment in the list to show later',
+  'Comentários salvos': 'Saved comments',
+  'Clique para mostrar este comentário': 'Click to show this comment',
+  'Escreva o comentário acima e mostre na hora, ou salve para depois.':
+    'Type the comment above and show it at once, or save it for later.',
+  Balão: 'Speech balloon',
+  'Cartão com QR Code: ofertas, dízimos, missões, uma campanha ou um link.':
+    'Card with a QR code: offerings, tithes, missions, a campaign or a link.',
+  'Um comentário digitado na hora, com o nome de quem escreveu.':
+    'A comment typed on the spot, with the name of who wrote it.',
+  'Contribuição principal da igreja': "The church's main way of giving",
+  'Outra chave PIX (uma oferta específica)': 'Another PIX key (a specific offering)',
+  'Cada oferta tem o seu título e o seu QR Code: dízimos e ofertas, missões, uma campanha, uma inscrição. No painel do OBS, na aba "Ofertas e Dízimos", um clique mostra a que você escolher.':
+    'Each offering has its own title and QR code: tithes and offerings, missions, a campaign, a sign-up. In the OBS dock, on the "Offerings & Tithes" tab, one click shows the one you choose.',
+  'Nova oferta': 'New offering',
+  'Título (ex.: Missões)': 'Title (e.g. Missions)',
+  'De onde vem o QR Code desta oferta': 'Where the QR code of this offering comes from',
+  Comentário: 'Comment',
+  'O comentário é escrito no painel do OBS, na aba "Comentários": o nome de quem escreveu e o que disse. Ele sai sozinho depois do tempo escolhido no painel, a não ser que esteja fixado. Aqui, enquanto nada foi escrito, a prévia mostra um exemplo.':
+    'The comment is typed in the OBS dock, on the "Comments" tab: the name of who wrote it and what it says. It leaves by itself after the time chosen in the dock, unless it is pinned. Here, while nothing has been typed, the preview shows an example.',
+  'Mostrar o balão ao lado do texto': 'Show the balloon beside the text',
+  'Comentário (o último escrito)': 'Comment (the last one typed)',
+  'Escreva o comentário antes de mostrar.': 'Type the comment before showing it.',
 };
