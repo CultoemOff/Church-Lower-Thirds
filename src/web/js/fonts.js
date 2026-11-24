@@ -11,6 +11,7 @@ export const BUNDLED_FONTS = [
   ['Bebas Neue', 'Impacto'],
   ['Oswald', 'Impacto'],
   ['Anton', 'Impacto'],
+  ['Fredoka', 'Divertidas'],
   ['Fraunces', 'Clássicas'],
   ['Instrument Serif', 'Clássicas'],
   ['Playfair Display', 'Clássicas'],

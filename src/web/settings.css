@@ -491,25 +491,62 @@ input[type='color'] {
   border-color: var(--accent);
   color: #fff;
 }
-/* Ready-made palettes */
+/* Ready-made colors: each one as a small name bar over its background color */
 .palettes {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
   gap: 8px;
 }
 .palettes button {
   display: grid;
-  gap: 6px;
-  padding: 8px;
+  gap: 5px;
+  padding: 7px;
   text-align: left;
-  font-size: 12px;
-  font-weight: 700;
   background: var(--panel2);
+  align-content: start;
 }
-.palettes i {
-  display: block;
-  height: 26px;
-  border-radius: 6px;
+.palettes button.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+.palettes strong {
+  font-size: 12px;
+}
+.palettes small {
+  font-size: 10px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--accent);
+  white-space: normal;
+}
+.palettes .swatch {
+  display: grid;
+  place-items: center;
+  height: 46px;
+  border-radius: 7px;
+  box-shadow: inset 0 0 0 1px rgba(127, 127, 127, 0.25);
+}
+.palettes .swatch i {
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding-right: 9px;
+  border-radius: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+.palettes .swatch b {
+  width: 5px;
+  align-self: stretch;
+}
+.palettes .swatch u {
+  width: 22px;
+  height: 3px;
+  border-radius: 2px;
 }
 /* Names list */
 .rows {
@@ -907,6 +944,8 @@ table.apiTable {
   max-height: min(680px, 100%);
   display: grid;
   grid-template-columns: 220px 1fr;
+  /* One row that shrinks with the box: a long step scrolls inside, the buttons stay. */
+  grid-template-rows: minmax(0, 1fr);
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 16px;
@@ -988,6 +1027,10 @@ table.apiTable {
   flex: 1;
   overflow: auto;
   padding: 8px 24px 16px;
+}
+.wizardBody h3 {
+  margin: 18px 0 8px;
+  font-size: 14px;
 }
 .wizardBody .lead {
   font-size: 14px;
@@ -1094,10 +1137,10 @@ button.danger:hover {
   background: #b71c1c;
 }
 
-/* Ready-made themes: each one as a small picture of the screen */
+/* Ready-made models: each one as a small live picture of the overlay */
 .themes {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   gap: 10px;
 }
 .themes button {
@@ -1123,59 +1166,20 @@ button.danger:hover {
   white-space: normal;
 }
 .themeShot {
-  position: relative;
   display: block;
   aspect-ratio: 16 / 9;
   border-radius: 7px;
   overflow: hidden;
-  /* Stands in for the camera picture. */
-  background: linear-gradient(140deg, #64748b, #334155 55%, #7c5a4a);
+  /* While the picture loads. */
+  background: linear-gradient(135deg, #2b3445, #1a1f2b);
 }
-.themeShot i {
-  position: absolute;
-  font-style: normal;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.themeShot .shotBadge {
-  left: 6%;
-  top: 9%;
-  height: 13%;
-  padding: 0 5px 0 4px;
-  gap: 3px;
-  font-size: 6.5px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-}
-.themeShot .shotBadge b {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-}
-.themeShot .shotName {
-  left: 6%;
-  bottom: 20%;
-  height: 21%;
-  padding: 0 9px 0 0;
-  gap: 6px;
-  font-size: 10.5px;
-  font-weight: 800;
-}
-.themeShot .shotName b {
-  width: 4px;
-  align-self: stretch;
-}
-.themeShot .shotBar {
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 11%;
-}
-.themeShot .shotBar b {
-  width: 18%;
-  align-self: stretch;
+.themeShot iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  /* The click belongs to the button around it. */
+  pointer-events: none;
 }
 
 /* Drawings of where to click in OBS */

@@ -64,12 +64,6 @@ Abrir el tema global
 Apri il tema globale
 Globales Design öffnen
 
-Cores aplicadas ao tema global.
-Colors applied to the global theme.
-Colores aplicados al tema global.
-Colori applicati al tema globale.
-Farben auf das globale Design angewendet.
-
 O assistente explica como o programa funciona e ajuda a deixar tudo pronto, passo a passo.
 The assistant explains how the program works and helps you get everything ready, step by step.
 El asistente explica cómo funciona el programa y ayuda a dejar todo listo, paso a paso.
@@ -93,30 +87,6 @@ See the address of each element
 Ver la dirección de cada elemento
 Vedi l'indirizzo di ogni elemento
 Adresse jedes Elements anzeigen
-
-Temas prontos
-Ready-made themes
-Temas listos
-Temi pronti
-Fertige Designs
-
-Troca só as cores do tema global
-Changes only the colors of the global theme
-Cambia solo los colores del tema global
-Cambia solo i colori del tema globale
-Ändert nur die Farben des globalen Designs
-
-Troca só as cores do tema. Depois ajuste cada uma abaixo, com degradê.
-Changes only the theme colors. Then adjust each one below, with gradients.
-Cambia solo los colores del tema. Después ajuste cada uno abajo, con degradado.
-Cambia solo i colori del tema. Poi regola ciascuno qui sotto, con sfumatura.
-Ändert nur die Farben des Designs. Danach jede Farbe unten anpassen, auch mit Verlauf.
-
-Cores do tema
-Theme colors
-Colores del tema
-Colori del tema
-Farben des Designs
 
 Cor principal
 Main color

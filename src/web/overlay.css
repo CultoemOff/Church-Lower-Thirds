@@ -87,6 +87,102 @@ img:not([src]) {
 .el[data-anim='flip'] .scaler {
   perspective: 1400px;
 }
+/* drop: a drop of water that lands, spreads into the shape and settles like jelly */
+.el[data-anim='drop'] .box {
+  animation-name: a-drop;
+}
+/* unfold: a line of light draws itself, then opens into the element */
+.el[data-anim='unfold'] .box {
+  animation-name: a-unfold;
+}
+/* glide: comes in fast, leaning and blurred by the speed, and springs back upright */
+.el[data-anim='glide'] .box {
+  animation-name: a-glide;
+}
+.el[data-anim='drop'].in .box,
+.el[data-anim='glide'].in .box {
+  animation-timing-function: linear;
+}
+.el[data-anim='unfold'].in .box {
+  animation-timing-function: cubic-bezier(0.65, 0, 0.2, 1);
+}
+@keyframes a-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-70px) scale(0.1, 0.16);
+    clip-path: inset(30% 34% round 999px);
+    filter: blur(8px) brightness(1.7) saturate(1.3);
+  }
+  16% {
+    opacity: 1;
+    transform: translateY(0) scale(0.2, 0.34);
+    clip-path: inset(22% 26% round 999px);
+    filter: blur(3px) brightness(1.5) saturate(1.3);
+  }
+  36% {
+    transform: scale(1.09, 0.8);
+    clip-path: inset(0 0 round 70px);
+    filter: blur(0) brightness(1.25) saturate(1.15);
+  }
+  54% {
+    transform: scale(0.95, 1.1);
+    clip-path: inset(-120px round 0);
+  }
+  70% {
+    transform: scale(1.03, 0.96);
+    filter: blur(0) brightness(1) saturate(1);
+  }
+  84% {
+    transform: scale(0.99, 1.02);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes a-unfold {
+  0% {
+    clip-path: inset(
+      calc(50% - 2px) calc(50% * (1 - var(--sx))) calc(50% - 2px) calc(50% * (1 + var(--sx)))
+    );
+    filter: brightness(0) invert(1);
+  }
+  42% {
+    clip-path: inset(calc(50% - 2px) 0 calc(50% - 2px) 0);
+    filter: brightness(0) invert(1);
+  }
+  72% {
+    filter: brightness(1) invert(0);
+  }
+  100% {
+    clip-path: inset(-120px);
+    filter: brightness(1) invert(0);
+  }
+}
+@keyframes a-glide {
+  0% {
+    opacity: 0;
+    transform: translate(calc(var(--sx) * 125%), calc(var(--sy) * 150%))
+      skewX(calc(var(--sx) * -20deg));
+    filter: blur(16px);
+  }
+  34% {
+    opacity: 1;
+    transform: translate(calc(var(--sx) * -4%), calc(var(--sy) * -7%)) skewX(calc(var(--sx) * 7deg));
+    filter: blur(2px);
+  }
+  58% {
+    transform: translate(calc(var(--sx) * 1.6%), calc(var(--sy) * 3%))
+      skewX(calc(var(--sx) * -2.4deg));
+    filter: blur(0);
+  }
+  78% {
+    transform: translate(calc(var(--sx) * -0.6%), calc(var(--sy) * -1%))
+      skewX(calc(var(--sx) * 0.8deg));
+  }
+  100% {
+    transform: none;
+  }
+}
 @keyframes a-slide {
   from {
     opacity: 0;
@@ -1854,6 +1950,19 @@ img:not([src]) {
   max-width: 940px;
 }
 
+/* The small picture of a model (?preview=model): a smaller stage, and nothing that keeps
+   moving, since the settings page shows many of them at once. */
+.compact .stage {
+  width: 1440px;
+  height: 810px;
+}
+.compact .ticker .run {
+  animation-play-state: paused !important;
+}
+.compact .top .live i {
+  animation: none;
+}
+
 /* Settings preview: a neutral "camera" background so transparency and shadows show */
 .preview body {
   background:
@@ -2058,4 +2167,588 @@ img:not([src]) {
   width: 46%;
   height: 4px;
   background: var(--accent);
+}
+
+/* =====================================================================
+   THEMED MODELS (names, corner badge, QR card, social): three shapes,
+   "youth" (blocks), "kids" (sticker) and "floral" (soft framed plate).
+   Each one shows a drawing in .deco (js/look.js, DECOR): its usual one or
+   the one picked in the theme (notes, Christmas, Easter…).
+   ===================================================================== */
+.top .deco,
+.card .deco,
+.social .deco {
+  display: none;
+}
+.el[data-template='youth'] .deco,
+.el[data-template='kids'] .deco,
+.el[data-template='floral'] .deco {
+  display: block;
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+}
+.deco svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.el.in[data-template='youth'] .deco,
+.el.in[data-template='kids'] .deco,
+.el.in[data-template='floral'] .deco {
+  animation: deco-in calc(var(--dur) * 1.2) cubic-bezier(0.3, 1.5, 0.5, 1) both;
+  animation-delay: calc(var(--dur) * 0.45);
+}
+@keyframes deco-in {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotate(-18deg);
+  }
+}
+
+/* The paints of the drawings */
+.deco .a {
+  fill: var(--accent-a);
+}
+.deco .y {
+  fill: #f2c552;
+}
+.deco .g {
+  fill: #8fb08c;
+}
+.deco .w {
+  fill: #fff;
+}
+.deco .k {
+  fill: #2a2f3a;
+}
+.deco .b {
+  fill: #8a5a3b;
+}
+.deco .n {
+  fill: #f4cfae;
+}
+.deco .tn {
+  fill: #cdb999;
+}
+.deco .st {
+  fill: #9a938b;
+}
+.deco .yd {
+  fill: #c99a2e;
+}
+.deco .pt {
+  stroke: rgba(120, 90, 100, 0.28);
+  stroke-width: 1.2;
+}
+.deco .ink,
+.deco .inky,
+.deco .inkw,
+.deco .line {
+  fill: none;
+  stroke: var(--accent-a);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.deco .inky {
+  stroke: #f2c552;
+  stroke-width: 4.5;
+}
+.deco .inkw {
+  stroke: #fff;
+  stroke-width: 4;
+}
+.deco .line {
+  stroke-width: 2.5;
+  opacity: 0.55;
+}
+
+/* ---------- floral: a soft plate with a fine inner frame and a drawing on the corner ---------- */
+.lower[data-template='floral'] .box,
+.top[data-template='floral'] .box,
+.card[data-template='floral'] .box,
+.social[data-template='floral'] .box {
+  position: relative;
+  background: var(--fill);
+  border-radius: var(--radius);
+  overflow: visible;
+}
+.lower[data-template='floral'] .box::before,
+.top[data-template='floral'] .box::before,
+.card[data-template='floral'] .box::before,
+.social[data-template='floral'] .box::before {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 1.5px solid var(--accent-a);
+  border-radius: max(0px, calc(var(--radius) - 6px));
+  opacity: 0.55;
+  pointer-events: none;
+}
+.lower[data-template='floral'] .box {
+  align-items: center;
+  padding: 20px 56px 22px 128px;
+  min-width: 440px;
+}
+.lower[data-template='floral'] .deco {
+  left: -40px;
+  top: -52px;
+  width: 190px;
+  height: 162px;
+}
+.lower[data-template='floral'] .logo {
+  margin-right: 22px;
+}
+.lower[data-template='floral'] .logo img {
+  height: 70px;
+}
+.lower[data-template='floral'] .l1 {
+  font-size: 44px;
+  letter-spacing: 0;
+}
+.lower[data-template='floral'] .l2 {
+  margin-top: 5px;
+  font-size: 19px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.lower[data-template='floral'] .box:not(.no-l1):not(.no-l2) .l2 {
+  padding-top: 7px;
+  border-top: 1.5px solid var(--accent-a);
+  align-self: flex-start;
+}
+.lower[data-template='floral'] .qr {
+  margin-left: 26px;
+}
+
+.top[data-template='floral'] .box {
+  padding: 0 14px 0 58px;
+  --h: 66px;
+}
+.top[data-template='floral'] .deco {
+  left: -20px;
+  top: -16px;
+  width: 80px;
+  height: 80px;
+}
+.top[data-template='floral'] .part {
+  padding: 0 12px;
+}
+.top[data-template='floral'] .live {
+  color: var(--t1);
+}
+.top[data-template='floral'] .live i {
+  background: var(--accent-a);
+}
+
+.card[data-template='floral'] .box {
+  width: 340px;
+  padding-top: 6px;
+}
+.card[data-template='floral'] .band {
+  display: none;
+}
+.card[data-template='floral'] .deco {
+  inset: 0;
+}
+.card[data-template='floral'] .deco svg {
+  position: absolute;
+}
+.card[data-template='floral'] .deco svg:first-child {
+  left: -52px;
+  top: -52px;
+  width: 132px;
+  height: 112px;
+}
+.card[data-template='floral'] .deco svg:last-child {
+  right: -34px;
+  bottom: -32px;
+  width: 84px;
+  height: 84px;
+}
+.card[data-template='floral'] .head {
+  padding-top: 36px;
+}
+.card[data-template='floral'] .qrw {
+  border-radius: 20px;
+  box-shadow: 0 0 0 1.5px var(--accent-a);
+}
+.card[data-template='floral'] .info {
+  padding-bottom: 30px;
+}
+.card[data-template='floral'] .key {
+  background: none;
+  color: var(--t1);
+  box-shadow: inset 0 0 0 1.5px var(--accent-a);
+}
+
+.social[data-template='floral'] .box {
+  border-radius: max(var(--radius), 40px);
+  padding: 14px 54px 14px 16px;
+}
+.social[data-template='floral'] .box::before {
+  border-radius: max(calc(var(--radius) - 6px), 34px);
+}
+.social[data-template='floral'] .icon {
+  width: 84px;
+  height: 84px;
+  background: none;
+  color: var(--accent-a);
+  box-shadow: inset 0 0 0 2px var(--accent-a);
+}
+.social[data-template='floral'] .icon svg {
+  width: 44px;
+  height: 44px;
+}
+.social[data-template='floral'] .deco {
+  right: -26px;
+  top: -30px;
+  width: 80px;
+  height: 80px;
+}
+.social[data-template='floral'] .prefix {
+  font-size: 18px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ---------- kids: a sticker (thick white edge), a bubble and a drawing ---------- */
+/* Every shape of the drawing gets the white edge of a sticker. */
+.el[data-template='kids']
+  .deco
+  :is(path, polygon, circle, ellipse, rect):not(.ink, .inky, .inkw, .line, .in) {
+  stroke: #fff;
+  stroke-width: 7;
+  stroke-linejoin: round;
+  paint-order: stroke;
+}
+.lower[data-template='kids'] .box,
+.top[data-template='kids'] .box,
+.card[data-template='kids'] .box,
+.social[data-template='kids'] .box {
+  position: relative;
+  overflow: visible;
+  background: var(--fill);
+  border: 6px solid #fff;
+  border-radius: calc(var(--radius) + 34px);
+  box-shadow: 0 9px 0 rgba(0, 0, 0, 0.2);
+}
+.lower[data-template='kids'] .box {
+  align-items: center;
+  padding: 14px 64px 16px 96px;
+  min-width: 400px;
+}
+.lower[data-template='kids'] .box:not(.no-l1):not(.no-l2) {
+  margin-bottom: 30px;
+  padding-bottom: 28px;
+}
+.lower[data-template='kids'] .deco {
+  left: -46px;
+  top: -58px;
+  width: 172px;
+  height: 146px;
+}
+.lower[data-template='kids'] .logo {
+  margin-right: 18px;
+}
+.lower[data-template='kids'] .logo img {
+  height: 70px;
+}
+.lower[data-template='kids'] .l1 {
+  font-size: 48px;
+  letter-spacing: 0;
+}
+.lower[data-template='kids'] .box:not(.no-l1) .l2 {
+  position: absolute;
+  left: 86px;
+  bottom: -32px;
+  padding: 5px 26px 6px;
+  font-size: 23px;
+  color: var(--t1);
+  background: var(--fill2);
+  border: 5px solid #fff;
+  border-radius: 999px;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.18);
+}
+
+.top[data-template='kids'] .box {
+  padding: 0 16px 0 54px;
+  border-width: 5px;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2);
+  --h: 60px;
+}
+.top[data-template='kids'] .deco {
+  left: -26px;
+  top: -18px;
+  width: 78px;
+  height: 78px;
+}
+.top[data-template='kids'] .part {
+  padding: 0 11px;
+}
+.top[data-template='kids'] .live {
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.top[data-template='kids'] .live i {
+  background: var(--on-accent);
+}
+
+.card[data-template='kids'] .box {
+  width: 336px;
+  border-width: 7px;
+}
+.card[data-template='kids'] .band {
+  display: none;
+}
+.card[data-template='kids'] .deco {
+  inset: 0;
+}
+.card[data-template='kids'] .deco svg {
+  position: absolute;
+}
+.card[data-template='kids'] .deco svg:first-child {
+  left: -54px;
+  top: -58px;
+  width: 150px;
+  height: 128px;
+}
+.card[data-template='kids'] .deco svg:last-child {
+  right: -34px;
+  bottom: -30px;
+  width: 84px;
+  height: 84px;
+}
+.card[data-template='kids'] .head {
+  padding-top: 26px;
+}
+.card[data-template='kids'] .title {
+  font-size: 31px;
+}
+.card[data-template='kids'] .qrw {
+  border-radius: 26px;
+  padding: 14px;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.16);
+}
+.card[data-template='kids'] .info {
+  padding-bottom: 26px;
+}
+
+.social[data-template='kids'] .box {
+  border-radius: 999px;
+  padding: 10px 56px 10px 12px;
+}
+.social[data-template='kids'] .icon {
+  width: 86px;
+  height: 86px;
+  border: 5px solid #fff;
+}
+.social[data-template='kids'] .icon svg {
+  width: 44px;
+  height: 44px;
+}
+.social[data-template='kids'] .deco {
+  right: -30px;
+  top: -34px;
+  width: 78px;
+  height: 78px;
+}
+
+/* ---------- youth: hard blocks, a slanted cut, hazard stripes and a sticker tag ---------- */
+.el[data-template='youth'] .deco .ink {
+  stroke-width: 9;
+  stroke-linecap: butt;
+}
+.lower[data-template='youth'] .box,
+.top[data-template='youth'] .box,
+.social[data-template='youth'] .box {
+  position: relative;
+  overflow: visible;
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+.lower[data-template='youth'] .box::before,
+.social[data-template='youth'] .box::before,
+.card[data-template='youth'] .band {
+  content: '';
+  flex: none;
+  background:
+    repeating-linear-gradient(-45deg, var(--accent-a) 0 9px, transparent 9px 18px), var(--fill);
+}
+.lower[data-template='youth'] .box::before {
+  width: 26px;
+  margin-bottom: 26px;
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+.lower[data-template='youth'] .box.no-l2::before,
+.lower[data-template='youth'] .box.no-l1::before {
+  margin-bottom: 0;
+}
+.lower[data-template='youth'] .deco {
+  right: -26px;
+  top: -36px;
+  width: 64px;
+  height: 64px;
+}
+.lower[data-template='youth'] .logo {
+  background: var(--fill);
+  padding: 8px 6px 8px 20px;
+  margin-bottom: 26px;
+}
+.lower[data-template='youth'] .logo img {
+  height: 62px;
+}
+.lower[data-template='youth'] .texts {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.lower[data-template='youth'] .l1 {
+  font-size: 58px;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  background: var(--fill);
+  padding: 13px 64px 11px 22px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 34px) 100%, 0 100%);
+  text-transform: uppercase;
+}
+.lower[data-template='youth'] .l2 {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  color: var(--on-accent);
+  background: var(--accent);
+  padding: 8px 18px 7px;
+  margin: -7px 0 0 18px;
+  transform: rotate(-2deg);
+  text-transform: uppercase;
+}
+.lower[data-template='youth'] .no-l1 .l2 {
+  margin: 0;
+  transform: none;
+  font-size: 30px;
+  padding: 12px 22px 10px;
+}
+/* The slanted cut would slice a moving text: only fade it in. */
+.lower[data-template='youth'].in .l1 span,
+.lower[data-template='youth'].in .l2 span {
+  animation-name: t-fade;
+}
+
+.top[data-template='youth'] .box {
+  background: var(--fill);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
+  padding-right: 22px;
+  --h: 58px;
+}
+.top[data-template='youth'] .part {
+  padding: 0 16px;
+}
+.top[data-template='youth'] .name {
+  font-size: 27px;
+  letter-spacing: 0.02em;
+}
+.top[data-template='youth'] .live {
+  background: var(--accent);
+  color: var(--on-accent);
+  padding: 0 18px;
+}
+.top[data-template='youth'] .live i {
+  background: var(--on-accent);
+  border-radius: 0;
+}
+
+.card[data-template='youth'] .box {
+  position: relative;
+  overflow: visible;
+  width: 330px;
+  border-radius: var(--radius);
+  text-transform: uppercase;
+}
+.card[data-template='youth'] .band {
+  height: 22px;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.card[data-template='youth'] .deco {
+  right: -30px;
+  top: 34px;
+  width: 60px;
+  height: 60px;
+}
+.card[data-template='youth'] .head {
+  align-items: flex-start;
+  align-self: stretch;
+  text-align: left;
+  padding: 20px 24px 0;
+}
+.card[data-template='youth'] .title {
+  font-size: 38px;
+  line-height: 1;
+}
+.card[data-template='youth'] .qrw {
+  border-radius: 0;
+  margin: 18px 30px 0 22px;
+  box-shadow: 9px 9px 0 var(--accent-a);
+}
+.card[data-template='youth'] .info {
+  align-items: flex-start;
+  align-self: stretch;
+  text-align: left;
+  padding: 24px 24px 24px;
+}
+.card[data-template='youth'] .sub {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.card[data-template='youth'] .key {
+  border-radius: 0;
+  transform: rotate(-2deg);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.social[data-template='youth'] .box {
+  gap: 0;
+  align-items: stretch;
+}
+.social[data-template='youth'] .box::before {
+  width: 22px;
+}
+.social[data-template='youth'] .icon {
+  width: 96px;
+  height: auto;
+  min-height: 96px;
+  border-radius: 0;
+}
+.social[data-template='youth'] .texts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--fill);
+  padding: 10px 62px 10px 24px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 30px) 100%, 0 100%);
+}
+.social[data-template='youth'] .prefix {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--accent-a);
+}
+.social[data-template='youth'] .handle {
+  font-size: 44px;
+  line-height: 1;
+}
+.social[data-template='youth'] .deco {
+  right: -18px;
+  top: -30px;
+  width: 54px;
+  height: 54px;
 }

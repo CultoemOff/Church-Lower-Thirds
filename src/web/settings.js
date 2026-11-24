@@ -14,6 +14,7 @@ import {
   AGENDA_TEMPLATES,
   ANIMATIONS,
   CARD_TEMPLATES,
+  DECORS,
   EYE,
   EYE_OFF,
   fillCss,
@@ -36,6 +37,7 @@ import {
   guideSourceProps,
 } from './js/obs-guide.js';
 import { BUNDLED_FONTS } from './js/fonts.js';
+import { applyModel, MODELS, PALETTES } from './js/models.js';
 import { autoLocalize, lang, LANGUAGES, t, useLanguage } from './js/i18n.js';
 
 // Global settings, opened in the normal browser so the OBS dock can stay small.
@@ -65,6 +67,18 @@ const NAMES = {
   stack: 'Cartões',
   liquid: 'Vidro líquido',
   plaque: 'Placa',
+  youth: 'Urbano',
+  kids: 'Adesivo',
+  floral: 'Delicado',
+  flowers: 'Flores',
+  stars: 'Estrelas',
+  spark: 'Faísca',
+  notes: 'Notas musicais',
+  band: 'Barras de som',
+  xmas: 'Natal: estrela de Belém',
+  xmaskids: 'Natal: manjedoura e estrela',
+  easter: 'Páscoa: lírios e cruz',
+  easterkids: 'Páscoa: túmulo vazio',
   bar: 'Barra',
   pills: 'Cápsulas',
   card: 'Cartão',
@@ -88,6 +102,9 @@ const NAMES = {
   blur: 'Desfoque',
   bounce: 'Quicar',
   flip: 'Girar',
+  drop: 'Gota d’água',
+  unfold: 'Linha que se abre',
+  glide: 'Deslize com rastro',
   none: 'Sem sombra',
   soft: 'Suave',
   hard: 'Dura',
@@ -213,496 +230,138 @@ const WEIGHTS = [
   [800, 'Extra negrito'],
   [900, 'Preto'],
 ];
-const solid = (a) => ({ type: 'solid', a, b: a, angle: 90 });
-const grad = (a, b, angle = 90) => ({ type: 'gradient', a, b, angle });
-// Ready-made looks: main color, second color, accent, text on main, text on second.
-const PALETTES = [
-  [
-    'Azul e ouro',
-    grad('#071a38', '#0a3460', 90),
-    grad('#071a38', '#0a3460', 90),
-    grad('#f0e2b0', '#c9a45a', 90),
-    '#ffffff',
-    '#bccce4',
-  ],
-  [
-    'Azul real',
-    grad('#2463eb', '#4f46e5', 100),
-    solid('#0f172a'),
-    grad('#fbbf24', '#f59e0b', 180),
-    '#ffffff',
-    '#e2e8f0',
-  ],
-  [
-    'Vinho e ouro',
-    grad('#7f1d1d', '#b91c1c', 100),
-    solid('#1c1917'),
-    grad('#fde68a', '#d4a017', 135),
-    '#ffffff',
-    '#fde68a',
-  ],
-  [
-    'Verde esperança',
-    grad('#047857', '#10b981', 100),
-    solid('#052e2b'),
-    grad('#bef264', '#facc15', 135),
-    '#ffffff',
-    '#d1fae5',
-  ],
-  [
-    'Roxo aurora',
-    grad('#7c3aed', '#db2777', 110),
-    solid('#1e1b4b'),
-    grad('#22d3ee', '#a78bfa', 135),
-    '#ffffff',
-    '#ede9fe',
-  ],
-  [
-    'Grafite',
-    grad('#1f2937', '#111827', 180),
-    solid('#374151'),
-    solid('#ef4444'),
-    '#ffffff',
-    '#d1d5db',
-  ],
-  [
-    'Claro',
-    solid('#ffffff'),
-    solid('#e5e7eb'),
-    grad('#2463eb', '#22d3ee', 90),
-    '#111827',
-    '#374151',
-  ],
-  [
-    'Pôr do sol',
-    grad('#f97316', '#e11d48', 110),
-    solid('#431407'),
-    solid('#fde047'),
-    '#ffffff',
-    '#ffedd5',
-  ],
-  [
-    'Oceano',
-    grad('#0e7490', '#1d4ed8', 110),
-    solid('#082f49'),
-    grad('#67e8f9', '#34d399', 135),
-    '#ffffff',
-    '#cffafe',
-  ],
-];
-
-// Complete looks: colors, font, shape and the model of every element, all at once.
-// main = the name bar, surface = the background of the other elements, accent = details.
-const THEMES = [
-  {
-    name: 'Azul institucional',
-    hint: 'Barra azul com detalhe dourado: o visual clássico de transmissão',
-    font: 'Montserrat',
-    main: grad('#2463eb', '#4f46e5', 100),
-    surface: grad('#0f172a', '#1e293b', 90),
-    accent: grad('#fbbf24', '#f59e0b', 180),
-    t1: '#ffffff',
-    t2: '#e2e8f0',
-    opacity: 94,
-    radius: 14,
-    shadow: 'soft',
-    templates: {
-      lower: 'classic',
-      top: 'bar',
-      ticker: 'full',
-      card: 'vertical',
-      agenda: 'card',
-      social: 'pill',
-    },
-  },
-  {
-    name: 'Azul e ouro',
-    hint: 'Placas azul-marinho com fio dourado: QR Code no alto à esquerda e avisos em sequência embaixo',
-    font: 'Google Sans',
-    main: grad('#071a38', '#0a3460', 90),
-    surface: grad('#071a38', '#0a3460', 90),
-    accent: grad('#f0e2b0', '#c9a45a', 90),
-    t1: '#ffffff',
-    t2: '#bccce4',
-    opacity: 96,
-    radius: 16,
-    shadow: 'soft',
-    templates: {
-      lower: 'plaque',
-      top: 'bar',
-      ticker: 'floating',
-      card: 'plaque',
-      agenda: 'card',
-      social: 'plaque',
-    },
-    // This look has its places: the QR card up on the left, the plates down on the left.
-    place: {
-      card: { position: 'top-left', marginX: 30, marginY: 30, size: 78 },
-      social: { position: 'bottom-left', marginX: 30, marginY: 30, size: 100 },
-      // The names sit just above the plates, so both can be on screen together.
-      lower: { position: 'left', marginX: 30, marginY: 160 },
-    },
-  },
-  {
-    name: 'Céu noturno',
-    hint: 'Azul-noite translúcido, detalhes em azul-céu, cantos bem arredondados',
-    font: 'Outfit',
-    main: grad('#020617', '#0f172a', 120),
-    surface: grad('#020617', '#0f172a', 120),
-    accent: grad('#7dd3fc', '#38bdf8', 90),
-    t1: '#ffffff',
-    t2: '#cbd5e1',
-    opacity: 82,
-    radius: 22,
-    shadow: 'soft',
-    templates: {
-      lower: 'glass',
-      top: 'bar',
-      ticker: 'floating',
-      card: 'horizontal',
-      agenda: 'card',
-      social: 'pill',
-    },
-  },
-  {
-    name: 'Vidro líquido',
-    hint: 'Vidro claro e arredondado, com brilho nas bordas',
-    font: 'Inter',
-    main: solid('#ffffff'),
-    surface: solid('#ffffff'),
-    accent: grad('#0a84ff', '#5ac8fa', 135),
-    t1: '#ffffff',
-    t2: '#f1f5f9',
-    opacity: 100,
-    radius: 26,
-    shadow: 'soft',
-    glass: true,
-    templates: {
-      lower: 'liquid',
-      top: 'liquid',
-      ticker: 'liquid',
-      card: 'liquid',
-      agenda: 'liquid',
-      social: 'liquid',
-    },
-  },
-  {
-    name: 'Telejornal',
-    hint: 'Blocos retos e fortes, vermelho e azul-marinho, como nos noticiários',
-    font: 'Oswald',
-    main: solid('#c1121f'),
-    surface: solid('#0b1f3a'),
-    accent: solid('#ffd60a'),
-    t1: '#ffffff',
-    t2: '#e2e8f0',
-    opacity: 100,
-    radius: 3,
-    shadow: 'hard',
-    templates: {
-      lower: 'news',
-      top: 'bar',
-      ticker: 'full',
-      card: 'horizontal',
-      agenda: 'banner',
-      social: 'card',
-    },
-  },
-  {
-    name: 'Minimalista',
-    hint: 'Quase só texto, com uma linha fina: discreto, para não disputar com a imagem',
-    font: 'Manrope',
-    main: solid('#111827'),
-    surface: solid('#111827'),
-    accent: solid('#ffffff'),
-    t1: '#ffffff',
-    t2: '#d1d5db',
-    opacity: 78,
-    radius: 10,
-    shadow: 'none',
-    templates: {
-      lower: 'underline',
-      top: 'pills',
-      ticker: 'minimal',
-      card: 'frame',
-      agenda: 'card',
-      social: 'pill',
-    },
-  },
-  {
-    name: 'Clássico dourado',
-    hint: 'Fonte serifada, preto quente e dourado: solene, para cultos tradicionais',
-    font: 'Playfair Display',
-    main: grad('#292524', '#1c1917', 100),
-    surface: solid('#1c1917'),
-    accent: grad('#fde68a', '#d4a017', 135),
-    t1: '#fffbeb',
-    t2: '#fde68a',
-    opacity: 94,
-    radius: 6,
-    shadow: 'soft',
-    templates: {
-      lower: 'split',
-      top: 'stack',
-      ticker: 'floating',
-      card: 'frame',
-      agenda: 'center',
-      social: 'card',
-    },
-  },
-  {
-    name: 'Luz da manhã',
-    hint: 'Branco e claro, com laranja suave e formas arredondadas',
-    font: 'Raleway',
-    main: solid('#ffffff'),
-    surface: solid('#f8fafc'),
-    accent: grad('#f59e0b', '#f97316', 120),
-    t1: '#0f172a',
-    t2: '#475569',
-    opacity: 96,
-    radius: 28,
-    shadow: 'soft',
-    templates: {
-      lower: 'pill',
-      top: 'pills',
-      ticker: 'floating',
-      card: 'vertical',
-      agenda: 'card',
-      social: 'pill',
-    },
-  },
-  {
-    name: 'Neon',
-    hint: 'Fundo escuro com brilho ciano e violeta: jovem e tecnológico',
-    font: 'Poppins',
-    main: solid('#0a0a0f'),
-    surface: solid('#0a0a0f'),
-    accent: grad('#22d3ee', '#a855f7', 120),
-    t1: '#ffffff',
-    t2: '#a5f3fc',
-    opacity: 86,
-    radius: 14,
-    shadow: 'glow',
-    templates: {
-      lower: 'neon',
-      top: 'bar',
-      ticker: 'floating',
-      card: 'ticket',
-      agenda: 'card',
-      social: 'card',
-    },
-  },
-  {
-    name: 'Arena',
-    hint: 'Faixa inclinada, letras altas e cores quentes, no estilo das transmissões esportivas',
-    font: 'Bebas Neue',
-    main: grad('#f97316', '#dc2626', 110),
-    surface: solid('#111827'),
-    accent: solid('#fde047'),
-    t1: '#ffffff',
-    t2: '#ffedd5',
-    opacity: 100,
-    radius: 0,
-    shadow: 'hard',
-    templates: {
-      lower: 'ribbon',
-      top: 'bar',
-      ticker: 'full',
-      card: 'ticket',
-      agenda: 'banner',
-      social: 'card',
-    },
-  },
-  {
-    name: 'Jardim',
-    hint: 'Verdes profundos com detalhe em verde-claro e amarelo, fonte serifada suave',
-    font: 'Lora',
-    main: grad('#166534', '#14532d', 100),
-    surface: solid('#052e16'),
-    accent: grad('#bbf7d0', '#facc15', 135),
-    t1: '#ffffff',
-    t2: '#d1fae5',
-    opacity: 92,
-    radius: 18,
-    shadow: 'soft',
-    templates: {
-      lower: 'stack',
-      top: 'stack',
-      ticker: 'floating',
-      card: 'vertical',
-      agenda: 'center',
-      social: 'pill',
-    },
-  },
-  {
-    name: 'Vinho real',
-    hint: 'Vinho e dourado com letras de inscrição: festivo e solene',
-    font: 'Cinzel',
-    main: grad('#7f1d1d', '#450a0a', 100),
-    surface: solid('#1c1917'),
-    accent: grad('#fde68a', '#d4a017', 135),
-    t1: '#ffffff',
-    t2: '#fde68a',
-    opacity: 96,
-    radius: 8,
-    shadow: 'soft',
-    templates: {
-      lower: 'classic',
-      top: 'bar',
-      ticker: 'full',
-      card: 'frame',
-      agenda: 'banner',
-      social: 'card',
-    },
-  },
-  {
-    name: 'Aurora',
-    hint: 'Degradê roxo e rosa com detalhe ciano: moderno e vibrante',
-    font: 'Google Sans',
-    main: grad('#7c3aed', '#db2777', 110),
-    surface: solid('#1e1b4b'),
-    accent: grad('#22d3ee', '#a78bfa', 135),
-    t1: '#ffffff',
-    t2: '#ede9fe',
-    opacity: 92,
-    radius: 20,
-    shadow: 'soft',
-    templates: {
-      lower: 'split',
-      top: 'pills',
-      ticker: 'floating',
-      card: 'horizontal',
-      agenda: 'card',
-      social: 'pill',
-    },
-  },
-  {
-    name: 'Grafite',
-    hint: 'Cinza-escuro com um toque de vermelho: sóbrio, combina com qualquer logo',
-    font: 'Inter',
-    main: grad('#1f2937', '#111827', 180),
-    surface: solid('#111827'),
-    accent: solid('#ef4444'),
-    t1: '#ffffff',
-    t2: '#d1d5db',
-    opacity: 92,
-    radius: 8,
-    shadow: 'soft',
-    templates: {
-      lower: 'minimal',
-      top: 'bar',
-      ticker: 'minimal',
-      card: 'horizontal',
-      agenda: 'card',
-      social: 'card',
-    },
-  },
-  {
-    name: 'Oceano',
-    hint: 'Azul-petróleo e azul, com detalhe em água-marinha',
-    font: 'Outfit',
-    main: grad('#0e7490', '#1d4ed8', 110),
-    surface: solid('#082f49'),
-    accent: grad('#67e8f9', '#34d399', 135),
-    t1: '#ffffff',
-    t2: '#cffafe',
-    opacity: 90,
-    radius: 30,
-    shadow: 'soft',
-    templates: {
-      lower: 'pill',
-      top: 'pills',
-      ticker: 'floating',
-      card: 'vertical',
-      agenda: 'card',
-      social: 'pill',
-    },
-  },
-];
-/** The theme in use, when the global theme still matches one of the ready-made ones. */
-const currentTheme = () =>
-  THEMES.find(
+/** The model in use, while every element still follows it. */
+const currentModel = () =>
+  MODELS.find(
     (k) =>
       config.brand.font === k.font &&
-      JSON.stringify([config.theme.main, config.theme.surface, config.theme.accent]) ===
-        JSON.stringify([k.main, k.surface, k.accent]) &&
+      (config.theme.decor || '') === (k.decor || '') &&
       THEMED_ELEMENTS.every((el) => config[el].template === k.templates[el] && !config[el].custom),
   );
+/** The ready-made colors in use, while none of them was changed by hand. */
+const currentPalette = () => {
+  const now = JSON.stringify([
+    config.theme.main,
+    config.theme.surface,
+    config.theme.accent,
+    config.theme.text1,
+    config.theme.text2,
+  ]);
+  return PALETTES.find((p) => JSON.stringify(p.slice(1, 6)) === now);
+};
 /**
- * Every ready-made theme as a small picture of the screen (badge, name bar, bottom bar)
- * in its own colors and font: one click and all elements are ready.
+ * Blocks that survive the redraws of the form: the pictures of the models are real pages
+ * of the overlay, and taking one out of the page would load it again.
  */
-const themeGallery = () => {
-  const now = currentTheme();
+const kept = {};
+function keep(key, build, refresh) {
+  const node = (kept[key] ??= build());
+  node.dataset.keep = key;
+  refresh?.(node);
+  return node;
+}
+/** Like replaceChildren, but a kept block that is already there stays where it is. */
+function refill(parent, nodes) {
+  const next = nodes.filter(Boolean);
+  for (const c of [...parent.childNodes]) if (!next.includes(c)) c.remove();
+  // What is left are kept blocks, in the order they had; the new ones go in around them.
+  let at = parent.firstChild;
+  for (const n of next) {
+    if (n === at) at = at.nextSibling;
+    else if (n.parentNode !== parent) parent.insertBefore(n, at);
+  }
+}
+/**
+ * The models as small live pictures: each one is the overlay itself (badge, name, card and
+ * bottom bar) drawn with that model and the colors it suggests, with the church's own
+ * name and logo. Pointing at one plays its entrance again.
+ */
+function modelGallery(where, themed) {
+  const replay = (frame) => {
+    for (const el of ['top', 'lower', 'card', 'ticker'])
+      frame.contentWindow?.postMessage({ type: 'replay', el }, location.origin);
+  };
+  return keep(
+    `${where}-${themed ? 'themed' : 'models'}`,
+    () =>
+      h(
+        'div',
+        { class: 'themes' },
+        MODELS.filter((k) => !!k.themed === themed).map((k) => {
+          const frame = h('iframe', {
+            src: `/overlay?preview=model&model=${k.id}`,
+            loading: 'lazy',
+            tabindex: '-1',
+            title: k.name,
+          });
+          return h(
+            'button',
+            {
+              type: 'button',
+              'data-model': k.id,
+              title: k.hint,
+              onclick: () => useModel(k),
+              onmouseenter: () => replay(frame),
+            },
+            h('span', { class: 'themeShot' }, frame),
+            h('strong', {}, k.name),
+            h('small', {}, k.hint),
+          );
+        }),
+      ),
+    (node) => {
+      const now = currentModel();
+      for (const b of node.children) b.classList.toggle('active', b.dataset.model === now?.id);
+    },
+  );
+}
+/**
+ * The ready-made colors, each as a small name bar. The one in use is marked, and so is the
+ * one the model in use suggests.
+ */
+const paletteGallery = () => {
+  const now = currentPalette(),
+    model = currentModel();
   return h(
     'div',
-    { class: 'themes' },
-    THEMES.map((k) => {
-      const glass = k.glass ? 'backdrop-filter:blur(3px);border:1px solid #ffffff99;' : '';
-      const surface = k.glass
-        ? 'background:#ffffff40;'
-        : `background:${fillCss(k.surface, k.opacity)};`;
-      const main = k.glass ? 'background:#ffffff55;' : `background:${fillCss(k.main, k.opacity)};`;
-      const round = Math.min(k.radius, 14) / 2;
+    { class: 'palettes' },
+    PALETTES.filter((p) => !p[6] || model?.glass || p === now).map((p) => {
+      const [name, main, surface, accent, t1, t2] = p;
       return h(
         'button',
         {
           type: 'button',
-          class: k === now ? 'active' : '',
-          title: k.hint,
-          onclick: () => applyTheme(k),
+          class: p === now ? 'active' : '',
+          title: 'Troca só as cores, sem mexer no modelo',
+          onclick: () => applyPalette(p),
         },
         h(
           'span',
-          { class: 'themeShot', style: `font-family:"${k.font}",system-ui` },
+          { class: 'swatch', style: `background:${fillCss(surface)}` },
           h(
             'i',
-            {
-              class: 'shotBadge',
-              style: `${surface}${glass}border-radius:${round}px;color:${k.t1}`,
-            },
-            h('b', { style: `background:${fillCss(k.accent)}` }),
-            'AO VIVO',
-          ),
-          h(
-            'i',
-            { class: 'shotName', style: `${main}${glass}border-radius:${round}px;color:${k.t1}` },
-            h('b', { style: `background:${fillCss(k.accent)}` }),
-            h('span', { 'data-raw': '' }, 'Pr. João Silva'),
-          ),
-          h(
-            'i',
-            { class: 'shotBar', style: `${surface}${glass}color:${k.t2}` },
-            h('b', { style: `background:${fillCss(k.accent)}` }),
+            { style: `background:${fillCss(main)};color:${t1}` },
+            h('b', { style: `background:${fillCss(accent)}` }),
+            h('span', { 'data-raw': '' }, 'Aa'),
+            h('u', { style: `background:${t2}` }),
           ),
         ),
-        h('strong', {}, k.name),
-        h('small', {}, k.hint),
+        h('strong', {}, name),
+        model?.palette === name ? h('small', {}, 'Sugerida para este modelo') : null,
       );
     }),
   );
 };
-function applyTheme(look) {
-  const c = structuredClone;
-  config.brand.font = look.font;
-  Object.assign(config.theme, {
-    main: c(look.main),
-    surface: c(look.surface),
-    accent: c(look.accent),
-    text1: look.t1,
-    text2: look.t2,
-    opacity: look.opacity,
-    radius: look.radius,
-    shadow: look.shadow,
-  });
-  // A ready-made theme is a complete look: every element goes back to following it.
-  for (const el of THEMED_ELEMENTS)
-    Object.assign(config[el], { template: look.templates[el], custom: false });
-  // Some looks also say where things go (and undo a free placement made by dragging).
-  for (const [el, spot] of Object.entries(look.place || {}))
-    Object.assign(config[el], spot, { free: false, vfree: false });
+function useModel(model) {
+  applyModel(config, model);
   save();
   renderForm();
-  toast(t('Tema "{name}" aplicado a todos os elementos.', { name: t(look.name) }));
+  toast(
+    t('Modelo "{name}" aplicado, com as cores "{colors}".', {
+      name: t(model.name),
+      colors: t(model.palette),
+    }),
+  );
 }
 
 const get = (path) => path.split('.').reduce((o, k) => o?.[k], config);
@@ -1191,7 +850,7 @@ async function uploadLogo(file) {
   set('brand.logo', r.url);
   renderForm();
 }
-function applyPalette([, main, second, accent, t1, t2]) {
+function applyPalette([name, main, second, accent, t1, t2]) {
   const c = structuredClone;
   Object.assign(config.theme, {
     main: c(main),
@@ -1203,7 +862,7 @@ function applyPalette([, main, second, accent, t1, t2]) {
   });
   save();
   renderForm();
-  toast('Cores aplicadas ao tema global.');
+  toast(t('Cores "{name}" aplicadas ao tema global.', { name: t(name) }));
 }
 /**
  * The ways of giving, with the one of this language's main country first: PIX in Brazil,
@@ -1690,35 +1349,37 @@ const pages = {
   ],
 
   theme: () => [
-    card(
-      'Temas prontos',
-      hint(
-        'Escolha um e está pronto: cada tema traz o modelo, as cores e a fonte de todos os elementos. Depois, se quiser, ajuste os detalhes abaixo.',
-      ),
-      themeGallery(),
+    keep(
+      'page-models-card',
+      () =>
+        card(
+          'Modelos',
+          hint(
+            'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; passe o mouse para ver a entrada.',
+          ),
+          modelGallery('page', false),
+        ),
+      () => modelGallery('page', false),
+    ),
+    keep(
+      'page-themed-card',
+      () =>
+        card(
+          'Modelos temáticos',
+          hint(
+            'Para ministérios e datas especiais: jovens, crianças, mulheres, coral, banda, Natal e Páscoa. O desenho pode ser trocado em "Fonte e forma".',
+          ),
+          modelGallery('page', true),
+        ),
+      () => modelGallery('page', true),
     ),
     card(
       'Cores prontas',
-      h(
-        'div',
-        { class: 'palettes' },
-        PALETTES.map((p) =>
-          h(
-            'button',
-            {
-              type: 'button',
-              title: 'Troca só as cores do tema global',
-              onclick: () => applyPalette(p),
-            },
-            h('i', { style: `background:${fillCss(p[1])};border-bottom:6px solid ${p[3].a}` }),
-            p[0],
-          ),
-        ),
-      ),
-      hint('Troca só as cores do tema. Depois ajuste cada uma abaixo, com degradê.'),
+      hint('Troca só as cores, sem mexer no modelo. Depois, se quiser, ajuste cada cor abaixo.'),
+      paletteGallery(),
     ),
     card(
-      'Cores do tema',
+      'Personalizar as cores',
       grid(
         fill('theme.main', 'Cor principal', { tip: 'A barra do nome.' }),
         fill('theme.surface', 'Cor de fundo', {
@@ -1739,6 +1400,12 @@ const pages = {
         }),
         select('theme.shadow', 'Sombra', names(SHADOWS), { tip: 'Brilho usa a cor de destaque.' }),
         range('theme.shadowStrength', 'Força da sombra', 0, 100, '%'),
+        select(
+          'theme.decor',
+          'Desenho dos modelos temáticos',
+          [['', 'O do próprio modelo'], ['none', 'Sem desenho'], ...names(DECORS)],
+          { tip: 'Aparece nos modelos Urbano, Adesivo e Delicado dos elementos.' },
+        ),
       ),
     ),
     card(
@@ -2868,9 +2535,15 @@ const WIZARD = [
     preview: 'theme',
     body: () => [
       hint(
-        'Escolha um tema e todos os elementos já ficam prontos. Depois dá para ajustar as cores em "Tema global" ou dar a um elemento a própria aparência.',
+        'Escolha um modelo e todos os elementos já ficam prontos, com as cores que mais combinam. Se preferir outras cores, troque logo abaixo.',
       ),
-      themeGallery(),
+      modelGallery('wizard', false),
+      h('h3', {}, 'Modelos temáticos'),
+      hint('Para ministérios e datas especiais.'),
+      modelGallery('wizard', true),
+      h('h3', {}, 'Cores prontas'),
+      paletteGallery(),
+      hint('Cada cor pode ser ajustada depois, em "Tema global".'),
     ],
   },
   {
@@ -3031,18 +2704,23 @@ function renderWizard() {
   if (wizardStep === null || !config) return;
   const step = WIZARD[wizardStep],
     last = wizardStep === WIZARD.length - 1;
-  const src = step.preview ? `/overlay?preview=${step.preview}` : '';
-  // The preview frame is kept between renders of the same step, so it does not blink.
-  const old = $('#wizard iframe');
-  const frame =
-    src && old?.getAttribute('src') === src
-      ? old
-      : src
-        ? h('iframe', { src, title: 'Prévia' })
-        : null;
+  // The preview and the pictures of the models are pages of their own: while the step is
+  // the same they stay in place, so they do not load again at every choice.
+  const frame = step.preview
+    ? keep(`wizard-preview-${step.preview}`, () =>
+        h(
+          'div',
+          { class: 'wizardPreview' },
+          h('iframe', { src: `/overlay?preview=${step.preview}`, title: 'Prévia' }),
+        ),
+      )
+    : null;
+  const content = () => [...step.body(), frame];
+  const open = $('#wizard .wizardBox');
+  if (open?.dataset.step === String(wizardStep)) return refill($('.wizardBody', open), content());
   const box = h(
     'div',
-    { class: 'wizardBox' },
+    { class: 'wizardBox', 'data-step': wizardStep },
     h(
       'aside',
       {},
@@ -3063,12 +2741,7 @@ function renderWizard() {
       'section',
       {},
       h('h2', {}, step.title),
-      h(
-        'div',
-        { class: 'wizardBody' },
-        ...step.body(),
-        frame ? h('div', { class: 'wizardPreview' }, frame) : null,
-      ),
+      h('div', { class: 'wizardBody' }, ...content()),
       h(
         'footer',
         {},
@@ -3136,7 +2809,7 @@ function renderForm() {
           ),
         )
       : null;
-  $('#form').replaceChildren(...[off, ...pages[page]()].filter(Boolean));
+  refill($('#form'), [off, ...pages[page]()]);
   if (page === 'brand') checkGiving();
 }
 $('#replay').onclick = () => {

@@ -28,12 +28,6 @@ Azul y oro
 Blu e oro
 Blau und Gold
 
-Placas azul-marinho com fio dourado: QR Code no alto à esquerda e avisos em sequência embaixo
-Navy plaques with a golden line: QR code at the top left and notices in sequence at the bottom
-Placas azul marino con hilo dorado: código QR arriba a la izquierda y avisos en secuencia abajo
-Targhe blu navy con filo dorato: codice QR in alto a sinistra e avvisi in sequenza in basso
-Marineblaue Tafeln mit goldener Linie: QR-Code oben links und Hinweise nacheinander unten
-
 Frase só deste item. Vazio: usa o texto geral e o nome da rede.
 A phrase for this item only. Empty: uses the general text and the network's name.
 Frase solo de este elemento. Vacío: usa el texto general y el nombre de la red.

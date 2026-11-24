@@ -1,8 +1,19 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { cleanConfig, defaults } from '../src/server/store.js';
+import {
+  // @ts-expect-error browser module without type declarations
+  decorFor,
+  DECORS,
+  givingQr,
+  givingText,
+  qrInk,
+  qrUrl,
+  themed,
+  THEMED_ELEMENTS,
+} from '../src/web/js/look.js';
 // @ts-expect-error browser module without type declarations
-import { givingQr, givingText, qrInk, qrUrl, themed, THEMED_ELEMENTS } from '../src/web/js/look.js';
+import { applyModel, MODELS, PALETTES } from '../src/web/js/models.js';
 
 test('every element follows the global theme until it is given its own appearance', () => {
   const c = defaults();
@@ -80,4 +91,50 @@ test('a QR code is only drawn in a color dark enough to scan', () => {
   assert.equal(qrInk('navy'), '');
   assert.match(qrUrl('url', 'https://example.org', { dark: '#071a38' }), /dark=%23071a38/);
   assert.doesNotMatch(qrUrl('url', 'https://example.org', { dark: 'red' }), /dark=/);
+});
+
+test('ready-made models: each one is complete, suggests existing colors and is saved as it is', () => {
+  const ids = MODELS.map((m: { id: string }) => m.id);
+  assert.equal(new Set(ids).size, ids.length);
+  assert.ok(MODELS.filter((m: { themed?: boolean }) => m.themed).length >= 9);
+  for (const model of MODELS) {
+    assert.ok(
+      PALETTES.some((p: unknown[]) => p[0] === model.palette),
+      `${model.id}: colors "${model.palette}"`,
+    );
+    if (model.decor) assert.ok(DECORS.includes(model.decor), `${model.id}: drawing`);
+    const c = defaults();
+    c.card.custom = true;
+    applyModel(c, model);
+    // Nothing a model sets is refused or changed by the server.
+    assert.deepEqual(cleanConfig(structuredClone(c)), c, model.id);
+    for (const el of THEMED_ELEMENTS) {
+      assert.equal(c[el as 'lower'].template, model.templates[el], `${model.id}: ${el}`);
+      assert.equal(c[el as 'lower'].custom, false);
+    }
+    assert.equal(c.theme.decor, model.decor || '');
+    assert.equal(c.brand.font, model.font);
+  }
+  // Two models may share shapes and font: then the drawing tells them apart.
+  const look = (m: { font: string; decor?: string; templates: object }) =>
+    JSON.stringify([m.font, m.decor || '', m.templates]);
+  assert.equal(new Set(MODELS.map(look)).size, MODELS.length);
+});
+
+test('drawings of the themed models: the usual one, the one picked in the theme, or none', () => {
+  const c = defaults();
+  assert.equal(decorFor(c, 'lower', 'classic'), '');
+  assert.match(decorFor(c, 'lower', 'floral'), /^<svg[^>]*viewBox="0 0 200 170"/);
+  assert.match(decorFor(c, 'top', 'kids'), /^<svg[^>]*viewBox="0 0 100 100"/);
+  // The card shows two: a big one on a corner and a small one on the opposite corner.
+  assert.equal(decorFor(c, 'card', 'floral').match(/<svg/g)?.length, 2);
+  // The block model has no room on the corner badge.
+  assert.equal(decorFor(c, 'top', 'youth'), '');
+  const usual = decorFor(c, 'lower', 'kids');
+  c.theme.decor = 'xmaskids';
+  assert.notEqual(decorFor(c, 'lower', 'kids'), usual);
+  c.theme.decor = 'none';
+  assert.equal(decorFor(c, 'lower', 'kids'), '');
+  assert.equal(cleanConfig({ theme: { decor: 'nope' } }).theme.decor, '');
+  assert.equal(cleanConfig({ theme: { decor: 'easter' } }).theme.decor, 'easter');
 });

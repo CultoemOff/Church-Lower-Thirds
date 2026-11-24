@@ -1,4 +1,5 @@
 import {
+  decorFor,
   fillCss,
   fontCss,
   givingQr,
@@ -11,6 +12,7 @@ import {
   SOCIAL_ICONS,
   themed,
 } from './js/look.js';
+import { applyModel, MODELS } from './js/models.js';
 
 // The browser source page. Everything is laid out on a 1920x1080 stage (1080x1920 with
 // ?layout=vertical) and scaled to the source size, so the same settings look the same at
@@ -34,8 +36,15 @@ const SLUGS = {
 const slug = location.pathname.match(/^\/source\/([\w-]+)/)?.[1];
 const only = (slug ? SLUGS[slug] : params.get('only'))?.split(',').filter(Boolean);
 const vertical = params.get('layout') === 'vertical';
-const W = vertical ? 1080 : 1920,
-  H = vertical ? 1920 : 1080;
+// ?preview=model&model=<id>: the small picture of a ready-made model in the settings. The
+// saved settings are drawn with that model put on, on a smaller stage so that the
+// elements, at their real size, can be told apart in a small frame.
+const shot =
+  preview === 'model' ? MODELS.find((m) => m.id === params.get('model')) || MODELS[0] : null;
+const W = shot ? 1440 : vertical ? 1080 : 1920,
+  H = shot ? 810 : vertical ? 1920 : 1080;
+// Several elements shown together, to judge a whole look.
+const together = preview === 'theme' || !!shot;
 // ?edit=1: the settings page's layout editor. Everything is shown, still, and can be
 // dragged to a new place or resized by its corner.
 const edit = params.get('edit') === '1';
@@ -55,6 +64,7 @@ function fit() {
 addEventListener('resize', fit);
 fit();
 if (preview) document.documentElement.classList.add('preview');
+if (shot) document.documentElement.classList.add('compact');
 if (edit) document.documentElement.classList.add('edit');
 if (vertical) document.documentElement.classList.add('vertical');
 
@@ -80,6 +90,13 @@ const from = { left: [-1, 0], right: [1, 0], center: [0, 1], top: [0, -1], botto
 function common(el, c, side) {
   const root = roots[el];
   root.dataset.anim = c.animation;
+  // Ministry models bring a drawing (flowers, stars…); the others leave it empty.
+  const deco = root.querySelector('.deco'),
+    art = `${c.template}|${config.theme.decor}`;
+  if (deco && deco.dataset.art !== art) {
+    deco.dataset.art = art;
+    deco.innerHTML = decorFor(config, el, c.template);
+  }
   const [sx, sy] = from[side];
   setVars(root, {
     dur: c.duration + 'ms',
@@ -100,7 +117,8 @@ const canMove = (el) => 'free' in config[el] && !FULL_WIDTH[el]?.includes(config
 function place(el) {
   const c = config[el],
     root = roots[el],
-    on = canMove(el) && (vertical ? c.vfree : c.free);
+    // The picture of a model has its own stage: places chosen by dragging do not fit it.
+    on = !shot && canMove(el) && (vertical ? c.vfree : c.free);
   root.toggleAttribute('data-free', on);
   if (on) setVars(root, { fx: (vertical ? c.vx : c.x) + 'px', fy: (vertical ? c.vy : c.y) + 'px' });
 }
@@ -109,7 +127,7 @@ function place(el) {
 function lowerItem() {
   const items = config.lower.items;
   const quick = config.lower.quick;
-  if (preview === 'lower' || preview === 'theme' || edit)
+  if (preview === 'lower' || together || edit)
     return items.find((i) => i.id === params.get('item')) || items[0] || quick;
   return live.lower.item === 'quick' ? quick : items.find((i) => i.id === live.lower.item);
 }
@@ -254,7 +272,7 @@ function renderCard() {
     box = $('card', '.box');
   root.dataset.template = c.template;
   // In the theme preview several elements show together: the card moves out of the way.
-  root.dataset.pos = preview === 'theme' ? 'center-right' : c.position;
+  root.dataset.pos = shot ? 'top-right' : together ? 'center-right' : c.position;
   const side = c.position.endsWith('left')
     ? 'left'
     : c.position.endsWith('right')
@@ -577,7 +595,7 @@ const wanted = (el) => {
   if (only?.length && !only.includes(el)) return false;
   if (edit) return true;
   // ?preview=theme: the main elements together, to judge the global look.
-  if (preview === 'theme') return ['lower', 'top', 'ticker', 'card'].includes(el);
+  if (together) return ['lower', 'top', 'ticker', 'card'].includes(el);
   return preview ? preview === el : !!live[el].on;
 };
 
@@ -698,6 +716,7 @@ function connect() {
       const giving = (c) => JSON.stringify([c.pix, c.giving]);
       if (config && giving(e.config) !== giving(config)) givingStamp = String(Date.now());
       config = e.config;
+      if (shot) applyModel(config, shot);
     }
     if (e.live) live = e.live;
     apply();

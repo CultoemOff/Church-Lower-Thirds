@@ -125,10 +125,15 @@ jobs:
             $res = Invoke-WebRequest "$base$page" -UseBasicParsing
             if ($res.StatusCode -ne 200 -or $res.Content -notmatch 'Church Lower Thirds') { throw "$page did not load" }
           }
-          foreach ($js in '/dock.js', '/settings.js', '/overlay.js', '/js/common.js', '/js/look.js') {
+          foreach ($js in '/dock.js', '/settings.js', '/overlay.js', '/js/common.js', '/js/look.js', '/js/models.js') {
             $res = Invoke-WebRequest "$base$js" -UseBasicParsing
             if ($res.Headers['Content-Type'] -notmatch 'javascript') { throw "$js served as $($res.Headers['Content-Type'])" }
           }
+          # The small pictures of the ready-made models are the overlay itself.
+          $res = Invoke-WebRequest "$base/overlay?preview=model&model=easter" -UseBasicParsing
+          if ($res.StatusCode -ne 200) { throw "Model picture did not load" }
+          $font = Invoke-WebRequest "$base/fonts/fredoka-latin-wght-normal.woff2" -UseBasicParsing
+          if ($font.StatusCode -ne 200 -or $font.RawContentLength -lt 5000) { throw "Fredoka font not served" }
           # Fonts shipped with the app.
           $font = Invoke-WebRequest "$base/fonts/outfit-latin-wght-normal.woff2" -UseBasicParsing
           if ($font.StatusCode -ne 200 -or $font.RawContentLength -lt 5000) { throw "Bundled font not served" }
