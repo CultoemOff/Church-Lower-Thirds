@@ -729,3 +729,219 @@ no limit
 sin límite
 senza limite
 ohne Limit
+
+Fixar: o que for mostrado nesta aba fica na tela até esconder, mesmo quando o tempo acabar
+Pin: what is shown from this tab stays on screen until hidden, even when the time ends
+Fijar: lo que se muestre en esta pestaña queda en pantalla hasta ocultarlo, aunque el tiempo termine
+Blocca: ciò che viene mostrato da questa scheda resta sullo schermo finché non lo nascondi, anche a tempo scaduto
+Fixieren: Was in diesem Tab gezeigt wird, bleibt bis zum Ausblenden auf dem Bildschirm, auch wenn die Zeit abläuft
+
+Mostra ou esconde na tela o elemento desta aba
+Shows or hides the element of this tab on screen
+Muestra u oculta en pantalla el elemento de esta pestaña
+Mostra o nasconde sullo schermo l’elemento di questa scheda
+Zeigt oder verbirgt das Element dieses Tabs auf dem Bildschirm
+
+Ofertas e Dízimos
+Offerings & Tithes
+Ofrendas y Diezmos
+Offerte e Decime
+Opfer und Zehnten
+
+Cartão com QR Code: ofertas, dízimos, missões, um link…
+Card with a QR code: offerings, tithes, missions, a link…
+Tarjeta con código QR: ofrendas, diezmos, misiones, un enlace…
+Scheda con codice QR: offerte, decime, missioni, un link…
+Karte mit QR-Code: Opfer, Zehnten, Mission, ein Link…
+
+Comentários
+Comments
+Comentarios
+Commenti
+Kommentare
+
+Um comentário digitado na hora: quem escreveu e o que disse
+A comment typed on the spot: who wrote it and what it says
+Un comentario escrito en el momento: quién lo escribió y qué dijo
+Un commento scritto al momento: chi l’ha scritto e cosa dice
+Ein direkt eingetippter Kommentar: wer ihn schrieb und was er sagt
+
+Escreva a chave PIX desta oferta.
+Type the PIX key of this offering.
+Escriba la clave PIX de esta ofrenda.
+Scrivi la chiave PIX di questa offerta.
+Geben Sie den PIX-Schlüssel dieser Gabe ein.
+
+Principal
+Main
+Principal
+Principale
+Haupt
+
+QR Code da contribuição principal da igreja: PIX, transferência, link ou imagem (escolha nas configurações)
+QR code of the church's main way of giving: PIX, transfer, link or image (chosen in the settings)
+Código QR de la contribución principal de la iglesia: PIX, transferencia, enlace o imagen (se elige en la configuración)
+Codice QR del contributo principale della chiesa: PIX, bonifico, link o immagine (si sceglie nelle impostazioni)
+QR-Code der Hauptspende der Gemeinde: PIX, Überweisung, Link oder Bild (in den Einstellungen wählbar)
+
+Outra chave PIX
+Another PIX key
+Otra clave PIX
+Un’altra chiave PIX
+Anderer PIX-Schlüssel
+
+QR Code de PIX com outra chave, para uma oferta específica
+PIX QR code with another key, for a specific offering
+Código QR de PIX con otra clave, para una ofrenda específica
+Codice QR PIX con un’altra chiave, per un’offerta specifica
+PIX-QR-Code mit einem anderen Schlüssel, für eine bestimmte Gabe
+
+Chave PIX desta oferta
+PIX key of this offering
+Clave PIX de esta ofrenda
+Chiave PIX di questa offerta
+PIX-Schlüssel dieser Gabe
+
+Ofertas salvas
+Saved offerings
+Ofrendas guardadas
+Offerte salvate
+Gespeicherte Gaben
+
+Contribuição principal
+Main way of giving
+Contribución principal
+Contributo principale
+Hauptspende
+
+Salve aqui cada oferta: dízimos, missões, uma campanha, um link…
+Save each offering here: tithes, missions, a campaign, a link…
+Guarde aquí cada ofrenda: diezmos, misiones, una campaña, un enlace…
+Salva qui ogni offerta: decime, missioni, una campagna, un link…
+Speichern Sie hier jede Gabe: Zehnten, Mission, eine Aktion, einen Link…
+
+Quem escreveu (nome ou @usuário)
+Who wrote it (name or @user)
+Quién lo escribió (nombre o @usuario)
+Chi l’ha scritto (nome o @utente)
+Wer es schrieb (Name oder @Benutzer)
+
+O comentário
+The comment
+El comentario
+Il commento
+Der Kommentar
+
+Mostra na tela o comentário escrito acima (Enter)
+Shows the comment written above on screen (Enter)
+Muestra en pantalla el comentario escrito arriba (Enter)
+Mostra sullo schermo il commento scritto sopra (Invio)
+Zeigt den oben geschriebenen Kommentar auf dem Bildschirm (Enter)
+
+Guarda este comentário na lista para mostrar depois
+Keeps this comment in the list to show later
+Guarda este comentario en la lista para mostrarlo después
+Conserva questo commento nell’elenco per mostrarlo dopo
+Legt diesen Kommentar in die Liste, um ihn später zu zeigen
+
+Comentários salvos
+Saved comments
+Comentarios guardados
+Commenti salvati
+Gespeicherte Kommentare
+
+Clique para mostrar este comentário
+Click to show this comment
+Haga clic para mostrar este comentario
+Clicca per mostrare questo commento
+Klicken, um diesen Kommentar zu zeigen
+
+Escreva o comentário acima e mostre na hora, ou salve para depois.
+Type the comment above and show it at once, or save it for later.
+Escriba el comentario arriba y muéstrelo al momento, o guárdelo para después.
+Scrivi il commento qui sopra e mostralo subito, oppure salvalo per dopo.
+Schreiben Sie den Kommentar oben und zeigen Sie ihn sofort, oder speichern Sie ihn für später.
+
+Balão
+Speech balloon
+Globo
+Fumetto
+Sprechblase
+
+Cartão com QR Code: ofertas, dízimos, missões, uma campanha ou um link.
+Card with a QR code: offerings, tithes, missions, a campaign or a link.
+Tarjeta con código QR: ofrendas, diezmos, misiones, una campaña o un enlace.
+Scheda con codice QR: offerte, decime, missioni, una campagna o un link.
+Karte mit QR-Code: Opfer, Zehnten, Mission, eine Aktion oder ein Link.
+
+Um comentário digitado na hora, com o nome de quem escreveu.
+A comment typed on the spot, with the name of who wrote it.
+Un comentario escrito en el momento, con el nombre de quien lo escribió.
+Un commento scritto al momento, con il nome di chi l’ha scritto.
+Ein direkt eingetippter Kommentar, mit dem Namen des Verfassers.
+
+Contribuição principal da igreja
+The church's main way of giving
+Contribución principal de la iglesia
+Contributo principale della chiesa
+Hauptspende der Gemeinde
+
+Outra chave PIX (uma oferta específica)
+Another PIX key (a specific offering)
+Otra clave PIX (una ofrenda específica)
+Un’altra chiave PIX (un’offerta specifica)
+Anderer PIX-Schlüssel (eine bestimmte Gabe)
+
+Cada oferta tem o seu título e o seu QR Code: dízimos e ofertas, missões, uma campanha, uma inscrição. No painel do OBS, na aba "Ofertas e Dízimos", um clique mostra a que você escolher.
+Each offering has its own title and QR code: tithes and offerings, missions, a campaign, a sign-up. In the OBS dock, on the "Offerings & Tithes" tab, one click shows the one you choose.
+Cada ofrenda tiene su título y su código QR: diezmos y ofrendas, misiones, una campaña, una inscripción. En el panel de OBS, en la pestaña "Ofrendas y Diezmos", un clic muestra la que elija.
+Ogni offerta ha il suo titolo e il suo codice QR: decime e offerte, missioni, una campagna, un’iscrizione. Nel pannello di OBS, nella scheda "Offerte e Decime", un clic mostra quella che scegli.
+Jede Gabe hat ihren Titel und ihren QR-Code: Zehnten und Opfer, Mission, eine Aktion, eine Anmeldung. Im OBS-Dock zeigt im Tab „Opfer und Zehnten“ ein Klick die gewählte.
+
+Nova oferta
+New offering
+Nueva ofrenda
+Nuova offerta
+Neue Gabe
+
+Título (ex.: Missões)
+Title (e.g. Missions)
+Título (p. ej.: Misiones)
+Titolo (es.: Missioni)
+Titel (z. B. Mission)
+
+De onde vem o QR Code desta oferta
+Where the QR code of this offering comes from
+De dónde viene el código QR de esta ofrenda
+Da dove viene il codice QR di questa offerta
+Woher der QR-Code dieser Gabe kommt
+
+Comentário
+Comment
+Comentario
+Commento
+Kommentar
+
+O comentário é escrito no painel do OBS, na aba "Comentários": o nome de quem escreveu e o que disse. Ele sai sozinho depois do tempo escolhido no painel, a não ser que esteja fixado. Aqui, enquanto nada foi escrito, a prévia mostra um exemplo.
+The comment is typed in the OBS dock, on the "Comments" tab: the name of who wrote it and what it says. It leaves by itself after the time chosen in the dock, unless it is pinned. Here, while nothing has been typed, the preview shows an example.
+El comentario se escribe en el panel de OBS, en la pestaña "Comentarios": el nombre de quien lo escribió y lo que dijo. Sale solo después del tiempo elegido en el panel, a menos que esté fijado. Aquí, mientras no se haya escrito nada, la vista previa muestra un ejemplo.
+Il commento si scrive nel pannello di OBS, nella scheda "Commenti": il nome di chi l’ha scritto e cosa dice. Esce da solo dopo il tempo scelto nel pannello, a meno che non sia bloccato. Qui, finché non è stato scritto nulla, l’anteprima mostra un esempio.
+Der Kommentar wird im OBS-Dock im Tab „Kommentare“ eingetippt: der Name des Verfassers und der Text. Er verschwindet von selbst nach der im Dock gewählten Zeit, außer er ist fixiert. Solange nichts eingetippt wurde, zeigt die Vorschau hier ein Beispiel.
+
+Mostrar o balão ao lado do texto
+Show the balloon beside the text
+Mostrar el globo al lado del texto
+Mostra il fumetto accanto al testo
+Sprechblase neben dem Text zeigen
+
+Comentário (o último escrito)
+Comment (the last one typed)
+Comentario (el último escrito)
+Commento (l’ultimo scritto)
+Kommentar (der zuletzt eingetippte)
+
+Escreva o comentário antes de mostrar.
+Type the comment before showing it.
+Escriba el comentario antes de mostrarlo.
+Scrivi il commento prima di mostrarlo.
+Schreiben Sie den Kommentar, bevor Sie ihn zeigen.

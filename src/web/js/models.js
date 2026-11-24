@@ -245,6 +245,7 @@ const BASE_ANIMATION = {
   card: 'rise',
   agenda: 'rise',
   social: 'bounce',
+  comment: 'rise',
 };
 // Models: the shape of every element at once (the model of each one, font, corners,
 // shadow, entrance). Each model names the ready-made colors that suit it best; they are
@@ -727,6 +728,17 @@ export const MODELS = [
   },
 ];
 
+/**
+ * The model of an element in a ready-made model. Comments are not listed one by one: they
+ * follow the family of the name plate (glass, blocks, sticker, framed plate), and
+ * otherwise are a speech balloon, or a card where the corners are nearly square.
+ */
+export function modelTemplate(model, el) {
+  if (el !== 'comment') return model.templates[el];
+  const family = model.templates.lower;
+  if (['liquid', 'youth', 'kids', 'floral'].includes(family)) return family;
+  return model.radius < 10 ? 'card' : 'bubble';
+}
 /** Puts a model, with the colors it suggests, into a configuration (nothing is saved here). */
 export function applyModel(config, model) {
   const c = structuredClone,
@@ -746,7 +758,7 @@ export function applyModel(config, model) {
   // A model is a complete look: every element goes back to following the theme.
   for (const el of THEMED_ELEMENTS)
     Object.assign(config[el], {
-      template: model.templates[el],
+      template: modelTemplate(model, el),
       custom: false,
       // The bottom bar always comes up from the edge it sits on.
       animation: (el !== 'ticker' && model.animation) || BASE_ANIMATION[el],

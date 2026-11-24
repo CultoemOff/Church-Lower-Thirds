@@ -280,23 +280,11 @@ Guarda este código QR en la lista
 Salva questo codice QR nella lista
 Legt diesen QR-Code in der Liste ab
 
-QR Codes salvos
-Saved QR codes
-Códigos QR guardados
-Codici QR salvati
-Gespeicherte QR-Codes
-
 Clique para mostrar este QR Code
 Click to show this QR code
 Clic para mostrar este código QR
 Clic per mostrare questo codice QR
 Klicken, um diesen QR-Code zu zeigen
-
-Salve aqui o PIX e os links que você mais usa.
-Save here the PIX and the links you use most.
-Guarde aquí el PIX y los enlaces que más usa.
-Salva qui il PIX e i link che usi di più.
-Hier das PIX und die meistgenutzten Links speichern.
 
 O que aparece no selo
 What shows in the badge
@@ -406,12 +394,6 @@ Añadir día
 Aggiungi giorno
 Tag hinzufügen
 
-Mostrar a agenda
-Show the schedule
-Mostrar la agenda
-Mostra il programma
-Programm zeigen
-
 Mostra um dia de cada vez, passando para o próximo, e sai depois do último
 Shows one day at a time, moving on to the next, and leaves after the last one
 Muestra un día a la vez, pasando al siguiente, y sale después del último
@@ -520,12 +502,6 @@ Sello superior
 Badge in alto
 Eck-Badge
 
-Mostra ou esconde o selo do canto da tela
-Shows or hides the corner badge
-Muestra u oculta el sello de la esquina
-Mostra o nasconde il badge nell'angolo
-Blendet das Eck-Badge ein oder aus
-
 Logo solto
 Logo alone
 Logo suelto
@@ -567,12 +543,6 @@ Bottom bar
 Barra inferior
 Barra inferiore
 Untere Leiste
-
-Mostra ou esconde a barra inferior, com o texto rolando
-Shows or hides the bottom bar, with the scrolling text
-Muestra u oculta la barra inferior, con el texto desplazándose
-Mostra o nasconde la barra inferiore, con il testo che scorre
-Blendet die untere Leiste mit dem Lauftext ein oder aus
 
 Textos que rolam
 Scrolling texts

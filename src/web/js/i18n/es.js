@@ -56,9 +56,7 @@ export default {
   'Tira o cartão da tela': 'Quita la tarjeta de la pantalla',
   Esconder: 'Ocultar',
   'Guarda este QR Code na lista': 'Guarda este código QR en la lista',
-  'QR Codes salvos': 'Códigos QR guardados',
   'Clique para mostrar este QR Code': 'Clic para mostrar este código QR',
-  'Salve aqui o PIX e os links que você mais usa.': 'Guarde aquí el PIX y los enlaces que más usa.',
   'O que aparece no selo': 'Qué aparece en el sello',
   'Mostra só este texto agora, no lugar da lista (Enter)':
     'Muestra solo este texto ahora, en lugar de la lista (Enter)',
@@ -79,7 +77,6 @@ export default {
   'Horários, um por linha': 'Horarios, uno por línea',
   'Guarda este dia na agenda': 'Guarda este día en la agenda',
   'Adicionar dia': 'Añadir día',
-  'Mostrar a agenda': 'Mostrar la agenda',
   'Mostra um dia de cada vez, passando para o próximo, e sai depois do último':
     'Muestra un día a la vez, pasando al siguiente, y sale después del último',
   Dias: 'Días',
@@ -101,7 +98,6 @@ export default {
   Remover: 'Quitar',
   'Adicione o Instagram, o YouTube…': 'Añada Instagram, YouTube…',
   'Selo superior': 'Sello superior',
-  'Mostra ou esconde o selo do canto da tela': 'Muestra u oculta el sello de la esquina',
   'Logo solto': 'Logo suelto',
   'Mostra ou esconde o logo sozinho em outro canto da tela':
     'Muestra u oculta el logo solo en otra esquina de la pantalla',
@@ -110,8 +106,6 @@ export default {
   Recados: 'Avisos',
   'Recado para mostrar agora': 'Aviso para mostrar ahora',
   'Barra inferior': 'Barra inferior',
-  'Mostra ou esconde a barra inferior, com o texto rolando':
-    'Muestra u oculta la barra inferior, con el texto desplazándose',
   'Textos que rolam': 'Textos que se desplazan',
   'Texto para rolar agora': 'Texto para desplazar ahora',
   Clássico: 'Clásico',
@@ -500,16 +494,9 @@ export default {
   'O programa já está atualizado.': 'El programa ya está actualizado.',
   'Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.':
     'Cada usuario del equipo tiene su propia carpeta y sus propios ajustes: uno no cambia lo del otro.',
-  'Cartão com QR Code: a contribuição da igreja ou um link':
-    'Tarjeta con código QR: la ofrenda de la iglesia o un enlace',
   Oferta: 'Ofrenda',
-  'QR Code da contribuição da igreja: PIX, transferência, link ou imagem (escolha nas configurações)':
-    'Código QR de la ofrenda de la iglesia: PIX, transferencia, enlace o imagen (elija en los ajustes)',
   'Contribuição da igreja': 'Ofrenda de la iglesia',
   'Geral e contribuições': 'General y ofrendas',
-  'Cartão QR / Oferta': 'Tarjeta QR / Ofrenda',
-  'Cartão com o QR Code da contribuição ou de um link.':
-    'Tarjeta con el código QR de la ofrenda o de un enlace.',
   'Preencha os dados acima para ver o resultado.':
     'Complete los datos de arriba para ver el resultado.',
   'Os dados acima aparecem no cartão, sem QR Code.':
@@ -660,8 +647,6 @@ export default {
   Voltar: 'Volver',
   Concluir: 'Finalizar',
   Avançar: 'Siguiente',
-  'Fixar: o que você mostrar nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
-    'Fijar: lo que muestre en esta pestaña queda en pantalla hasta que lo oculte, aunque termine el tiempo',
   'Configurações avançadas: abre no navegador (modelos, cores, fontes, contribuições, logo)':
     'Ajustes avanzados: se abre en el navegador (modelos, colores, fuentes, ofrendas, logo)',
   'Endereços para o OBS, tutorial, resoluções e atalhos.':
@@ -898,4 +883,54 @@ export default {
     'Hay demasiados perfiles: borre alguno antes de crear otro.',
   Tempo: 'Tiempo',
   'sem limite': 'sin límite',
+  'Fixar: o que for mostrado nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
+    'Fijar: lo que se muestre en esta pestaña queda en pantalla hasta ocultarlo, aunque el tiempo termine',
+  'Mostra ou esconde na tela o elemento desta aba':
+    'Muestra u oculta en pantalla el elemento de esta pestaña',
+  'Ofertas e Dízimos': 'Ofrendas y Diezmos',
+  'Cartão com QR Code: ofertas, dízimos, missões, um link…':
+    'Tarjeta con código QR: ofrendas, diezmos, misiones, un enlace…',
+  Comentários: 'Comentarios',
+  'Um comentário digitado na hora: quem escreveu e o que disse':
+    'Un comentario escrito en el momento: quién lo escribió y qué dijo',
+  'Escreva a chave PIX desta oferta.': 'Escriba la clave PIX de esta ofrenda.',
+  Principal: 'Principal',
+  'QR Code da contribuição principal da igreja: PIX, transferência, link ou imagem (escolha nas configurações)':
+    'Código QR de la contribución principal de la iglesia: PIX, transferencia, enlace o imagen (se elige en la configuración)',
+  'Outra chave PIX': 'Otra clave PIX',
+  'QR Code de PIX com outra chave, para uma oferta específica':
+    'Código QR de PIX con otra clave, para una ofrenda específica',
+  'Chave PIX desta oferta': 'Clave PIX de esta ofrenda',
+  'Ofertas salvas': 'Ofrendas guardadas',
+  'Contribuição principal': 'Contribución principal',
+  'Salve aqui cada oferta: dízimos, missões, uma campanha, um link…':
+    'Guarde aquí cada ofrenda: diezmos, misiones, una campaña, un enlace…',
+  'Quem escreveu (nome ou @usuário)': 'Quién lo escribió (nombre o @usuario)',
+  'O comentário': 'El comentario',
+  'Mostra na tela o comentário escrito acima (Enter)':
+    'Muestra en pantalla el comentario escrito arriba (Enter)',
+  'Guarda este comentário na lista para mostrar depois':
+    'Guarda este comentario en la lista para mostrarlo después',
+  'Comentários salvos': 'Comentarios guardados',
+  'Clique para mostrar este comentário': 'Haga clic para mostrar este comentario',
+  'Escreva o comentário acima e mostre na hora, ou salve para depois.':
+    'Escriba el comentario arriba y muéstrelo al momento, o guárdelo para después.',
+  Balão: 'Globo',
+  'Cartão com QR Code: ofertas, dízimos, missões, uma campanha ou um link.':
+    'Tarjeta con código QR: ofrendas, diezmos, misiones, una campaña o un enlace.',
+  'Um comentário digitado na hora, com o nome de quem escreveu.':
+    'Un comentario escrito en el momento, con el nombre de quien lo escribió.',
+  'Contribuição principal da igreja': 'Contribución principal de la iglesia',
+  'Outra chave PIX (uma oferta específica)': 'Otra clave PIX (una ofrenda específica)',
+  'Cada oferta tem o seu título e o seu QR Code: dízimos e ofertas, missões, uma campanha, uma inscrição. No painel do OBS, na aba "Ofertas e Dízimos", um clique mostra a que você escolher.':
+    'Cada ofrenda tiene su título y su código QR: diezmos y ofrendas, misiones, una campaña, una inscripción. En el panel de OBS, en la pestaña "Ofrendas y Diezmos", un clic muestra la que elija.',
+  'Nova oferta': 'Nueva ofrenda',
+  'Título (ex.: Missões)': 'Título (p. ej.: Misiones)',
+  'De onde vem o QR Code desta oferta': 'De dónde viene el código QR de esta ofrenda',
+  Comentário: 'Comentario',
+  'O comentário é escrito no painel do OBS, na aba "Comentários": o nome de quem escreveu e o que disse. Ele sai sozinho depois do tempo escolhido no painel, a não ser que esteja fixado. Aqui, enquanto nada foi escrito, a prévia mostra um exemplo.':
+    'El comentario se escribe en el panel de OBS, en la pestaña "Comentarios": el nombre de quien lo escribió y lo que dijo. Sale solo después del tiempo elegido en el panel, a menos que esté fijado. Aquí, mientras no se haya escrito nada, la vista previa muestra un ejemplo.',
+  'Mostrar o balão ao lado do texto': 'Mostrar el globo al lado del texto',
+  'Comentário (o último escrito)': 'Comentario (el último escrito)',
+  'Escreva o comentário antes de mostrar.': 'Escriba el comentario antes de mostrarlo.',
 };

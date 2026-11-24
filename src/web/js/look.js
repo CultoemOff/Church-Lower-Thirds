@@ -56,7 +56,10 @@ export const fontCss = (font) =>
   'system-ui, "Segoe UI", Roboto, sans-serif';
 
 export function qrUrl(kind, text, { round = false, stamp = '', dark = '' } = {}) {
-  const p = new URLSearchParams({ kind: kind === 'giving' ? 'giving' : 'text', margin: '1' });
+  const p = new URLSearchParams({
+    kind: kind === 'giving' || kind === 'pixkey' ? kind : 'text',
+    margin: '1',
+  });
   if (kind !== 'giving') p.set('text', text || '');
   if (round) p.set('round', '1');
   // The dots in a color of the card instead of black (only a dark one still scans).
@@ -73,7 +76,7 @@ export function qrInk(hex) {
   return 0.299 * r + 0.587 * g + 0.114 * b < 70 ? hex : '';
 }
 
-export const THEMED_ELEMENTS = ['lower', 'top', 'ticker', 'card', 'agenda', 'social'];
+export const THEMED_ELEMENTS = ['lower', 'top', 'ticker', 'card', 'agenda', 'social', 'comment'];
 /** What the global theme decides for an element that follows it. */
 export const THEMED_KEYS = [
   'fill',
@@ -201,6 +204,7 @@ export const ANIMATIONS = [
 export const SHADOWS = ['none', 'soft', 'hard', 'glow'];
 export const TICKER_TEMPLATES = ['full', 'floating', 'minimal', 'liquid'];
 export const AGENDA_TEMPLATES = ['card', 'banner', 'center', 'liquid'];
+export const COMMENT_TEMPLATES = ['bubble', 'card', 'liquid', 'youth', 'kids', 'floral'];
 export const SOCIAL_TEMPLATES = ['pill', 'card', 'liquid', 'plaque', 'youth', 'kids', 'floral'];
 // Drawings of the themed models (flowers, stars, notes, Christmas, Easter…). They are our
 // own shapes, drawn here so they can take the colors of the theme. Paint classes: a = the
@@ -470,6 +474,10 @@ export const SOCIAL_ICONS = {
 };
 
 // The eye of the OBS sources list: open = the category is in use, crossed = switched off.
+// A speech balloon, for the comments.
+export const COMMENT_ICON = icon(
+  '<path d="M4 5.500h16v10.500h-8.500L7 19.500V16H4z"/><path d="M8 9.500h8M8 12.500h5"/>',
+);
 export const EYE = icon(
   '<path d="M2.500 12c1.200-2.400 4.600-6 9.500-6s8.300 3.600 9.500 6c-1.200 2.400-4.600 6-9.500 6s-8.300-3.600-9.500-6z"/><circle cx="12" cy="12" r="3"/>',
 );

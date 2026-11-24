@@ -15,17 +15,12 @@ export default {
   'Nada salvo ainda. Escreva acima e clique em "Salvar na lista".':
     'Ainda não há nada guardado. Escreva acima e clique em "Guardar na lista".',
   'Tira o cartão da tela': 'Tira o cartão do ecrã',
-  'QR Codes salvos': 'QR Codes guardados',
-  'Salve aqui o PIX e os links que você mais usa.': 'Guarde aqui o PIX e as ligações que mais usa.',
   'Na tela aparece: "{prefix} Instagram" e o @. O texto e o modelo ficam nas configurações.':
     'No ecrã aparece: "{prefix} Instagram" e o @. O texto e o modelo ficam nas definições.',
   'Mostrar na tela:': 'Mostrar no ecrã:',
-  'Mostra ou esconde o selo do canto da tela': 'Mostra ou esconde o selo do canto do ecrã',
   'Mostra ou esconde o logo sozinho em outro canto da tela':
     'Mostra ou esconde o logo sozinho em outro canto do ecrã',
   'Ao vivo': 'Em direto',
-  'Mostra ou esconde a barra inferior, com o texto rolando':
-    'Mostra ou esconde a barra inferior, com o texto a passar',
   'Aba central': 'Separador central',
   Ingresso: 'Bilhete',
   Esmaecer: 'Desvanecer',
@@ -97,8 +92,6 @@ export default {
     'Atualização disponível: abra as definições para atualizar',
   'Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.':
     'Cada utilizador do computador tem a sua própria pasta e as suas próprias definições: um não altera o que é do outro.',
-  'QR Code da contribuição da igreja: PIX, transferência, link ou imagem (escolha nas configurações)':
-    'QR Code da contribuição da igreja: PIX, transferência, link ou imagem (escolha nas definições)',
   'Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o titular e o IBAN que aparecem.':
     'Teste antes do culto: aponte a aplicação do banco para este QR Code e confira o titular e o IBAN que aparecem.',
   'Teste antes do culto: aponte a câmera do celular para este QR Code e confira a página que abre.':
@@ -127,8 +120,6 @@ export default {
     'A engrenagem do painel abre esta página de definições.',
   'A fonte de navegador precisa estar por cima das câmeras, na cena que está no ar.':
     'A fonte de navegador precisa estar por cima das câmaras, na cena que está no ar.',
-  'Fixar: o que você mostrar nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
-    'Fixar: o que mostrar neste separador fica no ecrã até esconder, mesmo quando o tempo acabar',
   'Configurações avançadas: abre no navegador (modelos, cores, fontes, contribuições, logo)':
     'Definições avançadas: abre no navegador (modelos, cores, fontes, contribuições, logo)',
   'Salvar e restaurar tudo num arquivo, ou voltar às configurações iniciais.':
@@ -150,6 +141,21 @@ export default {
   'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Crie e ajuste os perfis nas configurações.':
     'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Crie e ajuste os perfis nas definições.',
   'Salvar como novo perfil': 'Guardar como novo perfil',
+  'Fixar: o que for mostrado nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
+    'Fixar: o que for mostrado nesta separador fica no ecrã até esconder, mesmo quando o tempo acabar',
+  'Mostra ou esconde na tela o elemento desta aba':
+    'Mostra ou esconde no ecrã o elemento desta separador',
+  'QR Code da contribuição principal da igreja: PIX, transferência, link ou imagem (escolha nas configurações)':
+    'QR Code da contribuição principal da igreja: PIX, transferência, link ou imagem (escolha nas definições)',
+  'Salve aqui cada oferta: dízimos, missões, uma campanha, um link…':
+    'Guarde aqui cada oferta: dízimos, missões, uma campanha, um link…',
+  'Mostra na tela o comentário escrito acima (Enter)':
+    'Mostra no ecrã o comentário escrito acima (Enter)',
+  'Comentários salvos': 'Comentários guardados',
+  'Cada oferta tem o seu título e o seu QR Code: dízimos e ofertas, missões, uma campanha, uma inscrição. No painel do OBS, na aba "Ofertas e Dízimos", um clique mostra a que você escolher.':
+    'Cada oferta tem o seu título e o seu QR Code: dízimos e ofertas, missões, uma campanha, uma inscrição. No painel do OBS, no separador "Ofertas e Dízimos", um clique mostra a que escolher.',
+  'O comentário é escrito no painel do OBS, na aba "Comentários": o nome de quem escreveu e o que disse. Ele sai sozinho depois do tempo escolhido no painel, a não ser que esteja fixado. Aqui, enquanto nada foi escrito, a prévia mostra um exemplo.':
+    'O comentário é escrito no painel do OBS, no separador "Comentários": o nome de quem escreveu e o que disse. Ele sai sozinho depois do tempo escolhido no painel, a não ser que esteja fixado. Aqui, enquanto nada foi escrito, a prévia mostra um exemplo.',
   'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui você confere e ajusta a aparência.':
     'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui pode conferir e ajustar o aspeto.',
   'Use o mesmo tamanho do vídeo do seu OBS. Os gráficos se ajustam sozinhos: tudo o que você configurou fica igual em qualquer um deles.':

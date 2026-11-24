@@ -9,7 +9,7 @@ import {
   toast,
   toggleTheme,
 } from './js/common.js';
-import { givingName, givingTag, NETWORKS, SOCIAL_ICONS } from './js/look.js';
+import { EYE, EYE_OFF, givingTag, NETWORKS, SOCIAL_ICONS } from './js/look.js';
 import { autoLocalize, t, useLanguage } from './js/i18n.js';
 
 // The panel that lives in an OBS dock. Each tab has the text fields on top (or on the left
@@ -30,15 +30,14 @@ $('#themeToggle').onclick = () => applyTheme(toggleTheme());
 
 const TABS = [
   ['lower', 'Nomes', 'Nomes e legendas (lower third)'],
-  ['card', 'QR', 'Cartão com QR Code: a contribuição da igreja ou um link'],
+  ['card', 'Ofertas e Dízimos', 'Cartão com QR Code: ofertas, dízimos, missões, um link…'],
   ['top', 'Superior', 'Selo no canto da tela: logo, nome, AO VIVO, horário e recados'],
   ['ticker', 'Inferior', 'Barra inferior: texto rolando o tempo todo'],
   ['agenda', 'Agenda', 'Dias e horários dos cultos, um dia de cada vez'],
   ['social', 'Redes', 'Redes sociais: "Siga-nos no…"'],
+  ['comment', 'Comentários', 'Um comentário digitado na hora: quem escreveu e o que disse'],
 ];
-// PIX in Brazil, the church's payment app elsewhere, or simply "Giving".
-const givingLabel = () => givingName(config) || t('Oferta');
-const PINNABLE = ['lower', 'card', 'agenda', 'social'];
+const PINNABLE = ['lower', 'card', 'agenda', 'social', 'comment'];
 const TIMES = [0, 5, 8, 10, 15, 20, 30, 45, 60, 120];
 
 async function command(path, options = { method: 'POST' }) {
@@ -204,9 +203,10 @@ function buildLower() {
 }
 
 // ---------- QR / PIX ----------
+const MISSING = { url: 'Escreva o link do QR Code.', pixkey: 'Escreva a chave PIX desta oferta.' };
 function buildCard() {
   let kind = config.card.qr;
-  const url = input('Link do QR Code: https://…', 600, { value: config.card.qrText }),
+  const url = input('', 600, { value: config.card.qrText }),
     title = input('Título', 60, { value: config.card.title }),
     sub = input('Texto de apoio', 90, { value: config.card.subtitle });
   const seg = h('div', { class: 'seg' });
@@ -215,9 +215,19 @@ function buildCard() {
       ...[
         [
           'giving',
-          givingLabel(),
-          'QR Code da contribuição da igreja: PIX, transferência, link ou imagem (escolha nas configurações)',
+          'Principal',
+          'QR Code da contribuição principal da igreja: PIX, transferência, link ou imagem (escolha nas configurações)',
         ],
+        // Another PIX key for the same receiver: missions, a campaign, a purchase…
+        ...(config.giving.method === 'pix'
+          ? [
+              [
+                'pixkey',
+                'Outra chave PIX',
+                'QR Code de PIX com outra chave, para uma oferta específica',
+              ],
+            ]
+          : []),
         ['url', 'Link', 'QR Code que abre um site, uma inscrição, uma rede social…'],
       ].map(([v, l, t]) =>
         h(
@@ -235,7 +245,10 @@ function buildCard() {
         ),
       ),
     );
-    url.classList.toggle('hidden', kind !== 'url');
+    url.classList.toggle('hidden', kind === 'giving');
+    url.placeholder = t(
+      kind === 'pixkey' ? 'Chave PIX desta oferta' : 'Link do QR Code: https://…',
+    );
   };
   drawSeg();
   const values = () => ({
@@ -245,7 +258,7 @@ function buildCard() {
     qrText: url.value.trim(),
   });
   const apply = async (v) => {
-    if (v.qr === 'url' && !v.qrText) return void (toast('Escreva o link do QR Code.'), url.focus());
+    if (v.qr !== 'giving' && !v.qrText) return void (toast(MISSING[v.qr]), url.focus());
     const r = await patch({
       'card.title': v.title,
       'card.subtitle': v.subtitle,
@@ -278,8 +291,7 @@ function buildCard() {
       title: 'Guarda este QR Code na lista',
       onclick: () => {
         const v = values();
-        if (v.qr === 'url' && !v.qrText)
-          return void (toast('Escreva o link do QR Code.'), url.focus());
+        if (v.qr !== 'giving' && !v.qrText) return void (toast(MISSING[v.qr]), url.focus());
         patch({ 'card.saved': [...config.card.saved, { id: newId(), ...v }] });
       },
     },
@@ -295,7 +307,7 @@ function buildCard() {
         h('div', { class: 'pair' }, title, sub),
         h('div', { class: 'actions' }, show, hide, save),
       ),
-      listWrap('QR Codes salvos', 'clique: mostrar'),
+      listWrap('Ofertas salvas', 'clique: mostrar'),
     ],
     refresh(root) {
       show.textContent = live.card.on ? 'Atualizar no ar' : 'Mostrar';
@@ -329,9 +341,13 @@ function buildCard() {
               'span',
               { class: 'txt', 'data-raw': '' },
               h('b', {}, s.title || s.qrText),
-              h('small', {}, s.qr === 'giving' ? t('Contribuição da igreja') : s.qrText),
+              h('small', {}, s.qr === 'giving' ? t('Contribuição principal') : s.qrText),
             ),
-            h('span', { class: 'tag' }, s.qr === 'giving' ? givingTag(config) : 'LINK'),
+            h(
+              'span',
+              { class: 'tag' },
+              s.qr === 'giving' ? givingTag(config) : s.qr === 'pixkey' ? 'PIX' : 'LINK',
+            ),
             mini(
               '×',
               'Remover da lista',
@@ -340,14 +356,16 @@ function buildCard() {
             ),
           );
         }),
-        ...(c.saved.length ? [] : [empty('Salve aqui o PIX e os links que você mais usa.')]),
+        ...(c.saved.length
+          ? []
+          : [empty('Salve aqui cada oferta: dízimos, missões, uma campanha, um link…')]),
       );
     },
   };
 }
 
 // ---------- Top bar and bottom bar: a text now, and the list that rotates ----------
-function buildTexts(el, { label, tip, extra = [], parts = [], listTitle, hint }) {
+function buildTexts(el, { extra = [], parts = [], listTitle, hint }) {
   const text = input(hint, 200);
   const pinNow = async (value) => {
     const r = await patch({ [`${el}.pinned`]: value });
@@ -361,7 +379,7 @@ function buildTexts(el, { label, tip, extra = [], parts = [], listTitle, hint })
       h(
         'div',
         { class: 'editor' },
-        h('div', { class: extra.length ? 'pair' : '' }, toggleButton(el, label, tip), ...extra),
+        extra.length ? h('div', {}, ...extra) : null,
         parts.length
           ? h(
               'div',
@@ -489,18 +507,7 @@ function buildAgenda() {
   cancel.onclick = stop;
   return {
     pane: [
-      h(
-        'div',
-        { class: 'editor' },
-        toggleButton(
-          'agenda',
-          'Mostrar a agenda',
-          'Mostra um dia de cada vez, passando para o próximo, e sai depois do último',
-        ),
-        day,
-        lines,
-        h('div', { class: 'actions' }, save, cancel),
-      ),
+      h('div', { class: 'editor' }, day, lines, h('div', { class: 'actions' }, save, cancel)),
       listWrap('Dias', ''),
     ],
     refresh(root) {
@@ -673,13 +680,103 @@ function buildSocial() {
   };
 }
 
+// ---------- Comments: typed by hand, shown at once or kept in the list ----------
+function buildComment() {
+  const user = input('Quem escreveu (nome ou @usuário)', 60),
+    said = h('textarea', { placeholder: 'O comentário', maxlength: 280, rows: 3 });
+  const values = () => ({ user: user.value.trim(), text: said.value.trim() });
+  const show = async (v) => {
+    if (!v.text) return said.focus();
+    const r = await patch({ 'comment.user': v.user, 'comment.said': v.text });
+    if (!r.error) command('/api/live/comment/show');
+  };
+  // Enter shows it; Shift+Enter makes a new line.
+  const enter = (e) => {
+    if (e.key !== 'Enter' || e.shiftKey) return;
+    e.preventDefault();
+    show(values());
+  };
+  user.addEventListener('keydown', enter);
+  said.addEventListener('keydown', enter);
+  return {
+    pane: [
+      h(
+        'div',
+        { class: 'editor' },
+        user,
+        said,
+        h(
+          'div',
+          { class: 'actions' },
+          h(
+            'button',
+            {
+              class: 'primary',
+              title: 'Mostra na tela o comentário escrito acima (Enter)',
+              onclick: () => show(values()),
+            },
+            'Mostrar',
+          ),
+          h(
+            'button',
+            {
+              title: 'Guarda este comentário na lista para mostrar depois',
+              onclick: async () => {
+                const v = values();
+                if (!v.text) return said.focus();
+                const r = await patch({
+                  'comment.saved': [...config.comment.saved, { id: newId(), ...v }],
+                });
+                if (!r.error) user.value = said.value = '';
+              },
+            },
+            'Salvar na lista',
+          ),
+        ),
+      ),
+      listWrap('Comentários salvos', 'clique: mostrar'),
+    ],
+    refresh(root) {
+      const c = config.comment;
+      root.querySelector('[data-list]').replaceChildren(
+        ...c.saved.map((s) => {
+          const on = live.comment.on && c.user === s.user && c.said === s.text;
+          return h(
+            'button',
+            {
+              class: 'item' + (on ? ' on' : ''),
+              title: on ? 'No ar: clique para esconder' : 'Clique para mostrar este comentário',
+              onclick: () => (on ? command('/api/live/comment/hide') : show(s)),
+            },
+            h('i'),
+            h(
+              'span',
+              { class: 'txt', 'data-raw': '' },
+              h('b', {}, s.user || s.text),
+              s.user ? h('small', {}, s.text) : null,
+            ),
+            mini(
+              '×',
+              'Remover da lista',
+              () => patch({ 'comment.saved': c.saved.filter((x) => x.id !== s.id) }),
+              'del',
+            ),
+          );
+        }),
+        ...(c.saved.length
+          ? []
+          : [empty('Escreva o comentário acima e mostre na hora, ou salve para depois.')]),
+      );
+    },
+  };
+}
+
 const BUILD = {
   lower: buildLower,
+  comment: buildComment,
   card: buildCard,
   top: () =>
     buildTexts('top', {
-      label: 'Selo superior',
-      tip: 'Mostra ou esconde o selo do canto da tela',
       extra: [
         toggleButton(
           'bug',
@@ -700,8 +797,6 @@ const BUILD = {
     }),
   ticker: () =>
     buildTexts('ticker', {
-      label: 'Barra inferior',
-      tip: 'Mostra ou esconde a barra inferior, com o texto rolando',
       listTitle: 'Textos que rolam',
       hint: 'Texto para rolar agora',
     }),
@@ -729,9 +824,7 @@ function refresh() {
           },
         },
         h('i'),
-        id === 'card'
-          ? h('span', { 'data-raw': '' }, `QR / ${givingLabel()}`)
-          : h('span', {}, label),
+        h('span', {}, label),
       ),
     ),
   );
@@ -755,9 +848,21 @@ function refresh() {
   for (const b of pane.querySelectorAll('[data-toggle]'))
     b.classList.toggle('on', !!live[b.dataset.toggle].on);
   renderProfiles();
-  // The pin belongs to what leaves by itself: names, QR card, schedule and social.
-  const pin = $('#pinToggle'),
+  // The bar of the tab: is it on air, the eye to show or hide it, and the pin for what
+  // leaves by itself (names, offerings, schedule, social, comments).
+  const on = !!live[tab].on,
+    state = $('#paneState'),
+    eye = $('#tabEye'),
+    pin = $('#tabPin'),
     timed = PINNABLE.includes(tab);
+  state.classList.toggle('on', on);
+  state.lastChild.textContent = t(on ? 'No ar' : 'Fora do ar');
+  eye.classList.toggle('on', on);
+  eye.disabled = !config.enabled[tab];
+  if (eye.dataset.on !== String(on)) {
+    eye.dataset.on = String(on);
+    eye.innerHTML = on ? EYE : EYE_OFF;
+  }
   pin.classList.toggle('hidden', !timed);
   pin.classList.toggle('active', timed && !!live[tab].pin);
   const time = $('#autoHide'),
@@ -779,7 +884,8 @@ function refresh() {
 }
 
 $('#autoHide').onchange = (e) => patch({ 'timing.autoHide': Number(e.target.value) });
-$('#pinToggle').onclick = () => PINNABLE.includes(tab) && command(`/api/live/${tab}/togglepin`);
+$('#tabPin').onclick = () => PINNABLE.includes(tab) && command(`/api/live/${tab}/togglepin`);
+$('#tabEye').onclick = () => tab && command(`/api/live/${tab}/toggle`);
 $('#hideAll').onclick = () => command('/api/live/all/hide');
 
 // ---------- Service profile: the whole look at once ----------

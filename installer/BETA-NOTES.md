@@ -1,5 +1,11 @@
 **Versão beta para testes — somente Windows.** Programa novo, separado do PTZ Control Web.
 
+### Novidades da beta.10
+
+- **Comentários**: elemento novo para mostrar um comentário digitado na hora (quem escreveu e o que disse), com lista de comentários salvos. Acompanha o modelo em uso: balão, cartão, vidro líquido e os formatos temáticos. Tem aba própria no painel do OBS, página nas configurações e fonte do OBS ("Comments").
+- **Ofertas e Dízimos** (antes "QR / PIX"): várias ofertas salvas, cada uma com o seu título e o seu QR Code: a contribuição principal, **outra chave PIX** (missões, uma campanha, uma compra) ou um link. Um clique no painel mostra a escolhida; a lista também pode ser editada nas configurações.
+- **Painel do OBS com abas de verdade**: cada aba tem a sua barra com o estado (no ar / fora do ar), o **olho** para mostrar ou esconder aquele elemento e o **fixar**. O botão de tirar tudo do ar continua no alto.
+
 ### Novidades da beta.9
 
 - **Perfis de culto**: cada perfil ("Culto padrão", "Culto de mulheres", "Natal"…) guarda uma aparência completa (modelo, cores, fontes, logo, posições, o que o selo mostra). Troca-se de perfil no alto das configurações, no cartão "Perfis de culto" do Tema global, no painel do OBS ou por endereço (`/api/profile/use?name=Natal`, para Stream Deck). Os nomes, avisos, agenda e contribuições são os mesmos em todos os perfis.

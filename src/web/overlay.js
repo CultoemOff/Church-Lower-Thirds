@@ -1,4 +1,5 @@
 import {
+  COMMENT_ICON,
   dateText,
   decorFor,
   decorName,
@@ -33,6 +34,7 @@ const SLUGS = {
   'qr-card': 'card',
   schedule: 'agenda',
   social: 'social',
+  comments: 'comment',
   logo: 'bug',
 };
 const slug = location.pathname.match(/^\/source\/([\w-]+)/)?.[1];
@@ -57,7 +59,16 @@ const $ = (el, sel) => roots[el].querySelector(sel);
 let config = null,
   live = null,
   givingStamp = '';
-const shown = { lower: {}, top: {}, card: {}, bug: {}, ticker: {}, agenda: {}, social: {} };
+const shown = {
+  lower: {},
+  top: {},
+  card: {},
+  bug: {},
+  ticker: {},
+  agenda: {},
+  social: {},
+  comment: {},
+};
 
 function fit() {
   const s = Math.min(innerWidth / W, innerHeight / H) || 1;
@@ -309,7 +320,7 @@ function renderCard() {
       c.qr === 'giving'
         ? givingQr(config, { round: c.qrRound, stamp: givingStamp, dark: ink })
         : c.qrText
-          ? qrUrl('url', c.qrText, { round: c.qrRound, dark: ink })
+          ? qrUrl(c.qr === 'pixkey' ? 'pixkey' : 'url', c.qrText, { round: c.qrRound, dark: ink })
           : '',
     key = !c.showKey
       ? ''
@@ -592,6 +603,50 @@ function renderSocial() {
       ].join('|');
 }
 
+// ---- Comment: typed by hand in the dock (who wrote it and what it says) ----
+// In the settings preview, while nothing was typed yet, an example shows the look.
+const SAMPLE_COMMENT = {
+  'pt-BR': ['Maria Souza', 'Que culto abençoado! Assistindo de casa com a família.'],
+  'pt-PT': ['Maria Sousa', 'Que culto abençoado! A assistir de casa com a família.'],
+  es: ['María Sosa', '¡Qué culto tan bendecido! Viéndolo desde casa con la familia.'],
+  en: ['Mary Smith', 'What a blessed service! Watching from home with the family.'],
+  it: ['Maria Rossi', 'Che culto benedetto! Lo seguo da casa con la famiglia.'],
+  de: ['Maria Schmidt', 'Was für ein gesegneter Gottesdienst! Wir schauen von zu Hause zu.'],
+};
+function renderComment() {
+  const c = themed(config, 'comment'),
+    root = roots.comment,
+    box = $('comment', '.box');
+  root.dataset.template = c.template;
+  root.dataset.pos = c.position;
+  common('comment', c, sideOf(c.position));
+  setVars(root, {
+    fill: fillCss(c.fill, c.opacity),
+    accent: fillCss(c.accent),
+    'accent-a': c.accent.a,
+    'on-accent': onColor(c.accent.type === 'gradient' ? c.accent.b : c.accent.a),
+    t1: c.text,
+    t2: c.text2,
+    w1: c.weight,
+    mx: c.marginX + 'px',
+    my: c.marginY + 'px',
+  });
+  const sample =
+    (preview === 'comment' || edit) && !c.said
+      ? SAMPLE_COMMENT[config.language] || SAMPLE_COMMENT[navigator.language] || SAMPLE_COMMENT.en
+      : null;
+  const user = sample ? sample[0] : c.user,
+    said = sample ? sample[1] : c.said;
+  const icon = $('comment', '.icon');
+  if (!icon.firstChild) icon.innerHTML = COMMENT_ICON;
+  $('comment', '.user').textContent = user;
+  $('comment', '.said').textContent = said;
+  box.classList.toggle('has-user', !!user);
+  box.classList.toggle('has-icon', c.showIcon);
+  // Another comment leaves and comes back; the look changes at once.
+  return said ? [user, said].join('|') : '';
+}
+
 const render = {
   lower: renderLower,
   top: renderTop,
@@ -600,6 +655,7 @@ const render = {
   ticker: renderTicker,
   agenda: renderAgenda,
   social: renderSocial,
+  comment: renderComment,
 };
 const onShow = { agenda: startAgenda, social: startSocial };
 const wanted = (el) => {

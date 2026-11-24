@@ -14,6 +14,7 @@ import {
   AGENDA_TEMPLATES,
   ANIMATIONS,
   CARD_TEMPLATES,
+  COMMENT_TEMPLATES,
   dateText,
   DECORS,
   EYE,
@@ -38,7 +39,7 @@ import {
   guideSourceProps,
 } from './js/obs-guide.js';
 import { BUNDLED_FONTS } from './js/fonts.js';
-import { applyModel, MODELS, PALETTES } from './js/models.js';
+import { applyModel, MODELS, modelTemplate, PALETTES } from './js/models.js';
 import { autoLocalize, lang, LANGUAGES, t, useLanguage } from './js/i18n.js';
 
 // Global settings, opened in the normal browser so the OBS dock can stay small.
@@ -70,6 +71,7 @@ const NAMES = {
   stack: 'Cartões',
   liquid: 'Vidro líquido',
   plaque: 'Placa',
+  bubble: 'Balão',
   youth: 'Urbano',
   kids: 'Adesivo',
   floral: 'Delicado',
@@ -168,9 +170,9 @@ const PAGES = [
   ],
   [
     'card',
-    'Cartão QR / Oferta',
+    'Ofertas e Dízimos',
     'Elementos',
-    'Cartão com o QR Code da contribuição ou de um link.',
+    'Cartão com QR Code: ofertas, dízimos, missões, uma campanha ou um link.',
     svg(
       '<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/>',
     ),
@@ -190,6 +192,13 @@ const PAGES = [
     svg(
       '<circle cx="12" cy="12" r="3.600"/><path d="M15.600 8.400v5a2.400 2.400 0 0 0 4.900 0V12a8.500 8.500 0 1 0-3.300 6.700"/>',
     ),
+  ],
+  [
+    'comment',
+    'Comentários',
+    'Elementos',
+    'Um comentário digitado na hora, com o nome de quem escreveu.',
+    svg('<path d="M4 5.500h16v10.500h-8.500L7 19.500V16H4z"/><path d="M8 9.500h8M8 12.500h5"/>'),
   ],
   [
     'bug',
@@ -224,7 +233,7 @@ const PAGES = [
 ];
 /** Pages opened from the top right corner instead of the menu on the left. */
 const CORNER = ['obs', 'backup'];
-const ELEMENTS = ['lower', 'top', 'ticker', 'card', 'agenda', 'social', 'bug'];
+const ELEMENTS = ['lower', 'top', 'ticker', 'card', 'agenda', 'social', 'comment', 'bug'];
 const WEIGHTS = [
   [300, 'Leve'],
   [400, 'Normal'],
@@ -240,7 +249,9 @@ const currentModel = () =>
     (k) =>
       config.brand.font === k.font &&
       (config.theme.decor || '') === (k.decor || '') &&
-      THEMED_ELEMENTS.every((el) => config[el].template === k.templates[el] && !config[el].custom),
+      THEMED_ELEMENTS.every(
+        (el) => config[el].template === modelTemplate(k, el) && !config[el].custom,
+      ),
   );
 /** The ready-made colors in use, while none of them was changed by hand. */
 const currentPalette = () => {
@@ -832,7 +843,11 @@ const qrChoice = (el) => [
     `${el}.qr`,
     'O QR Code leva para',
     [
-      ['giving', 'Contribuição da igreja'],
+      ['giving', 'Contribuição principal da igreja'],
+      // Another PIX key for the same receiver, where the QR card is the one asking.
+      ...(el === 'card' && config.giving.method === 'pix'
+        ? [['pixkey', 'Outra chave PIX (uma oferta específica)']]
+        : []),
       ['url', 'Um link (site, inscrição, redes sociais)'],
     ],
     { rerender: true },
@@ -840,7 +855,61 @@ const qrChoice = (el) => [
   get(`${el}.qr`) === 'url'
     ? textInput(`${el}.qrText`, 'Link do QR Code', { placeholder: 'https://…', max: 600 })
     : null,
+  get(`${el}.qr`) === 'pixkey'
+    ? textInput(`${el}.qrText`, 'Chave PIX desta oferta', { max: 77 })
+    : null,
 ];
+/** The saved offerings: each one a title, a line under it and its own QR code. */
+const savedOfferings = () =>
+  card(
+    'Ofertas salvas',
+    hint(
+      'Cada oferta tem o seu título e o seu QR Code: dízimos e ofertas, missões, uma campanha, uma inscrição. No painel do OBS, na aba "Ofertas e Dízimos", um clique mostra a que você escolher.',
+    ),
+    ...rows(
+      'card.saved',
+      { title: 'Nova oferta', subtitle: '', qr: 'giving', qrText: '' },
+      (item, change) => [
+        h('input', {
+          value: item.title,
+          placeholder: 'Título (ex.: Missões)',
+          maxlength: 60,
+          oninput: (e) => change({ title: e.target.value }),
+        }),
+        h('input', {
+          value: item.subtitle,
+          placeholder: 'Texto de apoio',
+          maxlength: 90,
+          oninput: (e) => change({ subtitle: e.target.value }),
+        }),
+        h(
+          'select',
+          {
+            title: 'De onde vem o QR Code desta oferta',
+            onchange: (e) => {
+              change({ qr: e.target.value });
+              renderForm();
+            },
+          },
+          [
+            ['giving', 'Contribuição principal'],
+            ...(config.giving.method === 'pix' || item.qr === 'pixkey'
+              ? [['pixkey', 'Outra chave PIX']]
+              : []),
+            ['url', 'Link'],
+          ].map(([v, l]) => h('option', { value: v, selected: item.qr === v }, l)),
+        ),
+        item.qr === 'giving'
+          ? null
+          : h('input', {
+              value: item.qrText,
+              placeholder: item.qr === 'pixkey' ? 'Chave PIX desta oferta' : 'https://…',
+              maxlength: 600,
+              oninput: (e) => change({ qrText: e.target.value }),
+            }),
+      ],
+    ),
+  );
 
 // ---------- Pages ----------
 async function uploadLogo(file) {
@@ -1741,6 +1810,7 @@ const pages = {
         'A forma de contribuir e os dados ao lado do QR Code ficam na aba "Geral e contribuições".',
       ),
     ),
+    savedOfferings(),
     card(
       'Cores e texto',
       grid(
@@ -1959,6 +2029,21 @@ const pages = {
     effects('social'),
   ],
 
+  comment: () => [
+    card('Modelo', chips('comment.template', COMMENT_TEMPLATES)),
+    appearance('comment'),
+    card(
+      'Comentário',
+      hint(
+        'O comentário é escrito no painel do OBS, na aba "Comentários": o nome de quem escreveu e o que disse. Ele sai sozinho depois do tempo escolhido no painel, a não ser que esteja fixado. Aqui, enquanto nada foi escrito, a prévia mostra um exemplo.',
+      ),
+      grid(check('comment.showIcon', 'Mostrar o balão ao lado do texto')),
+    ),
+    colors('comment', { text: 'Comentário', text2: 'Texto de apoio' }),
+    place('comment'),
+    effects('comment'),
+  ],
+
   bug: () => [
     config.brand.logo
       ? null
@@ -1986,9 +2071,10 @@ const pages = {
     const LABELS = {
       lower: 'Nomes',
       top: 'Selo superior',
-      card: 'Cartão QR / Oferta',
+      card: 'Ofertas e Dízimos',
       agenda: 'Agenda',
       social: 'Redes sociais',
+      comment: 'Comentários',
       bug: 'Logo',
     };
     const key = vertical ? 'vfree' : 'free';
@@ -2217,9 +2303,10 @@ const pages = {
           row('Esconder o nome', '/api/live/lower/hide'),
           row('Selo superior', '/api/live/top/toggle'),
           row('Barra inferior', '/api/live/ticker/toggle'),
-          row('Cartão QR / Oferta', '/api/live/card/toggle'),
+          row('Ofertas e Dízimos', '/api/live/card/toggle'),
           row('Agenda', '/api/live/agenda/toggle'),
           row('Rede social (1 = primeira)', '/api/live/social/toggle?item=1'),
+          row('Comentário (o último escrito)', '/api/live/comment/toggle'),
           row('Logo', '/api/live/bug/toggle'),
           row('Trocar de perfil de culto (pelo nome)', '/api/profile/use?name=Natal'),
           row('Tirar tudo do ar', '/api/live/all/hide'),
