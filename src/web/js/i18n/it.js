@@ -358,8 +358,8 @@ export default {
     'Il pannello di controllo (dock) si aggiunge ancora a mano: OBS non permette a un programma di creare dock. L’indirizzo è qui sotto.',
   Simples: 'Semplice',
   Avançado: 'Avanzato',
-  'Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja':
-    'Salva l’aspetto di questo profilo in un file (con il logo e il modello personale), da portare in un’altra chiesa',
+  'Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja. Os nomes, os textos e a contribuição não vão no arquivo.':
+    'Salva l’aspetto di questo profilo in un file (con il logo e il modello personale), da portare in un’altra chiesa. Nomi, testi e contributi non finiscono nel file.',
   'Importar perfil de um arquivo': 'Importa un profilo da un file',
   Desfazer: 'Annulla',
   'O OBS não respondeu. Confira se ele está aberto e se o servidor WebSocket está ativado (Ferramentas → Configurações do servidor WebSocket).':
@@ -995,8 +995,8 @@ export default {
     'Windows su questo computer non ha lasciato che il programma aprisse l’installer da solo (è comune sui computer aziendali). Scarica l’installer e aprilo tu stesso: le impostazioni vengono mantenute.',
   'Culto padrão': 'Culto abituale',
   Perfil: 'Profilo',
-  'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Crie e ajuste os perfis nas configurações.':
-    'Profilo del culto: cambia in una volta il modello, i colori, i caratteri e il logo. Crea e regola i profili nelle impostazioni.',
+  'Perfil: troca de uma vez tudo o que é de uma igreja ou de um evento (nome, logo, aparência, nomes e textos). Crie e ajuste os perfis nas configurações.':
+    'Profilo: cambia in una volta tutto ciò che appartiene a una chiesa o a un evento (nome, logo, aspetto, nomi e testi). Crea e regola i profili nelle impostazioni.',
   'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo':
     'Profilo del culto: cambia in una volta il modello, i colori, i caratteri e il logo',
   'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As cores que a igreja já escolheu continuam ao trocar de modelo. As figuras mostram cada modelo como ele vai ficar, com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.':
@@ -1004,7 +1004,8 @@ export default {
   'Trocar de perfil de culto (pelo nome)': 'Cambia profilo del culto (per nome)',
   'Nome do novo perfil (ex.: Culto de mulheres, Natal)':
     'Nome del nuovo profilo (es.: Culto delle donne, Natale)',
-  'Perfil "{name}" criado com a aparência atual.': 'Profilo "{name}" creato con l’aspetto attuale.',
+  'Perfil "{name}" criado como cópia do atual.':
+    'Profilo "{name}" creato come copia di quello attuale.',
   'Perfis de culto': 'Profili del culto',
   'Cada perfil guarda uma aparência completa: modelo, cores, fontes, logo, posições e o que o selo mostra. Troque de perfil aqui, no alto desta página ou no painel do OBS. Os nomes, avisos, agenda e contribuições são os mesmos em todos.':
     'Ogni profilo conserva un aspetto completo: modello, colori, caratteri, logo, posizioni e ciò che mostra il sigillo. Cambia profilo qui, in alto in questa pagina o nel pannello di OBS. Nomi, avvisi, agenda e contributi sono gli stessi in tutti.',
@@ -1015,11 +1016,11 @@ export default {
     'Elimina questo profilo. Nomi, avvisi e contributi non vengono eliminati.',
   'Apagar o perfil "{name}"?': 'Eliminare il profilo "{name}"?',
   Apagar: 'Elimina',
-  'Cria um perfil com a aparência que está em uso agora e passa a usá-lo':
-    'Crea un profilo con l’aspetto in uso ora e passa a usarlo',
+  'Cria um perfil como cópia de tudo o que está em uso agora e passa a usá-lo':
+    'Crea un profilo come copia di tutto ciò che è in uso ora e inizia a usarlo',
   'Salvar como novo perfil': 'Salva come nuovo profilo',
-  'Para um perfil novo: salve com um nome e depois escolha o modelo, as cores e o logo dele.':
-    'Per un nuovo profilo: salvalo con un nome e poi scegli il suo modello, i colori e il logo.',
+  'Para um perfil novo: salve com um nome e depois troque o que for diferente nele (nome da igreja, logo, nomes, cores).':
+    'Per un nuovo profilo: salvalo con un nome e poi cambia ciò che è diverso (nome della chiesa, logo, nomi, colori).',
   'Esse perfil não existe mais.': 'Quel profilo non esiste più.',
   'Escreva um nome para o perfil.': 'Scrivi un nome per il profilo.',
   'O último perfil não pode ser apagado.': 'L’ultimo profilo non può essere eliminato.',
@@ -1088,23 +1089,24 @@ export default {
     'Finché resta fisso, i messaggi dell’elenco non si alternano.',
   'Perfil 1': 'Profilo 1',
   'Perfil {n}': 'Profilo {n}',
-  'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Aqui também se cria, renomeia e exclui.':
-    'Profilo di culto: cambia in una volta modello, colori, caratteri e logo. Qui si creano, rinominano ed eliminano anche i profili.',
+  'Perfil: troca de uma vez tudo o que é de uma igreja ou de um evento (nome, logo, aparência, nomes e textos). Aqui também se cria, renomeia e exclui.':
+    'Profilo: cambia in una volta tutto ciò che appartiene a una chiesa o a un evento (nome, logo, aspetto, nomi e testi). Qui si creano, rinominano ed eliminano anche i profili.',
   'Perfil em uso': 'Profilo in uso',
   'Usar este perfil': 'Usa questo profilo',
   Renomear: 'Rinomina',
   Excluir: 'Elimina',
   'O último perfil não pode ser excluído': 'L’ultimo profilo non può essere eliminato',
-  'Excluir este perfil. Os nomes, avisos e contribuições não são apagados.':
-    'Elimina questo profilo. Nomi, avvisi e contributi non vengono cancellati.',
-  'Excluir o perfil "{name}"?': 'Eliminare il profilo "{name}"?',
+  'Excluir este perfil, com os nomes, textos e contribuições que ele guarda.':
+    'Elimina questo profilo, con i nomi, i testi e i contributi che contiene.',
+  'Excluir o perfil "{name}"? Os nomes e textos dele também são apagados.':
+    'Eliminare il profilo "{name}"? Anche i suoi nomi e testi vengono eliminati.',
   'Novo perfil': 'Nuovo profilo',
-  'Cada perfil guarda uma aparência completa: modelo, cores, fontes e logo.':
-    'Ogni profilo conserva un aspetto completo: modello, colori, caratteri e logo.',
-  'Perfil criado com a aparência atual. Dê um nome a ele.':
-    'Profilo creato con l’aspetto attuale. Dagli un nome.',
-  'Cada perfil guarda uma aparência completa: modelo, cores, fontes, logo, posições e o que o selo mostra. Troque, crie, renomeie e exclua perfis no seletor do alto desta página; a troca também está no painel do OBS. Os nomes, avisos, agenda e contribuições são os mesmos em todos.':
-    'Ogni profilo conserva un aspetto completo: modello, colori, caratteri, logo, posizioni e ciò che mostra il badge. Cambia, crea, rinomina ed elimina i profili nel selettore in alto in questa pagina; il cambio è anche nel pannello di OBS. Nomi, avvisi, agenda e contributi sono gli stessi in tutti.',
+  'Cada perfil guarda tudo separado: nome da igreja, logo, aparência, nomes, ofertas e textos.':
+    'Ogni profilo conserva tutto separatamente: nome della chiesa, logo, aspetto, nomi, offerte e testi.',
+  'Perfil criado como cópia do atual. Dê um nome a ele.':
+    'Profilo creato come copia di quello attuale. Dagli un nome.',
+  'Cada perfil é um conjunto completo e separado: nome da igreja, logo, modelo, cores, nomes, ofertas, avisos, agenda, redes, contribuição e roteiro. Um perfil novo nasce como cópia do que está em uso. Troque, crie, renomeie e exclua perfis no seletor do alto desta página; a troca também está no painel do OBS. O idioma e os modelos próprios valem para todos.':
+    'Ogni profilo è un insieme completo e separato: nome della chiesa, logo, modello, colori, nomi, offerte, avvisi, agenda, social, contributi e scaletta. Un nuovo profilo nasce come copia di ciò che è in uso. Cambia, crea, rinomina ed elimina i profili nel selettore in alto in questa pagina; il cambio è anche nel pannello di OBS. La lingua e i modelli personali valgono per tutti.',
   Sobre: 'Informazioni',
   'Quem faz o Church Lower Thirds e onde encontrar o Culto em Off.':
     'Chi realizza Church Lower Thirds e dove trovare Culto em Off.',

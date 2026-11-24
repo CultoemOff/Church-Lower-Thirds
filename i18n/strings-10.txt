@@ -568,11 +568,11 @@ Avanzado
 Avanzato
 Erweitert
 
-Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja
-Saves the look of this profile to a file (with the logo and the custom style), to take to another church
-Guarda la apariencia de este perfil en un archivo (con el logo y el modelo propio), para llevarla a otra iglesia
-Salva l’aspetto di questo profilo in un file (con il logo e il modello personale), da portare in un’altra chiesa
-Speichert das Aussehen dieses Profils in einer Datei (mit Logo und eigener Vorlage), zum Weitergeben an eine andere Gemeinde
+Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja. Os nomes, os textos e a contribuição não vão no arquivo.
+Saves the look of this profile to a file (with the logo and the custom style), to take to another church. The names, texts and giving do not go in the file.
+Guarda la apariencia de este perfil en un archivo (con el logo y el modelo propio), para llevarla a otra iglesia. Los nombres, los textos y la contribución no van en el archivo.
+Salva l’aspetto di questo profilo in un file (con il logo e il modello personale), da portare in un’altra chiesa. Nomi, testi e contributi non finiscono nel file.
+Speichert das Aussehen dieses Profils in einer Datei (mit Logo und eigener Vorlage), zum Weitergeben an eine andere Gemeinde. Namen, Texte und Spendenangaben kommen nicht in die Datei.
 
 Importar perfil de um arquivo
 Import a profile from a file

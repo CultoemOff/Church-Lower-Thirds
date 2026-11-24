@@ -351,8 +351,8 @@ export default {
     'The control panel (dock) is still added by hand: OBS does not let a program create docks. The address is right below.',
   Simples: 'Simple',
   Avançado: 'Advanced',
-  'Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja':
-    'Saves the look of this profile to a file (with the logo and the custom style), to take to another church',
+  'Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja. Os nomes, os textos e a contribuição não vão no arquivo.':
+    'Saves the look of this profile to a file (with the logo and the custom style), to take to another church. The names, texts and giving do not go in the file.',
   'Importar perfil de um arquivo': 'Import a profile from a file',
   Desfazer: 'Undo',
   'O OBS não respondeu. Confira se ele está aberto e se o servidor WebSocket está ativado (Ferramentas → Configurações do servidor WebSocket).':
@@ -983,8 +983,8 @@ export default {
     'Windows on this computer did not let the program open the installer by itself (common on company computers). Download the installer and open it yourself: the settings are kept.',
   'Culto padrão': 'Regular service',
   Perfil: 'Profile',
-  'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Crie e ajuste os perfis nas configurações.':
-    'Service profile: changes the style, the colors, the fonts and the logo at once. Create and adjust the profiles in the settings.',
+  'Perfil: troca de uma vez tudo o que é de uma igreja ou de um evento (nome, logo, aparência, nomes e textos). Crie e ajuste os perfis nas configurações.':
+    'Profile: changes at once everything that belongs to a church or an event (name, logo, look, names and texts). Create and adjust profiles in the settings.',
   'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo':
     'Service profile: changes the style, the colors, the fonts and the logo at once',
   'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As cores que a igreja já escolheu continuam ao trocar de modelo. As figuras mostram cada modelo como ele vai ficar, com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.':
@@ -992,8 +992,8 @@ export default {
   'Trocar de perfil de culto (pelo nome)': 'Change the service profile (by name)',
   'Nome do novo perfil (ex.: Culto de mulheres, Natal)':
     "Name of the new profile (e.g. Women's service, Christmas)",
-  'Perfil "{name}" criado com a aparência atual.':
-    'Profile "{name}" created with the current look.',
+  'Perfil "{name}" criado como cópia do atual.':
+    'Profile "{name}" created as a copy of the current one.',
   'Perfis de culto': 'Service profiles',
   'Cada perfil guarda uma aparência completa: modelo, cores, fontes, logo, posições e o que o selo mostra. Troque de perfil aqui, no alto desta página ou no painel do OBS. Os nomes, avisos, agenda e contribuições são os mesmos em todos.':
     'Each profile keeps a complete look: style, colors, fonts, logo, positions and what the badge shows. Change the profile here, at the top of this page or in the OBS dock. Names, notices, schedule and giving are the same in all of them.',
@@ -1004,11 +1004,11 @@ export default {
     'Deletes this profile. Names, notices and giving are not deleted.',
   'Apagar o perfil "{name}"?': 'Delete the profile "{name}"?',
   Apagar: 'Delete',
-  'Cria um perfil com a aparência que está em uso agora e passa a usá-lo':
-    'Creates a profile with the look in use now and changes to it',
+  'Cria um perfil como cópia de tudo o que está em uso agora e passa a usá-lo':
+    'Creates a profile as a copy of everything in use now and starts using it',
   'Salvar como novo perfil': 'Save as a new profile',
-  'Para um perfil novo: salve com um nome e depois escolha o modelo, as cores e o logo dele.':
-    'For a new profile: save it with a name and then choose its style, colors and logo.',
+  'Para um perfil novo: salve com um nome e depois troque o que for diferente nele (nome da igreja, logo, nomes, cores).':
+    'For a new profile: save it with a name and then change what is different in it (church name, logo, names, colors).',
   'Esse perfil não existe mais.': 'That profile no longer exists.',
   'Escreva um nome para o perfil.': 'Type a name for the profile.',
   'O último perfil não pode ser apagado.': 'The last profile cannot be deleted.',
@@ -1077,23 +1077,24 @@ export default {
     'While it is fixed, the messages of the list do not take turns.',
   'Perfil 1': 'Profile 1',
   'Perfil {n}': 'Profile {n}',
-  'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Aqui também se cria, renomeia e exclui.':
-    'Service profile: changes the style, colors, fonts and logo at once. This is also where profiles are created, renamed and deleted.',
+  'Perfil: troca de uma vez tudo o que é de uma igreja ou de um evento (nome, logo, aparência, nomes e textos). Aqui também se cria, renomeia e exclui.':
+    'Profile: changes at once everything that belongs to a church or an event (name, logo, look, names and texts). This is also where profiles are created, renamed and deleted.',
   'Perfil em uso': 'Profile in use',
   'Usar este perfil': 'Use this profile',
   Renomear: 'Rename',
   Excluir: 'Delete',
   'O último perfil não pode ser excluído': 'The last profile cannot be deleted',
-  'Excluir este perfil. Os nomes, avisos e contribuições não são apagados.':
-    'Deletes this profile. Names, notices and giving are not deleted.',
-  'Excluir o perfil "{name}"?': 'Delete the profile "{name}"?',
+  'Excluir este perfil, com os nomes, textos e contribuições que ele guarda.':
+    'Deletes this profile, with the names, texts and giving it holds.',
+  'Excluir o perfil "{name}"? Os nomes e textos dele também são apagados.':
+    'Delete the profile "{name}"? Its names and texts are deleted too.',
   'Novo perfil': 'New profile',
-  'Cada perfil guarda uma aparência completa: modelo, cores, fontes e logo.':
-    'Each profile keeps a complete look: style, colors, fonts and logo.',
-  'Perfil criado com a aparência atual. Dê um nome a ele.':
-    'Profile created with the current look. Give it a name.',
-  'Cada perfil guarda uma aparência completa: modelo, cores, fontes, logo, posições e o que o selo mostra. Troque, crie, renomeie e exclua perfis no seletor do alto desta página; a troca também está no painel do OBS. Os nomes, avisos, agenda e contribuições são os mesmos em todos.':
-    'Each profile keeps a complete look: style, colors, fonts, logo, positions and what the badge shows. Change, create, rename and delete profiles in the selector at the top of this page; changing is also in the OBS panel. Names, notices, schedule and giving are the same in all of them.',
+  'Cada perfil guarda tudo separado: nome da igreja, logo, aparência, nomes, ofertas e textos.':
+    'Each profile keeps everything apart: church name, logo, look, names, offerings and texts.',
+  'Perfil criado como cópia do atual. Dê um nome a ele.':
+    'Profile created as a copy of the current one. Give it a name.',
+  'Cada perfil é um conjunto completo e separado: nome da igreja, logo, modelo, cores, nomes, ofertas, avisos, agenda, redes, contribuição e roteiro. Um perfil novo nasce como cópia do que está em uso. Troque, crie, renomeie e exclua perfis no seletor do alto desta página; a troca também está no painel do OBS. O idioma e os modelos próprios valem para todos.':
+    'Each profile is a complete, separate set: church name, logo, style, colors, names, offerings, notices, schedule, networks, giving and rundown. A new profile starts as a copy of what is in use. Change, create, rename and delete profiles in the selector at the top of this page; changing is also in the OBS panel. The language and the custom styles are the same for all.',
   Sobre: 'About',
   'Quem faz o Church Lower Thirds e onde encontrar o Culto em Off.':
     'Who makes Church Lower Thirds and where to find Culto em Off.',

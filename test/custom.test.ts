@@ -121,9 +121,16 @@ test('a model and a profile travel as files from one church to another', () => {
   // A profile on that model, exported: its look, and the model it uses.
   applyCustom(c, c.customModels[0]);
   c.theme.radius = 3;
+  c.brand.name = 'Igreja Sede';
+  c.giving.details = 'chave-pix-da-sede';
   c = cleanConfig(c);
   const file = exportProfile(c, c.profile);
   assert.equal(file.name, 'Perfil 1');
+  // Only the look travels: not the church's name, its names or its way of giving.
+  assert.ok(!JSON.stringify(file).includes('Igreja Sede'));
+  assert.ok(!JSON.stringify(file).includes('chave-pix-da-sede'));
+  assert.deepEqual(Object.keys(file.look.brand as object).sort(), ['font', 'logo']);
+  assert.ok(!('items' in (file.look.lower as object)) && !('giving' in file.look));
   assert.equal((file.look.theme as { radius: number }).radius, 3);
   assert.deepEqual(file.model, { name: 'Faixas', css: c.customModels[0].css });
   assert.equal(id, c.customModels[0].id);
@@ -136,7 +143,8 @@ test('a model and a profile travel as files from one church to another', () => {
   );
   assert.equal(other.profile, other.profiles[0].id);
   assert.equal(other.customModels.length, 1);
-  const look = other.profiles[1].look as {
+  assert.equal(other.profiles[1].full, false);
+  const look = other.profiles[1].look as unknown as {
     theme: { custom: string; radius: number };
     lower: { template: string };
   };
