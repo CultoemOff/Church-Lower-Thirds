@@ -152,10 +152,21 @@ jobs:
           $state.config.pix.name = 'Igreja Teste'
           $state.config.pix.city = 'Sao Paulo'
           Invoke-RestMethod "$base/api/config" -Method Put -ContentType 'application/json' -Body ($state.config | ConvertTo-Json -Depth 20) | Out-Null
-          $pix = Invoke-RestMethod "$base/api/pix"
+          $pix = Invoke-RestMethod "$base/api/giving"
           if ($pix.payload -notmatch '^000201.*6304[0-9A-F]{4}$') { throw "Unexpected PIX code: $($pix.payload)" }
-          $qr = Invoke-WebRequest "$base/api/qr.svg?kind=pix" -UseBasicParsing
+          $qr = Invoke-WebRequest "$base/api/qr.svg?kind=giving" -UseBasicParsing
           if ($qr.Headers['Content-Type'] -notmatch 'svg') { throw "QR served as $($qr.Headers['Content-Type'])" }
+          # PIX only exists in Brazil: the same QR from a SEPA transfer and from a link.
+          $patch = @{ 'giving.method' = 'sepa'; 'giving.sepa.name' = 'Igreja Teste'; 'giving.sepa.iban' = 'PT50 0002 0123 1234 5678 9015 4' } | ConvertTo-Json
+          Invoke-RestMethod "$base/api/patch" -Method Post -ContentType 'application/json' -Body $patch | Out-Null
+          $sepa = Invoke-RestMethod "$base/api/giving"
+          if ($sepa.payload -notmatch "^BCD\n002\n1\nSCT\n\nIgreja Teste\nPT50000201231234567890154$") { throw "Unexpected SEPA code: $($sepa.payload)" }
+          $patch = @{ 'giving.method' = 'link'; 'giving.link' = 'https://example.org/give' } | ConvertTo-Json
+          Invoke-RestMethod "$base/api/patch" -Method Post -ContentType 'application/json' -Body $patch | Out-Null
+          if ((Invoke-RestMethod "$base/api/giving").payload -ne 'https://example.org/give') { throw "Link giving not served" }
+          # The global theme and the setup assistant flag are part of the settings.
+          $now = (Invoke-RestMethod "$base/api/state").config
+          if (-not $now.theme.main.a -or $now.lower.custom -ne $false -or $now.setupDone -ne $false) { throw "Theme defaults missing: $($now.theme | ConvertTo-Json -Compress)" }
           # Installed fonts (PowerShell + System.Drawing on the user's machine).
           $fonts = Invoke-RestMethod "$base/api/fonts"
           if (@($fonts).Count -lt 5 -or 'Arial' -notin $fonts) { throw "Font list looks wrong: $(@($fonts).Count) fonts" }

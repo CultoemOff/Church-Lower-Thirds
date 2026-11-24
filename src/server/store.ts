@@ -112,6 +112,24 @@ export function defaults() {
     },
     /** How long names and the QR card stay on screen, in seconds (0 = until hidden). */
     timing: { autoHide: 0 },
+    /** The setup assistant opens by itself until the person finishes or closes it. */
+    setupDone: false,
+    /**
+     * The global look. Every element follows it unless it is switched to its own
+     * appearance (`custom`): main = the name bar, surface = the background of the corner
+     * badge, bottom bar, card, schedule and social, accent = the details of all of them.
+     */
+    theme: {
+      main: fill('#2463eb', '#4f46e5', 100),
+      surface: fill('#0f172a', '#1e293b', 90),
+      accent: fill('#fbbf24', '#f59e0b', 180),
+      text1: '#ffffff',
+      text2: '#e2e8f0',
+      radius: 18,
+      opacity: 94,
+      shadow: 'soft',
+      shadowStrength: 55,
+    },
     pix: {
       mode: 'key',
       key: '',
@@ -135,6 +153,8 @@ export function defaults() {
       details: '',
     },
     lower: {
+      /** false = follows the global theme; true = uses the colors, font and effects below */
+      custom: false,
       template: 'classic',
       fill: fill('#2463eb', '#4f46e5', 100),
       fill2: fill('#0f172a'),
@@ -179,6 +199,8 @@ export function defaults() {
     },
     // The corner badge: logo, church name, a message, "AO VIVO" and the time, each optional.
     top: {
+      /** false = follows the global theme; true = uses the colors, font and effects below */
+      custom: false,
       template: 'bar',
       fill: fill('#0f172a', '#1e293b', 90),
       accent: fill('#2463eb', '#22d3ee', 90),
@@ -213,6 +235,8 @@ export function defaults() {
       interval: 8,
     },
     card: {
+      /** false = follows the global theme; true = uses the colors, font and effects below */
+      custom: false,
       template: 'vertical',
       fill: fill('#ffffff'),
       accent: fill('#2463eb', '#7c3aed', 135),
@@ -241,6 +265,8 @@ export function defaults() {
       saved: [] as SavedCard[],
     },
     ticker: {
+      /** false = follows the global theme; true = uses the colors, font and effects below */
+      custom: false,
       template: 'full',
       fill: fill('#0f172a', '#1e293b', 90),
       accent: fill('#2463eb', '#22d3ee', 90),
@@ -270,6 +296,8 @@ export function defaults() {
       pinned: '',
     },
     agenda: {
+      /** false = follows the global theme; true = uses the colors, font and effects below */
+      custom: false,
       template: 'card',
       fill: fill('#0f172a', '#1e293b', 160),
       accent: fill('#2463eb', '#22d3ee', 90),
@@ -301,6 +329,8 @@ export function defaults() {
       ] as AgendaDay[],
     },
     social: {
+      /** false = follows the global theme; true = uses the colors, font and effects below */
+      custom: false,
       template: 'pill',
       fill: fill('#ffffff'),
       accent: fill('#db2777', '#f59e0b', 45),

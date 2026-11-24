@@ -45,6 +45,49 @@ export function qrUrl(kind, text, { round = false, stamp = '' } = {}) {
   return `/api/qr.svg?${p}`;
 }
 
+export const THEMED_ELEMENTS = ['lower', 'top', 'ticker', 'card', 'agenda', 'social'];
+/** What the global theme decides for an element that follows it. */
+export const THEMED_KEYS = [
+  'fill',
+  'fill2',
+  'accent',
+  'text',
+  'text1',
+  'text2',
+  'font',
+  'radius',
+  'opacity',
+  'shadow',
+  'shadowStrength',
+];
+/**
+ * The look an element really uses: its own settings when it was switched to its own
+ * appearance, otherwise the global theme (main color on the name bar, background color on
+ * everything else, one accent and one font for all).
+ */
+export function themed(config, el) {
+  const e = config[el],
+    t = config.theme;
+  if (!t || e.custom || !THEMED_ELEMENTS.includes(el)) return e;
+  const shared = {
+    accent: t.accent,
+    font: '',
+    radius: t.radius,
+    opacity: t.opacity,
+    shadow: t.shadow,
+    shadowStrength: t.shadowStrength,
+  };
+  if (el === 'lower')
+    return { ...e, ...shared, fill: t.main, fill2: t.surface, text1: t.text1, text2: t.text2 };
+  return {
+    ...e,
+    ...shared,
+    fill: t.surface,
+    text: t.text1,
+    ...('text2' in e ? { text2: t.text2 } : {}),
+  };
+}
+
 /**
  * The church's contribution QR: generated (PIX, SEPA transfer or a link), the image the
  * bank or app gave the church, or none when only the bank details are shown.

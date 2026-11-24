@@ -9,7 +9,9 @@ Lower thirds e overlays para o OBS Studio, numa única fonte de navegador. Progr
 - **Nomes** (lower third): 11 modelos; texto escrito na hora ou salvo numa lista; logo e QR Code opcionais em cada item.
 - **Selo superior**: 4 modelos, num canto da tela, com logo, nome da igreja, "AO VIVO", horário e recados; cada parte é opcional.
 - **Barra inferior**: 4 modelos, com texto rolando o tempo todo. Os nomes sobem sozinhos quando ela está no ar.
-- **Cartão QR / PIX**: 5 modelos. PIX pela chave da igreja (BR Code estático) ou pelo "copia e cola" do banco; QR Code de qualquer link.
+- **Cartão QR / Oferta**: 5 modelos. A contribuição da igreja pode ser PIX (BR Code estático pela chave, ou o "copia e cola" do banco), transferência SEPA (QR EPC), um link, uma imagem de QR Code enviada ou só os dados bancários; QR Code de qualquer link.
+- **Tema global**: cores, fonte e forma que todos os elementos seguem; cada elemento pode ter aparência própria.
+- **Assistente de configuração** na primeira execução e endereços do OBS com botão de copiar.
 - **Agenda**: 4 modelos; mostra um dia por vez e sai depois do último.
 - **Redes sociais**: 3 modelos, com ícones genéricos (não os logotipos das redes) ou imagem enviada pela igreja.
 - **Logo** no canto da tela.
@@ -27,7 +29,7 @@ O programa escreve na pasta escolhida na instalação (`Documentos\Church Lower 
 | `Names.html` | `/source/names` | nomes (lower third) |
 | `Corner Badge.html` | `/source/badge` | selo superior |
 | `Ticker.html` | `/source/ticker` | barra inferior |
-| `QR Card.html` | `/source/qr-card` | cartão QR / PIX |
+| `QR Card.html` | `/source/qr-card` | cartão QR / oferta |
 | `Schedule.html` | `/source/schedule` | agenda |
 | `Social.html` | `/source/social` | redes sociais |
 | `Logo.html` | `/source/logo` | logo |
@@ -49,7 +51,7 @@ npm test
 npm run lint && npm run format:check && npm run typecheck
 ```
 
-- `src/server`: Express + WebSocket; `pix.ts` (BR Code), `qr.ts` (QR em SVG), `fonts.ts` (fontes instaladas), `store.ts` (configuração e validação).
+- `src/server`: Express + WebSocket; `pix.ts` (BR Code), `sepa.ts` (QR EPC), `qr.ts` (QR em SVG), `fonts.ts` (fontes instaladas), `store.ts` (configuração e validação).
 - `src/web`: páginas sem bundler (`overlay`, `dock`, `settings`).
 - `installer/` e `.github/workflows/installer.yml`: instalador do Windows (Inno Setup). Cada push na `main` publica a versão do `package.json` em Releases; versões com hífen (`0.1.0-beta.1`) saem como pré-lançamento.
 

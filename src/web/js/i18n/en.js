@@ -603,4 +603,111 @@ export default {
   'Valor inválido: use um número como 25,00.': 'Invalid amount: use a number like 25.00.',
   'Envie a imagem do QR Code.': 'Upload the QR code image.',
   'Escreva os dados bancários que vão aparecer.': 'Enter the bank details to show.',
+  'Nome, logo, idioma, tempo na tela e a forma de contribuir: PIX, transferência, link ou dados bancários.':
+    'Name, logo, language, time on screen and how people give: PIX, bank transfer, link or bank details.',
+  'Tema global': 'Global theme',
+  'As cores, a fonte e a forma que todos os elementos seguem. Cada elemento pode ter a própria aparência.':
+    'The colors, font and shape every element follows. Each element can have its own appearance.',
+  Aparência: 'Appearance',
+  'Seguir o tema global': 'Follow the global theme',
+  'Cores, fonte, cantos, sombra e opacidade vêm do tema global':
+    'Colors, font, corners, shadow and opacity come from the global theme',
+  'Aparência própria': 'Own appearance',
+  'Este elemento passa a ter as próprias cores, fonte e efeitos':
+    'This element gets its own colors, font and effects',
+  'Este elemento usa as cores, a fonte e os efeitos escolhidos abaixo. O tema global não mexe nele.':
+    'This element uses the colors, font and effects chosen below. The global theme does not touch it.',
+  'Cores, fonte, cantos, sombra e opacidade vêm do tema global.':
+    'Colors, font, corners, shadow and opacity come from the global theme.',
+  'Abrir o tema global': 'Open the global theme',
+  'Cores aplicadas ao tema global.': 'Colors applied to the global theme.',
+  'O assistente explica como o programa funciona e ajuda a deixar tudo pronto, passo a passo.':
+    'The assistant explains how the program works and helps you get everything ready, step by step.',
+  'Abrir o assistente': 'Open the assistant',
+  'Endereços para o OBS': 'Addresses for OBS',
+  'Ver o endereço de cada elemento': 'See the address of each element',
+  'Temas prontos': 'Ready-made themes',
+  'Um tema pronto troca o modelo, as cores e a fonte de todos os elementos de uma vez.':
+    'A ready-made theme changes the model, colors and font of every element at once.',
+  'Troca só as cores do tema global': 'Changes only the colors of the global theme',
+  'Troca só as cores do tema. Depois ajuste cada uma abaixo, com degradê.':
+    'Changes only the theme colors. Then adjust each one below, with gradients.',
+  'Cores do tema': 'Theme colors',
+  'Cor principal': 'Main color',
+  'A barra do nome.': 'The name bar.',
+  'Selo superior, barra inferior, cartão, agenda e redes; e a barra do cargo.':
+    'Corner badge, bottom bar, card, schedule and social; and the role bar.',
+  'Os detalhes de todos os elementos.': 'The details of every element.',
+  'Fonte e forma': 'Font and shape',
+  'Fonte de todos os elementos': 'Font of every element',
+  'Quem segue o tema': 'Who follows the theme',
+  'Todos os elementos obedecem ao tema global. Para um deles ter cores, fonte ou efeitos diferentes, mude para "Aparência própria".':
+    'Every element obeys the global theme. For one of them to have different colors, font or effects, switch it to "Own appearance".',
+  'Segue o tema': 'Follows the theme',
+  'Abre as configurações deste elemento': 'Opens the settings of this element',
+  'Endereços para copiar': 'Addresses to copy',
+  'Copia o endereço para colar no OBS': 'Copies the address to paste into OBS',
+  Copiado: 'Copied',
+  'Gráficos: fonte de navegador com todos os elementos':
+    'Graphics: browser source with every element',
+  'No OBS: Fontes → + → Navegador. Largura {w}, altura {h}.':
+    'In OBS: Sources → + → Browser. Width {w}, height {h}.',
+  'Painel de controle: dock do OBS': 'Control panel: OBS dock',
+  'No OBS: menu Docks → Docks de navegador personalizados.':
+    'In OBS: Docks menu → Custom Browser Docks.',
+  'Como funciona': 'How it works',
+  'O Church Lower Thirds coloca nomes, avisos, QR Code e o logo da igreja por cima do vídeo no OBS Studio. São três partes:':
+    'Church Lower Thirds puts names, notices, QR codes and the church logo over the video in OBS Studio. There are three parts:',
+  'O programa': 'The program',
+  'Fica rodando no computador, sem janela, e inicia com o Windows. É ele que guarda as configurações.':
+    'It runs on the computer, without a window, and starts with Windows. It is what keeps the settings.',
+  'Os gráficos': 'The graphics',
+  'Uma fonte de navegador no OBS. É o que aparece na transmissão, com fundo transparente.':
+    'A browser source in OBS. It is what appears on the stream, with a transparent background.',
+  'O painel': 'The panel',
+  'Um dock dentro do OBS. É onde você clica para mostrar e esconder cada coisa durante o culto.':
+    'A dock inside OBS. It is where you click to show and hide each thing during the service.',
+  'Esta página de configurações serve para preparar tudo com calma. Durante o culto você usa só o painel do OBS.':
+    'This settings page is for preparing everything calmly. During the service you only use the OBS panel.',
+  'O assistente leva uns cinco minutos. Dá para pular qualquer passo e voltar depois.':
+    'The assistant takes about five minutes. You can skip any step and come back later.',
+  'Sua igreja': 'Your church',
+  'O nome e o logo aparecem no selo do canto, nos nomes e no cartão do QR Code.':
+    'The name and logo appear on the corner badge, on the names and on the QR code card.',
+  'Escolha um ponto de partida. Todos os elementos seguem este tema; depois, cada um pode ter a própria aparência.':
+    'Choose a starting point. Every element follows this theme; later, each one can have its own appearance.',
+  Contribuição: 'Giving',
+  'Como a igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão. Se não for usar, pule este passo.':
+    'How the church receives tithes and offerings. The QR code and the details appear on the card. If you will not use it, skip this step.',
+  'Os demais campos e o teste do QR Code ficam em "Geral e contribuições".':
+    'The other fields and the QR code test are in "General and giving".',
+  'Gráficos no OBS': 'Graphics in OBS',
+  'Cole o endereço abaixo no campo URL.': 'Paste the address below into the URL field.',
+  'Este endereço mostra todos os elementos numa fonte só. Para separar por cena, há um endereço para cada elemento em "OBS e atalhos".':
+    'This address shows every element in a single source. To separate them by scene, there is an address for each element in "OBS and shortcuts".',
+  'Painel no OBS': 'Panel in OBS',
+  'Encaixe o painel onde preferir: ele se ajusta a um espaço alto ou largo.':
+    'Dock the panel wherever you prefer: it adapts to a tall or a wide space.',
+  'A engrenagem do painel abre esta página de configurações.':
+    'The gear on the panel opens this settings page.',
+  Teste: 'Test',
+  'Com a fonte e o painel no OBS, faça um teste: o nome abaixo tem de aparecer no vídeo.':
+    'With the source and the panel in OBS, run a test: the name below must appear on the video.',
+  'Mostrar um nome de teste': 'Show a test name',
+  'Não apareceu no OBS?': 'Did it not appear in OBS?',
+  'A fonte de navegador precisa estar por cima das câmeras, na cena que está no ar.':
+    'The browser source must be above the cameras, in the scene that is on air.',
+  'Confira a largura e a altura da fonte.': 'Check the width and height of the source.',
+  'Clique com o botão direito na fonte e escolha Atualizar.':
+    'Right-click the source and choose Refresh.',
+  'Pronto. Os textos, os modelos e as posições de cada elemento ficam no menu à esquerda. Este assistente pode ser aberto de novo na Visão geral.':
+    'Done. The texts, models and positions of each element are in the menu on the left. This assistant can be opened again from the Overview.',
+  'Assistente de configuração': 'Setup assistant',
+  'Fecha o assistente. Ele pode ser aberto de novo na Visão geral.':
+    'Closes the assistant. It can be opened again from the Overview.',
+  Fechar: 'Close',
+  'Pular o assistente': 'Skip the assistant',
+  Voltar: 'Back',
+  Concluir: 'Finish',
+  Avançar: 'Next',
 };

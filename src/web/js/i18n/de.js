@@ -615,4 +615,111 @@ export default {
   'Valor inválido: use um número como 25,00.': 'Ungültiger Betrag: eine Zahl wie 25,00 verwenden.',
   'Envie a imagem do QR Code.': 'Das QR-Code-Bild hochladen.',
   'Escreva os dados bancários que vão aparecer.': 'Die Bankdaten eintragen, die erscheinen sollen.',
+  'Nome, logo, idioma, tempo na tela e a forma de contribuir: PIX, transferência, link ou dados bancários.':
+    'Name, Logo, Sprache, Anzeigedauer und der Spendenweg: PIX, Überweisung, Link oder Bankdaten.',
+  'Tema global': 'Globales Design',
+  'As cores, a fonte e a forma que todos os elementos seguem. Cada elemento pode ter a própria aparência.':
+    'Farben, Schrift und Form, denen alle Elemente folgen. Jedes Element kann ein eigenes Aussehen haben.',
+  Aparência: 'Aussehen',
+  'Seguir o tema global': 'Globalem Design folgen',
+  'Cores, fonte, cantos, sombra e opacidade vêm do tema global':
+    'Farben, Schrift, Ecken, Schatten und Deckkraft kommen aus dem globalen Design',
+  'Aparência própria': 'Eigenes Aussehen',
+  'Este elemento passa a ter as próprias cores, fonte e efeitos':
+    'Dieses Element erhält eigene Farben, Schrift und Effekte',
+  'Este elemento usa as cores, a fonte e os efeitos escolhidos abaixo. O tema global não mexe nele.':
+    'Dieses Element verwendet die unten gewählten Farben, Schrift und Effekte. Das globale Design ändert es nicht.',
+  'Cores, fonte, cantos, sombra e opacidade vêm do tema global.':
+    'Farben, Schrift, Ecken, Schatten und Deckkraft kommen aus dem globalen Design.',
+  'Abrir o tema global': 'Globales Design öffnen',
+  'Cores aplicadas ao tema global.': 'Farben auf das globale Design angewendet.',
+  'O assistente explica como o programa funciona e ajuda a deixar tudo pronto, passo a passo.':
+    'Der Assistent erklärt, wie das Programm funktioniert, und hilft Schritt für Schritt beim Einrichten.',
+  'Abrir o assistente': 'Assistent öffnen',
+  'Endereços para o OBS': 'Adressen für OBS',
+  'Ver o endereço de cada elemento': 'Adresse jedes Elements anzeigen',
+  'Temas prontos': 'Fertige Designs',
+  'Um tema pronto troca o modelo, as cores e a fonte de todos os elementos de uma vez.':
+    'Ein fertiges Design ändert Vorlage, Farben und Schrift aller Elemente auf einmal.',
+  'Troca só as cores do tema global': 'Ändert nur die Farben des globalen Designs',
+  'Troca só as cores do tema. Depois ajuste cada uma abaixo, com degradê.':
+    'Ändert nur die Farben des Designs. Danach jede Farbe unten anpassen, auch mit Verlauf.',
+  'Cores do tema': 'Farben des Designs',
+  'Cor principal': 'Hauptfarbe',
+  'A barra do nome.': 'Die Namensleiste.',
+  'Selo superior, barra inferior, cartão, agenda e redes; e a barra do cargo.':
+    'Eck-Badge, untere Leiste, Karte, Termine und Social Media; und die Funktionsleiste.',
+  'Os detalhes de todos os elementos.': 'Die Details aller Elemente.',
+  'Fonte e forma': 'Schrift und Form',
+  'Fonte de todos os elementos': 'Schrift aller Elemente',
+  'Quem segue o tema': 'Wer dem Design folgt',
+  'Todos os elementos obedecem ao tema global. Para um deles ter cores, fonte ou efeitos diferentes, mude para "Aparência própria".':
+    'Alle Elemente folgen dem globalen Design. Für abweichende Farben, Schrift oder Effekte ein Element auf „Eigenes Aussehen“ umstellen.',
+  'Segue o tema': 'Folgt dem Design',
+  'Abre as configurações deste elemento': 'Öffnet die Einstellungen dieses Elements',
+  'Endereços para copiar': 'Adressen zum Kopieren',
+  'Copia o endereço para colar no OBS': 'Kopiert die Adresse zum Einfügen in OBS',
+  Copiado: 'Kopiert',
+  'Gráficos: fonte de navegador com todos os elementos':
+    'Grafiken: Browserquelle mit allen Elementen',
+  'No OBS: Fontes → + → Navegador. Largura {w}, altura {h}.':
+    'In OBS: Quellen → + → Browser. Breite {w}, Höhe {h}.',
+  'Painel de controle: dock do OBS': 'Bedienfeld: OBS-Dock',
+  'No OBS: menu Docks → Docks de navegador personalizados.':
+    'In OBS: Menü Docks → Benutzerdefinierte Browser-Docks.',
+  'Como funciona': 'So funktioniert es',
+  'O Church Lower Thirds coloca nomes, avisos, QR Code e o logo da igreja por cima do vídeo no OBS Studio. São três partes:':
+    'Church Lower Thirds legt Namen, Hinweise, QR-Code und das Gemeindelogo über das Video in OBS Studio. Es besteht aus drei Teilen:',
+  'O programa': 'Das Programm',
+  'Fica rodando no computador, sem janela, e inicia com o Windows. É ele que guarda as configurações.':
+    'Es läuft ohne Fenster auf dem Computer und startet mit Windows. Es speichert die Einstellungen.',
+  'Os gráficos': 'Die Grafiken',
+  'Uma fonte de navegador no OBS. É o que aparece na transmissão, com fundo transparente.':
+    'Eine Browserquelle in OBS. Sie erscheint im Stream, mit transparentem Hintergrund.',
+  'O painel': 'Das Bedienfeld',
+  'Um dock dentro do OBS. É onde você clica para mostrar e esconder cada coisa durante o culto.':
+    'Ein Dock in OBS. Dort blenden Sie während des Gottesdienstes alles per Klick ein und aus.',
+  'Esta página de configurações serve para preparar tudo com calma. Durante o culto você usa só o painel do OBS.':
+    'Auf dieser Einstellungsseite bereiten Sie alles in Ruhe vor. Im Gottesdienst nutzen Sie nur das OBS-Bedienfeld.',
+  'O assistente leva uns cinco minutos. Dá para pular qualquer passo e voltar depois.':
+    'Der Assistent dauert etwa fünf Minuten. Jeder Schritt lässt sich überspringen und später nachholen.',
+  'Sua igreja': 'Ihre Gemeinde',
+  'O nome e o logo aparecem no selo do canto, nos nomes e no cartão do QR Code.':
+    'Name und Logo erscheinen im Eck-Badge, bei den Namen und auf der QR-Code-Karte.',
+  'Escolha um ponto de partida. Todos os elementos seguem este tema; depois, cada um pode ter a própria aparência.':
+    'Wählen Sie einen Ausgangspunkt. Alle Elemente folgen diesem Design; später kann jedes ein eigenes Aussehen erhalten.',
+  Contribuição: 'Spende',
+  'Como a igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão. Se não for usar, pule este passo.':
+    'Wie die Gemeinde Zehnten und Kollekte erhält. QR-Code und Angaben erscheinen auf der Karte. Wenn nicht benötigt, diesen Schritt überspringen.',
+  'Os demais campos e o teste do QR Code ficam em "Geral e contribuições".':
+    'Die übrigen Felder und der QR-Code-Test stehen unter „Allgemein und Spenden“.',
+  'Gráficos no OBS': 'Grafiken in OBS',
+  'Cole o endereço abaixo no campo URL.': 'Die Adresse unten in das Feld URL einfügen.',
+  'Este endereço mostra todos os elementos numa fonte só. Para separar por cena, há um endereço para cada elemento em "OBS e atalhos".':
+    'Diese Adresse zeigt alle Elemente in einer einzigen Quelle. Für die Trennung nach Szenen gibt es unter „OBS und Kurzbefehle“ eine Adresse pro Element.',
+  'Painel no OBS': 'Bedienfeld in OBS',
+  'Encaixe o painel onde preferir: ele se ajusta a um espaço alto ou largo.':
+    'Das Bedienfeld beliebig andocken: Es passt sich hohem oder breitem Platz an.',
+  'A engrenagem do painel abre esta página de configurações.':
+    'Das Zahnrad im Bedienfeld öffnet diese Einstellungsseite.',
+  Teste: 'Test',
+  'Com a fonte e o painel no OBS, faça um teste: o nome abaixo tem de aparecer no vídeo.':
+    'Mit Quelle und Bedienfeld in OBS einen Test machen: Der Name unten muss im Video erscheinen.',
+  'Mostrar um nome de teste': 'Testnamen einblenden',
+  'Não apareceu no OBS?': 'Nicht in OBS erschienen?',
+  'A fonte de navegador precisa estar por cima das câmeras, na cena que está no ar.':
+    'Die Browserquelle muss über den Kameras liegen, in der Szene, die gerade läuft.',
+  'Confira a largura e a altura da fonte.': 'Breite und Höhe der Quelle prüfen.',
+  'Clique com o botão direito na fonte e escolha Atualizar.':
+    'Mit der rechten Maustaste auf die Quelle klicken und Aktualisieren wählen.',
+  'Pronto. Os textos, os modelos e as posições de cada elemento ficam no menu à esquerda. Este assistente pode ser aberto de novo na Visão geral.':
+    'Fertig. Texte, Vorlagen und Positionen jedes Elements stehen im Menü links. Dieser Assistent lässt sich in der Übersicht erneut öffnen.',
+  'Assistente de configuração': 'Einrichtungsassistent',
+  'Fecha o assistente. Ele pode ser aberto de novo na Visão geral.':
+    'Schließt den Assistenten. Er lässt sich in der Übersicht erneut öffnen.',
+  Fechar: 'Schließen',
+  'Pular o assistente': 'Assistent überspringen',
+  Voltar: 'Zurück',
+  Concluir: 'Fertigstellen',
+  Avançar: 'Weiter',
 };

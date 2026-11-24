@@ -21,6 +21,9 @@ import {
   NETWORKS,
   SHADOWS,
   SOCIAL_TEMPLATES,
+  themed,
+  THEMED_ELEMENTS,
+  THEMED_KEYS,
   TICKER_TEMPLATES,
   TOP_TEMPLATES,
 } from './js/look.js';
@@ -96,8 +99,17 @@ const PAGES = [
     'brand',
     'Geral e contribuições',
     'Igreja',
-    'Nome, logo, idioma, temas, tempo na tela e a forma de contribuir: PIX, transferência, link ou dados bancários.',
+    'Nome, logo, idioma, tempo na tela e a forma de contribuir: PIX, transferência, link ou dados bancários.',
     svg('<path d="M12 3v5M9.500 5.500h5M6 21V11l6-3 6 3v10M4 21h16M10 21v-5h4v5"/>'),
+  ],
+  [
+    'theme',
+    'Tema global',
+    'Igreja',
+    'As cores, a fonte e a forma que todos os elementos seguem. Cada elemento pode ter a própria aparência.',
+    svg(
+      '<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18c1.500 0 2-1 2-2s-1-1.500 0-2.500 4 .500 5-2"/><circle cx="8" cy="10" r="1"/><circle cx="12" cy="7.500" r="1"/><circle cx="16" cy="10" r="1"/>',
+    ),
   ],
   [
     'lower',
@@ -281,7 +293,6 @@ const THEMES = [
       agenda: 'card',
       social: 'pill',
     },
-    light: { fill: solid('#ffffff'), text: '#020617', text2: '#334155' },
   },
   {
     name: 'Vidro líquido',
@@ -307,27 +318,19 @@ const THEMES = [
 function applyTheme(look) {
   const c = structuredClone;
   config.brand.font = look.font;
-  for (const el of ['lower', 'top', 'ticker', 'card', 'agenda', 'social']) {
-    const e = config[el],
-      // The white card and pill keep dark text; everything else sits on the dark color.
-      light = look.light && (el === 'card' || el === 'social') ? look.light : null;
-    Object.assign(e, {
-      template: look.templates[el],
-      fill: c(light?.fill || look.dark),
-      accent: c(look.accent),
-      opacity: light ? 100 : look.opacity,
-      radius: look.radius,
-      font: '',
-      shadow: 'soft',
-    });
-    if (el === 'lower') Object.assign(e, { fill2: c(look.dark), text1: look.t1, text2: look.t2 });
-    else
-      Object.assign(
-        e,
-        { text: light?.text || look.t1 },
-        'text2' in e ? { text2: light?.text2 || look.t2 } : {},
-      );
-  }
+  Object.assign(config.theme, {
+    main: c(look.dark),
+    surface: c(look.dark),
+    accent: c(look.accent),
+    text1: look.t1,
+    text2: look.t2,
+    opacity: look.opacity,
+    radius: look.radius,
+    shadow: 'soft',
+  });
+  // A ready-made theme is a complete look: every element goes back to following it.
+  for (const el of THEMED_ELEMENTS)
+    Object.assign(config[el], { template: look.templates[el], custom: false });
   save();
   renderForm();
   toast(t('Tema "{name}" aplicado a todos os elementos.', { name: t(look.name) }));
@@ -352,6 +355,11 @@ function save() {
 }
 
 // ---------- Field builders ----------
+/** This setting belongs to the global theme while its element follows it. */
+function byTheme(path) {
+  const [el, key, more] = path.split('.');
+  return !more && THEMED_ELEMENTS.includes(el) && !config[el].custom && THEMED_KEYS.includes(key);
+}
 const field = (label, control, { wide = false, tip = '' } = {}) =>
   h('div', { class: 'field' + (wide ? ' wide' : ''), title: tip }, h('span', {}, label), control);
 const textInput = (path, label, { wide, tip, placeholder, max = 300 } = {}) =>
@@ -366,23 +374,29 @@ const textInput = (path, label, { wide, tip, placeholder, max = 300 } = {}) =>
     { wide, tip },
   );
 const select = (path, label, options, { tip, rerender = false, wide = false } = {}) =>
-  field(
-    label,
-    h(
-      'select',
-      {
-        onchange: (e) => {
-          const raw = e.target.value;
-          set(path, typeof get(path) === 'number' ? Number(raw) : raw);
-          if (rerender) renderForm();
-        },
-      },
-      options.map(([v, l]) =>
-        h('option', { value: v, selected: String(get(path)) === String(v) }, l ?? NAMES[v] ?? v),
-      ),
-    ),
-    { tip, wide },
-  );
+  byTheme(path)
+    ? null
+    : field(
+        label,
+        h(
+          'select',
+          {
+            onchange: (e) => {
+              const raw = e.target.value;
+              set(path, typeof get(path) === 'number' ? Number(raw) : raw);
+              if (rerender) renderForm();
+            },
+          },
+          options.map(([v, l]) =>
+            h(
+              'option',
+              { value: v, selected: String(get(path)) === String(v) },
+              l ?? NAMES[v] ?? v,
+            ),
+          ),
+        ),
+        { tip, wide },
+      );
 const names = (list) => list.map((v) => [v, NAMES[v]]);
 function check(path, label, { tip, rerender = false } = {}) {
   return h(
@@ -400,6 +414,7 @@ function check(path, label, { tip, rerender = false } = {}) {
   );
 }
 function range(path, label, min, max, unit = '', { tip, step = 1 } = {}) {
+  if (byTheme(path)) return null;
   const out = h('output', {}, get(path) + unit);
   return field(
     label,
@@ -423,13 +438,16 @@ function range(path, label, min, max, unit = '', { tip, step = 1 } = {}) {
   );
 }
 const color = (path, label, { tip } = {}) =>
-  field(
-    label,
-    h('input', { type: 'color', value: get(path), oninput: (e) => set(path, e.target.value) }),
-    { tip },
-  );
+  byTheme(path)
+    ? null
+    : field(
+        label,
+        h('input', { type: 'color', value: get(path), oninput: (e) => set(path, e.target.value) }),
+        { tip },
+      );
 /** Fonts shipped with the app first, then every font installed on this computer. */
 function font(path, label) {
+  if (byTheme(path)) return null;
   const value = get(path),
     bundled = new Set(BUNDLED_FONTS.map(([f]) => f));
   const sample = h(
@@ -487,6 +505,7 @@ function font(path, label) {
 }
 /** One color or a two-color gradient with an angle. */
 function fill(path, label, { tip } = {}) {
+  if (byTheme(path)) return null;
   const box = h('div', { class: 'fill' });
   const draw = () => {
     const f = get(path),
@@ -634,18 +653,71 @@ const place = (el) =>
       range(`${el}.marginY`, 'Distância de cima / de baixo', 0, 400, ' px'),
     ),
   );
-const colors = (el, labels = {}) =>
+/** First card of each element: follow the global theme, or use an appearance of its own. */
+const appearance = (el) =>
   card(
-    'Cores e texto',
-    grid(
-      fill(`${el}.fill`, labels.fill || 'Cor de fundo'),
-      fill(`${el}.accent`, 'Cor de destaque'),
-      color(`${el}.text`, labels.text || 'Texto principal'),
-      `text2` in config[el] ? color(`${el}.text2`, labels.text2 || 'Texto de apoio') : null,
-      font(`${el}.font`, 'Fonte'),
-      select(`${el}.weight`, 'Peso do texto', WEIGHTS),
+    'Aparência',
+    h(
+      'div',
+      { class: 'seg' },
+      ...[
+        [
+          false,
+          'Seguir o tema global',
+          'Cores, fonte, cantos, sombra e opacidade vêm do tema global',
+        ],
+        [true, 'Aparência própria', 'Este elemento passa a ter as próprias cores, fonte e efeitos'],
+      ].map(([v, text, title]) =>
+        h(
+          'button',
+          {
+            type: 'button',
+            title,
+            class: config[el].custom === v ? 'active' : '',
+            onclick: () => {
+              // Starting an own look from what is on screen now, not from old leftovers.
+              if (v && !config[el].custom) Object.assign(config[el], ownLook(el));
+              set(`${el}.custom`, v);
+              renderForm();
+            },
+          },
+          text,
+        ),
+      ),
     ),
+    config[el].custom
+      ? hint(
+          'Este elemento usa as cores, a fonte e os efeitos escolhidos abaixo. O tema global não mexe nele.',
+        )
+      : h(
+          'div',
+          { class: 'copyRow' },
+          hint('Cores, fonte, cantos, sombra e opacidade vêm do tema global.'),
+          h('button', { onclick: () => go('theme') }, 'Abrir o tema global'),
+        ),
   );
+/** The theme's look written into the element's own settings (font stays the general one). */
+function ownLook(el) {
+  const look = themed(config, el),
+    own = {};
+  for (const k of THEMED_KEYS)
+    if (k in config[el] && k !== 'font') own[k] = structuredClone(look[k]);
+  return own;
+}
+const colors = (el, labels = {}) =>
+  config[el].custom
+    ? card(
+        'Cores e texto',
+        grid(
+          fill(`${el}.fill`, labels.fill || 'Cor de fundo'),
+          fill(`${el}.accent`, 'Cor de destaque'),
+          color(`${el}.text`, labels.text || 'Texto principal'),
+          `text2` in config[el] ? color(`${el}.text2`, labels.text2 || 'Texto de apoio') : null,
+          font(`${el}.font`, 'Fonte'),
+          select(`${el}.weight`, 'Peso do texto', WEIGHTS),
+        ),
+      )
+    : card('Texto', grid(select(`${el}.weight`, 'Peso do texto', WEIGHTS)));
 /** Rows with a remove button and an "add" button under them. */
 function rows(path, blank, draw) {
   const items = get(path);
@@ -752,22 +824,17 @@ async function uploadLogo(file) {
 }
 function applyPalette([, main, second, accent, t1, t2]) {
   const c = structuredClone;
-  Object.assign(config.lower, {
-    fill: c(main),
-    fill2: c(second),
+  Object.assign(config.theme, {
+    main: c(main),
+    surface: c(second),
     accent: c(accent),
+    // On a light background the text of the name bar would not be readable.
     text1: t1,
     text2: t2,
   });
-  Object.assign(config.top, {
-    fill: c(second.a === '#e5e7eb' ? main : second),
-    accent: c(accent),
-    text: second.a === '#e5e7eb' ? t1 : '#ffffff',
-    text2: second.a === '#e5e7eb' ? t2 : '#cbd5e1',
-  });
-  Object.assign(config.card, { accent: c(main.a === '#ffffff' ? accent : main) });
   save();
-  toast('Cores aplicadas ao lower third, à barra e ao cartão.');
+  renderForm();
+  toast('Cores aplicadas ao tema global.');
 }
 /** Something was typed for the chosen way of giving (it may still be wrong). */
 function givingFilled() {
@@ -978,6 +1045,15 @@ const pages = {
         'Primeiros passos',
         h(
           'div',
+          { class: 'copyRow' },
+          hint(
+            'O assistente explica como o programa funciona e ajuda a deixar tudo pronto, passo a passo.',
+          ),
+          h('button', { class: 'primary', onclick: () => openWizard(0) }, 'Abrir o assistente'),
+        ),
+        h('div', { style: 'height:10px' }),
+        h(
+          'div',
           { class: 'steps2' },
           done(
             config.brand.name && config.brand.name !== 'Nome da Igreja',
@@ -995,6 +1071,11 @@ const pages = {
             'layout',
           ),
         ),
+      ),
+      card(
+        'Endereços para o OBS',
+        ...mainAddresses(),
+        h('button', { onclick: () => go('obs') }, 'Ver o endereço de cada elemento'),
       ),
       updates(),
       info?.folder
@@ -1024,10 +1105,7 @@ const pages = {
   brand: () => [
     card(
       'Igreja',
-      grid(
-        textInput('brand.name', 'Nome da igreja', { max: 80 }),
-        font('brand.font', 'Fonte geral'),
-      ),
+      grid(textInput('brand.name', 'Nome da igreja', { max: 80 })),
       h('div', { style: 'height:12px' }),
       h(
         'div',
@@ -1070,49 +1148,11 @@ const pages = {
       ),
     ),
     card(
-      'Temas',
-      h(
-        'div',
-        { class: 'palettes' },
-        THEMES.map((look) =>
-          h(
-            'button',
-            { type: 'button', title: look.hint, onclick: () => applyTheme(look) },
-            h('i', { style: `background:${look.swatch}` }),
-            look.name,
-          ),
-        ),
-      ),
-      hint('Um tema troca o modelo, as cores e a fonte de todos os elementos de uma vez.'),
-    ),
-    card(
       'Tempo na tela',
       grid(
         range('timing.autoHide', 'Nomes, QR Code e redes saem sozinhos depois de', 0, 120, ' s', {
           tip: '0 = ficam na tela até você esconder. O mesmo tempo pode ser trocado no painel do OBS.',
         }),
-      ),
-    ),
-    card(
-      'Cores prontas',
-      h(
-        'div',
-        { class: 'palettes' },
-        PALETTES.map((p) =>
-          h(
-            'button',
-            {
-              type: 'button',
-              title: 'Aplica estas cores a todos os elementos',
-              onclick: () => applyPalette(p),
-            },
-            h('i', { style: `background:${fillCss(p[1])};border-bottom:6px solid ${p[3].a}` }),
-            p[0],
-          ),
-        ),
-      ),
-      hint(
-        'É só um ponto de partida: cada elemento tem as próprias cores, com degradê, na aba dele.',
       ),
     ),
     card(
@@ -1262,6 +1302,113 @@ const pages = {
     ),
   ],
 
+  theme: () => [
+    card(
+      'Temas prontos',
+      h(
+        'div',
+        { class: 'palettes' },
+        THEMES.map((look) =>
+          h(
+            'button',
+            { type: 'button', title: look.hint, onclick: () => applyTheme(look) },
+            h('i', { style: `background:${look.swatch}` }),
+            look.name,
+          ),
+        ),
+      ),
+      hint('Um tema pronto troca o modelo, as cores e a fonte de todos os elementos de uma vez.'),
+    ),
+    card(
+      'Cores prontas',
+      h(
+        'div',
+        { class: 'palettes' },
+        PALETTES.map((p) =>
+          h(
+            'button',
+            {
+              type: 'button',
+              title: 'Troca só as cores do tema global',
+              onclick: () => applyPalette(p),
+            },
+            h('i', { style: `background:${fillCss(p[1])};border-bottom:6px solid ${p[3].a}` }),
+            p[0],
+          ),
+        ),
+      ),
+      hint('Troca só as cores do tema. Depois ajuste cada uma abaixo, com degradê.'),
+    ),
+    card(
+      'Cores do tema',
+      grid(
+        fill('theme.main', 'Cor principal', { tip: 'A barra do nome.' }),
+        fill('theme.surface', 'Cor de fundo', {
+          tip: 'Selo superior, barra inferior, cartão, agenda e redes; e a barra do cargo.',
+        }),
+        fill('theme.accent', 'Cor de destaque', { tip: 'Os detalhes de todos os elementos.' }),
+        color('theme.text1', 'Texto principal'),
+        color('theme.text2', 'Texto de apoio'),
+      ),
+    ),
+    card(
+      'Fonte e forma',
+      grid(
+        font('brand.font', 'Fonte de todos os elementos'),
+        range('theme.radius', 'Cantos arredondados', 0, 60, ' px'),
+        range('theme.opacity', 'Opacidade do fundo', 10, 100, '%', {
+          tip: 'Menos de 100% deixa a imagem da câmera aparecer por trás.',
+        }),
+        select('theme.shadow', 'Sombra', names(SHADOWS), { tip: 'Brilho usa a cor de destaque.' }),
+        range('theme.shadowStrength', 'Força da sombra', 0, 100, '%'),
+      ),
+    ),
+    card(
+      'Quem segue o tema',
+      hint(
+        'Todos os elementos obedecem ao tema global. Para um deles ter cores, fonte ou efeitos diferentes, mude para "Aparência própria".',
+      ),
+      h(
+        'div',
+        { class: 'rows' },
+        THEMED_ELEMENTS.map((el) =>
+          h(
+            'div',
+            { class: 'row themeRow' },
+            h('b', {}, PAGES.find(([id]) => id === el)[1]),
+            h(
+              'div',
+              { class: 'seg' },
+              ...[
+                [false, 'Segue o tema'],
+                [true, 'Aparência própria'],
+              ].map(([v, text]) =>
+                h(
+                  'button',
+                  {
+                    type: 'button',
+                    class: config[el].custom === v ? 'active' : '',
+                    onclick: () => {
+                      if (v && !config[el].custom) Object.assign(config[el], ownLook(el));
+                      set(`${el}.custom`, v);
+                      renderForm();
+                    },
+                  },
+                  text,
+                ),
+              ),
+            ),
+            h(
+              'button',
+              { title: 'Abre as configurações deste elemento', onclick: () => go(el) },
+              'Abrir',
+            ),
+          ),
+        ),
+      ),
+    ),
+  ],
+
   lower: () => [
     card('Modelo', chips('lower.template', LOWER_TEMPLATES)),
     card(
@@ -1398,19 +1545,22 @@ const pages = {
         'No painel do OBS, um clique no nome mostra ou esconde. Dá para adicionar nomes por lá também.',
       ),
     ),
-    card(
-      'Cores',
-      grid(
-        fill('lower.fill', 'Cor principal (barra do nome)'),
-        fill('lower.fill2', 'Segunda cor (barra do cargo)'),
-        fill('lower.accent', 'Cor de destaque (detalhes)'),
-        color('lower.text1', 'Texto do nome'),
-        color('lower.text2', 'Texto do cargo'),
-      ),
-      hint(
-        'Cada modelo usa as cores de um jeito: o "Só texto", por exemplo, usa só o destaque e as cores do texto.',
-      ),
-    ),
+    appearance('lower'),
+    !config.lower.custom
+      ? null
+      : card(
+          'Cores',
+          grid(
+            fill('lower.fill', 'Cor principal (barra do nome)'),
+            fill('lower.fill2', 'Segunda cor (barra do cargo)'),
+            fill('lower.accent', 'Cor de destaque (detalhes)'),
+            color('lower.text1', 'Texto do nome'),
+            color('lower.text2', 'Texto do cargo'),
+          ),
+          hint(
+            'Cada modelo usa as cores de um jeito: o "Só texto", por exemplo, usa só o destaque e as cores do texto.',
+          ),
+        ),
     card(
       'Texto',
       grid(
@@ -1438,6 +1588,7 @@ const pages = {
 
   top: () => [
     card('Modelo', chips('top.template', TOP_TEMPLATES)),
+    appearance('top'),
     card(
       'O que aparece',
       grid(
@@ -1492,6 +1643,7 @@ const pages = {
 
   card: () => [
     card('Modelo', chips('card.template', CARD_TEMPLATES)),
+    appearance('card'),
     card(
       'Conteúdo',
       grid(
@@ -1531,6 +1683,7 @@ const pages = {
 
   ticker: () => [
     card('Modelo', chips('ticker.template', TICKER_TEMPLATES)),
+    appearance('ticker'),
     card(
       'Textos que rolam',
       grid(
@@ -1578,6 +1731,7 @@ const pages = {
 
   agenda: () => [
     card('Modelo', chips('agenda.template', AGENDA_TEMPLATES)),
+    appearance('agenda'),
     card(
       'Dias e horários',
       ...rows('agenda.days', { day: 'Novo dia', lines: '' }, (d, change) => [
@@ -1620,6 +1774,7 @@ const pages = {
 
   social: () => [
     card('Modelo', chips('social.template', SOCIAL_TEMPLATES)),
+    appearance('social'),
     card(
       'Redes',
       ...rows(
@@ -1796,19 +1951,8 @@ const pages = {
 
   obs: () => {
     const base = location.origin;
-    const copy = (text) =>
-      h(
-        'div',
-        { class: 'copyRow' },
-        h('code', {}, text),
-        h(
-          'button',
-          { onclick: () => navigator.clipboard.writeText(text).then(() => toast('Copiado.')) },
-          'Copiar',
-        ),
-      );
-    const row = (what, path) =>
-      h('tr', {}, h('td', {}, what), h('td', {}, h('code', {}, base + path)));
+    const copy = copyRow;
+    const row = (what, path) => h('tr', {}, h('td', {}, what), h('td', {}, copy(base + path)));
     const [w, hgt] = (obsVertical ? config.output.vertical : config.output.horizontal).split('x');
     const size = (path, list) =>
       h(
@@ -1820,6 +1964,7 @@ const pages = {
       );
     const label = (el) => PAGES.find(([id]) => id === el)?.[1] || 'Todos os elementos';
     return [
+      card('Endereços para copiar', ...mainAddresses()),
       card(
         'Tamanho das fontes no OBS',
         grid(
@@ -1997,7 +2142,13 @@ const pages = {
 
 // ---------- Shell ----------
 function setPreview() {
-  const el = ELEMENTS.includes(page) ? page : page === 'brand' ? 'card' : '';
+  const el = ELEMENTS.includes(page)
+    ? page
+    : page === 'brand'
+      ? 'card'
+      : page === 'theme'
+        ? 'theme'
+        : '';
   $('.content').classList.toggle('noPreview', !el);
   $('#previewPanel').classList.toggle('hidden', !el);
   if (!el) return;
@@ -2121,8 +2272,394 @@ function renderNav() {
   $('#pageTitle').textContent = current[1];
   $('#pageDesc').textContent = current[3];
 }
+// ---------- Addresses for OBS ----------
+/** An address with a button that copies it (and says so on the button itself). */
+function copyRow(text, { primary = false } = {}) {
+  const button = h(
+    'button',
+    {
+      class: primary ? 'primary' : '',
+      title: 'Copia o endereço para colar no OBS',
+      onclick: async () => {
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch {
+          // Older embedded browsers: select-and-copy still works.
+          const area = h('textarea', { value: text, style: 'position:fixed;opacity:0' });
+          document.body.append(area);
+          area.select();
+          document.execCommand('copy');
+          area.remove();
+        }
+        button.textContent = t('Copiado');
+        button.classList.add('copied');
+        setTimeout(() => {
+          button.textContent = t('Copiar');
+          button.classList.remove('copied');
+        }, 1600);
+      },
+    },
+    'Copiar',
+  );
+  return h('div', { class: 'copyRow' }, h('code', { 'data-raw': '' }, text), button);
+}
+const sourceUrl = (slug = 'all', tall = false) =>
+  `${location.origin}/source/${slug}${tall ? '?layout=vertical' : ''}`;
+const dockUrl = () => `${location.origin}/dock`;
+const outputSize = (tall = false) =>
+  (tall ? config.output.vertical : config.output.horizontal).split('x');
+/** The two addresses every installation needs, ready to copy. */
+const mainAddresses = () => {
+  const [w, hgt] = outputSize();
+  return [
+    h('span', { class: 'addrLabel' }, 'Gráficos: fonte de navegador com todos os elementos'),
+    copyRow(sourceUrl(), { primary: true }),
+    hint(t('No OBS: Fontes → + → Navegador. Largura {w}, altura {h}.', { w, h: hgt })),
+    h('span', { class: 'addrLabel' }, 'Painel de controle: dock do OBS'),
+    copyRow(dockUrl(), { primary: true }),
+    hint('No OBS: menu Docks → Docks de navegador personalizados.'),
+  ];
+};
+
+// ---------- Setup assistant ----------
+let wizardStep = null,
+  wizardOffered = false;
+const WIZARD = [
+  {
+    title: 'Como funciona',
+    body: () => [
+      h(
+        'p',
+        { class: 'lead' },
+        'O Church Lower Thirds coloca nomes, avisos, QR Code e o logo da igreja por cima do vídeo no OBS Studio. São três partes:',
+      ),
+      h(
+        'div',
+        { class: 'parts' },
+        ...[
+          [
+            '1',
+            'O programa',
+            'Fica rodando no computador, sem janela, e inicia com o Windows. É ele que guarda as configurações.',
+          ],
+          [
+            '2',
+            'Os gráficos',
+            'Uma fonte de navegador no OBS. É o que aparece na transmissão, com fundo transparente.',
+          ],
+          [
+            '3',
+            'O painel',
+            'Um dock dentro do OBS. É onde você clica para mostrar e esconder cada coisa durante o culto.',
+          ],
+        ].map(([n, title, text]) =>
+          h('div', { class: 'part' }, h('i', {}, n), h('b', {}, title), h('span', {}, text)),
+        ),
+      ),
+      hint(
+        'Esta página de configurações serve para preparar tudo com calma. Durante o culto você usa só o painel do OBS.',
+      ),
+      hint('O assistente leva uns cinco minutos. Dá para pular qualquer passo e voltar depois.'),
+    ],
+  },
+  {
+    title: 'Sua igreja',
+    body: () => [
+      grid(textInput('brand.name', 'Nome da igreja', { max: 80, wide: true })),
+      h('div', { style: 'height:12px' }),
+      h(
+        'div',
+        { class: 'logoBox' },
+        h(
+          'div',
+          { class: 'logoThumb' },
+          config.brand.logo ? h('img', { src: config.brand.logo, alt: '' }) : 'Sem logo',
+        ),
+        h(
+          'div',
+          {},
+          h('input', {
+            type: 'file',
+            id: 'wizardLogo',
+            class: 'hidden',
+            accept: 'image/png,image/jpeg,image/webp,image/gif,image/svg+xml',
+            onchange: (e) => uploadLogo(e.target.files[0]),
+          }),
+          h(
+            'button',
+            { class: 'primary', onclick: () => $('#wizardLogo').click() },
+            config.brand.logo ? 'Trocar logo' : 'Enviar logo',
+          ),
+          hint('PNG com fundo transparente fica melhor. Até 8 MB.'),
+        ),
+      ),
+      hint('O nome e o logo aparecem no selo do canto, nos nomes e no cartão do QR Code.'),
+    ],
+  },
+  {
+    title: 'Aparência',
+    preview: 'theme',
+    body: () => [
+      hint(
+        'Escolha um ponto de partida. Todos os elementos seguem este tema; depois, cada um pode ter a própria aparência.',
+      ),
+      h('span', { class: 'addrLabel' }, 'Temas prontos'),
+      h(
+        'div',
+        { class: 'palettes' },
+        THEMES.map((look) =>
+          h(
+            'button',
+            { type: 'button', title: look.hint, onclick: () => applyTheme(look) },
+            h('i', { style: `background:${look.swatch}` }),
+            look.name,
+          ),
+        ),
+      ),
+      h('span', { class: 'addrLabel' }, 'Cores prontas'),
+      h(
+        'div',
+        { class: 'palettes' },
+        PALETTES.map((p) =>
+          h(
+            'button',
+            { type: 'button', onclick: () => applyPalette(p) },
+            h('i', { style: `background:${fillCss(p[1])};border-bottom:6px solid ${p[3].a}` }),
+            p[0],
+          ),
+        ),
+      ),
+    ],
+  },
+  {
+    title: 'Contribuição',
+    body: () => {
+      const m = config.giving.method;
+      return [
+        hint(
+          'Como a igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão. Se não for usar, pule este passo.',
+        ),
+        grid(
+          select(
+            'giving.method',
+            'Como as pessoas contribuem',
+            [
+              ['pix', 'PIX (Brasil)'],
+              ['sepa', 'Transferência bancária SEPA (zona do euro)'],
+              ['link', 'Link: página de doações ou serviço de pagamentos'],
+              ['image', 'Imagem de QR Code pronta, do banco ou do aplicativo'],
+              ['text', 'Só os dados bancários, sem QR Code'],
+            ],
+            { rerender: true, wide: true },
+          ),
+          ...(m === 'pix'
+            ? [
+                textInput('pix.key', 'Chave PIX', {
+                  placeholder: 'CNPJ, e-mail, telefone ou chave aleatória',
+                  max: 80,
+                }),
+                textInput('pix.name', 'Nome do recebedor', { max: 25 }),
+                textInput('pix.city', 'Cidade', { max: 15 }),
+              ]
+            : []),
+          ...(m === 'sepa'
+            ? [
+                textInput('giving.sepa.name', 'Titular da conta', { max: 70 }),
+                textInput('giving.sepa.iban', 'IBAN', { max: 42 }),
+              ]
+            : []),
+          ...(m === 'link'
+            ? [
+                textInput('giving.link', 'Link da contribuição', {
+                  placeholder: 'https://…',
+                  max: 1000,
+                  wide: true,
+                }),
+              ]
+            : []),
+          ...(m === 'image'
+            ? [
+                field(
+                  'Imagem do QR Code',
+                  h('input', {
+                    type: 'file',
+                    accept: 'image/png,image/jpeg,image/webp,image/svg+xml',
+                    onchange: (e) => uploadGivingQr(e.target.files[0]),
+                  }),
+                  { wide: true },
+                ),
+              ]
+            : []),
+          field(
+            m === 'text'
+              ? 'Dados bancários mostrados no cartão'
+              : 'Dados mostrados ao lado do QR Code',
+            h('textarea', {
+              rows: 3,
+              maxlength: 400,
+              placeholder: 'Uma informação por linha: banco, conta, titular…',
+              value: config.giving.details,
+              oninput: (e) => set('giving.details', e.target.value),
+            }),
+            { wide: true },
+          ),
+        ),
+        hint('Os demais campos e o teste do QR Code ficam em "Geral e contribuições".'),
+      ];
+    },
+  },
+  {
+    title: 'Gráficos no OBS',
+    body: () => {
+      const [w, hgt] = outputSize();
+      return [
+        h(
+          'ol',
+          { class: 'steps' },
+          h('li', {}, 'No OBS, em Fontes, clique em + e escolha Navegador.'),
+          h('li', {}, 'Cole o endereço abaixo no campo URL.'),
+          h('li', {}, t('Preencha largura {w} e altura {h}.', { w, h: hgt })),
+          h('li', {}, 'Deixe a fonte por cima das câmeras.'),
+        ),
+        copyRow(sourceUrl(), { primary: true }),
+        hint(
+          'Este endereço mostra todos os elementos numa fonte só. Para separar por cena, há um endereço para cada elemento em "OBS e atalhos".',
+        ),
+      ];
+    },
+  },
+  {
+    title: 'Painel no OBS',
+    body: () => [
+      h(
+        'ol',
+        { class: 'steps' },
+        h('li', {}, 'No OBS, abra o menu Docks → Docks de navegador personalizados.'),
+        h('li', {}, 'Dê o nome "Church Lower Thirds" e cole o endereço abaixo.'),
+        h('li', {}, 'Encaixe o painel onde preferir: ele se ajusta a um espaço alto ou largo.'),
+      ),
+      copyRow(dockUrl(), { primary: true }),
+      hint('A engrenagem do painel abre esta página de configurações.'),
+    ],
+  },
+  {
+    title: 'Teste',
+    preview: 'lower',
+    body: () => [
+      hint('Com a fonte e o painel no OBS, faça um teste: o nome abaixo tem de aparecer no vídeo.'),
+      h(
+        'div',
+        { class: 'copyRow' },
+        h(
+          'button',
+          {
+            class: 'primary',
+            onclick: () => api('/api/live/lower/show?item=1', { method: 'POST' }),
+          },
+          'Mostrar um nome de teste',
+        ),
+        h('button', { onclick: () => api('/api/live/lower/hide', { method: 'POST' }) }, 'Esconder'),
+      ),
+      h('span', { class: 'addrLabel' }, 'Não apareceu no OBS?'),
+      h(
+        'ul',
+        { class: 'steps' },
+        h(
+          'li',
+          {},
+          'A fonte de navegador precisa estar por cima das câmeras, na cena que está no ar.',
+        ),
+        h('li', {}, 'Confira a largura e a altura da fonte.'),
+        h('li', {}, 'Clique com o botão direito na fonte e escolha Atualizar.'),
+      ),
+      hint(
+        'Pronto. Os textos, os modelos e as posições de cada elemento ficam no menu à esquerda. Este assistente pode ser aberto de novo na Visão geral.',
+      ),
+    ],
+  },
+];
+function openWizard(step = 0) {
+  wizardStep = step;
+  renderWizard();
+}
+function closeWizard() {
+  wizardStep = null;
+  $('#wizard')?.remove();
+  if (!config.setupDone) set('setupDone', true);
+  renderForm();
+}
+function renderWizard() {
+  if (wizardStep === null || !config) return;
+  const step = WIZARD[wizardStep],
+    last = wizardStep === WIZARD.length - 1;
+  const src = step.preview ? `/overlay?preview=${step.preview}` : '';
+  // The preview frame is kept between renders of the same step, so it does not blink.
+  const old = $('#wizard iframe');
+  const frame =
+    src && old?.getAttribute('src') === src
+      ? old
+      : src
+        ? h('iframe', { src, title: 'Prévia' })
+        : null;
+  const box = h(
+    'div',
+    { class: 'wizardBox' },
+    h(
+      'aside',
+      {},
+      h('strong', {}, 'Assistente de configuração'),
+      h(
+        'ol',
+        {},
+        WIZARD.map((w, i) =>
+          h(
+            'li',
+            { class: i === wizardStep ? 'now' : i < wizardStep ? 'past' : '' },
+            h('button', { type: 'button', onclick: () => openWizard(i) }, w.title),
+          ),
+        ),
+      ),
+    ),
+    h(
+      'section',
+      {},
+      h('h2', {}, step.title),
+      h(
+        'div',
+        { class: 'wizardBody' },
+        ...step.body(),
+        frame ? h('div', { class: 'wizardPreview' }, frame) : null,
+      ),
+      h(
+        'footer',
+        {},
+        h(
+          'button',
+          {
+            title: 'Fecha o assistente. Ele pode ser aberto de novo na Visão geral.',
+            onclick: closeWizard,
+          },
+          last ? 'Fechar' : 'Pular o assistente',
+        ),
+        h('span', { style: 'flex:1' }),
+        wizardStep > 0
+          ? h('button', { onclick: () => openWizard(wizardStep - 1) }, 'Voltar')
+          : null,
+        last
+          ? h('button', { class: 'primary', onclick: closeWizard }, 'Concluir')
+          : h('button', { class: 'primary', onclick: () => openWizard(wizardStep + 1) }, 'Avançar'),
+      ),
+    ),
+  );
+  const shell =
+    $('#wizard') || document.body.appendChild(h('div', { id: 'wizard', class: 'wizard' }));
+  shell.replaceChildren(box);
+}
+
 function renderForm() {
   if (!config) return;
+  // Choices made inside the assistant redraw it too (the page behind stays up to date).
+  if (wizardStep !== null) queueMicrotask(renderWizard);
   if (!pages[page]) page = 'home';
   if (!config.lower.items.some((i) => i.id === viewItem))
     viewItem = config.lower.items[0]?.id || '';
@@ -2214,6 +2751,8 @@ connect(
       renderNav();
       renderForm();
       setPreview();
+      if (!config.setupDone && !wizardOffered) openWizard(0);
+      wizardOffered = true;
     } else if (liveChanged && page === 'home') renderForm();
     if (config) {
       useLanguage(config.language);

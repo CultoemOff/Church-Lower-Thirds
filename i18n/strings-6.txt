@@ -1,0 +1,449 @@
+Nome, logo, idioma, tempo na tela e a forma de contribuir: PIX, transferência, link ou dados bancários.
+Name, logo, language, time on screen and how people give: PIX, bank transfer, link or bank details.
+Nombre, logo, idioma, tiempo en pantalla y la forma de ofrendar: PIX, transferencia, enlace o datos bancarios.
+Nome, logo, lingua, tempo sullo schermo e il modo di donare: PIX, bonifico, link o coordinate bancarie.
+Name, Logo, Sprache, Anzeigedauer und der Spendenweg: PIX, Überweisung, Link oder Bankdaten.
+
+Tema global
+Global theme
+Tema global
+Tema globale
+Globales Design
+
+As cores, a fonte e a forma que todos os elementos seguem. Cada elemento pode ter a própria aparência.
+The colors, font and shape every element follows. Each element can have its own appearance.
+Los colores, la fuente y la forma que siguen todos los elementos. Cada elemento puede tener su propia apariencia.
+I colori, il carattere e la forma seguiti da tutti gli elementi. Ogni elemento può avere un aspetto proprio.
+Farben, Schrift und Form, denen alle Elemente folgen. Jedes Element kann ein eigenes Aussehen haben.
+
+Aparência
+Appearance
+Apariencia
+Aspetto
+Aussehen
+
+Seguir o tema global
+Follow the global theme
+Seguir el tema global
+Segui il tema globale
+Globalem Design folgen
+
+Cores, fonte, cantos, sombra e opacidade vêm do tema global
+Colors, font, corners, shadow and opacity come from the global theme
+Colores, fuente, esquinas, sombra y opacidad vienen del tema global
+Colori, carattere, angoli, ombra e opacità vengono dal tema globale
+Farben, Schrift, Ecken, Schatten und Deckkraft kommen aus dem globalen Design
+
+Aparência própria
+Own appearance
+Apariencia propia
+Aspetto proprio
+Eigenes Aussehen
+
+Este elemento passa a ter as próprias cores, fonte e efeitos
+This element gets its own colors, font and effects
+Este elemento pasa a tener sus propios colores, fuente y efectos
+Questo elemento avrà colori, carattere ed effetti propri
+Dieses Element erhält eigene Farben, Schrift und Effekte
+
+Este elemento usa as cores, a fonte e os efeitos escolhidos abaixo. O tema global não mexe nele.
+This element uses the colors, font and effects chosen below. The global theme does not touch it.
+Este elemento usa los colores, la fuente y los efectos elegidos abajo. El tema global no lo modifica.
+Questo elemento usa i colori, il carattere e gli effetti scelti qui sotto. Il tema globale non lo modifica.
+Dieses Element verwendet die unten gewählten Farben, Schrift und Effekte. Das globale Design ändert es nicht.
+
+Cores, fonte, cantos, sombra e opacidade vêm do tema global.
+Colors, font, corners, shadow and opacity come from the global theme.
+Colores, fuente, esquinas, sombra y opacidad vienen del tema global.
+Colori, carattere, angoli, ombra e opacità vengono dal tema globale.
+Farben, Schrift, Ecken, Schatten und Deckkraft kommen aus dem globalen Design.
+
+Abrir o tema global
+Open the global theme
+Abrir el tema global
+Apri il tema globale
+Globales Design öffnen
+
+Cores aplicadas ao tema global.
+Colors applied to the global theme.
+Colores aplicados al tema global.
+Colori applicati al tema globale.
+Farben auf das globale Design angewendet.
+
+O assistente explica como o programa funciona e ajuda a deixar tudo pronto, passo a passo.
+The assistant explains how the program works and helps you get everything ready, step by step.
+El asistente explica cómo funciona el programa y ayuda a dejar todo listo, paso a paso.
+L'assistente spiega come funziona il programma e aiuta a preparare tutto, passo dopo passo.
+Der Assistent erklärt, wie das Programm funktioniert, und hilft Schritt für Schritt beim Einrichten.
+
+Abrir o assistente
+Open the assistant
+Abrir el asistente
+Apri l'assistente
+Assistent öffnen
+
+Endereços para o OBS
+Addresses for OBS
+Direcciones para OBS
+Indirizzi per OBS
+Adressen für OBS
+
+Ver o endereço de cada elemento
+See the address of each element
+Ver la dirección de cada elemento
+Vedi l'indirizzo di ogni elemento
+Adresse jedes Elements anzeigen
+
+Temas prontos
+Ready-made themes
+Temas listos
+Temi pronti
+Fertige Designs
+
+Um tema pronto troca o modelo, as cores e a fonte de todos os elementos de uma vez.
+A ready-made theme changes the model, colors and font of every element at once.
+Un tema listo cambia el modelo, los colores y la fuente de todos los elementos de una vez.
+Un tema pronto cambia modello, colori e carattere di tutti gli elementi in una volta.
+Ein fertiges Design ändert Vorlage, Farben und Schrift aller Elemente auf einmal.
+
+Troca só as cores do tema global
+Changes only the colors of the global theme
+Cambia solo los colores del tema global
+Cambia solo i colori del tema globale
+Ändert nur die Farben des globalen Designs
+
+Troca só as cores do tema. Depois ajuste cada uma abaixo, com degradê.
+Changes only the theme colors. Then adjust each one below, with gradients.
+Cambia solo los colores del tema. Después ajuste cada uno abajo, con degradado.
+Cambia solo i colori del tema. Poi regola ciascuno qui sotto, con sfumatura.
+Ändert nur die Farben des Designs. Danach jede Farbe unten anpassen, auch mit Verlauf.
+
+Cores do tema
+Theme colors
+Colores del tema
+Colori del tema
+Farben des Designs
+
+Cor principal
+Main color
+Color principal
+Colore principale
+Hauptfarbe
+
+A barra do nome.
+The name bar.
+La barra del nombre.
+La barra del nome.
+Die Namensleiste.
+
+Selo superior, barra inferior, cartão, agenda e redes; e a barra do cargo.
+Corner badge, bottom bar, card, schedule and social; and the role bar.
+Sello superior, barra inferior, tarjeta, agenda y redes; y la barra del cargo.
+Badge superiore, barra inferiore, scheda, agenda e social; e la barra del ruolo.
+Eck-Badge, untere Leiste, Karte, Termine und Social Media; und die Funktionsleiste.
+
+Os detalhes de todos os elementos.
+The details of every element.
+Los detalles de todos los elementos.
+I dettagli di tutti gli elementi.
+Die Details aller Elemente.
+
+Fonte e forma
+Font and shape
+Fuente y forma
+Carattere e forma
+Schrift und Form
+
+Fonte de todos os elementos
+Font of every element
+Fuente de todos los elementos
+Carattere di tutti gli elementi
+Schrift aller Elemente
+
+Quem segue o tema
+Who follows the theme
+Quién sigue el tema
+Chi segue il tema
+Wer dem Design folgt
+
+Todos os elementos obedecem ao tema global. Para um deles ter cores, fonte ou efeitos diferentes, mude para "Aparência própria".
+Every element obeys the global theme. For one of them to have different colors, font or effects, switch it to "Own appearance".
+Todos los elementos obedecen al tema global. Para que uno tenga colores, fuente o efectos distintos, cámbielo a "Apariencia propia".
+Tutti gli elementi seguono il tema globale. Perché uno abbia colori, carattere o effetti diversi, passa ad "Aspetto proprio".
+Alle Elemente folgen dem globalen Design. Für abweichende Farben, Schrift oder Effekte ein Element auf „Eigenes Aussehen“ umstellen.
+
+Segue o tema
+Follows the theme
+Sigue el tema
+Segue il tema
+Folgt dem Design
+
+Abre as configurações deste elemento
+Opens the settings of this element
+Abre los ajustes de este elemento
+Apre le impostazioni di questo elemento
+Öffnet die Einstellungen dieses Elements
+
+Endereços para copiar
+Addresses to copy
+Direcciones para copiar
+Indirizzi da copiare
+Adressen zum Kopieren
+
+Copia o endereço para colar no OBS
+Copies the address to paste into OBS
+Copia la dirección para pegarla en OBS
+Copia l'indirizzo da incollare in OBS
+Kopiert die Adresse zum Einfügen in OBS
+
+Copiado
+Copied
+Copiado
+Copiato
+Kopiert
+
+Gráficos: fonte de navegador com todos os elementos
+Graphics: browser source with every element
+Gráficos: fuente de navegador con todos los elementos
+Grafica: sorgente browser con tutti gli elementi
+Grafiken: Browserquelle mit allen Elementen
+
+No OBS: Fontes → + → Navegador. Largura {w}, altura {h}.
+In OBS: Sources → + → Browser. Width {w}, height {h}.
+En OBS: Fuentes → + → Navegador. Ancho {w}, alto {h}.
+In OBS: Fonti → + → Browser. Larghezza {w}, altezza {h}.
+In OBS: Quellen → + → Browser. Breite {w}, Höhe {h}.
+
+Painel de controle: dock do OBS
+Control panel: OBS dock
+Panel de control: dock de OBS
+Pannello di controllo: dock di OBS
+Bedienfeld: OBS-Dock
+
+No OBS: menu Docks → Docks de navegador personalizados.
+In OBS: Docks menu → Custom Browser Docks.
+En OBS: menú Paneles → Paneles de navegador personalizados.
+In OBS: menu Pannelli → Pannelli browser personalizzati.
+In OBS: Menü Docks → Benutzerdefinierte Browser-Docks.
+
+Como funciona
+How it works
+Cómo funciona
+Come funziona
+So funktioniert es
+
+O Church Lower Thirds coloca nomes, avisos, QR Code e o logo da igreja por cima do vídeo no OBS Studio. São três partes:
+Church Lower Thirds puts names, notices, QR codes and the church logo over the video in OBS Studio. There are three parts:
+Church Lower Thirds pone nombres, avisos, código QR y el logo de la iglesia sobre el video en OBS Studio. Son tres partes:
+Church Lower Thirds mette nomi, avvisi, codice QR e il logo della chiesa sopra il video in OBS Studio. Le parti sono tre:
+Church Lower Thirds legt Namen, Hinweise, QR-Code und das Gemeindelogo über das Video in OBS Studio. Es besteht aus drei Teilen:
+
+O programa
+The program
+El programa
+Il programma
+Das Programm
+
+Fica rodando no computador, sem janela, e inicia com o Windows. É ele que guarda as configurações.
+It runs on the computer, without a window, and starts with Windows. It is what keeps the settings.
+Queda funcionando en el equipo, sin ventana, y se inicia con Windows. Es el que guarda los ajustes.
+Resta in esecuzione sul computer, senza finestra, e si avvia con Windows. È lui a conservare le impostazioni.
+Es läuft ohne Fenster auf dem Computer und startet mit Windows. Es speichert die Einstellungen.
+
+Os gráficos
+The graphics
+Los gráficos
+La grafica
+Die Grafiken
+
+Uma fonte de navegador no OBS. É o que aparece na transmissão, com fundo transparente.
+A browser source in OBS. It is what appears on the stream, with a transparent background.
+Una fuente de navegador en OBS. Es lo que aparece en la transmisión, con fondo transparente.
+Una sorgente browser in OBS. È ciò che appare nella diretta, con sfondo trasparente.
+Eine Browserquelle in OBS. Sie erscheint im Stream, mit transparentem Hintergrund.
+
+O painel
+The panel
+El panel
+Il pannello
+Das Bedienfeld
+
+Um dock dentro do OBS. É onde você clica para mostrar e esconder cada coisa durante o culto.
+A dock inside OBS. It is where you click to show and hide each thing during the service.
+Un dock dentro de OBS. Es donde hace clic para mostrar y ocultar cada cosa durante el culto.
+Un dock dentro OBS. È dove fai clic per mostrare e nascondere ogni cosa durante il culto.
+Ein Dock in OBS. Dort blenden Sie während des Gottesdienstes alles per Klick ein und aus.
+
+Esta página de configurações serve para preparar tudo com calma. Durante o culto você usa só o painel do OBS.
+This settings page is for preparing everything calmly. During the service you only use the OBS panel.
+Esta página de ajustes sirve para preparar todo con calma. Durante el culto usa solo el panel de OBS.
+Questa pagina di impostazioni serve a preparare tutto con calma. Durante il culto usi solo il pannello di OBS.
+Auf dieser Einstellungsseite bereiten Sie alles in Ruhe vor. Im Gottesdienst nutzen Sie nur das OBS-Bedienfeld.
+
+O assistente leva uns cinco minutos. Dá para pular qualquer passo e voltar depois.
+The assistant takes about five minutes. You can skip any step and come back later.
+El asistente lleva unos cinco minutos. Puede saltar cualquier paso y volver después.
+L'assistente richiede circa cinque minuti. Puoi saltare qualsiasi passo e tornarci dopo.
+Der Assistent dauert etwa fünf Minuten. Jeder Schritt lässt sich überspringen und später nachholen.
+
+Sua igreja
+Your church
+Su iglesia
+La tua chiesa
+Ihre Gemeinde
+
+O nome e o logo aparecem no selo do canto, nos nomes e no cartão do QR Code.
+The name and logo appear on the corner badge, on the names and on the QR code card.
+El nombre y el logo aparecen en el sello de la esquina, en los nombres y en la tarjeta del código QR.
+Il nome e il logo compaiono nel badge d'angolo, nei nomi e nella scheda del codice QR.
+Name und Logo erscheinen im Eck-Badge, bei den Namen und auf der QR-Code-Karte.
+
+Escolha um ponto de partida. Todos os elementos seguem este tema; depois, cada um pode ter a própria aparência.
+Choose a starting point. Every element follows this theme; later, each one can have its own appearance.
+Elija un punto de partida. Todos los elementos siguen este tema; después, cada uno puede tener su propia apariencia.
+Scegli un punto di partenza. Tutti gli elementi seguono questo tema; poi ciascuno può avere un aspetto proprio.
+Wählen Sie einen Ausgangspunkt. Alle Elemente folgen diesem Design; später kann jedes ein eigenes Aussehen erhalten.
+
+Contribuição
+Giving
+Ofrenda
+Offerta
+Spende
+
+Como a igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão. Se não for usar, pule este passo.
+How the church receives tithes and offerings. The QR code and the details appear on the card. If you will not use it, skip this step.
+Cómo recibe la iglesia diezmos y ofrendas. El código QR y los datos aparecen en la tarjeta. Si no lo va a usar, salte este paso.
+Come la chiesa riceve decime e offerte. Il codice QR e i dati compaiono nella scheda. Se non ti serve, salta questo passo.
+Wie die Gemeinde Zehnten und Kollekte erhält. QR-Code und Angaben erscheinen auf der Karte. Wenn nicht benötigt, diesen Schritt überspringen.
+
+Os demais campos e o teste do QR Code ficam em "Geral e contribuições".
+The other fields and the QR code test are in "General and giving".
+Los demás campos y la prueba del código QR están en "General y ofrendas".
+Gli altri campi e la prova del codice QR sono in "Generale e offerte".
+Die übrigen Felder und der QR-Code-Test stehen unter „Allgemein und Spenden“.
+
+Gráficos no OBS
+Graphics in OBS
+Gráficos en OBS
+Grafica in OBS
+Grafiken in OBS
+
+Cole o endereço abaixo no campo URL.
+Paste the address below into the URL field.
+Pegue la dirección de abajo en el campo URL.
+Incolla l'indirizzo qui sotto nel campo URL.
+Die Adresse unten in das Feld URL einfügen.
+
+Este endereço mostra todos os elementos numa fonte só. Para separar por cena, há um endereço para cada elemento em "OBS e atalhos".
+This address shows every element in a single source. To separate them by scene, there is an address for each element in "OBS and shortcuts".
+Esta dirección muestra todos los elementos en una sola fuente. Para separarlos por escena, hay una dirección para cada elemento en "OBS y atajos".
+Questo indirizzo mostra tutti gli elementi in un'unica sorgente. Per separarli per scena, c'è un indirizzo per ogni elemento in "OBS e scorciatoie".
+Diese Adresse zeigt alle Elemente in einer einzigen Quelle. Für die Trennung nach Szenen gibt es unter „OBS und Kurzbefehle“ eine Adresse pro Element.
+
+Painel no OBS
+Panel in OBS
+Panel en OBS
+Pannello in OBS
+Bedienfeld in OBS
+
+Encaixe o painel onde preferir: ele se ajusta a um espaço alto ou largo.
+Dock the panel wherever you prefer: it adapts to a tall or a wide space.
+Acople el panel donde prefiera: se ajusta a un espacio alto o ancho.
+Aggancia il pannello dove preferisci: si adatta a uno spazio alto o largo.
+Das Bedienfeld beliebig andocken: Es passt sich hohem oder breitem Platz an.
+
+A engrenagem do painel abre esta página de configurações.
+The gear on the panel opens this settings page.
+El engranaje del panel abre esta página de ajustes.
+L'ingranaggio del pannello apre questa pagina di impostazioni.
+Das Zahnrad im Bedienfeld öffnet diese Einstellungsseite.
+
+Teste
+Test
+Prueba
+Prova
+Test
+
+Com a fonte e o painel no OBS, faça um teste: o nome abaixo tem de aparecer no vídeo.
+With the source and the panel in OBS, run a test: the name below must appear on the video.
+Con la fuente y el panel en OBS, haga una prueba: el nombre de abajo tiene que aparecer en el video.
+Con la sorgente e il pannello in OBS, fai una prova: il nome qui sotto deve comparire nel video.
+Mit Quelle und Bedienfeld in OBS einen Test machen: Der Name unten muss im Video erscheinen.
+
+Mostrar um nome de teste
+Show a test name
+Mostrar un nombre de prueba
+Mostra un nome di prova
+Testnamen einblenden
+
+Não apareceu no OBS?
+Did it not appear in OBS?
+¿No apareció en OBS?
+Non è comparso in OBS?
+Nicht in OBS erschienen?
+
+A fonte de navegador precisa estar por cima das câmeras, na cena que está no ar.
+The browser source must be above the cameras, in the scene that is on air.
+La fuente de navegador tiene que estar por encima de las cámaras, en la escena que está al aire.
+La sorgente browser deve stare sopra le telecamere, nella scena in onda.
+Die Browserquelle muss über den Kameras liegen, in der Szene, die gerade läuft.
+
+Confira a largura e a altura da fonte.
+Check the width and height of the source.
+Verifique el ancho y el alto de la fuente.
+Controlla larghezza e altezza della sorgente.
+Breite und Höhe der Quelle prüfen.
+
+Clique com o botão direito na fonte e escolha Atualizar.
+Right-click the source and choose Refresh.
+Haga clic derecho en la fuente y elija Actualizar.
+Fai clic destro sulla sorgente e scegli Aggiorna.
+Mit der rechten Maustaste auf die Quelle klicken und Aktualisieren wählen.
+
+Pronto. Os textos, os modelos e as posições de cada elemento ficam no menu à esquerda. Este assistente pode ser aberto de novo na Visão geral.
+Done. The texts, models and positions of each element are in the menu on the left. This assistant can be opened again from the Overview.
+Listo. Los textos, los modelos y las posiciones de cada elemento están en el menú de la izquierda. Este asistente se puede abrir de nuevo en el Resumen.
+Fatto. I testi, i modelli e le posizioni di ogni elemento sono nel menu a sinistra. Questo assistente si può riaprire dalla Panoramica.
+Fertig. Texte, Vorlagen und Positionen jedes Elements stehen im Menü links. Dieser Assistent lässt sich in der Übersicht erneut öffnen.
+
+Assistente de configuração
+Setup assistant
+Asistente de configuración
+Assistente di configurazione
+Einrichtungsassistent
+
+Fecha o assistente. Ele pode ser aberto de novo na Visão geral.
+Closes the assistant. It can be opened again from the Overview.
+Cierra el asistente. Se puede abrir de nuevo en el Resumen.
+Chiude l'assistente. Si può riaprire dalla Panoramica.
+Schließt den Assistenten. Er lässt sich in der Übersicht erneut öffnen.
+
+Fechar
+Close
+Cerrar
+Chiudi
+Schließen
+
+Pular o assistente
+Skip the assistant
+Saltar el asistente
+Salta l'assistente
+Assistent überspringen
+
+Voltar
+Back
+Volver
+Indietro
+Zurück
+
+Concluir
+Finish
+Finalizar
+Fine
+Fertigstellen
+
+Avançar
+Next
+Siguiente
+Avanti
+Weiter

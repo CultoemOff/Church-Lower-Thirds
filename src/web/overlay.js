@@ -8,6 +8,7 @@ import {
   rgba,
   shadowCss,
   SOCIAL_ICONS,
+  themed,
 } from './js/look.js';
 
 // The browser source page. Everything is laid out on a 1920x1080 stage (1080x1920 with
@@ -98,12 +99,12 @@ function place(el) {
 function lowerItem() {
   const items = config.lower.items;
   const quick = config.lower.quick;
-  if (preview === 'lower' || edit)
+  if (preview === 'lower' || preview === 'theme' || edit)
     return items.find((i) => i.id === params.get('item')) || items[0] || quick;
   return live.lower.item === 'quick' ? quick : items.find((i) => i.id === live.lower.item);
 }
 function renderLower() {
-  const c = config.lower,
+  const c = themed(config, 'lower'),
     item = lowerItem(),
     root = roots.lower,
     box = $('lower', '.box');
@@ -152,11 +153,11 @@ let messageIndex = -1,
   messageTimer = 0,
   messageKey = '';
 const topMessages = () => {
-  const c = config.top;
+  const c = themed(config, 'top');
   return c.pinned ? [c.pinned] : c.showMessages ? c.messages : [];
 };
 function nextMessage(first = false) {
-  const c = config.top,
+  const c = themed(config, 'top'),
     span = $('top', '.msg span'),
     list = topMessages();
   if (!list.length) return void (span.textContent = '');
@@ -178,7 +179,7 @@ const LOCALES = { 'pt-BR': 'pt-BR', 'pt-PT': 'pt-PT', es: 'es', en: 'en-US', it:
 const locale = () => LOCALES[config.language] || navigator.language || 'pt-BR';
 function tick() {
   if (!config) return;
-  const c = config.top,
+  const c = themed(config, 'top'),
     now = new Date(),
     time = (seconds) =>
       now.toLocaleTimeString(locale(), {
@@ -195,7 +196,7 @@ function tick() {
 }
 setInterval(tick, 1000);
 function renderTop() {
-  const c = config.top,
+  const c = themed(config, 'top'),
     root = roots.top,
     box = $('top', '.box');
   root.dataset.template = c.template;
@@ -238,7 +239,7 @@ function renderTop() {
 
 // ---- QR card ----
 function renderCard() {
-  const c = config.card,
+  const c = themed(config, 'card'),
     root = roots.card,
     box = $('card', '.box');
   root.dataset.template = c.template;
@@ -306,7 +307,7 @@ function renderBug() {
 // ---- Bottom bar: text that scrolls all the time ----
 let tickerKey = '';
 function renderTicker() {
-  const c = config.ticker,
+  const c = themed(config, 'ticker'),
     root = roots.ticker,
     box = $('ticker', '.box');
   root.dataset.template = c.template;
@@ -424,7 +425,7 @@ const sideOf = (pos) =>
         ? 'top'
         : 'bottom';
 function renderAgenda() {
-  const c = config.agenda,
+  const c = themed(config, 'agenda'),
     root = roots.agenda;
   root.dataset.template = c.template;
   root.dataset.pos =
@@ -455,7 +456,7 @@ function renderAgenda() {
 
 // ---- Social networks ----
 function renderSocial() {
-  const c = config.social,
+  const c = themed(config, 'social'),
     root = roots.social,
     item =
       preview === 'social' || edit
@@ -502,6 +503,8 @@ const onShow = { agenda: startAgenda };
 const wanted = (el) => {
   if (only?.length && !only.includes(el)) return false;
   if (edit) return true;
+  // ?preview=theme: the main elements together, to judge the global look.
+  if (preview === 'theme') return ['lower', 'top', 'ticker', 'card'].includes(el);
   return preview ? preview === el : !!live[el].on;
 };
 

@@ -132,6 +132,19 @@ export default {
     'Envie o logo da igreja no separador "Geral e contribuições" para usar este elemento.',
   'Escreva o link da contribuição nas configurações.':
     'Escreva o link da contribuição nas definições.',
+  'Nome, logo, idioma, tempo na tela e a forma de contribuir: PIX, transferência, link ou dados bancários.':
+    'Nome, logo, idioma, tempo no ecrã e a forma de contribuir: PIX, transferência, link ou dados bancários.',
+  'Abre as configurações deste elemento': 'Abre as definições deste elemento',
+  'Fica rodando no computador, sem janela, e inicia com o Windows. É ele que guarda as configurações.':
+    'Fica a correr no computador, sem janela, e inicia com o Windows. É ele que guarda as definições.',
+  'Esta página de configurações serve para preparar tudo com calma. Durante o culto você usa só o painel do OBS.':
+    'Esta página de definições serve para preparar tudo com calma. Durante o culto usa apenas o painel do OBS.',
+  'O assistente leva uns cinco minutos. Dá para pular qualquer passo e voltar depois.':
+    'O assistente demora uns cinco minutos. Pode saltar qualquer passo e voltar depois.',
+  'A engrenagem do painel abre esta página de configurações.':
+    'A engrenagem do painel abre esta página de definições.',
+  'A fonte de navegador precisa estar por cima das câmeras, na cena que está no ar.':
+    'A fonte de navegador precisa estar por cima das câmaras, na cena que está no ar.',
   'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui você confere e ajusta a aparência.':
     'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui pode conferir e ajustar o aspeto.',
   'Use o mesmo tamanho do vídeo do seu OBS. Os gráficos se ajustam sozinhos: tudo o que você configurou fica igual em qualquer um deles.':
@@ -153,4 +166,13 @@ export default {
   'Contribuições: dízimos e ofertas': 'Contribuições: dízimos e ofertas',
   'Link: página de doações ou serviço de pagamentos':
     'Ligação: página de donativos ou serviço de pagamentos',
+  'Um dock dentro do OBS. É onde você clica para mostrar e esconder cada coisa durante o culto.':
+    'Uma dock dentro do OBS. É onde clica para mostrar e esconder cada coisa durante o culto.',
+  'Pular o assistente': 'Saltar o assistente',
+  'Com a fonte e o painel no OBS, faça um teste: o nome abaixo tem de aparecer no vídeo.':
+    'Com a fonte e o painel no OBS, faça um teste: o nome abaixo tem de aparecer no vídeo.',
+  'Clique com o botão direito na fonte e escolha Atualizar.':
+    'Clique com o botão direito na fonte e escolha Atualizar.',
+  'Como a igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão. Se não for usar, pule este passo.':
+    'Como a igreja recebe dízimos e ofertas. O código QR e os dados aparecem no cartão. Se não for usar, salte este passo.',
 };
