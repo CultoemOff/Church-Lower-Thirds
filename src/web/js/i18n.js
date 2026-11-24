@@ -20,7 +20,7 @@ export const LANGUAGES = [
 const DICTS = { 'pt-PT': ptPT, es, en, it, de };
 
 /** 'auto' follows the computer: Portuguese of Portugal or Brazil, or English as a fallback. */
-export function resolveLanguage(choice, browser = navigator.language || 'pt-BR') {
+function resolveLanguage(choice, browser = navigator.language || 'pt-BR') {
   if (choice && choice !== 'auto' && (choice === 'pt-BR' || DICTS[choice])) return choice;
   const b = browser.toLowerCase();
   if (b.startsWith('pt')) return b === 'pt-pt' ? 'pt-PT' : 'pt-BR';

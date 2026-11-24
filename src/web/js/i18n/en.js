@@ -5,8 +5,6 @@ export default {
     'Time on screen: how long names, QR code and social networks stay before leaving by themselves',
   'Tirar tudo do ar': 'Take everything off air',
   'Tema claro / escuro': 'Light / dark theme',
-  'Configurações avançadas: abre no navegador (modelos, cores, fontes, PIX, logo)':
-    'Advanced settings: opens in the browser (styles, colors, fonts, PIX, logo)',
   'Conectando…': 'Connecting…',
   Prévia: 'Preview',
   'Repetir animação': 'Replay animation',
@@ -17,7 +15,6 @@ export default {
   'Mostra ou esconde este elemento no OBS agora': 'Shows or hides this element in OBS now',
   Nomes: 'Names',
   'Nomes e legendas (lower third)': 'Names and captions (lower third)',
-  'Cartão com QR Code do PIX ou de um link': 'Card with the PIX QR code or a link QR code',
   Superior: 'Top',
   'Selo no canto da tela: logo, nome, AO VIVO, horário e recados':
     'Badge in a corner of the screen: logo, name, LIVE, time and messages',
@@ -50,8 +47,6 @@ export default {
   'Link do QR Code: https://…': 'QR code link: https://…',
   Título: 'Title',
   'Texto de apoio': 'Supporting text',
-  'QR Code do PIX da igreja (a chave fica nas configurações)':
-    "QR code of the church's PIX (the key is in the settings)",
   'QR Code que abre um site, uma inscrição, uma rede social…':
     'QR code that opens a site, a sign-up form, a social network…',
   'Escreva o link do QR Code.': 'Type the QR code link.',
@@ -61,7 +56,6 @@ export default {
   'Guarda este QR Code na lista': 'Keeps this QR code in the list',
   'QR Codes salvos': 'Saved QR codes',
   'Clique para mostrar este QR Code': 'Click to show this QR code',
-  'PIX da igreja': "Church's PIX",
   'Salve aqui o PIX e os links que você mais usa.': 'Save here the PIX and the links you use most.',
   'O que aparece no selo': 'What shows in the badge',
   'Mostra só este texto agora, no lugar da lista (Enter)':
@@ -157,18 +151,13 @@ export default {
   Brilho: 'Glow',
   'Visão geral': 'Overview',
   'O que está no ar agora e os primeiros passos.': 'What is on air now and the first steps.',
-  'Geral e PIX': 'General and PIX',
   Igreja: 'Church',
-  'Nome, logo, idioma, temas, tempo na tela e a chave PIX.':
-    'Name, logo, language, themes, time on screen and the PIX key.',
   Elementos: 'Elements',
   'O lower third: nome e legenda de quem está falando.':
     'The lower third: name and caption of whoever is speaking.',
   'Selo num canto da tela com logo, nome, AO VIVO e horário.':
     'Badge in a corner of the screen with logo, name, LIVE and time.',
   'Texto rolando o tempo todo na parte de baixo.': 'Text scrolling all the time at the bottom.',
-  'Cartão QR / PIX': 'QR / PIX card',
-  'Cartão com o QR Code do PIX ou de um link.': 'Card with the PIX QR code or a link QR code.',
   'Dias e horários dos cultos, um dia de cada vez.': 'Service days and times, one day at a time.',
   'Redes sociais': 'Social networks',
   '"Siga-nos no…" com o @ da igreja.': '"Follow us on…" with the church\'s @.',
@@ -179,10 +168,7 @@ export default {
     'Drag each element into place and adjust its size.',
   'OBS e atalhos': 'OBS and shortcuts',
   Instalação: 'Setup',
-  'Fontes de navegador, painel do OBS, resoluções e atalhos.':
-    'Browser sources, OBS dock, resolutions and shortcuts.',
   Backup: 'Backup',
-  'Salvar e restaurar tudo num arquivo.': 'Save and restore everything in one file.',
   Leve: 'Light',
   Normal: 'Regular',
   Médio: 'Medium',
@@ -256,10 +242,6 @@ export default {
   'O QR Code leva para': 'The QR code leads to',
   'Um link (site, inscrição, redes sociais)': 'A link (site, sign-up, social networks)',
   'Link do QR Code': 'QR code link',
-  'Cores aplicadas ao lower third, à barra e ao cartão.':
-    'Colors applied to the lower third, the bar and the card.',
-  'Preencha a chave para gerar o QR Code.': 'Fill in the key to create the QR code.',
-  'QR Code do PIX': 'PIX QR code',
   'Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o nome que aparece.':
     'Test before the service: point the bank app at this QR code and check the name it shows.',
   'PIX copia e cola:': 'PIX copy and paste:',
@@ -273,7 +255,6 @@ export default {
   'Escreva o nome da igreja': 'Type the church name',
   Abrir: 'Open',
   'Envie o logo da igreja': 'Upload the church logo',
-  'Cadastre a chave PIX': 'Enter the PIX key',
   'Adicione as fontes e o painel no OBS': 'Add the sources and the dock in OBS',
   'Ver como': 'See how',
   'Arraste os elementos para o lugar': 'Drag the elements into place',
@@ -282,24 +263,18 @@ export default {
   'Esta pasta guarda as configurações, os nomes, as imagens e os arquivos das fontes do OBS. Copie a pasta inteira para fazer backup.':
     'This folder keeps the settings, the names, the images and the OBS source files. Copy the whole folder to back it up.',
   'Nome da igreja': 'Church name',
-  'Fonte geral': 'General font',
   'Sem logo': 'No logo',
   'Trocar logo': 'Change logo',
   'Enviar logo': 'Upload logo',
   'PNG com fundo transparente fica melhor. Até 8 MB.':
     'A PNG with a transparent background looks best. Up to 8 MB.',
   Temas: 'Themes',
-  'Um tema troca o modelo, as cores e a fonte de todos os elementos de uma vez.':
-    'A theme changes the style, the colors and the font of every element at once.',
   'Tempo na tela': 'Time on screen',
   'Nomes, QR Code e redes saem sozinhos depois de':
     'Names, QR code and social networks leave by themselves after',
   '0 = ficam na tela até você esconder. O mesmo tempo pode ser trocado no painel do OBS.':
     '0 = they stay on screen until you hide them. The same time can be changed in the OBS dock.',
   'Cores prontas': 'Ready-made colors',
-  'Aplica estas cores a todos os elementos': 'Applies these colors to every element',
-  'É só um ponto de partida: cada elemento tem as próprias cores, com degradê, na aba dele.':
-    'It is only a starting point: each element has its own colors, with gradients, on its page.',
   'Como gerar o QR Code': 'How to create the QR code',
   'Pela chave PIX': 'From the PIX key',
   'Colar o "PIX copia e cola" do banco': 'Paste the bank\'s "PIX copia e cola" code',
@@ -314,16 +289,12 @@ export default {
   'Identificador (opcional)': 'Identifier (optional)',
   'Ex.: OFERTA': 'E.g. OFFERING',
   'PIX copia e cola': 'PIX copy and paste',
-  'Texto mostrado ao lado do QR Code': 'Text shown beside the QR code',
-  'Ex.: CNPJ 12.345.678/0001-90': 'E.g. CNPJ 12.345.678/0001-90',
-  'Vazio: mostra a chave.': 'Empty: shows the key.',
   Modelo: 'Style',
   'Nomes e textos': 'Names and texts',
   'Cargo ou texto': 'Role or text',
   'Mostra o logo da igreja neste lower third': 'Shows the church logo in this lower third',
   'QR Code neste lower third': 'QR code in this lower third',
   'Sem QR': 'No QR',
-  'QR do PIX': 'PIX QR',
   'QR de link': 'Link QR',
   'Ver este na prévia': 'See this one in the preview',
   Ver: 'View',
@@ -371,8 +342,6 @@ export default {
   Conteúdo: 'Content',
   'Mostrar a chave (ou o link) por escrito': 'Show the key (or the link) in writing',
   'QR Code com pontos arredondados': 'QR code with rounded dots',
-  'Para o PIX, a chave e o texto ao lado do QR Code ficam na aba "Geral e PIX".':
-    'For PIX, the key and the text beside the QR code are on the "General and PIX" page.',
   'Cor do cartão': 'Card color',
   'Peso do título': 'Title weight',
   'Textos (um por linha)': 'Texts (one per line)',
@@ -407,8 +376,6 @@ export default {
   'Os ícones do programa são genéricos (câmera, play, pessoas…), não os logotipos oficiais das redes. Para usar o ícone oficial, envie a imagem em "Ícone…".':
     'The program\'s icons are generic (camera, play, people…), not the networks\' official logos. To use the official icon, upload the image in "Icon…".',
   'Texto de cima': 'Top text',
-  'Envie o logo da igreja na aba "Geral e PIX" para usar este elemento.':
-    'Upload the church logo on the "General and PIX" page to use this element.',
   'Logo no canto da tela': 'Logo in a corner of the screen',
   Canto: 'Corner',
   Largura: 'Width',
@@ -422,7 +389,6 @@ export default {
     'The bottom bar and the full-width styles (Newscast, Wide strip and Center panel) do not move.',
   'Voltar ao lugar padrão:': 'Back to the default place:',
   'Nenhum elemento foi movido ainda.': 'No element has been moved yet.',
-  'Copiado.': 'Copied.',
   Copiar: 'Copy',
   'Todos os elementos': 'All elements',
   'Tamanho das fontes no OBS': 'Size of the sources in OBS',
@@ -430,7 +396,6 @@ export default {
   'Vídeo vertical (9:16)': 'Vertical video (9:16)',
   'Use o mesmo tamanho do vídeo do seu OBS. Os gráficos se ajustam sozinhos: tudo o que você configurou fica igual em qualquer um deles.':
     'Use the same size as the video in your OBS. The graphics adjust by themselves: everything you set up looks the same at any of them.',
-  '1. Os gráficos (fonte de navegador)': '1. The graphics (browser source)',
   Horizontal: 'Horizontal',
   Vertical: 'Vertical',
   'No OBS, em Fontes, clique em + e escolha Navegador.':
@@ -445,11 +410,10 @@ export default {
   Endereço: 'Address',
   '"All Elements" mostra tudo numa fonte só. Os outros arquivos mostram um elemento cada, para você separar por cena. Não use os dois na mesma cena: o elemento apareceria duas vezes.':
     '"All Elements" shows everything in a single source. The other files show one element each, so you can split them by scene. Do not use both in the same scene: the element would show twice.',
-  '2. O painel (dock)': '2. The control panel (dock)',
   'No OBS, abra o menu Docks → Docks de navegador personalizados.':
     'In OBS, open the Docks menu → Custom Browser Docks.',
-  'Dê o nome "Lower Third" e cole o endereço abaixo.':
-    'Name it "Lower Third" and paste the address below.',
+  'Dê o nome "Church Lower Thirds" e cole o endereço abaixo.':
+    'Name it "Church Lower Thirds" and paste the address below.',
   'Encaixe o painel onde preferir: ele se ajusta a um espaço alto ou largo. A engrenagem dele abre esta página.':
     'Dock the panel wherever you like: it adapts to a tall or a wide space. Its gear opens this page.',
   'Stream Deck, Companion e outros': 'Stream Deck, Companion and others',
@@ -538,4 +502,250 @@ export default {
   'O programa já está atualizado.': 'The program is already up to date.',
   'Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.':
     "Each user of the computer has their own folder and their own settings: one never changes another's.",
+  'Cartão com QR Code: a contribuição da igreja ou um link':
+    "Card with a QR code: the church's giving or a link",
+  Oferta: 'Giving',
+  'QR Code da contribuição da igreja: PIX, transferência, link ou imagem (escolha nas configurações)':
+    "QR code of the church's giving: PIX, bank transfer, link or image (choose in the settings)",
+  'Contribuição da igreja': 'Church giving',
+  'Geral e contribuições': 'General and giving',
+  'Cartão QR / Oferta': 'QR / Giving card',
+  'Cartão com o QR Code da contribuição ou de um link.':
+    'Card with the QR code for giving or for a link.',
+  'Preencha os dados acima para ver o resultado.': 'Fill in the details above to see the result.',
+  'Os dados acima aparecem no cartão, sem QR Code.':
+    'The details above appear on the card, without a QR code.',
+  'Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o titular e o IBAN que aparecem.':
+    'Test before the service: point the banking app at this QR code and check the account holder and IBAN it shows.',
+  'Teste antes do culto: aponte a câmera do celular para este QR Code e confira a página que abre.':
+    'Test before the service: point a phone camera at this QR code and check the page that opens.',
+  'Teste antes do culto: aponte o celular para a tela e confira se o QR Code da imagem é lido.':
+    'Test before the service: point a phone at the screen and check that the QR code in the image is read.',
+  'QR Code da contribuição': 'Giving QR code',
+  'Conteúdo do QR Code:': 'What the QR code holds:',
+  'Cadastre a forma de contribuir': 'Set up how people give',
+  'Contribuições: dízimos e ofertas': 'Giving: tithes and offerings',
+  'Como as pessoas contribuem': 'How people give',
+  'PIX (Brasil)': 'PIX (Brazil)',
+  'Transferência bancária SEPA (zona do euro)': 'SEPA bank transfer (euro area)',
+  'Link: página de doações ou serviço de pagamentos': 'Link: giving page or payment service',
+  'Imagem de QR Code pronta, do banco ou do aplicativo':
+    'Ready-made QR code image, from the bank or the app',
+  'Só os dados bancários, sem QR Code': 'Bank details only, no QR code',
+  'Titular da conta': 'Account holder',
+  'Como está na conta do banco.': 'As it appears on the bank account.',
+  'BIC / SWIFT (opcional)': 'BIC / SWIFT (optional)',
+  'Valor fixo em euros (opcional)': 'Fixed amount in euros (optional)',
+  'Descrição da transferência (opcional)': 'Transfer description (optional)',
+  'Ex.: Oferta': 'E.g.: Offering',
+  'Link da contribuição': 'Giving link',
+  'Qualquer endereço serve: a página de doações da igreja ou o link de um serviço de pagamentos do seu país.':
+    "Any address works: the church's giving page or the link of a payment service in your country.",
+  'Imagem do QR Code': 'QR code image',
+  'Tira a imagem enviada': 'Removes the uploaded image',
+  'Use a imagem que o banco ou o aplicativo de pagamentos gerou para a igreja. Fundo branco e boa resolução leem melhor.':
+    'Use the image the bank or payment app generated for the church. A white background and good resolution scan better.',
+  'Dados bancários mostrados no cartão': 'Bank details shown on the card',
+  'Dados mostrados ao lado do QR Code': 'Details shown beside the QR code',
+  'Uma informação por linha: banco, conta, titular…': 'One item per line: bank, account, holder…',
+  'Uma informação por linha, até 6 linhas. Vazio: mostra a chave PIX, o IBAN ou o link.':
+    'One item per line, up to 6 lines. Empty: shows the PIX key, the IBAN or the link.',
+  'QR da contribuição': 'Giving QR',
+  'A forma de contribuir e os dados ao lado do QR Code ficam na aba "Geral e contribuições".':
+    'How people give and the details beside the QR code are in the "General and giving" tab.',
+  'Envie o logo da igreja na aba "Geral e contribuições" para usar este elemento.':
+    'Upload the church logo in the "General and giving" tab to use this element.',
+  'Escreva o link da contribuição nas configurações.': 'Enter the giving link in the settings.',
+  'Escreva o nome do titular da conta.': "Enter the account holder's name.",
+  'IBAN inválido: confira as letras e os números.': 'Invalid IBAN: check the letters and numbers.',
+  'BIC inválido: são 8 ou 11 caracteres, ou deixe vazio.':
+    'Invalid BIC: it has 8 or 11 characters, or leave it empty.',
+  'Valor inválido: use um número como 25,00.': 'Invalid amount: use a number like 25.00.',
+  'Envie a imagem do QR Code.': 'Upload the QR code image.',
+  'Escreva os dados bancários que vão aparecer.': 'Enter the bank details to show.',
+  'Nome, logo, idioma, tempo na tela e a forma de contribuir: PIX, transferência, link ou dados bancários.':
+    'Name, logo, language, time on screen and how people give: PIX, bank transfer, link or bank details.',
+  'Tema global': 'Global theme',
+  'As cores, a fonte e a forma que todos os elementos seguem. Cada elemento pode ter a própria aparência.':
+    'The colors, font and shape every element follows. Each element can have its own appearance.',
+  Aparência: 'Appearance',
+  'Seguir o tema global': 'Follow the global theme',
+  'Cores, fonte, cantos, sombra e opacidade vêm do tema global':
+    'Colors, font, corners, shadow and opacity come from the global theme',
+  'Aparência própria': 'Own appearance',
+  'Este elemento passa a ter as próprias cores, fonte e efeitos':
+    'This element gets its own colors, font and effects',
+  'Este elemento usa as cores, a fonte e os efeitos escolhidos abaixo. O tema global não mexe nele.':
+    'This element uses the colors, font and effects chosen below. The global theme does not touch it.',
+  'Cores, fonte, cantos, sombra e opacidade vêm do tema global.':
+    'Colors, font, corners, shadow and opacity come from the global theme.',
+  'Abrir o tema global': 'Open the global theme',
+  'Cores aplicadas ao tema global.': 'Colors applied to the global theme.',
+  'O assistente explica como o programa funciona e ajuda a deixar tudo pronto, passo a passo.':
+    'The assistant explains how the program works and helps you get everything ready, step by step.',
+  'Abrir o assistente': 'Open the assistant',
+  'Endereços para o OBS': 'Addresses for OBS',
+  'Ver o endereço de cada elemento': 'See the address of each element',
+  'Temas prontos': 'Ready-made themes',
+  'Troca só as cores do tema global': 'Changes only the colors of the global theme',
+  'Troca só as cores do tema. Depois ajuste cada uma abaixo, com degradê.':
+    'Changes only the theme colors. Then adjust each one below, with gradients.',
+  'Cores do tema': 'Theme colors',
+  'Cor principal': 'Main color',
+  'A barra do nome.': 'The name bar.',
+  'Selo superior, barra inferior, cartão, agenda e redes; e a barra do cargo.':
+    'Corner badge, bottom bar, card, schedule and social; and the role bar.',
+  'Os detalhes de todos os elementos.': 'The details of every element.',
+  'Fonte e forma': 'Font and shape',
+  'Fonte de todos os elementos': 'Font of every element',
+  'Quem segue o tema': 'Who follows the theme',
+  'Todos os elementos obedecem ao tema global. Para um deles ter cores, fonte ou efeitos diferentes, mude para "Aparência própria".':
+    'Every element obeys the global theme. For one of them to have different colors, font or effects, switch it to "Own appearance".',
+  'Segue o tema': 'Follows the theme',
+  'Abre as configurações deste elemento': 'Opens the settings of this element',
+  'Endereços para copiar': 'Addresses to copy',
+  'Copia o endereço para colar no OBS': 'Copies the address to paste into OBS',
+  Copiado: 'Copied',
+  'Gráficos: fonte de navegador com todos os elementos':
+    'Graphics: browser source with every element',
+  'No OBS: Fontes → + → Navegador. Largura {w}, altura {h}.':
+    'In OBS: Sources → + → Browser. Width {w}, height {h}.',
+  'Painel de controle: dock do OBS': 'Control panel: OBS dock',
+  'No OBS: menu Docks → Docks de navegador personalizados.':
+    'In OBS: Docks menu → Custom Browser Docks.',
+  'Como funciona': 'How it works',
+  'O Church Lower Thirds coloca nomes, avisos, QR Code e o logo da igreja por cima do vídeo no OBS Studio. São três partes:':
+    'Church Lower Thirds puts names, notices, QR codes and the church logo over the video in OBS Studio. There are three parts:',
+  'O programa': 'The program',
+  'Fica rodando no computador, sem janela, e inicia com o Windows. É ele que guarda as configurações.':
+    'It runs on the computer, without a window, and starts with Windows. It is what keeps the settings.',
+  'Os gráficos': 'The graphics',
+  'Uma fonte de navegador no OBS. É o que aparece na transmissão, com fundo transparente.':
+    'A browser source in OBS. It is what appears on the stream, with a transparent background.',
+  'O painel': 'The panel',
+  'Um dock dentro do OBS. É onde você clica para mostrar e esconder cada coisa durante o culto.':
+    'A dock inside OBS. It is where you click to show and hide each thing during the service.',
+  'Esta página de configurações serve para preparar tudo com calma. Durante o culto você usa só o painel do OBS.':
+    'This settings page is for preparing everything calmly. During the service you only use the OBS panel.',
+  'Sua igreja': 'Your church',
+  'O nome e o logo aparecem no selo do canto, nos nomes e no cartão do QR Code.':
+    'The name and logo appear on the corner badge, on the names and on the QR code card.',
+  Contribuição: 'Giving',
+  'Como a igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão. Se não for usar, pule este passo.':
+    'How the church receives tithes and offerings. The QR code and the details appear on the card. If you will not use it, skip this step.',
+  'Os demais campos e o teste do QR Code ficam em "Geral e contribuições".':
+    'The other fields and the QR code test are in "General and giving".',
+  'Gráficos no OBS': 'Graphics in OBS',
+  'Cole o endereço abaixo no campo URL.': 'Paste the address below into the URL field.',
+  'Este endereço mostra todos os elementos numa fonte só. Para separar por cena, há um endereço para cada elemento em "OBS e atalhos".':
+    'This address shows every element in a single source. To separate them by scene, there is an address for each element in "OBS and shortcuts".',
+  'Painel no OBS': 'Panel in OBS',
+  'Encaixe o painel onde preferir: ele se ajusta a um espaço alto ou largo.':
+    'Dock the panel wherever you prefer: it adapts to a tall or a wide space.',
+  'A engrenagem do painel abre esta página de configurações.':
+    'The gear on the panel opens this settings page.',
+  Teste: 'Test',
+  'Com a fonte e o painel no OBS, faça um teste: o nome abaixo tem de aparecer no vídeo.':
+    'With the source and the panel in OBS, run a test: the name below must appear on the video.',
+  'Mostrar um nome de teste': 'Show a test name',
+  'Não apareceu no OBS?': 'Did it not appear in OBS?',
+  'A fonte de navegador precisa estar por cima das câmeras, na cena que está no ar.':
+    'The browser source must be above the cameras, in the scene that is on air.',
+  'Confira a largura e a altura da fonte.': 'Check the width and height of the source.',
+  'Clique com o botão direito na fonte e escolha Atualizar.':
+    'Right-click the source and choose Refresh.',
+  'Pronto. Os textos, os modelos e as posições de cada elemento ficam no menu à esquerda. Este assistente pode ser aberto de novo na Visão geral.':
+    'Done. The texts, models and positions of each element are in the menu on the left. This assistant can be opened again from the Overview.',
+  'Assistente de configuração': 'Setup assistant',
+  'Fecha o assistente. Ele pode ser aberto de novo na Visão geral.':
+    'Closes the assistant. It can be opened again from the Overview.',
+  Fechar: 'Close',
+  'Pular o assistente': 'Skip the assistant',
+  Voltar: 'Back',
+  Concluir: 'Finish',
+  Avançar: 'Next',
+  'Fixar: o que você mostrar nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
+    'Pin: what you show on this tab stays on screen until you hide it, even when the time ends',
+  'Configurações avançadas: abre no navegador (modelos, cores, fontes, contribuições, logo)':
+    'Advanced settings: opens in the browser (models, colors, fonts, giving, logo)',
+  'Mostra ou esconde uma prévia de como o elemento desta aba aparece na tela':
+    'Shows or hides a preview of how the element of this tab appears on screen',
+  'Endereços para o OBS, tutorial, resoluções e atalhos.':
+    'Addresses for OBS, tutorial, resolutions and shortcuts.',
+  'Salvar e restaurar tudo num arquivo, ou voltar às configurações iniciais.':
+    'Save and restore everything in a file, or go back to the initial settings.',
+  'Azul institucional': 'Institutional blue',
+  'Barra azul com detalhe dourado: o visual clássico de transmissão':
+    'Blue bar with a golden detail: the classic broadcast look',
+  'Blocos retos e fortes, vermelho e azul-marinho, como nos noticiários':
+    'Straight, strong blocks in red and navy, as in news programs',
+  Minimalista: 'Minimalist',
+  'Quase só texto, com uma linha fina: discreto, para não disputar com a imagem':
+    'Almost only text, with a thin line: discreet, so it does not compete with the picture',
+  'Clássico dourado': 'Golden classic',
+  'Fonte serifada, preto quente e dourado: solene, para cultos tradicionais':
+    'Serif font, warm black and gold: solemn, for traditional services',
+  'Luz da manhã': 'Morning light',
+  'Branco e claro, com laranja suave e formas arredondadas':
+    'White and light, with soft orange and rounded shapes',
+  Neon: 'Neon',
+  'Fundo escuro com brilho ciano e violeta: jovem e tecnológico':
+    'Dark background with a cyan and violet glow: young and techy',
+  Arena: 'Arena',
+  'Faixa inclinada, letras altas e cores quentes, no estilo das transmissões esportivas':
+    'Slanted band, tall letters and warm colors, in the style of sports broadcasts',
+  Jardim: 'Garden',
+  'Verdes profundos com detalhe em verde-claro e amarelo, fonte serifada suave':
+    'Deep greens with a light green and yellow detail, soft serif font',
+  'Vinho real': 'Royal burgundy',
+  'Vinho e dourado com letras de inscrição: festivo e solene':
+    'Burgundy and gold with inscription-style letters: festive and solemn',
+  Aurora: 'Aurora',
+  'Degradê roxo e rosa com detalhe ciano: moderno e vibrante':
+    'Purple and pink gradient with a cyan detail: modern and vibrant',
+  'Cinza-escuro com um toque de vermelho: sóbrio, combina com qualquer logo':
+    'Dark gray with a touch of red: sober, goes with any logo',
+  'Azul-petróleo e azul, com detalhe em água-marinha': 'Teal and blue, with an aquamarine detail',
+  'Aplicativo de pagamento por telefone ou código': 'Payment app by phone number or code',
+  'Nome do aplicativo': 'App name',
+  'O aplicativo que as pessoas usam no seu país para enviar dinheiro pelo celular.':
+    'The app people in your country use to send money from their phone.',
+  'Telefone, código ou e-mail que recebe': 'Phone, code or e-mail that receives',
+  'Imagem do QR Code (opcional)': 'QR code image (optional)',
+  'Escolha como a sua igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão e nos nomes marcados com "Contribuição da igreja".':
+    'Choose how your church receives tithes and offerings. The QR code and the details appear on the card and on the names marked "Church giving".',
+  'Escolha um e está pronto: cada tema traz o modelo, as cores e a fonte de todos os elementos. Depois, se quiser, ajuste os detalhes abaixo.':
+    'Pick one and you are done: each theme brings the model, colors and font of every element. Then, if you like, adjust the details below.',
+  'Abre o assistente no passo do OBS': 'Opens the assistant at the OBS step',
+  'Abrir o tutorial ilustrado': 'Open the illustrated tutorial',
+  '1. O painel de controle (dock)': '1. The control panel (dock)',
+  '2. Os gráficos (fonte de navegador)': '2. The graphics (browser source)',
+  'Restaurar as configurações iniciais': 'Restore the initial settings',
+  'Apaga tudo o que foi configurado: nomes, textos, tema, contribuição, posições e listas salvas. O programa volta a como estava na primeira vez e o assistente de configuração abre de novo.':
+    'Erases everything that was set up: names, texts, theme, giving, positions and saved lists. The program goes back to how it was the first time and the setup assistant opens again.',
+  'Não dá para desfazer. Salve um backup antes, se quiser guardar o que tem hoje.':
+    'This cannot be undone. Save a backup first if you want to keep what you have today.',
+  'Apagar tudo e recomeçar': 'Erase everything and start over',
+  'Só abrir o assistente': 'Just open the assistant',
+  '1. Painel de controle: dock do OBS': '1. Control panel: OBS dock',
+  '2. Gráficos: fonte de navegador com todos os elementos':
+    '2. Graphics: browser source with every element',
+  'Apagar TODAS as configurações, nomes e textos e recomeçar do zero? Isto não pode ser desfeito.':
+    'Erase ALL settings, names and texts and start from scratch? This cannot be undone.',
+  'Configurações iniciais restauradas.': 'Initial settings restored.',
+  'O assistente leva uns cinco minutos. Dá para pular um passo, ir direto a outro pela lista ao lado ou pular o assistente inteiro.':
+    'The assistant takes about five minutes. You can skip a step, jump straight to another one from the list on the side, or skip the whole assistant.',
+  'Escolha um tema e todos os elementos já ficam prontos. Depois dá para ajustar as cores em "Tema global" ou dar a um elemento a própria aparência.':
+    'Choose a theme and every element is ready. Later you can adjust the colors in "Global theme" or give an element its own appearance.',
+  'Deixa este passo para depois': 'Leaves this step for later',
+  'Pular este passo': 'Skip this step',
+  'Docks de navegador personalizados': 'Custom Browser Docks',
+  Aplicar: 'Apply',
+  Cenas: 'Scenes',
+  Fontes: 'Sources',
+  Navegador: 'Browser',
+  Propriedades: 'Properties',
+  Altura: 'Height',
+  Câmera: 'Camera',
+  Docks: 'Docks',
 };

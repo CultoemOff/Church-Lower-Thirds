@@ -5,8 +5,6 @@ export default {
     'Tempo a schermo: quanto restano nomi, codice QR e social prima di uscire da soli',
   'Tirar tudo do ar': 'Togli tutto dallo schermo',
   'Tema claro / escuro': 'Tema chiaro / scuro',
-  'Configurações avançadas: abre no navegador (modelos, cores, fontes, PIX, logo)':
-    'Impostazioni avanzate: si apre nel browser (modelli, colori, caratteri, PIX, logo)',
   'Conectando…': 'Connessione…',
   Prévia: 'Anteprima',
   'Repetir animação': 'Ripeti animazione',
@@ -17,7 +15,6 @@ export default {
   'Mostra ou esconde este elemento no OBS agora': 'Mostra o nasconde subito questo elemento in OBS',
   Nomes: 'Nomi',
   'Nomes e legendas (lower third)': 'Nomi e didascalie (lower third)',
-  'Cartão com QR Code do PIX ou de um link': 'Scheda con il codice QR del PIX o di un link',
   Superior: 'Alto',
   'Selo no canto da tela: logo, nome, AO VIVO, horário e recados':
     'Badge in un angolo dello schermo: logo, nome, IN DIRETTA, ora e avvisi',
@@ -51,8 +48,6 @@ export default {
   'Link do QR Code: https://…': 'Link del codice QR: https://…',
   Título: 'Titolo',
   'Texto de apoio': 'Testo di supporto',
-  'QR Code do PIX da igreja (a chave fica nas configurações)':
-    'Codice QR del PIX della chiesa (la chiave è nelle impostazioni)',
   'QR Code que abre um site, uma inscrição, uma rede social…':
     "Codice QR che apre un sito, un'iscrizione, un social…",
   'Escreva o link do QR Code.': 'Scrivi il link del codice QR.',
@@ -62,7 +57,6 @@ export default {
   'Guarda este QR Code na lista': 'Salva questo codice QR nella lista',
   'QR Codes salvos': 'Codici QR salvati',
   'Clique para mostrar este QR Code': 'Clic per mostrare questo codice QR',
-  'PIX da igreja': 'PIX della chiesa',
   'Salve aqui o PIX e os links que você mais usa.': 'Salva qui il PIX e i link che usi di più.',
   'O que aparece no selo': 'Cosa appare nel badge',
   'Mostra só este texto agora, no lugar da lista (Enter)':
@@ -158,18 +152,13 @@ export default {
   Brilho: 'Bagliore',
   'Visão geral': 'Panoramica',
   'O que está no ar agora e os primeiros passos.': 'Cosa è in onda ora e i primi passi.',
-  'Geral e PIX': 'Generale e PIX',
   Igreja: 'Chiesa',
-  'Nome, logo, idioma, temas, tempo na tela e a chave PIX.':
-    'Nome, logo, lingua, temi, tempo a schermo e la chiave PIX.',
   Elementos: 'Elementi',
   'O lower third: nome e legenda de quem está falando.':
     'Il lower third: nome e didascalia di chi sta parlando.',
   'Selo num canto da tela com logo, nome, AO VIVO e horário.':
     'Badge in un angolo dello schermo con logo, nome, IN DIRETTA e ora.',
   'Texto rolando o tempo todo na parte de baixo.': 'Testo che scorre continuamente in basso.',
-  'Cartão QR / PIX': 'Scheda QR / PIX',
-  'Cartão com o QR Code do PIX ou de um link.': 'Scheda con il codice QR del PIX o di un link.',
   'Dias e horários dos cultos, um dia de cada vez.':
     'Giorni e orari dei culti, un giorno alla volta.',
   'Redes sociais': 'Social',
@@ -181,10 +170,7 @@ export default {
     'Trascina ogni elemento al suo posto e regola la dimensione.',
   'OBS e atalhos': 'OBS e scorciatoie',
   Instalação: 'Installazione',
-  'Fontes de navegador, painel do OBS, resoluções e atalhos.':
-    'Sorgenti browser, pannello di OBS, risoluzioni e scorciatoie.',
   Backup: 'Backup',
-  'Salvar e restaurar tudo num arquivo.': 'Salva e ripristina tutto in un file.',
   Leve: 'Leggero',
   Normal: 'Normale',
   Médio: 'Medio',
@@ -259,10 +245,6 @@ export default {
   'O QR Code leva para': 'Il codice QR porta a',
   'Um link (site, inscrição, redes sociais)': 'Un link (sito, iscrizione, social)',
   'Link do QR Code': 'Link del codice QR',
-  'Cores aplicadas ao lower third, à barra e ao cartão.':
-    'Colori applicati al lower third, alla barra e alla scheda.',
-  'Preencha a chave para gerar o QR Code.': 'Inserisci la chiave per generare il codice QR.',
-  'QR Code do PIX': 'Codice QR del PIX',
   'Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o nome que aparece.':
     "Prova prima del culto: inquadra questo codice QR con l'app della banca e controlla il nome che appare.",
   'PIX copia e cola:': 'PIX copia e incolla:',
@@ -276,7 +258,6 @@ export default {
   'Escreva o nome da igreja': 'Scrivi il nome della chiesa',
   Abrir: 'Apri',
   'Envie o logo da igreja': 'Carica il logo della chiesa',
-  'Cadastre a chave PIX': 'Inserisci la chiave PIX',
   'Adicione as fontes e o painel no OBS': 'Aggiungi le sorgenti e il pannello in OBS',
   'Ver como': 'Vedi come',
   'Arraste os elementos para o lugar': 'Trascina gli elementi al loro posto',
@@ -285,23 +266,17 @@ export default {
   'Esta pasta guarda as configurações, os nomes, as imagens e os arquivos das fontes do OBS. Copie a pasta inteira para fazer backup.':
     "Questa cartella contiene le impostazioni, i nomi, le immagini e i file delle sorgenti di OBS. Copia l'intera cartella per fare un backup.",
   'Nome da igreja': 'Nome della chiesa',
-  'Fonte geral': 'Carattere generale',
   'Sem logo': 'Nessun logo',
   'Trocar logo': 'Cambia logo',
   'Enviar logo': 'Carica logo',
   'PNG com fundo transparente fica melhor. Até 8 MB.':
     'Un PNG con sfondo trasparente rende meglio. Fino a 8 MB.',
   Temas: 'Temi',
-  'Um tema troca o modelo, as cores e a fonte de todos os elementos de uma vez.':
-    'Un tema cambia modello, colori e carattere di tutti gli elementi in una volta.',
   'Tempo na tela': 'Tempo a schermo',
   'Nomes, QR Code e redes saem sozinhos depois de': 'Nomi, codice QR e social escono da soli dopo',
   '0 = ficam na tela até você esconder. O mesmo tempo pode ser trocado no painel do OBS.':
     '0 = restano a schermo finché non li nascondi. Lo stesso tempo si può cambiare dal pannello di OBS.',
   'Cores prontas': 'Colori pronti',
-  'Aplica estas cores a todos os elementos': 'Applica questi colori a tutti gli elementi',
-  'É só um ponto de partida: cada elemento tem as próprias cores, com degradê, na aba dele.':
-    'È solo un punto di partenza: ogni elemento ha i propri colori, con sfumatura, nella sua pagina.',
   'Como gerar o QR Code': 'Come generare il codice QR',
   'Pela chave PIX': 'Dalla chiave PIX',
   'Colar o "PIX copia e cola" do banco': 'Incolla il "PIX copia e cola" della banca',
@@ -316,16 +291,12 @@ export default {
   'Identificador (opcional)': 'Identificativo (facoltativo)',
   'Ex.: OFERTA': 'Es.: OFFERTA',
   'PIX copia e cola': 'PIX copia e incolla',
-  'Texto mostrado ao lado do QR Code': 'Testo mostrato accanto al codice QR',
-  'Ex.: CNPJ 12.345.678/0001-90': 'Es.: CNPJ 12.345.678/0001-90',
-  'Vazio: mostra a chave.': 'Vuoto: mostra la chiave.',
   Modelo: 'Modello',
   'Nomes e textos': 'Nomi e testi',
   'Cargo ou texto': 'Ruolo o testo',
   'Mostra o logo da igreja neste lower third': 'Mostra il logo della chiesa in questo lower third',
   'QR Code neste lower third': 'Codice QR in questo lower third',
   'Sem QR': 'Senza QR',
-  'QR do PIX': 'QR del PIX',
   'QR de link': 'QR di un link',
   'Ver este na prévia': "Vedi questo nell'anteprima",
   Ver: 'Vedi',
@@ -373,8 +344,6 @@ export default {
   Conteúdo: 'Contenuto',
   'Mostrar a chave (ou o link) por escrito': 'Mostra la chiave (o il link) per iscritto',
   'QR Code com pontos arredondados': 'Codice QR con punti arrotondati',
-  'Para o PIX, a chave e o texto ao lado do QR Code ficam na aba "Geral e PIX".':
-    'Per il PIX, la chiave e il testo accanto al codice QR sono in "Generale e PIX".',
   'Cor do cartão': 'Colore della scheda',
   'Peso do título': 'Spessore del titolo',
   'Textos (um por linha)': 'Testi (uno per riga)',
@@ -409,8 +378,6 @@ export default {
   'Os ícones do programa são genéricos (câmera, play, pessoas…), não os logotipos oficiais das redes. Para usar o ícone oficial, envie a imagem em "Ícone…".':
     'Le icone del programma sono generiche (fotocamera, play, persone…), non i loghi ufficiali dei social. Per usare l\'icona ufficiale, carica l\'immagine in "Icona…".',
   'Texto de cima': 'Testo sopra',
-  'Envie o logo da igreja na aba "Geral e PIX" para usar este elemento.':
-    'Carica il logo della chiesa in "Generale e PIX" per usare questo elemento.',
   'Logo no canto da tela': 'Logo in un angolo dello schermo',
   Canto: 'Angolo',
   Largura: 'Larghezza',
@@ -424,7 +391,6 @@ export default {
     'La barra inferiore e i modelli a tutta larghezza (Telegiornale, Fascia larga e Pannello centrale) non si spostano.',
   'Voltar ao lugar padrão:': 'Torna alla posizione predefinita:',
   'Nenhum elemento foi movido ainda.': 'Nessun elemento è stato ancora spostato.',
-  'Copiado.': 'Copiato.',
   Copiar: 'Copia',
   'Todos os elementos': 'Tutti gli elementi',
   'Tamanho das fontes no OBS': 'Dimensione delle sorgenti in OBS',
@@ -432,7 +398,6 @@ export default {
   'Vídeo vertical (9:16)': 'Video verticale (9:16)',
   'Use o mesmo tamanho do vídeo do seu OBS. Os gráficos se ajustam sozinhos: tudo o que você configurou fica igual em qualquer um deles.':
     'Usa la stessa dimensione del video del tuo OBS. La grafica si adatta da sola: tutto ciò che hai impostato resta uguale in ognuna.',
-  '1. Os gráficos (fonte de navegador)': '1. La grafica (sorgente browser)',
   Horizontal: 'Orizzontale',
   Vertical: 'Verticale',
   'No OBS, em Fontes, clique em + e escolha Navegador.':
@@ -447,11 +412,10 @@ export default {
   Endereço: 'Indirizzo',
   '"All Elements" mostra tudo numa fonte só. Os outros arquivos mostram um elemento cada, para você separar por cena. Não use os dois na mesma cena: o elemento apareceria duas vezes.':
     '"All Elements" mostra tutto in un\'unica sorgente. Gli altri file mostrano un elemento ciascuno, per separarli per scena. Non usare entrambi nella stessa scena: l\'elemento apparirebbe due volte.',
-  '2. O painel (dock)': '2. Il pannello (dock)',
   'No OBS, abra o menu Docks → Docks de navegador personalizados.':
     'In OBS, apri il menu Pannelli → Pannelli browser personalizzati.',
-  'Dê o nome "Lower Third" e cole o endereço abaixo.':
-    'Chiamalo "Lower Third" e incolla l\'indirizzo qui sotto.',
+  'Dê o nome "Church Lower Thirds" e cole o endereço abaixo.':
+    'Chiamalo "Church Lower Thirds" e incolla l\'indirizzo qui sotto.',
   'Encaixe o painel onde preferir: ele se ajusta a um espaço alto ou largo. A engrenagem dele abre esta página.':
     'Aggancia il pannello dove preferisci: si adatta a uno spazio alto o largo. Il suo ingranaggio apre questa pagina.',
   'Stream Deck, Companion e outros': 'Stream Deck, Companion e altri',
@@ -541,4 +505,255 @@ export default {
   'O programa já está atualizado.': 'Il programma è già aggiornato.',
   'Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.':
     "Ogni utente del computer ha la propria cartella e le proprie impostazioni: uno non modifica quelle dell'altro.",
+  'Cartão com QR Code: a contribuição da igreja ou um link':
+    "Scheda con codice QR: l'offerta della chiesa o un link",
+  Oferta: 'Offerta',
+  'QR Code da contribuição da igreja: PIX, transferência, link ou imagem (escolha nas configurações)':
+    "Codice QR dell'offerta della chiesa: PIX, bonifico, link o immagine (scegli nelle impostazioni)",
+  'Contribuição da igreja': 'Offerta della chiesa',
+  'Geral e contribuições': 'Generale e offerte',
+  'Cartão QR / Oferta': 'Scheda QR / Offerta',
+  'Cartão com o QR Code da contribuição ou de um link.':
+    "Scheda con il codice QR dell'offerta o di un link.",
+  'Preencha os dados acima para ver o resultado.':
+    'Compila i dati qui sopra per vedere il risultato.',
+  'Os dados acima aparecem no cartão, sem QR Code.':
+    'I dati qui sopra compaiono nella scheda, senza codice QR.',
+  'Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o titular e o IBAN que aparecem.':
+    "Prova prima del culto: inquadra questo codice QR con l'app della banca e controlla l'intestatario e l'IBAN che compaiono.",
+  'Teste antes do culto: aponte a câmera do celular para este QR Code e confira a página que abre.':
+    'Prova prima del culto: inquadra questo codice QR con la fotocamera del telefono e controlla la pagina che si apre.',
+  'Teste antes do culto: aponte o celular para a tela e confira se o QR Code da imagem é lido.':
+    "Prova prima del culto: inquadra lo schermo con il telefono e controlla che il codice QR dell'immagine venga letto.",
+  'QR Code da contribuição': "Codice QR dell'offerta",
+  'Conteúdo do QR Code:': 'Contenuto del codice QR:',
+  'Cadastre a forma de contribuir': 'Imposta il modo di donare',
+  'Contribuições: dízimos e ofertas': 'Offerte: decime e offerte',
+  'Como as pessoas contribuem': 'Come donano le persone',
+  'PIX (Brasil)': 'PIX (Brasile)',
+  'Transferência bancária SEPA (zona do euro)': "Bonifico SEPA (area dell'euro)",
+  'Link: página de doações ou serviço de pagamentos':
+    'Link: pagina delle donazioni o servizio di pagamento',
+  'Imagem de QR Code pronta, do banco ou do aplicativo':
+    "Immagine del codice QR già pronta, della banca o dell'app",
+  'Só os dados bancários, sem QR Code': 'Solo le coordinate bancarie, senza codice QR',
+  'Titular da conta': 'Intestatario del conto',
+  'Como está na conta do banco.': 'Come risulta sul conto bancario.',
+  'BIC / SWIFT (opcional)': 'BIC / SWIFT (facoltativo)',
+  'Valor fixo em euros (opcional)': 'Importo fisso in euro (facoltativo)',
+  'Descrição da transferência (opcional)': 'Causale del bonifico (facoltativa)',
+  'Ex.: Oferta': 'Es.: Offerta',
+  'Link da contribuição': "Link dell'offerta",
+  'Qualquer endereço serve: a página de doações da igreja ou o link de um serviço de pagamentos do seu país.':
+    'Va bene qualsiasi indirizzo: la pagina delle donazioni della chiesa o il link di un servizio di pagamento del tuo paese.',
+  'Imagem do QR Code': 'Immagine del codice QR',
+  'Tira a imagem enviada': "Rimuove l'immagine caricata",
+  'Use a imagem que o banco ou o aplicativo de pagamentos gerou para a igreja. Fundo branco e boa resolução leem melhor.':
+    "Usa l'immagine generata per la chiesa dalla banca o dall'app di pagamento. Sfondo bianco e buona risoluzione si leggono meglio.",
+  'Dados bancários mostrados no cartão': 'Coordinate bancarie mostrate nella scheda',
+  'Dados mostrados ao lado do QR Code': 'Dati mostrati accanto al codice QR',
+  'Uma informação por linha: banco, conta, titular…':
+    'Un dato per riga: banca, conto, intestatario…',
+  'Uma informação por linha, até 6 linhas. Vazio: mostra a chave PIX, o IBAN ou o link.':
+    "Un dato per riga, fino a 6 righe. Vuoto: mostra la chiave PIX, l'IBAN o il link.",
+  'QR da contribuição': "QR dell'offerta",
+  'A forma de contribuir e os dados ao lado do QR Code ficam na aba "Geral e contribuições".':
+    'Il modo di donare e i dati accanto al codice QR sono nella scheda "Generale e offerte".',
+  'Envie o logo da igreja na aba "Geral e contribuições" para usar este elemento.':
+    'Carica il logo della chiesa nella scheda "Generale e offerte" per usare questo elemento.',
+  'Escreva o link da contribuição nas configurações.':
+    "Scrivi il link dell'offerta nelle impostazioni.",
+  'Escreva o nome do titular da conta.': "Scrivi il nome dell'intestatario del conto.",
+  'IBAN inválido: confira as letras e os números.': 'IBAN non valido: controlla lettere e numeri.',
+  'BIC inválido: são 8 ou 11 caracteres, ou deixe vazio.':
+    'BIC non valido: ha 8 o 11 caratteri, oppure lascialo vuoto.',
+  'Valor inválido: use um número como 25,00.': 'Importo non valido: usa un numero come 25,00.',
+  'Envie a imagem do QR Code.': "Carica l'immagine del codice QR.",
+  'Escreva os dados bancários que vão aparecer.': 'Scrivi le coordinate bancarie da mostrare.',
+  'Nome, logo, idioma, tempo na tela e a forma de contribuir: PIX, transferência, link ou dados bancários.':
+    'Nome, logo, lingua, tempo sullo schermo e il modo di donare: PIX, bonifico, link o coordinate bancarie.',
+  'Tema global': 'Tema globale',
+  'As cores, a fonte e a forma que todos os elementos seguem. Cada elemento pode ter a própria aparência.':
+    'I colori, il carattere e la forma seguiti da tutti gli elementi. Ogni elemento può avere un aspetto proprio.',
+  Aparência: 'Aspetto',
+  'Seguir o tema global': 'Segui il tema globale',
+  'Cores, fonte, cantos, sombra e opacidade vêm do tema global':
+    'Colori, carattere, angoli, ombra e opacità vengono dal tema globale',
+  'Aparência própria': 'Aspetto proprio',
+  'Este elemento passa a ter as próprias cores, fonte e efeitos':
+    'Questo elemento avrà colori, carattere ed effetti propri',
+  'Este elemento usa as cores, a fonte e os efeitos escolhidos abaixo. O tema global não mexe nele.':
+    'Questo elemento usa i colori, il carattere e gli effetti scelti qui sotto. Il tema globale non lo modifica.',
+  'Cores, fonte, cantos, sombra e opacidade vêm do tema global.':
+    'Colori, carattere, angoli, ombra e opacità vengono dal tema globale.',
+  'Abrir o tema global': 'Apri il tema globale',
+  'Cores aplicadas ao tema global.': 'Colori applicati al tema globale.',
+  'O assistente explica como o programa funciona e ajuda a deixar tudo pronto, passo a passo.':
+    "L'assistente spiega come funziona il programma e aiuta a preparare tutto, passo dopo passo.",
+  'Abrir o assistente': "Apri l'assistente",
+  'Endereços para o OBS': 'Indirizzi per OBS',
+  'Ver o endereço de cada elemento': "Vedi l'indirizzo di ogni elemento",
+  'Temas prontos': 'Temi pronti',
+  'Troca só as cores do tema global': 'Cambia solo i colori del tema globale',
+  'Troca só as cores do tema. Depois ajuste cada uma abaixo, com degradê.':
+    'Cambia solo i colori del tema. Poi regola ciascuno qui sotto, con sfumatura.',
+  'Cores do tema': 'Colori del tema',
+  'Cor principal': 'Colore principale',
+  'A barra do nome.': 'La barra del nome.',
+  'Selo superior, barra inferior, cartão, agenda e redes; e a barra do cargo.':
+    'Badge superiore, barra inferiore, scheda, agenda e social; e la barra del ruolo.',
+  'Os detalhes de todos os elementos.': 'I dettagli di tutti gli elementi.',
+  'Fonte e forma': 'Carattere e forma',
+  'Fonte de todos os elementos': 'Carattere di tutti gli elementi',
+  'Quem segue o tema': 'Chi segue il tema',
+  'Todos os elementos obedecem ao tema global. Para um deles ter cores, fonte ou efeitos diferentes, mude para "Aparência própria".':
+    'Tutti gli elementi seguono il tema globale. Perché uno abbia colori, carattere o effetti diversi, passa ad "Aspetto proprio".',
+  'Segue o tema': 'Segue il tema',
+  'Abre as configurações deste elemento': 'Apre le impostazioni di questo elemento',
+  'Endereços para copiar': 'Indirizzi da copiare',
+  'Copia o endereço para colar no OBS': "Copia l'indirizzo da incollare in OBS",
+  Copiado: 'Copiato',
+  'Gráficos: fonte de navegador com todos os elementos':
+    'Grafica: sorgente browser con tutti gli elementi',
+  'No OBS: Fontes → + → Navegador. Largura {w}, altura {h}.':
+    'In OBS: Fonti → + → Browser. Larghezza {w}, altezza {h}.',
+  'Painel de controle: dock do OBS': 'Pannello di controllo: dock di OBS',
+  'No OBS: menu Docks → Docks de navegador personalizados.':
+    'In OBS: menu Pannelli → Pannelli browser personalizzati.',
+  'Como funciona': 'Come funziona',
+  'O Church Lower Thirds coloca nomes, avisos, QR Code e o logo da igreja por cima do vídeo no OBS Studio. São três partes:':
+    'Church Lower Thirds mette nomi, avvisi, codice QR e il logo della chiesa sopra il video in OBS Studio. Le parti sono tre:',
+  'O programa': 'Il programma',
+  'Fica rodando no computador, sem janela, e inicia com o Windows. É ele que guarda as configurações.':
+    'Resta in esecuzione sul computer, senza finestra, e si avvia con Windows. È lui a conservare le impostazioni.',
+  'Os gráficos': 'La grafica',
+  'Uma fonte de navegador no OBS. É o que aparece na transmissão, com fundo transparente.':
+    'Una sorgente browser in OBS. È ciò che appare nella diretta, con sfondo trasparente.',
+  'O painel': 'Il pannello',
+  'Um dock dentro do OBS. É onde você clica para mostrar e esconder cada coisa durante o culto.':
+    'Un dock dentro OBS. È dove fai clic per mostrare e nascondere ogni cosa durante il culto.',
+  'Esta página de configurações serve para preparar tudo com calma. Durante o culto você usa só o painel do OBS.':
+    'Questa pagina di impostazioni serve a preparare tutto con calma. Durante il culto usi solo il pannello di OBS.',
+  'Sua igreja': 'La tua chiesa',
+  'O nome e o logo aparecem no selo do canto, nos nomes e no cartão do QR Code.':
+    "Il nome e il logo compaiono nel badge d'angolo, nei nomi e nella scheda del codice QR.",
+  Contribuição: 'Offerta',
+  'Como a igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão. Se não for usar, pule este passo.':
+    'Come la chiesa riceve decime e offerte. Il codice QR e i dati compaiono nella scheda. Se non ti serve, salta questo passo.',
+  'Os demais campos e o teste do QR Code ficam em "Geral e contribuições".':
+    'Gli altri campi e la prova del codice QR sono in "Generale e offerte".',
+  'Gráficos no OBS': 'Grafica in OBS',
+  'Cole o endereço abaixo no campo URL.': "Incolla l'indirizzo qui sotto nel campo URL.",
+  'Este endereço mostra todos os elementos numa fonte só. Para separar por cena, há um endereço para cada elemento em "OBS e atalhos".':
+    'Questo indirizzo mostra tutti gli elementi in un\'unica sorgente. Per separarli per scena, c\'è un indirizzo per ogni elemento in "OBS e scorciatoie".',
+  'Painel no OBS': 'Pannello in OBS',
+  'Encaixe o painel onde preferir: ele se ajusta a um espaço alto ou largo.':
+    'Aggancia il pannello dove preferisci: si adatta a uno spazio alto o largo.',
+  'A engrenagem do painel abre esta página de configurações.':
+    "L'ingranaggio del pannello apre questa pagina di impostazioni.",
+  Teste: 'Prova',
+  'Com a fonte e o painel no OBS, faça um teste: o nome abaixo tem de aparecer no vídeo.':
+    'Con la sorgente e il pannello in OBS, fai una prova: il nome qui sotto deve comparire nel video.',
+  'Mostrar um nome de teste': 'Mostra un nome di prova',
+  'Não apareceu no OBS?': 'Non è comparso in OBS?',
+  'A fonte de navegador precisa estar por cima das câmeras, na cena que está no ar.':
+    'La sorgente browser deve stare sopra le telecamere, nella scena in onda.',
+  'Confira a largura e a altura da fonte.': 'Controlla larghezza e altezza della sorgente.',
+  'Clique com o botão direito na fonte e escolha Atualizar.':
+    'Fai clic destro sulla sorgente e scegli Aggiorna.',
+  'Pronto. Os textos, os modelos e as posições de cada elemento ficam no menu à esquerda. Este assistente pode ser aberto de novo na Visão geral.':
+    'Fatto. I testi, i modelli e le posizioni di ogni elemento sono nel menu a sinistra. Questo assistente si può riaprire dalla Panoramica.',
+  'Assistente de configuração': 'Assistente di configurazione',
+  'Fecha o assistente. Ele pode ser aberto de novo na Visão geral.':
+    "Chiude l'assistente. Si può riaprire dalla Panoramica.",
+  Fechar: 'Chiudi',
+  'Pular o assistente': "Salta l'assistente",
+  Voltar: 'Indietro',
+  Concluir: 'Fine',
+  Avançar: 'Avanti',
+  'Fixar: o que você mostrar nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
+    'Blocca: ciò che mostri in questa scheda resta sullo schermo finché non lo nascondi, anche a tempo scaduto',
+  'Configurações avançadas: abre no navegador (modelos, cores, fontes, contribuições, logo)':
+    'Impostazioni avanzate: si apre nel browser (modelli, colori, caratteri, offerte, logo)',
+  'Mostra ou esconde uma prévia de como o elemento desta aba aparece na tela':
+    "Mostra o nasconde un'anteprima di come appare sullo schermo l'elemento di questa scheda",
+  'Endereços para o OBS, tutorial, resoluções e atalhos.':
+    'Indirizzi per OBS, tutorial, risoluzioni e scorciatoie.',
+  'Salvar e restaurar tudo num arquivo, ou voltar às configurações iniciais.':
+    'Salva e ripristina tutto in un file, oppure torna alle impostazioni iniziali.',
+  'Azul institucional': 'Blu istituzionale',
+  'Barra azul com detalhe dourado: o visual clássico de transmissão':
+    'Barra blu con dettaglio dorato: il classico aspetto televisivo',
+  'Blocos retos e fortes, vermelho e azul-marinho, como nos noticiários':
+    'Blocchi netti e decisi, rosso e blu navy, come nei telegiornali',
+  Minimalista: 'Minimalista',
+  'Quase só texto, com uma linha fina: discreto, para não disputar com a imagem':
+    "Quasi solo testo, con una linea sottile: discreto, per non competere con l'immagine",
+  'Clássico dourado': 'Classico dorato',
+  'Fonte serifada, preto quente e dourado: solene, para cultos tradicionais':
+    'Carattere con grazie, nero caldo e oro: solenne, per culti tradizionali',
+  'Luz da manhã': 'Luce del mattino',
+  'Branco e claro, com laranja suave e formas arredondadas':
+    'Bianco e chiaro, con arancione tenue e forme arrotondate',
+  Neon: 'Neon',
+  'Fundo escuro com brilho ciano e violeta: jovem e tecnológico':
+    'Sfondo scuro con bagliore ciano e viola: giovane e tecnologico',
+  Arena: 'Arena',
+  'Faixa inclinada, letras altas e cores quentes, no estilo das transmissões esportivas':
+    'Fascia inclinata, lettere alte e colori caldi, nello stile delle trasmissioni sportive',
+  Jardim: 'Giardino',
+  'Verdes profundos com detalhe em verde-claro e amarelo, fonte serifada suave':
+    'Verdi profondi con dettaglio verde chiaro e giallo, carattere con grazie morbido',
+  'Vinho real': 'Bordeaux reale',
+  'Vinho e dourado com letras de inscrição: festivo e solene':
+    'Bordeaux e oro con lettere da iscrizione: festoso e solenne',
+  Aurora: 'Aurora',
+  'Degradê roxo e rosa com detalhe ciano: moderno e vibrante':
+    'Sfumatura viola e rosa con dettaglio ciano: moderno e vivace',
+  'Cinza-escuro com um toque de vermelho: sóbrio, combina com qualquer logo':
+    'Grigio scuro con un tocco di rosso: sobrio, si abbina a qualsiasi logo',
+  'Azul-petróleo e azul, com detalhe em água-marinha':
+    'Blu petrolio e blu, con dettaglio acquamarina',
+  'Aplicativo de pagamento por telefone ou código': 'App di pagamento tramite telefono o codice',
+  'Nome do aplicativo': "Nome dell'app",
+  'O aplicativo que as pessoas usam no seu país para enviar dinheiro pelo celular.':
+    "L'app che le persone usano nel tuo paese per inviare denaro dal telefono.",
+  'Telefone, código ou e-mail que recebe': 'Telefono, codice o e-mail che riceve',
+  'Imagem do QR Code (opcional)': 'Immagine del codice QR (facoltativa)',
+  'Escolha como a sua igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão e nos nomes marcados com "Contribuição da igreja".':
+    'Scegli come la tua chiesa riceve decime e offerte. Il codice QR e i dati compaiono nella scheda e nei nomi contrassegnati con "Offerta della chiesa".',
+  'Escolha um e está pronto: cada tema traz o modelo, as cores e a fonte de todos os elementos. Depois, se quiser, ajuste os detalhes abaixo.':
+    'Scegline uno ed è fatta: ogni tema porta modello, colori e carattere di tutti gli elementi. Poi, se vuoi, regola i dettagli qui sotto.',
+  'Abre o assistente no passo do OBS': "Apre l'assistente al passo di OBS",
+  'Abrir o tutorial ilustrado': 'Apri il tutorial illustrato',
+  '1. O painel de controle (dock)': '1. Il pannello di controllo (dock)',
+  '2. Os gráficos (fonte de navegador)': '2. La grafica (sorgente browser)',
+  'Restaurar as configurações iniciais': 'Ripristina le impostazioni iniziali',
+  'Apaga tudo o que foi configurado: nomes, textos, tema, contribuição, posições e listas salvas. O programa volta a como estava na primeira vez e o assistente de configuração abre de novo.':
+    "Cancella tutto ciò che è stato configurato: nomi, testi, tema, offerta, posizioni ed elenchi salvati. Il programma torna com'era la prima volta e l'assistente di configurazione si riapre.",
+  'Não dá para desfazer. Salve um backup antes, se quiser guardar o que tem hoje.':
+    'Non si può annullare. Salva prima un backup se vuoi conservare ciò che hai oggi.',
+  'Apagar tudo e recomeçar': 'Cancella tutto e ricomincia',
+  'Só abrir o assistente': "Apri solo l'assistente",
+  '1. Painel de controle: dock do OBS': '1. Pannello di controllo: dock di OBS',
+  '2. Gráficos: fonte de navegador com todos os elementos':
+    '2. Grafica: sorgente browser con tutti gli elementi',
+  'Apagar TODAS as configurações, nomes e textos e recomeçar do zero? Isto não pode ser desfeito.':
+    'Cancellare TUTTE le impostazioni, i nomi e i testi e ricominciare da zero? Non si può annullare.',
+  'Configurações iniciais restauradas.': 'Impostazioni iniziali ripristinate.',
+  'O assistente leva uns cinco minutos. Dá para pular um passo, ir direto a outro pela lista ao lado ou pular o assistente inteiro.':
+    "L'assistente richiede circa cinque minuti. Puoi saltare un passo, andare direttamente a un altro dall'elenco a lato o saltare tutto l'assistente.",
+  'Escolha um tema e todos os elementos já ficam prontos. Depois dá para ajustar as cores em "Tema global" ou dar a um elemento a própria aparência.':
+    'Scegli un tema e tutti gli elementi sono pronti. Poi puoi regolare i colori in "Tema globale" o dare a un elemento un aspetto proprio.',
+  'Deixa este passo para depois': 'Lascia questo passo per dopo',
+  'Pular este passo': 'Salta questo passo',
+  'Docks de navegador personalizados': 'Pannelli browser personalizzati',
+  Aplicar: 'Applica',
+  Cenas: 'Scene',
+  Fontes: 'Fonti',
+  Navegador: 'Browser',
+  Propriedades: 'Proprietà',
+  Altura: 'Altezza',
+  Câmera: 'Telecamera',
+  Docks: 'Pannelli',
 };

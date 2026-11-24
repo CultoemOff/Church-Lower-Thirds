@@ -18,11 +18,11 @@ export const SOURCES = [
   { slug: 'logo', file: 'Logo', element: 'bug' },
 ] as const;
 
-export const SOURCES_FOLDER = 'OBS Sources';
+const SOURCES_FOLDER = 'OBS Sources';
 export const sourceFileName = (file: string, vertical: boolean) =>
   `${file}${vertical ? ' (Vertical)' : ''}.html`;
 
-export function sourceHtml(title: string, baseUrl: string, path: string) {
+function sourceHtml(title: string, baseUrl: string, path: string) {
   return `<!doctype html>
 <html>
   <head>

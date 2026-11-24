@@ -38,12 +38,95 @@ export const fontCss = (font) =>
   'system-ui, "Segoe UI", Roboto, sans-serif';
 
 export function qrUrl(kind, text, { round = false, stamp = '' } = {}) {
-  const p = new URLSearchParams({ kind: kind === 'pix' ? 'pix' : 'text', margin: '1' });
-  if (kind !== 'pix') p.set('text', text || '');
+  const p = new URLSearchParams({ kind: kind === 'giving' ? 'giving' : 'text', margin: '1' });
+  if (kind !== 'giving') p.set('text', text || '');
   if (round) p.set('round', '1');
   if (stamp) p.set('v', stamp);
   return `/api/qr.svg?${p}`;
 }
+
+export const THEMED_ELEMENTS = ['lower', 'top', 'ticker', 'card', 'agenda', 'social'];
+/** What the global theme decides for an element that follows it. */
+export const THEMED_KEYS = [
+  'fill',
+  'fill2',
+  'accent',
+  'text',
+  'text1',
+  'text2',
+  'font',
+  'radius',
+  'opacity',
+  'shadow',
+  'shadowStrength',
+];
+/**
+ * The look an element really uses: its own settings when it was switched to its own
+ * appearance, otherwise the global theme (main color on the name bar, background color on
+ * everything else, one accent and one font for all).
+ */
+export function themed(config, el) {
+  const e = config[el],
+    t = config.theme;
+  if (!t || e.custom || !THEMED_ELEMENTS.includes(el)) return e;
+  const shared = {
+    accent: t.accent,
+    font: '',
+    radius: t.radius,
+    opacity: t.opacity,
+    shadow: t.shadow,
+    shadowStrength: t.shadowStrength,
+  };
+  if (el === 'lower')
+    return { ...e, ...shared, fill: t.main, fill2: t.surface, text1: t.text1, text2: t.text2 };
+  return {
+    ...e,
+    ...shared,
+    fill: t.surface,
+    text: t.text1,
+    ...('text2' in e ? { text2: t.text2 } : {}),
+  };
+}
+
+/**
+ * The church's contribution QR: generated (PIX, SEPA transfer or a link), the image the
+ * bank or app gave the church, or none when only the bank details are shown.
+ */
+export function givingQr(config, options) {
+  const g = config.giving;
+  // A payment app works by phone number or code; its QR, when the church has one, is an image.
+  if (g.method === 'image' || g.method === 'app') return g.image;
+  if (g.method === 'text') return '';
+  return qrUrl('giving', '', options);
+}
+
+/** Text beside that QR: the bank details typed in the settings, or what the QR stands for. */
+export function givingText(config) {
+  const g = config.giving;
+  if (g.details) return g.details;
+  if (g.method === 'pix') return config.pix.mode === 'key' ? config.pix.key : '';
+  if (g.method === 'app') return [g.app.name, g.app.id].filter(Boolean).join(': ');
+  if (g.method === 'sepa')
+    return g.sepa.iban
+      .replace(/\s+/g, '')
+      .toUpperCase()
+      .replace(/(.{4})(?=.)/g, '$1 ');
+  if (g.method === 'link') return g.link.replace(/^https?:\/\//, '').replace(/\/$/, '');
+  return '';
+}
+
+/** Short tag for lists: what kind of contribution QR the church uses. */
+export const givingTag = (config) =>
+  ({ pix: 'PIX', sepa: 'SEPA', link: 'QR', image: 'QR', text: 'TXT' })[config.giving.method] ||
+  config.giving.app.name.slice(0, 10).toUpperCase() ||
+  'QR';
+/** What the offering is called on buttons: PIX in Brazil, the local app elsewhere. */
+export const givingName = (config) =>
+  config.giving.method === 'pix'
+    ? 'PIX'
+    : config.giving.method === 'app' && config.giving.app.name
+      ? config.giving.app.name
+      : '';
 
 export const LOWER_TEMPLATES = [
   'classic',

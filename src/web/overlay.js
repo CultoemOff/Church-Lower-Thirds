@@ -1,4 +1,15 @@
-import { fillCss, fontCss, onColor, qrUrl, rgba, shadowCss, SOCIAL_ICONS } from './js/look.js';
+import {
+  fillCss,
+  fontCss,
+  givingQr,
+  givingText,
+  onColor,
+  qrUrl,
+  rgba,
+  shadowCss,
+  SOCIAL_ICONS,
+  themed,
+} from './js/look.js';
 
 // The browser source page. Everything is laid out on a 1920x1080 stage (1080x1920 with
 // ?layout=vertical) and scaled to the source size, so the same settings look the same at
@@ -33,7 +44,7 @@ const roots = Object.fromEntries(
 const $ = (el, sel) => roots[el].querySelector(sel);
 let config = null,
   live = null,
-  pixStamp = '';
+  givingStamp = '';
 const shown = { lower: {}, top: {}, card: {}, bug: {}, ticker: {}, agenda: {}, social: {} };
 
 function fit() {
@@ -53,6 +64,15 @@ function setImage(img, src) {
   if (img.getAttribute('src') !== src)
     src ? img.setAttribute('src', src) : img.removeAttribute('src');
 }
+// In the previews of the settings, a QR that cannot be made yet (the church has not filled
+// in how it receives) shows a sample one, so the layout can still be judged. On air an
+// incomplete QR stays empty: nothing wrong is ever broadcast.
+const SAMPLE_QR = qrUrl('url', 'https://example.org');
+if (preview)
+  for (const img of document.querySelectorAll('.card .qrw img, .lower .qr img'))
+    img.addEventListener('error', () => {
+      if (img.getAttribute('src') !== SAMPLE_QR) img.setAttribute('src', SAMPLE_QR);
+    });
 const font = (c) => fontCss(c.font || config.brand.font);
 // Elements enter from the edge they sit on.
 const from = { left: [-1, 0], right: [1, 0], center: [0, 1], top: [0, -1], bottom: [0, 1] };
@@ -88,12 +108,12 @@ function place(el) {
 function lowerItem() {
   const items = config.lower.items;
   const quick = config.lower.quick;
-  if (preview === 'lower' || edit)
+  if (preview === 'lower' || preview === 'theme' || edit)
     return items.find((i) => i.id === params.get('item')) || items[0] || quick;
   return live.lower.item === 'quick' ? quick : items.find((i) => i.id === live.lower.item);
 }
 function renderLower() {
-  const c = config.lower,
+  const c = themed(config, 'lower'),
     item = lowerItem(),
     root = roots.lower,
     box = $('lower', '.box');
@@ -120,8 +140,8 @@ function renderLower() {
   if (!item) return '';
   const logo = item.logo && config.brand.logo,
     qr =
-      item.qr === 'pix'
-        ? qrUrl('pix', '', { stamp: pixStamp })
+      item.qr === 'giving'
+        ? givingQr(config, { stamp: givingStamp })
         : item.qr === 'url' && item.qrText
           ? qrUrl('url', item.qrText)
           : '';
@@ -142,11 +162,11 @@ let messageIndex = -1,
   messageTimer = 0,
   messageKey = '';
 const topMessages = () => {
-  const c = config.top;
+  const c = themed(config, 'top');
   return c.pinned ? [c.pinned] : c.showMessages ? c.messages : [];
 };
 function nextMessage(first = false) {
-  const c = config.top,
+  const c = themed(config, 'top'),
     span = $('top', '.msg span'),
     list = topMessages();
   if (!list.length) return void (span.textContent = '');
@@ -168,7 +188,7 @@ const LOCALES = { 'pt-BR': 'pt-BR', 'pt-PT': 'pt-PT', es: 'es', en: 'en-US', it:
 const locale = () => LOCALES[config.language] || navigator.language || 'pt-BR';
 function tick() {
   if (!config) return;
-  const c = config.top,
+  const c = themed(config, 'top'),
     now = new Date(),
     time = (seconds) =>
       now.toLocaleTimeString(locale(), {
@@ -185,7 +205,7 @@ function tick() {
 }
 setInterval(tick, 1000);
 function renderTop() {
-  const c = config.top,
+  const c = themed(config, 'top'),
     root = roots.top,
     box = $('top', '.box');
   root.dataset.template = c.template;
@@ -228,11 +248,12 @@ function renderTop() {
 
 // ---- QR card ----
 function renderCard() {
-  const c = config.card,
+  const c = themed(config, 'card'),
     root = roots.card,
     box = $('card', '.box');
   root.dataset.template = c.template;
-  root.dataset.pos = c.position;
+  // In the theme preview several elements show together: the card moves out of the way.
+  root.dataset.pos = preview === 'theme' ? 'center-right' : c.position;
   const side = c.position.endsWith('left')
     ? 'left'
     : c.position.endsWith('right')
@@ -251,22 +272,22 @@ function renderCard() {
     mx: c.marginX + 'px',
     my: c.marginY + 'px',
   });
-  const pix = config.pix,
-    logo = c.showLogo && config.brand.logo,
+  const logo = c.showLogo && config.brand.logo,
     qr =
-      c.qr === 'pix'
-        ? qrUrl('pix', '', { round: c.qrRound, stamp: pixStamp })
+      c.qr === 'giving'
+        ? givingQr(config, { round: c.qrRound, stamp: givingStamp })
         : c.qrText
           ? qrUrl('url', c.qrText, { round: c.qrRound })
           : '',
     key = !c.showKey
       ? ''
-      : c.qr === 'pix'
-        ? pix.display || (pix.mode === 'key' ? pix.key : '')
+      : c.qr === 'giving'
+        ? givingText(config)
         : c.qrText.replace(/^https?:\/\//, '');
   for (const t of root.querySelectorAll('.title, .title2')) t.textContent = c.title;
   $('card', '.sub').textContent = c.subtitle;
   $('card', '.key').textContent = key;
+  $('card', '.key').classList.toggle('multi', key.includes('\n'));
   setImage($('card', '.logo img'), logo || '');
   setImage($('card', '.qrw img'), qr);
   box.classList.toggle('has-logo', !!logo);
@@ -296,7 +317,7 @@ function renderBug() {
 // ---- Bottom bar: text that scrolls all the time ----
 let tickerKey = '';
 function renderTicker() {
-  const c = config.ticker,
+  const c = themed(config, 'ticker'),
     root = roots.ticker,
     box = $('ticker', '.box');
   root.dataset.template = c.template;
@@ -414,7 +435,7 @@ const sideOf = (pos) =>
         ? 'top'
         : 'bottom';
 function renderAgenda() {
-  const c = config.agenda,
+  const c = themed(config, 'agenda'),
     root = roots.agenda;
   root.dataset.template = c.template;
   root.dataset.pos =
@@ -445,7 +466,7 @@ function renderAgenda() {
 
 // ---- Social networks ----
 function renderSocial() {
-  const c = config.social,
+  const c = themed(config, 'social'),
     root = roots.social,
     item =
       preview === 'social' || edit
@@ -492,6 +513,8 @@ const onShow = { agenda: startAgenda };
 const wanted = (el) => {
   if (only?.length && !only.includes(el)) return false;
   if (edit) return true;
+  // ?preview=theme: the main elements together, to judge the global look.
+  if (preview === 'theme') return ['lower', 'top', 'ticker', 'card'].includes(el);
   return preview ? preview === el : !!live[el].on;
 };
 
@@ -609,8 +632,8 @@ function connect() {
   ws.onmessage = (m) => {
     const e = JSON.parse(m.data);
     if (e.config) {
-      const pix = JSON.stringify(e.config.pix);
-      if (config && pix !== JSON.stringify(config.pix)) pixStamp = String(Date.now());
+      const giving = (c) => JSON.stringify([c.pix, c.giving]);
+      if (config && giving(e.config) !== giving(config)) givingStamp = String(Date.now());
       config = e.config;
     }
     if (e.live) live = e.live;

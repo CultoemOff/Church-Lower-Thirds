@@ -57,3 +57,66 @@ Abrir a página de transferências
 
 Cada usuário do computador tem a sua própria pasta e as suas próprias configurações: um não altera o que é do outro.
 Cada utilizador do computador tem a sua própria pasta e as suas próprias definições: um não altera o que é do outro.
+
+Teste antes do culto: aponte a câmera do celular para este QR Code e confira a página que abre.
+Teste antes do culto: aponte a câmara do telemóvel para este código QR e confirme a página que abre.
+
+Teste antes do culto: aponte o celular para a tela e confira se o QR Code da imagem é lido.
+Teste antes do culto: aponte o telemóvel para o ecrã e confirme se o código QR da imagem é lido.
+
+Cadastre a forma de contribuir
+Defina a forma de contribuir
+
+Contribuições: dízimos e ofertas
+Contribuições: dízimos e ofertas
+
+Link: página de doações ou serviço de pagamentos
+Ligação: página de donativos ou serviço de pagamentos
+
+Fica rodando no computador, sem janela, e inicia com o Windows. É ele que guarda as configurações.
+Fica a correr no computador, sem janela, e inicia com o Windows. É ele que guarda as definições.
+
+Um dock dentro do OBS. É onde você clica para mostrar e esconder cada coisa durante o culto.
+Uma dock dentro do OBS. É onde clica para mostrar e esconder cada coisa durante o culto.
+
+Esta página de configurações serve para preparar tudo com calma. Durante o culto você usa só o painel do OBS.
+Esta página de definições serve para preparar tudo com calma. Durante o culto usa apenas o painel do OBS.
+
+Pular o assistente
+Saltar o assistente
+
+Com a fonte e o painel no OBS, faça um teste: o nome abaixo tem de aparecer no vídeo.
+Com a fonte e o painel no OBS, faça um teste: o nome abaixo tem de aparecer no vídeo.
+
+Clique com o botão direito na fonte e escolha Atualizar.
+Clique com o botão direito na fonte e escolha Atualizar.
+
+Como a igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão. Se não for usar, pule este passo.
+Como a igreja recebe dízimos e ofertas. O código QR e os dados aparecem no cartão. Se não for usar, salte este passo.
+
+Pular este passo
+Saltar este passo
+
+Deixa este passo para depois
+Deixa este passo para depois
+
+O assistente leva uns cinco minutos. Dá para pular um passo, ir direto a outro pela lista ao lado ou pular o assistente inteiro.
+O assistente demora uns cinco minutos. Pode saltar um passo, ir diretamente a outro pela lista ao lado ou saltar o assistente inteiro.
+
+O aplicativo que as pessoas usam no seu país para enviar dinheiro pelo celular.
+A aplicação que as pessoas usam no seu país para enviar dinheiro pelo telemóvel.
+
+Aplicativo de pagamento por telefone ou código
+Aplicação de pagamento por telemóvel ou código
+
+Nome do aplicativo
+Nome da aplicação
+
+Telefone, código ou e-mail que recebe
+Telemóvel, código ou e-mail que recebe
+
+Fixar: o que você mostrar nesta aba fica na tela até esconder, mesmo quando o tempo acabar
+Fixar: o que mostrar neste separador fica no ecrã até esconder, mesmo quando o tempo acabar
+
+Não dá para desfazer. Salve um backup antes, se quiser guardar o que tem hoje.
+Não é possível desfazer. Guarde uma cópia de segurança antes, se quiser manter o que tem hoje.

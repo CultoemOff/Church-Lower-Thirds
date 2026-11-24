@@ -107,7 +107,13 @@ jobs:
           # The folder chosen in the installer (Documents by default) gets the settings and
           # the OBS source files, with the same English names on every computer.
           $files = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'Church Lower Thirds'
-          $info = Invoke-RestMethod "$base/api/info"
+          # The program answers as soon as it is listening and writes the source files right
+          # after: "sourcesDir" appears when they are all there.
+          $info = $null
+          for ($i = 0; $i -lt 40 -and -not $info.sourcesDir; $i++) {
+            if ($i) { Start-Sleep -Milliseconds 500 }
+            $info = Invoke-RestMethod "$base/api/info"
+          }
           if ($info.folder -ne $files) { throw "Files folder is $($info.folder), expected $files" }
           foreach ($f in 'Data\config.json', 'OBS Sources\All Elements.html', 'OBS Sources\Names.html', 'OBS Sources\Corner Badge.html',
             'OBS Sources\Ticker.html', 'OBS Sources\QR Card.html', 'OBS Sources\Schedule.html', 'OBS Sources\Social.html',
@@ -148,14 +154,29 @@ jobs:
           catch { Write-Host "Update check not available yet: $($_.Exception.Message)" }
           # Settings round trip, PIX code and QR image.
           $state = Invoke-RestMethod "$base/api/state"
+          # An English installation starts on "link", not on PIX: each language starts from
+          # what its main country uses.
+          if ($state.config.language -eq 'en' -and $state.config.giving.method -ne 'link') { throw "English first run started on $($state.config.giving.method)" }
+          $state.config.giving.method = 'pix'
           $state.config.pix.key = '12.345.678/0001-90'
           $state.config.pix.name = 'Igreja Teste'
           $state.config.pix.city = 'Sao Paulo'
           Invoke-RestMethod "$base/api/config" -Method Put -ContentType 'application/json' -Body ($state.config | ConvertTo-Json -Depth 20) | Out-Null
-          $pix = Invoke-RestMethod "$base/api/pix"
+          $pix = Invoke-RestMethod "$base/api/giving"
           if ($pix.payload -notmatch '^000201.*6304[0-9A-F]{4}$') { throw "Unexpected PIX code: $($pix.payload)" }
-          $qr = Invoke-WebRequest "$base/api/qr.svg?kind=pix" -UseBasicParsing
+          $qr = Invoke-WebRequest "$base/api/qr.svg?kind=giving" -UseBasicParsing
           if ($qr.Headers['Content-Type'] -notmatch 'svg') { throw "QR served as $($qr.Headers['Content-Type'])" }
+          # PIX only exists in Brazil: the same QR from a SEPA transfer and from a link.
+          $patch = @{ 'giving.method' = 'sepa'; 'giving.sepa.name' = 'Igreja Teste'; 'giving.sepa.iban' = 'PT50 0002 0123 1234 5678 9015 4' } | ConvertTo-Json
+          Invoke-RestMethod "$base/api/patch" -Method Post -ContentType 'application/json' -Body $patch | Out-Null
+          $sepa = Invoke-RestMethod "$base/api/giving"
+          if ($sepa.payload -notmatch "^BCD\n002\n1\nSCT\n\nIgreja Teste\nPT50000201231234567890154$") { throw "Unexpected SEPA code: $($sepa.payload)" }
+          $patch = @{ 'giving.method' = 'link'; 'giving.link' = 'https://example.org/give' } | ConvertTo-Json
+          Invoke-RestMethod "$base/api/patch" -Method Post -ContentType 'application/json' -Body $patch | Out-Null
+          if ((Invoke-RestMethod "$base/api/giving").payload -ne 'https://example.org/give') { throw "Link giving not served" }
+          # The global theme and the setup assistant flag are part of the settings.
+          $now = (Invoke-RestMethod "$base/api/state").config
+          if (-not $now.theme.main.a -or $now.lower.custom -ne $false -or $now.setupDone -ne $false) { throw "Theme defaults missing: $($now.theme | ConvertTo-Json -Compress)" }
           # Installed fonts (PowerShell + System.Drawing on the user's machine).
           $fonts = Invoke-RestMethod "$base/api/fonts"
           if (@($fonts).Count -lt 5 -or 'Arial' -notin $fonts) { throw "Font list looks wrong: $(@($fonts).Count) fonts" }
@@ -164,11 +185,32 @@ jobs:
           if (-not $live.live.lower.on) { throw "Lower third did not go on air" }
           $live = Invoke-RestMethod "$base/api/live/all/hide" -Method Post
           if ($live.live.lower.on) { throw "Hide all left the lower third on" }
-          # A page from another site must not be able to send commands.
-          try {
-            Invoke-WebRequest "$base/api/live/top/show" -Method Post -Headers @{ Origin = 'https://example.com' } -UseBasicParsing | Out-Null
-            throw "Foreign origin was accepted"
-          } catch { if ($_.Exception.Message -match 'accepted') { throw } }
+          # Pinned in the dock: the global time does not take it off the air.
+          Invoke-RestMethod "$base/api/patch" -Method Post -ContentType 'application/json' -Body (@{ 'timing.autoHide' = 2 } | ConvertTo-Json) | Out-Null
+          Invoke-RestMethod "$base/api/live/lower/pin" -Method Post | Out-Null
+          Invoke-RestMethod "$base/api/live/lower/show?item=1" -Method Post | Out-Null
+          Start-Sleep -Seconds 4
+          if (-not (Invoke-RestMethod "$base/api/state").live.lower.on) { throw "A pinned name left the screen by itself" }
+          Invoke-RestMethod "$base/api/live/lower/unpin" -Method Post | Out-Null
+          Start-Sleep -Seconds 4
+          if ((Invoke-RestMethod "$base/api/state").live.lower.on) { throw "An unpinned name stayed after the time" }
+          Invoke-RestMethod "$base/api/patch" -Method Post -ContentType 'application/json' -Body (@{ 'timing.autoHide' = 0 } | ConvertTo-Json) | Out-Null
+          # A page from another site must not be able to send commands or read the settings:
+          # by its origin, by a plain cross-site request, or through another host name.
+          function Assert-Refused([string]$What, [hashtable]$Headers, [string]$Path, [string]$Method = 'Get') {
+            try {
+              Invoke-WebRequest "$base$Path" -Method $Method -Headers $Headers -UseBasicParsing | Out-Null
+              $ok = $true
+            } catch { $ok = $false }
+            if ($ok) { throw "$What was accepted" }
+          }
+          Assert-Refused 'A foreign origin' @{ Origin = 'https://example.com' } '/api/live/top/show' 'Post'
+          Assert-Refused 'A cross-site request' @{ 'Sec-Fetch-Site' = 'cross-site' } '/api/state'
+          Assert-Refused 'Another host name' @{ Host = 'example.com:8795' } '/api/state'
+          if ((Invoke-RestMethod "$base/api/state").live.top.on) { throw "A refused request still changed what is on air" }
+          # An address that does not exist answers in JSON, without internals.
+          try { Invoke-WebRequest "$base/api/nope" -UseBasicParsing | Out-Null; throw "Unknown address was accepted" }
+          catch { if ($_.Exception.Message -match 'accepted') { throw } }
           Write-Host "Installed server v$($health.version) OK; fonts: $(@($fonts).Count)"
 
           # The one-click update runs this same installer with /SILENT: the program comes

@@ -22,12 +22,6 @@ Tema claro / oscuro
 Tema chiaro / scuro
 Helles / dunkles Design
 
-Configurações avançadas: abre no navegador (modelos, cores, fontes, PIX, logo)
-Advanced settings: opens in the browser (styles, colors, fonts, PIX, logo)
-Ajustes avanzados: se abre en el navegador (modelos, colores, fuentes, PIX, logo)
-Impostazioni avanzate: si apre nel browser (modelli, colori, caratteri, PIX, logo)
-Erweiterte Einstellungen: öffnet im Browser (Vorlagen, Farben, Schriften, PIX, Logo)
-
 Conectando…
 Connecting…
 Conectando…
@@ -81,12 +75,6 @@ Names and captions (lower third)
 Nombres y rótulos (lower third)
 Nomi e didascalie (lower third)
 Namen und Untertitel (Bauchbinde)
-
-Cartão com QR Code do PIX ou de um link
-Card with the PIX QR code or a link QR code
-Tarjeta con el código QR de PIX o de un enlace
-Scheda con il codice QR del PIX o di un link
-Karte mit dem QR-Code für PIX oder für einen Link
 
 Superior
 Top
@@ -256,12 +244,6 @@ Texto de apoyo
 Testo di supporto
 Zusatztext
 
-QR Code do PIX da igreja (a chave fica nas configurações)
-QR code of the church's PIX (the key is in the settings)
-Código QR del PIX de la iglesia (la clave está en los ajustes)
-Codice QR del PIX della chiesa (la chiave è nelle impostazioni)
-QR-Code für das PIX der Gemeinde (der Schlüssel steht in den Einstellungen)
-
 QR Code que abre um site, uma inscrição, uma rede social…
 QR code that opens a site, a sign-up form, a social network…
 Código QR que abre un sitio, una inscripción, una red social…
@@ -309,12 +291,6 @@ Click to show this QR code
 Clic para mostrar este código QR
 Clic per mostrare questo codice QR
 Klicken, um diesen QR-Code zu zeigen
-
-PIX da igreja
-Church's PIX
-PIX de la iglesia
-PIX della chiesa
-PIX der Gemeinde
 
 Salve aqui o PIX e os links que você mais usa.
 Save here the PIX and the links you use most.
@@ -844,23 +820,11 @@ Qué está al aire ahora y los primeros pasos.
 Cosa è in onda ora e i primi passi.
 Was gerade im Bild ist und die ersten Schritte.
 
-Geral e PIX
-General and PIX
-General y PIX
-Generale e PIX
-Allgemein und PIX
-
 Igreja
 Church
 Iglesia
 Chiesa
 Gemeinde
-
-Nome, logo, idioma, temas, tempo na tela e a chave PIX.
-Name, logo, language, themes, time on screen and the PIX key.
-Nombre, logo, idioma, temas, tiempo en pantalla y la clave PIX.
-Nome, logo, lingua, temi, tempo a schermo e la chiave PIX.
-Name, Logo, Sprache, Designs, Zeit im Bild und der PIX-Schlüssel.
 
 Elementos
 Elements
@@ -885,18 +849,6 @@ Text scrolling all the time at the bottom.
 Texto desplazándose todo el tiempo en la parte inferior.
 Testo che scorre continuamente in basso.
 Durchlaufender Text am unteren Bildrand.
-
-Cartão QR / PIX
-QR / PIX card
-Tarjeta QR / PIX
-Scheda QR / PIX
-QR- / PIX-Karte
-
-Cartão com o QR Code do PIX ou de um link.
-Card with the PIX QR code or a link QR code.
-Tarjeta con el código QR de PIX o de un enlace.
-Scheda con il codice QR del PIX o di un link.
-Karte mit dem QR-Code für PIX oder für einen Link.
 
 Dias e horários dos cultos, um dia de cada vez.
 Service days and times, one day at a time.
@@ -952,23 +904,11 @@ Instalación
 Installazione
 Einrichtung
 
-Fontes de navegador, painel do OBS, resoluções e atalhos.
-Browser sources, OBS dock, resolutions and shortcuts.
-Fuentes de navegador, panel de OBS, resoluciones y atajos.
-Sorgenti browser, pannello di OBS, risoluzioni e scorciatoie.
-Browserquellen, OBS-Dock, Auflösungen und Kurzbefehle.
-
 Backup
 Backup
 Copia de seguridad
 Backup
 Sicherung
-
-Salvar e restaurar tudo num arquivo.
-Save and restore everything in one file.
-Guardar y restaurar todo en un archivo.
-Salva e ripristina tutto in un file.
-Alles in einer Datei sichern und wiederherstellen.
 
 Leve
 Light
@@ -1383,24 +1323,6 @@ QR code link
 Enlace del código QR
 Link del codice QR
 Link für den QR-Code
-
-Cores aplicadas ao lower third, à barra e ao cartão.
-Colors applied to the lower third, the bar and the card.
-Colores aplicados al lower third, a la barra y a la tarjeta.
-Colori applicati al lower third, alla barra e alla scheda.
-Farben auf Bauchbinde, Leiste und Karte angewendet.
-
-Preencha a chave para gerar o QR Code.
-Fill in the key to create the QR code.
-Complete la clave para generar el código QR.
-Inserisci la chiave per generare il codice QR.
-Schlüssel eintragen, um den QR-Code zu erzeugen.
-
-QR Code do PIX
-PIX QR code
-Código QR de PIX
-Codice QR del PIX
-PIX-QR-Code
 
 Teste antes do culto: aponte o aplicativo do banco para este QR Code e confira o nome que aparece.
 Test before the service: point the bank app at this QR code and check the name it shows.

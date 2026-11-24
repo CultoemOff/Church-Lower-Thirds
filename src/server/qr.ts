@@ -14,7 +14,7 @@ export function qrSvg(
   if (Buffer.byteLength(text) > 1200) throw new Error('QR text is too long');
   if (!HEX.test(dark)) dark = '#000000';
   if (light !== 'none' && !HEX.test(light)) light = '#ffffff';
-  margin = Math.min(8, Math.max(0, Math.round(margin)));
+  margin = Math.min(8, Math.max(0, Math.round(Number(margin)) || 0));
   const qr = qrcode(0, 'M');
   // Byte mode takes one char per byte: hand it the UTF-8 bytes.
   qr.addData(Buffer.from(text, 'utf8').toString('latin1'), 'Byte');

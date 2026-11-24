@@ -839,3 +839,360 @@ table.apiTable {
 .step span:empty::before {
   content: '…';
 }
+
+/* Contributions */
+.hint.ok {
+  color: #2fb37a;
+}
+.rowline {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.rowline input[type='file'] {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Global theme */
+.themeRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.themeRow b {
+  flex: 1;
+  min-width: 120px;
+  font-size: 13px;
+}
+.copyRow > .hint {
+  flex: 1;
+  margin: 0;
+}
+
+/* Addresses */
+.addrLabel {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 12px 0 6px;
+}
+.addrLabel:first-child {
+  margin-top: 0;
+}
+.copyRow button.copied {
+  background: #2fb37a;
+  border-color: #2fb37a;
+  color: #04130c;
+}
+
+/* Setup assistant */
+.wizard {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(3, 7, 18, 0.72);
+  backdrop-filter: blur(4px);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+.wizardBox {
+  width: min(920px, 100%);
+  max-height: min(680px, 100%);
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+.wizardBox aside {
+  background: var(--panel2);
+  border-right: 1px solid var(--border);
+  padding: 20px 14px;
+}
+.wizardBox aside strong {
+  display: block;
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 8px 12px;
+}
+.wizardBox aside ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: step;
+}
+.wizardBox aside li {
+  counter-increment: step;
+}
+.wizardBox aside li button {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  padding: 8px;
+  border-radius: 9px;
+  color: var(--muted);
+  font-weight: 600;
+  display: flex;
+  gap: 9px;
+  align-items: center;
+}
+.wizardBox aside li button::before {
+  content: counter(step);
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+}
+.wizardBox aside li.now button {
+  color: var(--text);
+  background: var(--panel);
+}
+.wizardBox aside li.now button::before {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.wizardBox aside li.past button::before {
+  content: '✓';
+  border-color: #2fb37a;
+  color: #2fb37a;
+}
+.wizardBox section {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+}
+.wizardBox h2 {
+  margin: 0;
+  padding: 20px 24px 6px;
+  font-size: 20px;
+}
+.wizardBody {
+  flex: 1;
+  overflow: auto;
+  padding: 8px 24px 16px;
+}
+.wizardBody .lead {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 0 14px;
+}
+.wizardBody .parts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.wizardBody .part {
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+.wizardBody .part i {
+  font-style: normal;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 12px;
+}
+.wizardBody .part span {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.wizardPreview {
+  margin-top: 12px;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.wizardPreview iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.wizardBox footer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 12px 24px;
+  border-top: 1px solid var(--border);
+}
+@media (max-width: 720px) {
+  .wizardBox {
+    grid-template-columns: 1fr;
+  }
+  .wizardBox aside {
+    display: none;
+  }
+  .wizardBody .parts {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Corner buttons (OBS, backup) */
+.topNav {
+  display: flex;
+  gap: 6px;
+}
+.topNav button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.topNav button svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+.topNav button.active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+@media (max-width: 900px) {
+  .topNav button span {
+    display: none;
+  }
+}
+button.danger {
+  background: #c62828;
+  border-color: #c62828;
+  color: #fff;
+}
+button.danger:hover {
+  background: #b71c1c;
+}
+
+/* Ready-made themes: each one as a small picture of the screen */
+.themes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  gap: 10px;
+}
+.themes button {
+  display: grid;
+  gap: 5px;
+  padding: 7px;
+  text-align: left;
+  background: var(--panel2);
+  align-content: start;
+}
+.themes button.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+.themes strong {
+  font-size: 12.5px;
+}
+.themes small {
+  font-size: 10.5px;
+  line-height: 1.35;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: normal;
+}
+.themeShot {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  border-radius: 7px;
+  overflow: hidden;
+  /* Stands in for the camera picture. */
+  background: linear-gradient(140deg, #64748b, #334155 55%, #7c5a4a);
+}
+.themeShot i {
+  position: absolute;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.themeShot .shotBadge {
+  left: 6%;
+  top: 9%;
+  height: 13%;
+  padding: 0 5px 0 4px;
+  gap: 3px;
+  font-size: 6.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+.themeShot .shotBadge b {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+.themeShot .shotName {
+  left: 6%;
+  bottom: 20%;
+  height: 21%;
+  padding: 0 9px 0 0;
+  gap: 6px;
+  font-size: 10.5px;
+  font-weight: 800;
+}
+.themeShot .shotName b {
+  width: 4px;
+  align-self: stretch;
+}
+.themeShot .shotBar {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 11%;
+}
+.themeShot .shotBar b {
+  width: 18%;
+  align-self: stretch;
+}
+
+/* Drawings of where to click in OBS */
+.drawings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+.drawing {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #1c212b;
+}
+.drawing svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}

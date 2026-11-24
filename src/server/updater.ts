@@ -15,9 +15,12 @@ import { pipeline } from 'node:stream/promises';
  *
  * The releases must be public for this to work: GitHub answers 404 for a private repository.
  */
-export const RELEASES_API =
+const RELEASES_API =
   'https://api.github.com/repos/CultoemOff/Church-Lower-Thirds/releases?per_page=30';
-export const RELEASES_PAGE = 'https://github.com/CultoemOff/Church-Lower-Thirds/releases';
+const RELEASES_PAGE = 'https://github.com/CultoemOff/Church-Lower-Thirds/releases';
+
+/** The installer's file name: nothing in it can point outside the temp folder. */
+const SETUP_NAME = /^Church-Lower-Thirds-Setup[\w.-]*\.exe$/;
 
 export interface UpdateInfo {
   current: string;
@@ -62,7 +65,7 @@ export function pickRelease(releases: Release[], current: string) {
   for (const r of releases) {
     const version = String(r.tag_name ?? '').match(/^v?(\d+\.\d+\.\d+(?:-[0-9A-Za-z.]+)?)$/)?.[1];
     if (!version || r.draft || (!beta && (r.prerelease || version.includes('-')))) continue;
-    if (!r.assets?.some((a) => /^Church-Lower-Thirds-Setup.*\.exe$/.test(a.name))) continue;
+    if (!r.assets?.some((a) => SETUP_NAME.test(a.name))) continue;
     if (!best || newerThan(version, best.version)) best = { ...r, version };
   }
   return best;
@@ -91,7 +94,7 @@ export async function checkForUpdate(current: string, force = false): Promise<Up
   if (!r.ok) throw new Error(`Update check failed (HTTP ${r.status})`);
   const list = (await r.json()) as Release[];
   const best = pickRelease(Array.isArray(list) ? list : [], current);
-  const setup = best?.assets?.find((a) => /^Church-Lower-Thirds-Setup.*\.exe$/.test(a.name));
+  const setup = best?.assets?.find((a) => SETUP_NAME.test(a.name));
   const info: UpdateInfo = {
     current,
     latest: best?.version,
@@ -112,6 +115,9 @@ export async function checkForUpdate(current: string, force = false): Promise<Up
  */
 function openDownload(url: string, redirects = 5): Promise<IncomingMessage> {
   return new Promise((ok, bad) => {
+    // The installer only ever travels encrypted (plain http is for the tests' local server).
+    if (!url.startsWith('https:') && !process.env.CLT_UPDATE_API)
+      return void bad(new Error('Update download failed (insecure address)'));
     const get = url.startsWith('https:') ? httpsGet : httpGet;
     const req = get(url, { headers: { 'User-Agent': 'Church-Lower-Thirds' } }, (res) => {
       const status = res.statusCode ?? 0;
@@ -130,7 +136,7 @@ function openDownload(url: string, redirects = 5): Promise<IncomingMessage> {
 
 /** Downloads the installer to the temp folder, verifying SHA-256 against SHA256SUMS.txt. */
 export async function downloadVerifiedSetup(info: UpdateInfo): Promise<string> {
-  if (!info.setupUrl || !info.sumsUrl || !info.setupName)
+  if (!info.setupUrl || !info.sumsUrl || !info.setupName || !SETUP_NAME.test(info.setupName))
     throw new Error('Update download is not available');
   const sums = await fetch(info.sumsUrl, { signal: AbortSignal.timeout(15000) });
   if (!sums.ok) throw new Error(`Update download failed (HTTP ${sums.status})`);

@@ -1,17 +1,27 @@
-import express, { type Request, type Response } from 'express';
-import { createServer } from 'node:http';
+import express, { type NextFunction, type Request, type Response } from 'express';
+import { createServer, type IncomingMessage } from 'node:http';
 import { createHash } from 'node:crypto';
 import { execFile, spawn } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import {
+  appendFileSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  renameSync,
+  statSync,
+  writeFileSync,
+} from 'node:fs';
 import { homedir, userInfo } from 'node:os';
 import { cp, mkdir, readFile, readdir, rename, writeFile } from 'node:fs/promises';
-import { dirname, extname, join, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { WebSocketServer } from 'ws';
+import { refusal } from './guard.js';
 import { appDataDir, installInfoFile, ownerId, userFilesFolder } from './paths.js';
 import { checkForUpdate, downloadVerifiedSetup } from './updater.js';
 import { installedFonts } from './fonts.js';
 import { pixPayload, validPixPayload } from './pix.js';
+import { sepaPayload } from './sepa.js';
 import { qrSvg } from './qr.js';
 import { SOURCES, sourceFileName, writeSourceFiles } from './sources.js';
 import {
@@ -20,6 +30,7 @@ import {
   ELEMENTS,
   firstConfig,
   liveDefaults,
+  TIMED,
   newId,
   resolveItem,
   resolveSocial,
@@ -43,6 +54,25 @@ const webDir = [join(here, '..', 'web'), join(here, 'web')].find((d) => existsSy
 // source files), somewhere easy to back up, and hands the answer to the server it starts
 // (--folder). Every account of the computer has its own folder, remembered in its own
 // profile, so one person's settings never touch another's.
+// The program runs without a window, so what goes wrong is written to a small file in the
+// account's own data folder (the last ~200 KB), next to location.json.
+const errorLog = join(appDataDir(), 'error.log');
+function logError(where: string, e: unknown) {
+  const line = `${new Date().toISOString()} ${where}: ${(e as Error)?.stack || String(e)}\n`;
+  console.error(line.trimEnd());
+  try {
+    mkdirSync(appDataDir(), { recursive: true });
+    if (existsSync(errorLog) && statSync(errorLog).size > 200_000)
+      renameSync(errorLog, errorLog + '.old');
+    appendFileSync(errorLog, line);
+  } catch {
+    // No log is better than a server that stops because it could not write one.
+  }
+}
+// One failed request or timer must not take the graphics off the air.
+process.on('uncaughtException', (e) => logError('uncaughtException', e));
+process.on('unhandledRejection', (e) => logError('unhandledRejection', e));
+
 const readJson = (file: string) => {
   try {
     return JSON.parse(readFileSync(file, 'utf8').replace(/^\uFEFF/, ''));
@@ -104,8 +134,14 @@ async function loadStore() {
       { top: saved.live?.top, bug: saved.live?.bug, ticker: saved.live?.ticker },
       config,
     );
-  } catch {
-    // first run, or an unreadable file: start from the defaults
+  } catch (e) {
+    // The file is damaged (a power cut while writing, a bad manual edit). It is set aside,
+    // never overwritten, and the program starts from the samples so the service can go on.
+    const aside = configFile.replace(/\.json$/, `.damaged-${Date.now()}.json`);
+    await rename(configFile, aside).catch(() => {});
+    logError(`settings file could not be read, kept as ${aside}`, e);
+    config = firstConfig(install.language || '');
+    await saveStore();
   }
 }
 let saving: Promise<void> = Promise.resolve();
@@ -117,12 +153,19 @@ function saveStore() {
       await writeFile(tmp, JSON.stringify({ version: appVersion, config, live }, null, 2));
       await rename(tmp, configFile);
     });
+  // Callers that do not wait for the result (a button on air) still leave a trace.
+  saving.catch((e) => logError('saving the settings', e));
   return saving;
 }
 
 const app = express();
 const server = createServer(app);
-const wss = new WebSocketServer({ server, path: '/ws' });
+// Who may talk to the program: see guard.ts.
+const wss = new WebSocketServer({
+  server,
+  path: '/ws',
+  verifyClient: ({ req }: { req: IncomingMessage }) => !refusal(req.headers, '/ws'),
+});
 const send = (message: object) => {
   const text = JSON.stringify(message);
   for (const ws of wss.clients) if (ws.readyState === ws.OPEN) ws.send(text);
@@ -132,12 +175,14 @@ const sendConfig = (origin = '') => send({ type: 'config', config, live, origin 
 const sendLive = () => send({ type: 'live', live });
 wss.on('connection', (ws) => ws.send(JSON.stringify(state())));
 
-// Only pages served by this app (the OBS dock, the settings page) may send commands:
-// a site open in the browser must not be able to change what is on air.
-const local = (value = '') => /^https?:\/\/(127\.0\.0\.1|localhost|\[::1\])(:\d+)?$/i.test(value);
+app.disable('x-powered-by');
 app.use((q, r, next) => {
-  const origin = q.headers.origin;
-  if (origin && !local(origin)) return void r.status(403).json({ error: 'Forbidden origin' });
+  const why = refusal(q.headers, q.path);
+  if (why) return void r.status(403).json({ error: why });
+  // Nothing here is meant to be framed by another site or guessed by content type.
+  r.setHeader('X-Content-Type-Options', 'nosniff');
+  r.setHeader('Referrer-Policy', 'no-referrer');
+  r.setHeader('Content-Security-Policy', "frame-ancestors 'self'");
   next();
 });
 app.use(express.json({ limit: '40mb' }));
@@ -222,16 +267,20 @@ app.delete('/api/lower/items/:id', async (q, r) => {
 
 // ---- On air ----
 const timers = new Map<ElementName, NodeJS.Timeout>();
+const isTimed = (el: ElementName): el is (typeof TIMED)[number] =>
+  (TIMED as readonly string[]).includes(el);
 function setOn(el: ElementName, on: boolean, item?: string) {
   clearTimeout(timers.get(el));
-  if (el === 'lower' || el === 'social') live[el] = { on, item: item ?? live[el].item };
-  else live[el] = { on };
+  live[el].on = on;
+  if (el === 'lower' || el === 'social') live[el].item = item ?? live[el].item;
   // Names, the QR card and social networks come and go: one time on screen for all of
   // them. The agenda leaves after its last day, unless it is set to repeat.
   let seconds = 0;
   if (el === 'lower' || el === 'card' || el === 'social') seconds = config.timing.autoHide;
   else if (el === 'agenda' && !config.agenda.loop)
     seconds = config.agenda.days.length * config.agenda.seconds;
+  // Pinned in the dock: it stays until someone hides it.
+  if (isTimed(el) && live[el].pin) seconds = 0;
   if (on && seconds > 0)
     timers.set(
       el,
@@ -251,8 +300,18 @@ function liveCommand(q: Request, r: Response) {
     return void r.json({ ok: true, live });
   }
   if (!ELEMENTS.includes(el)) return void r.status(404).json({ error: 'Unknown element' });
+  // Pin: the element ignores the global time. Unpinning one that is on air starts the
+  // time again from now.
+  if (['pin', 'unpin', 'togglepin'].includes(action)) {
+    if (!isTimed(el)) return void r.status(400).json({ error: 'This element has no time to pin' });
+    live[el].pin = action === 'pin' || (action === 'togglepin' && !live[el].pin);
+    if (live[el].on) setOn(el, true);
+    saveStore().catch(() => {});
+    sendLive();
+    return void r.json({ ok: true, live });
+  }
   if (!['show', 'hide', 'toggle'].includes(action))
-    return void r.status(400).json({ error: 'Use show, hide or toggle' });
+    return void r.status(400).json({ error: 'Use show, hide, toggle, pin, unpin or togglepin' });
   if (action !== 'hide' && !config.enabled[el])
     return void r.status(409).json({ error: 'This category is disabled in the settings' });
   if (el === 'lower' || el === 'social') {
@@ -285,16 +344,41 @@ function pixCode() {
   }
   return pixPayload(p);
 }
-app.get('/api/pix', (_q, r) => {
+/** What the church's contribution QR encodes, by the method chosen in the settings. */
+function givingCode() {
+  const g = config.giving;
+  if (g.method === 'pix') return pixCode();
+  if (g.method === 'sepa') return sepaPayload(g.sepa);
+  if (g.method === 'link') {
+    if (!g.link.trim()) throw new Error('Enter the link for the QR code');
+    return g.link.trim();
+  }
+  throw new Error('This way of giving has no generated QR code');
+}
+// For the check in the settings: what the QR holds, or why it cannot be made yet.
+app.get('/api/giving', (_q, r) => {
+  const g = config.giving;
   try {
-    r.json({ ok: true, payload: pixCode() });
+    if (g.method === 'image') {
+      if (!g.image) throw new Error('Upload the QR code image');
+      return void r.json({ ok: true, method: g.method, image: g.image });
+    }
+    if (g.method === 'text') {
+      if (!g.details) throw new Error('Enter the bank details to show');
+      return void r.json({ ok: true, method: g.method });
+    }
+    if (g.method === 'app') {
+      if (!g.app.id.trim()) throw new Error('Enter the number or code that receives');
+      return void r.json({ ok: true, method: g.method, image: g.image });
+    }
+    r.json({ ok: true, method: g.method, payload: givingCode() });
   } catch (e) {
     fail(r, e);
   }
 });
 app.get('/api/qr.svg', (q, r) => {
   try {
-    const text = q.query.kind === 'pix' ? pixCode() : String(q.query.text ?? '');
+    const text = q.query.kind === 'giving' ? givingCode() : String(q.query.text ?? '');
     const svg = qrSvg(text, {
       dark: String(q.query.dark ?? '#000000'),
       light: String(q.query.light ?? '#ffffff'),
@@ -317,6 +401,19 @@ const IMAGE_TYPES: Record<string, string> = {
   'image/gif': '.gif',
   'image/svg+xml': '.svg',
 };
+/** The first bytes of the file match the image type it was sent as. */
+function looksLike(data: Buffer, ext: string) {
+  const head = data.subarray(0, 16);
+  if (ext === '.png') return head.subarray(0, 8).equals(Buffer.from('89504e470d0a1a0a', 'hex'));
+  if (ext === '.jpg') return head[0] === 0xff && head[1] === 0xd8;
+  if (ext === '.gif') return head.subarray(0, 4).toString('latin1') === 'GIF8';
+  if (ext === '.webp')
+    return (
+      head.subarray(0, 4).toString('latin1') === 'RIFF' &&
+      head.subarray(8, 12).toString('latin1') === 'WEBP'
+    );
+  return /<svg[\s>]/i.test(data.subarray(0, 4096).toString('utf8'));
+}
 async function storeImage(data: Buffer, ext: string) {
   const name = createHash('sha256').update(data).digest('hex').slice(0, 16) + ext;
   await writeFile(join(mediaDir, name), data);
@@ -327,6 +424,7 @@ app.post('/api/media', async (q, r) => {
     const ext = IMAGE_TYPES[String(q.headers['content-type']).split(';')[0]];
     if (!ext) throw new Error('Use a PNG, JPG, WebP, GIF or SVG image');
     if (!Buffer.isBuffer(q.body) || !q.body.length) throw new Error('Empty image');
+    if (!looksLike(q.body, ext)) throw new Error('Use a PNG, JPG, WebP, GIF or SVG image');
     r.json({ ok: true, url: await storeImage(q.body, ext) });
   } catch (e) {
     fail(r, e);
@@ -358,6 +456,21 @@ app.get('/api/backup', async (_q, r) => {
     config,
     media,
   });
+});
+// Back to how the program was on its first run: every setting, name and text is replaced
+// by the samples. The uploaded image files stay in the folder, unused.
+app.post('/api/reset', async (_q, r) => {
+  try {
+    config = firstConfig(config.language === 'auto' ? install.language || 'auto' : config.language);
+    for (const e of ELEMENTS) clearTimeout(timers.get(e));
+    live = cleanLive(liveDefaults(), config);
+    await saveStore();
+    sendConfig();
+    sendLive();
+    r.json({ ok: true, config });
+  } catch (e) {
+    fail(r, e);
+  }
 });
 app.post('/api/restore', async (q, r) => {
   try {
@@ -462,6 +575,30 @@ for (const page of ['dock', 'settings', 'overlay'])
   app.get(`/${page}`, (_q, r) => r.sendFile(join(webDir, `${page}.html`)));
 app.get('/', (_q, r) => r.redirect('/settings'));
 app.use(express.static(webDir, { extensions: ['html'] }));
+// What is left: an address that does not exist, and anything a route let slip (a body that
+// is not JSON, a file too large). Always a short JSON answer, never a stack trace.
+app.use('/api', (_q, r) => void r.status(404).json({ error: 'Unknown address' }));
+app.use(
+  (
+    e: Error & { status?: number; type?: string },
+    _q: Request,
+    r: Response,
+    _next: NextFunction,
+  ) => {
+    const status = e.status && e.status >= 400 && e.status < 600 ? e.status : 500;
+    if (status >= 500) logError('request', e);
+    r.status(status).json({
+      error:
+        e.type === 'entity.too.large'
+          ? 'File too large'
+          : e.type === 'entity.parse.failed'
+            ? 'Invalid data'
+            : status >= 500
+              ? 'Internal error'
+              : e.message,
+    });
+  },
+);
 
 await loadStore();
 // Who answers on a port: this same account (the program is already running: nothing to do),

@@ -19,7 +19,8 @@ export interface LowerItem {
   line1: string;
   line2: string;
   logo: boolean;
-  qr: 'none' | 'pix' | 'url';
+  /** 'giving' = the church's contribution QR, whatever method is configured; 'url' = any link */
+  qr: 'none' | 'giving' | 'url';
   qrText: string;
 }
 
@@ -70,9 +71,10 @@ export interface SavedCard {
   id: string;
   title: string;
   subtitle: string;
-  qr: 'pix' | 'url';
+  qr: 'giving' | 'url';
   qrText: string;
 }
+const GIVING_METHODS = ['pix', 'app', 'sepa', 'link', 'image', 'text'];
 export const ANIMATIONS = ['slide', 'rise', 'fade', 'wipe', 'zoom', 'blur', 'bounce', 'flip'];
 export const SHADOWS = ['none', 'soft', 'hard', 'glow'];
 const CORNERS = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
@@ -81,8 +83,8 @@ const PLACES = [...CORNERS, 'top-center', 'bottom-center', 'center-left', 'cente
 /** Free placement: where the element was dragged to (top-left corner, 1920x1080 stage). */
 const free = () => ({ free: false, x: 0, y: 0, vfree: false, vx: 0, vy: 0 });
 export const LANGUAGES = ['pt-BR', 'pt-PT', 'es', 'en', 'it', 'de'];
-export const RESOLUTIONS = ['1280x720', '1920x1080', '2560x1440', '3840x2160'];
-export const VERTICAL_RESOLUTIONS = ['720x1280', '1080x1920', '1440x2560', '2160x3840'];
+const RESOLUTIONS = ['1280x720', '1920x1080', '2560x1440', '3840x2160'];
+const VERTICAL_RESOLUTIONS = ['720x1280', '1080x1920', '1440x2560', '2160x3840'];
 
 export const newId = () => randomBytes(5).toString('hex');
 
@@ -110,6 +112,24 @@ export function defaults() {
     },
     /** How long names and the QR card stay on screen, in seconds (0 = until hidden). */
     timing: { autoHide: 0 },
+    /** The setup assistant opens by itself until the person finishes or closes it. */
+    setupDone: false,
+    /**
+     * The global look. Every element follows it unless it is switched to its own
+     * appearance (`custom`): main = the name bar, surface = the background of the corner
+     * badge, bottom bar, card, schedule and social, accent = the details of all of them.
+     */
+    theme: {
+      main: fill('#2463eb', '#4f46e5', 100),
+      surface: fill('#0f172a', '#1e293b', 90),
+      accent: fill('#fbbf24', '#f59e0b', 180),
+      text1: '#ffffff',
+      text2: '#e2e8f0',
+      radius: 18,
+      opacity: 94,
+      shadow: 'soft',
+      shadowStrength: 55,
+    },
     pix: {
       mode: 'key',
       key: '',
@@ -118,10 +138,26 @@ export function defaults() {
       amount: '',
       txid: '',
       payload: '',
-      /** Text shown beside the QR, e.g. "CNPJ 12.345.678/0001-90" ('' = the key) */
-      display: '',
+    },
+    /**
+     * How people contribute. PIX only exists in Brazil; other countries have their own
+     * phone-number apps (`app`: the church writes the app's name and the number, code or
+     * e-mail that receives). The QR can also come from a SEPA transfer (euro area), any link
+     * (giving page, payment service), or a QR image the bank or app gave the church; "text"
+     * shows only the bank details, without a QR.
+     */
+    giving: {
+      method: 'pix',
+      link: '',
+      image: '',
+      app: { name: '', id: '' },
+      sepa: { name: '', iban: '', bic: '', amount: '', reference: '' },
+      /** Shown beside the QR, one item per line: bank, branch, account, IBAN, document… */
+      details: '',
     },
     lower: {
+      /** false = follows the global theme; true = uses the colors, font and effects below */
+      custom: false,
       template: 'classic',
       fill: fill('#2463eb', '#4f46e5', 100),
       fill2: fill('#0f172a'),
@@ -159,13 +195,15 @@ export function defaults() {
           line1: 'Dízimos e ofertas',
           line2: 'Aponte a câmera do celular para o QR Code',
           logo: false,
-          qr: 'pix',
+          qr: 'giving',
           qrText: '',
         },
       ] as LowerItem[],
     },
     // The corner badge: logo, church name, a message, "AO VIVO" and the time, each optional.
     top: {
+      /** false = follows the global theme; true = uses the colors, font and effects below */
+      custom: false,
       template: 'bar',
       fill: fill('#0f172a', '#1e293b', 90),
       accent: fill('#2463eb', '#22d3ee', 90),
@@ -200,6 +238,8 @@ export function defaults() {
       interval: 8,
     },
     card: {
+      /** false = follows the global theme; true = uses the colors, font and effects below */
+      custom: false,
       template: 'vertical',
       fill: fill('#ffffff'),
       accent: fill('#2463eb', '#7c3aed', 135),
@@ -222,12 +262,14 @@ export function defaults() {
       subtitle: 'Aponte a câmera do celular',
       showKey: true,
       showLogo: true,
-      qr: 'pix',
+      qr: 'giving',
       qrText: '',
       qrRound: false,
       saved: [] as SavedCard[],
     },
     ticker: {
+      /** false = follows the global theme; true = uses the colors, font and effects below */
+      custom: false,
       template: 'full',
       fill: fill('#0f172a', '#1e293b', 90),
       accent: fill('#2463eb', '#22d3ee', 90),
@@ -257,6 +299,8 @@ export function defaults() {
       pinned: '',
     },
     agenda: {
+      /** false = follows the global theme; true = uses the colors, font and effects below */
+      custom: false,
       template: 'card',
       fill: fill('#0f172a', '#1e293b', 160),
       accent: fill('#2463eb', '#22d3ee', 90),
@@ -288,6 +332,8 @@ export function defaults() {
       ] as AgendaDay[],
     },
     social: {
+      /** false = follows the global theme; true = uses the colors, font and effects below */
+      custom: false,
       template: 'pill',
       fill: fill('#ffffff'),
       accent: fill('#db2777', '#f59e0b', 45),
@@ -339,22 +385,25 @@ export const ELEMENTS: ElementName[] = [
 ];
 
 export interface Live {
-  lower: { on: boolean; item: string };
+  /** pin: stays on screen when the global time ends, until hidden by hand */
+  lower: { on: boolean; item: string; pin: boolean };
   top: { on: boolean };
-  card: { on: boolean };
+  card: { on: boolean; pin: boolean };
   bug: { on: boolean };
   ticker: { on: boolean };
-  agenda: { on: boolean };
-  social: { on: boolean; item: string };
+  agenda: { on: boolean; pin: boolean };
+  social: { on: boolean; item: string; pin: boolean };
 }
+/** Elements that leave by themselves, and so can be pinned. */
+export const TIMED = ['lower', 'card', 'agenda', 'social'] as const;
 export const liveDefaults = (): Live => ({
-  lower: { on: false, item: '' },
+  lower: { on: false, item: '', pin: false },
   top: { on: false },
-  card: { on: false },
+  card: { on: false, pin: false },
   bug: { on: false },
   ticker: { on: false },
-  agenda: { on: false },
-  social: { on: false, item: '' },
+  agenda: { on: false, pin: false },
+  social: { on: false, item: '', pin: false },
 });
 
 const HEX = /^#[0-9a-f]{6}$/i;
@@ -412,13 +461,16 @@ const CHOICES: Record<string, string[]> = {
   'social.position': PLACES,
   'bug.position': CORNERS,
   'pix.mode': ['key', 'payload'],
+  'giving.method': GIVING_METHODS,
   language: ['auto', ...LANGUAGES],
   horizontal: RESOLUTIONS,
   vertical: VERTICAL_RESOLUTIONS,
   order: ['sequence', 'random'],
-  qr: ['pix', 'url'],
+  qr: ['giving', 'url'],
   type: ['solid', 'gradient'],
 };
+/** Stored by versions that only knew PIX. */
+const qrKind = (v: unknown) => (v === 'pix' ? 'giving' : v);
 const text = (v: unknown, max: number) =>
   String(v ?? '')
     .replace(/[\u0000-\u0008\u000b-\u001f]/g, '')
@@ -435,7 +487,7 @@ function cleanItem(raw: unknown, allowEmpty = false): LowerItem | undefined {
     line1,
     line2,
     logo: r.logo !== false,
-    qr: r.qr === 'pix' || r.qr === 'url' ? r.qr : 'none',
+    qr: qrKind(r.qr) === 'giving' ? 'giving' : r.qr === 'url' ? 'url' : 'none',
     qrText: text(r.qrText, 600).trim(),
   };
 }
@@ -461,7 +513,7 @@ function clean(def: unknown, raw: unknown, path: string, key: string): unknown {
           id: typeof r.id === 'string' && /^[a-z0-9]{4,20}$/i.test(r.id) ? r.id : newId(),
           title: text(r.title, 60).trim(),
           subtitle: text(r.subtitle, 90).trim(),
-          qr: r.qr === 'url' ? 'url' : 'pix',
+          qr: r.qr === 'url' ? 'url' : 'giving',
           qrText: text(r.qrText, 600).trim(),
         };
         return c.title || c.qrText ? c : undefined;
@@ -515,18 +567,35 @@ function clean(def: unknown, raw: unknown, path: string, key: string): unknown {
     return Math.min(max, Math.max(min, Math.round(n)));
   }
   const choices = CHOICES[path] || CHOICES[key];
-  if (choices) return choices.includes(String(raw)) ? String(raw) : def;
+  if (choices) {
+    const value = String(key === 'qr' ? qrKind(raw) : raw);
+    return choices.includes(value) ? value : def;
+  }
+  if (path === 'giving.image') return MEDIA.test(String(raw)) ? String(raw) : '';
+  if (path === 'giving.details')
+    return text(raw, 400)
+      .split(/\r?\n/)
+      .map((l) => l.trim())
+      .filter(Boolean)
+      .slice(0, 6)
+      .join('\n');
   if (typeof def === 'string' && HEX.test(def)) return HEX.test(String(raw)) ? String(raw) : def;
   if (key === 'logo') return MEDIA.test(String(raw)) ? String(raw) : '';
   if (key === 'font')
     return text(raw, 80)
       .replace(/["';{}<>\\]/g, '')
       .trim();
-  return typeof raw === 'string' ? text(raw, path === 'pix.payload' ? 1000 : 300) : def;
+  const max = path === 'pix.payload' || path === 'giving.link' ? 1000 : 300;
+  return typeof raw === 'string' ? text(raw, max) : def;
 }
 
 export function cleanConfig(raw: unknown): Config {
-  return clean(defaults(), raw, '', '') as Config;
+  const config = clean(defaults(), raw, '', '') as Config;
+  // Versions that only knew PIX kept the text shown beside the QR in pix.display.
+  const old = (raw as { pix?: { display?: unknown }; giving?: unknown } | null) ?? {};
+  if (!old.giving && typeof old.pix?.display === 'string')
+    config.giving.details = text(old.pix.display, 300).trim();
+  return config;
 }
 
 export function cleanLive(raw: unknown, config: Config): Live {
@@ -535,17 +604,25 @@ export function cleanLive(raw: unknown, config: Config): Live {
   const exists = !!findItem(config, item);
   const ok = config.enabled;
   return {
-    lower: { on: ok.lower && !!r.lower?.on && exists, item: exists ? item : '' },
+    lower: {
+      on: ok.lower && !!r.lower?.on && exists,
+      item: exists ? item : '',
+      pin: !!r.lower?.pin,
+    },
     top: { on: ok.top && !!r.top?.on },
-    card: { on: ok.card && !!r.card?.on },
+    card: { on: ok.card && !!r.card?.on, pin: !!r.card?.pin },
     bug: { on: ok.bug && !!r.bug?.on },
     ticker: { on: ok.ticker && !!r.ticker?.on },
-    agenda: { on: ok.agenda && !!r.agenda?.on && config.agenda.days.length > 0 },
+    agenda: {
+      on: ok.agenda && !!r.agenda?.on && config.agenda.days.length > 0,
+      pin: !!r.agenda?.pin,
+    },
     social: (() => {
       const found = config.social.items.some((i) => i.id === r.social?.item);
       return {
         on: ok.social && !!r.social?.on && found,
         item: found ? String(r.social?.item) : '',
+        pin: !!r.social?.pin,
       };
     })(),
   };
@@ -678,9 +755,24 @@ const SAMPLES: Record<string, Record<string, unknown>> = {
 };
 
 /** The configuration of a first run: defaults with the sample texts in `language`. */
+/**
+ * The everyday way of sending money by phone in the main country of each language, as a
+ * starting point (the church can write any other name). German starts on the SEPA transfer,
+ * whose QR code the banking apps there read.
+ */
+const LOCAL_GIVING: Record<string, { method: string; app: string }> = {
+  'pt-PT': { method: 'app', app: 'MB WAY' },
+  es: { method: 'app', app: 'Bizum' },
+  it: { method: 'app', app: 'BANCOMAT Pay' },
+  de: { method: 'sepa', app: 'Wero' },
+  en: { method: 'link', app: 'Zelle' },
+};
 export function firstConfig(language: string): Config {
   const c = defaults();
   if (LANGUAGES.includes(language)) c.language = language;
+  // PIX only exists in Brazil: each language starts from what its main country uses.
+  const local = LOCAL_GIVING[language];
+  if (local) Object.assign(c.giving, { method: local.method, app: { name: local.app, id: '' } });
   const t = SAMPLES[language] as Record<string, never> | undefined;
   if (!t) return c;
   const pair = (v: unknown) => v as [string, string];

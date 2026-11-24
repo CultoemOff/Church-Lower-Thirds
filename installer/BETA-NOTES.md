@@ -1,11 +1,21 @@
 **Versão beta para testes — somente Windows.** Programa novo, separado do PTZ Control Web.
 
+### Novidades da beta.2
+
+- **Contribuições além do PIX**: aplicativo de pagamento por telefone ou código (o nome é livre; em Portugal, Espanha e Itália já vem sugerido o mais usado no país), transferência SEPA com QR Code lido pelos aplicativos de banco, link, imagem de QR Code pronta ou só os dados bancários. Até 6 linhas de dados ao lado do QR Code.
+- **Tema global**: cores, fonte, cantos, sombra e opacidade num lugar só; todos os elementos obedecem e cada um pode mudar para "Aparência própria". **14 temas prontos** numa galeria que mostra cada um.
+- **Assistente de configuração** com tutorial ilustrado do OBS: abre na primeira vez, pode ser pulado inteiro ou passo a passo e reaberto na Visão geral.
+- **Endereços para o OBS** com botão Copiar, o do painel primeiro. "OBS e atalhos" e "Backup" ficam no canto direito.
+- **Painel do OBS**: botão de fixar (o que estiver na tela não sai quando o tempo acaba) e prévia do elemento da aba.
+- **Backup**: "Restaurar as configurações iniciais", com aviso, reabre o assistente.
+- **Segurança e erros**: o programa só responde às próprias páginas (sites abertos no navegador não conseguem ler as configurações nem mexer no que está no ar); arquivo de configurações danificado é guardado à parte em vez de ser sobrescrito; os erros ficam em `error.log`, na pasta de dados do usuário.
+
 ### O que é
 
 Gráficos para o OBS Studio numa única fonte de navegador, controlados por um painel com abas:
 
 - **Nomes** (lower third): 11 modelos. Dá para escrever o nome e a legenda na hora, ou salvar numa lista e mostrar com um clique.
-- **QR / PIX**: cartão com o QR Code do PIX da igreja ou de qualquer link, com lista de QR Codes salvos. 5 modelos.
+- **QR / Oferta**: cartão com o QR Code da contribuição da igreja ou de qualquer link, com lista de QR Codes salvos. A contribuição pode ser PIX (Brasil), transferência SEPA (zona do euro), um link, a imagem de QR Code que o banco ou o aplicativo gerou, ou só os dados bancários em texto. 5 modelos.
 - **Superior**: selo num canto da tela com logo, nome da igreja, "AO VIVO", horário e recados; cada parte liga e desliga sozinha. 4 modelos.
 - **Inferior**: barra com texto rolando o tempo todo. 4 modelos.
 - **Agenda**: dias e horários dos cultos, um dia de cada vez, saindo depois do último. 4 modelos.
@@ -31,7 +41,7 @@ A página "OBS e atalhos" traz o passo a passo, os tamanhos e os endereços para
 
 ---
 
-**Beta for testing — Windows only.** Names, top bar, scrolling bottom bar, PIX/QR card, weekly schedule, social networks and logo for OBS Studio in one browser source, with a tabbed dock and a separate settings page.
+**Beta for testing — Windows only.** Names, top bar, scrolling bottom bar, QR / giving card (PIX, SEPA transfer, link, QR image or bank details), weekly schedule, social networks and logo for OBS Studio in one browser source, with a tabbed dock and a separate settings page.
 
 ### Atualizações
 
