@@ -1,0 +1,305 @@
+name: Installer
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  windows:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - name: Install dependencies
+        run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Unit tests
+        run: npm test
+      - name: Lint frontend
+        run: npm run lint
+      - name: Check formatting
+        run: npm run format:check
+      - name: Build TypeScript
+        run: npm run build
+      - name: Prepare portable application
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force package\app\dist\web | Out-Null
+          New-Item -ItemType Directory -Force package\runtime | Out-Null
+          Copy-Item -Recurse -Force dist\* package\app\dist\
+          Copy-Item -Recurse -Force src\web\* package\app\dist\web\
+          Copy-Item package.json, package-lock.json package\app\
+          Copy-Item scripts\windows\start-server.vbs, scripts\windows\open-settings.vbs, scripts\windows\stop-server.ps1 package\
+          Copy-Item "$env:ProgramFiles\nodejs\node.exe" package\runtime\node.exe
+          Push-Location package\app
+          npm ci --omit=dev
+          if ($LASTEXITCODE -ne 0) { throw "npm ci failed in the package." }
+          Pop-Location
+      - name: Build installer
+        shell: pwsh
+        run: |
+          $iscc = @(
+            "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe",
+            "$env:ProgramFiles\Inno Setup 6\ISCC.exe"
+          ) | Where-Object { Test-Path $_ } | Select-Object -First 1
+          if (-not $iscc) {
+            choco install innosetup -y --no-progress
+            $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          }
+          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          & $iscc "/DMyAppVersion=$version" installer\Church-Lower-Thirds.iss
+          if ($LASTEXITCODE -ne 0) { throw "Inno Setup failed." }
+      - name: Setup can be started by the program itself
+        shell: pwsh
+        run: |
+          # The update button starts the installer from a program without administrator
+          # rights; the installer then asks Windows for permission by itself.
+          $text = [Text.Encoding]::ASCII.GetString([IO.File]::ReadAllBytes('installer\output\Church-Lower-Thirds-Setup.exe'))
+          $level = [regex]::Match($text, 'requestedExecutionLevel\s+level="(\w+)"').Groups[1].Value
+          Write-Host "requestedExecutionLevel: $level"
+          if ($level -ne 'asInvoker') { throw "The update button could not start this setup (manifest: '$level')" }
+      - name: Installer smoke test (install, run, uninstall)
+        shell: pwsh
+        run: |
+          $exe = "installer\output\Church-Lower-Thirds-Setup.exe"
+          $dir = Join-Path $env:ProgramFiles 'Culto em Off\Church Lower Thirds'
+          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          $userKey = 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{13D055BB-63D1-484E-820B-004089D86007}_is1'
+          $base = 'http://127.0.0.1:8795'
+          # Waits for the installer only. Start-Process -Wait would also wait for the server
+          # the installer leaves running, forever.
+          function Run-Setup([string[]]$Arguments) {
+            $p = Start-Process $exe -ArgumentList $Arguments -PassThru
+            $null = $p.Handle
+            if (-not $p.WaitForExit(600000)) { throw "Installer did not finish" }
+            $p.ExitCode
+          }
+
+          $code = Run-Setup '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART'
+          if ($code -ne 0) { throw "Installer exited with $code" }
+          $expected = "$dir\runtime\node.exe", "$dir\app\dist\server\index.js", "$dir\app\dist\web\overlay.html",
+            "$dir\start-server.vbs", "$dir\open-settings.vbs", "$dir\stop-server.ps1", "$dir\church-lower-thirds.ico"
+          $missing = @($expected | Where-Object { -not (Test-Path $_) })
+          if ($missing) { throw "Missing after install: $($missing -join ', ')" }
+          if (-not (Test-Path $userKey)) { throw "Uninstall entry missing" }
+          $run = (Get-ItemProperty 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Run').'Church Lower Thirds'
+          if ($run -notlike '*Culto em Off\Church Lower Thirds\start-server.vbs*') { throw "Autostart entry is: $run" }
+          $lnk = Join-Path ([Environment]::GetFolderPath('CommonDesktopDirectory')) 'Church Lower Thirds.lnk'
+          if (-not (Test-Path $lnk)) { throw "Desktop shortcut not created" }
+
+          $note = Get-Content (Join-Path $env:ProgramData 'Culto em Off\Church Lower Thirds\install.json') -Raw | ConvertFrom-Json
+          if (-not $note.language) { throw "install.json is wrong: $($note | ConvertTo-Json -Compress)" }
+          # The installer starts the server by itself.
+          $health = $null
+          for ($i = 0; $i -lt 40 -and -not $health; $i++) {
+            Start-Sleep -Milliseconds 500
+            try { $health = Invoke-RestMethod "$base/api/health" } catch {}
+          }
+          if (-not $health) { throw "Installed server did not start" }
+          if ($health.version -ne $version) { throw "Health returned $($health.version), expected $version" }
+
+          # The folder chosen in the installer (Documents by default) gets the settings and
+          # the OBS source files, with the same English names on every computer.
+          $files = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'Church Lower Thirds'
+          $info = Invoke-RestMethod "$base/api/info"
+          if ($info.folder -ne $files) { throw "Files folder is $($info.folder), expected $files" }
+          foreach ($f in 'Data\config.json', 'OBS Sources\All Elements.html', 'OBS Sources\Names.html', 'OBS Sources\Corner Badge.html',
+            'OBS Sources\Ticker.html', 'OBS Sources\QR Card.html', 'OBS Sources\Schedule.html', 'OBS Sources\Social.html',
+            'OBS Sources\Logo.html', 'OBS Sources\Names (Vertical).html', 'OBS Sources\Read me.txt') {
+            if (-not (Test-Path (Join-Path $files $f))) { throw "Missing in the files folder: $f" }
+          }
+          if ((Get-Content (Join-Path $files 'OBS Sources\Names.html') -Raw) -notmatch '/source/names') { throw "Names.html does not open the names source" }
+          foreach ($page in '/source/all', '/source/names', '/source/badge?layout=vertical') {
+            $res = Invoke-WebRequest "$base$page" -UseBasicParsing
+            if ($res.StatusCode -ne 200) { throw "$page did not load" }
+          }
+          foreach ($js in '/js/i18n.js', '/js/i18n/en.js', '/js/i18n/de.js') {
+            $res = Invoke-WebRequest "$base$js" -UseBasicParsing
+            if ($res.Headers['Content-Type'] -notmatch 'javascript') { throw "$js served as $($res.Headers['Content-Type'])" }
+          }
+          foreach ($page in '/dock', '/settings', '/overlay') {
+            $res = Invoke-WebRequest "$base$page" -UseBasicParsing
+            if ($res.StatusCode -ne 200 -or $res.Content -notmatch 'Church Lower Thirds') { throw "$page did not load" }
+          }
+          foreach ($js in '/dock.js', '/settings.js', '/overlay.js', '/js/common.js', '/js/look.js') {
+            $res = Invoke-WebRequest "$base$js" -UseBasicParsing
+            if ($res.Headers['Content-Type'] -notmatch 'javascript') { throw "$js served as $($res.Headers['Content-Type'])" }
+          }
+          # Fonts shipped with the app.
+          $font = Invoke-WebRequest "$base/fonts/outfit-latin-wght-normal.woff2" -UseBasicParsing
+          if ($font.StatusCode -ne 200 -or $font.RawContentLength -lt 5000) { throw "Bundled font not served" }
+          # The dock changes single values: time on screen, a name typed on the spot.
+          $patch = @{ 'timing.autoHide' = 10; 'lower.quick' = @{ line1 = 'Visitante'; line2 = '' } } | ConvertTo-Json
+          Invoke-RestMethod "$base/api/patch" -Method Post -ContentType 'application/json' -Body $patch | Out-Null
+          $quick = Invoke-RestMethod "$base/api/live/lower/show?item=quick" -Method Post
+          if ($quick.live.lower.item -ne 'quick' -or -not $quick.live.lower.on) { throw "Quick name did not go on air" }
+          foreach ($el in 'ticker', 'agenda', 'social') {
+            $r = Invoke-RestMethod "$base/api/live/$el/show" -Method Post
+            if (-not $r.live.$el.on) { throw "$el did not go on air" }
+          }
+          # Update check: answers from GitHub (or says it could not), never crashes the server.
+          try { $u = Invoke-RestMethod "$base/api/update"; Write-Host "Update check: current $($u.current), latest $($u.latest), newer $($u.newer)" }
+          catch { Write-Host "Update check not available yet: $($_.Exception.Message)" }
+          # Settings round trip, PIX code and QR image.
+          $state = Invoke-RestMethod "$base/api/state"
+          $state.config.pix.key = '12.345.678/0001-90'
+          $state.config.pix.name = 'Igreja Teste'
+          $state.config.pix.city = 'Sao Paulo'
+          Invoke-RestMethod "$base/api/config" -Method Put -ContentType 'application/json' -Body ($state.config | ConvertTo-Json -Depth 20) | Out-Null
+          $pix = Invoke-RestMethod "$base/api/pix"
+          if ($pix.payload -notmatch '^000201.*6304[0-9A-F]{4}$') { throw "Unexpected PIX code: $($pix.payload)" }
+          $qr = Invoke-WebRequest "$base/api/qr.svg?kind=pix" -UseBasicParsing
+          if ($qr.Headers['Content-Type'] -notmatch 'svg') { throw "QR served as $($qr.Headers['Content-Type'])" }
+          # Installed fonts (PowerShell + System.Drawing on the user's machine).
+          $fonts = Invoke-RestMethod "$base/api/fonts"
+          if (@($fonts).Count -lt 5 -or 'Arial' -notin $fonts) { throw "Font list looks wrong: $(@($fonts).Count) fonts" }
+          # On air: show the first name, then hide everything.
+          $live = Invoke-RestMethod "$base/api/live/lower/show?item=1" -Method Post
+          if (-not $live.live.lower.on) { throw "Lower third did not go on air" }
+          $live = Invoke-RestMethod "$base/api/live/all/hide" -Method Post
+          if ($live.live.lower.on) { throw "Hide all left the lower third on" }
+          # A page from another site must not be able to send commands.
+          try {
+            Invoke-WebRequest "$base/api/live/top/show" -Method Post -Headers @{ Origin = 'https://example.com' } -UseBasicParsing | Out-Null
+            throw "Foreign origin was accepted"
+          } catch { if ($_.Exception.Message -match 'accepted') { throw } }
+          Write-Host "Installed server v$($health.version) OK; fonts: $(@($fonts).Count)"
+
+          # The one-click update runs this same installer with /SILENT: the program comes
+          # back by itself, in the same folder, with the same settings.
+          function Wait-Server {
+            $h = $null
+            for ($i = 0; $i -lt 40 -and -not $h; $i++) {
+              Start-Sleep -Milliseconds 500
+              try { $h = Invoke-RestMethod "$base/api/health" } catch {}
+            }
+            if (-not $h) { throw "Server did not come back" }
+          }
+          $code = Run-Setup '/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART'
+          if ($code -ne 0) { throw "Update run exited with $code" }
+          Wait-Server
+          $after = Invoke-RestMethod "$base/api/info"
+          if ($after.folder -ne $files) { throw "After the update the folder is $($after.folder)" }
+          if ((Invoke-RestMethod "$base/api/state").config.pix.name -ne 'Igreja Teste') { throw "Settings lost by the update" }
+          $mine = Get-Content (Join-Path $env:APPDATA 'Church Lower Thirds\location.json') -Raw | ConvertFrom-Json
+          if ($mine.folder -ne $files -or $mine.port -ne 8795) { throw "location.json is wrong: $($mine | ConvertTo-Json -Compress)" }
+          # Another folder chosen (accents included): the settings go along.
+          $other = Join-Path $env:RUNNER_TEMP 'Mídia da Igreja\Lower Third'
+          $code = Run-Setup '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', "/FILES=`"$other`""
+          if ($code -ne 0) { throw "Reinstall exited with $code" }
+          Wait-Server
+          $after = Invoke-RestMethod "$base/api/info"
+          if ($after.folder -ne $other) { throw "Chosen folder not used: $($after.folder)" }
+          if ((Invoke-RestMethod "$base/api/state").config.pix.name -ne 'Igreja Teste') { throw "Settings did not follow to the new folder" }
+          if (-not (Test-Path (Join-Path $other 'OBS Sources\Names.html'))) { throw "OBS source files missing in the new folder" }
+          Write-Host "Update and folder change keep the settings."
+
+          # The "Update now" button, end to end: the program finds a newer release (a local
+          # stand-in for GitHub offering this same installer as v99), downloads it, checks
+          # the SHA-256, runs it, and comes back by itself.
+          $rel = Join-Path $env:RUNNER_TEMP 'fake-release'
+          New-Item -ItemType Directory -Force $rel | Out-Null
+          Copy-Item $exe (Join-Path $rel 'Church-Lower-Thirds-Setup-99.0.0.exe')
+          $hash = (Get-FileHash (Join-Path $rel 'Church-Lower-Thirds-Setup-99.0.0.exe') -Algorithm SHA256).Hash.ToLower()
+          Set-Content (Join-Path $rel 'SHA256SUMS.txt') "$hash *Church-Lower-Thirds-Setup-99.0.0.exe" -Encoding ascii
+          $assets = @(
+            @{ name = 'Church-Lower-Thirds-Setup-99.0.0.exe'; browser_download_url = 'http://127.0.0.1:8899/Church-Lower-Thirds-Setup-99.0.0.exe' },
+            @{ name = 'SHA256SUMS.txt'; browser_download_url = 'http://127.0.0.1:8899/SHA256SUMS.txt' })
+          ConvertTo-Json -Depth 5 @(@{ tag_name = 'v99.0.0'; html_url = 'http://127.0.0.1:8899/'; assets = $assets }) |
+            Set-Content (Join-Path $rel 'releases.json') -Encoding utf8
+          $web = Start-Process python -ArgumentList '-m', 'http.server', '8899', '--bind', '127.0.0.1' -WorkingDirectory $rel -PassThru -WindowStyle Hidden
+          $listed = $null
+          for ($i = 0; $i -lt 60 -and -not $listed; $i++) {
+            Start-Sleep -Milliseconds 500
+            try { $listed = Invoke-RestMethod 'http://127.0.0.1:8899/releases.json' } catch {}
+          }
+          if (-not $listed) { throw "The stand-in release server did not start" }
+          & powershell -NoProfile -ExecutionPolicy Bypass -File "$dir\stop-server.ps1" -AppDir $dir
+          $env:CLT_UPDATE_API = 'http://127.0.0.1:8899/releases.json'
+          $log = Join-Path $env:RUNNER_TEMP 'server'
+          $old = Start-Process "$dir\runtime\node.exe" -ArgumentList "`"$dir\app\dist\server\index.js`"" -WorkingDirectory "$dir\app" -PassThru -WindowStyle Hidden -RedirectStandardOutput "$log.out.txt" -RedirectStandardError "$log.err.txt"
+          $env:CLT_UPDATE_API = $null
+          Wait-Server
+          $u = Invoke-RestMethod "$base/api/update?force=1"
+          if (-not $u.newer -or $u.latest -ne '99.0.0' -or -not $u.canInstall) { throw "Update not offered: $($u | ConvertTo-Json -Compress)" }
+          try { $r = Invoke-RestMethod "$base/api/update/install" -Method Post -TimeoutSec 120 }
+          catch {
+            Start-Sleep -Seconds 2
+            Get-Content "$log.out.txt", "$log.err.txt" -ErrorAction SilentlyContinue | ForEach-Object { Write-Host "  server: $_" }
+            throw
+          }
+          if (-not $r.ok) { throw "Update did not start: $($r | ConvertTo-Json -Compress)" }
+          if (-not $old.WaitForExit(180000)) {
+            Get-CimInstance Win32_Process | Where-Object { $_.Name -match 'Setup|powershell|wscript|_iu|\.tmp$' } |
+              ForEach-Object { Write-Host "  running: $($_.Name) $($_.CommandLine)" }
+            Get-ChildItem $env:TEMP -Filter 'Setup Log*.txt' | Sort-Object LastWriteTime | Select-Object -Last 1 |
+              ForEach-Object { Write-Host "  --- $($_.Name)"; Get-Content $_.FullName | Select-Object -Last 60 | ForEach-Object { Write-Host "  setup: $_" } }
+            Get-Content "$log.out.txt", "$log.err.txt" -ErrorAction SilentlyContinue | ForEach-Object { Write-Host "  server: $_" }
+            throw "The installer never stopped the running program"
+          }
+          Wait-Server
+          for ($i = 0; $i -lt 120 -and (Get-Process -Name 'Church-Lower-Thirds-Setup*' -ErrorAction SilentlyContinue); $i++) { Start-Sleep -Milliseconds 500 }
+          Wait-Server
+          if ((Invoke-RestMethod "$base/api/info").folder -ne $other) { throw "Folder changed by the in-app update" }
+          if ((Invoke-RestMethod "$base/api/state").config.pix.name -ne 'Igreja Teste') { throw "Settings lost by the in-app update" }
+          Stop-Process -Id $web.Id -Force -ErrorAction SilentlyContinue
+          Write-Host "In-app update: downloaded, verified, installed and back on air."
+
+          Start-Process "$dir\unins000.exe" -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -Wait
+          for ($i = 0; $i -lt 60 -and ((Test-Path "$dir\runtime\node.exe") -or (Test-Path $userKey)); $i++) { Start-Sleep -Milliseconds 500 }
+          foreach ($f in "$dir\runtime\node.exe", $userKey) {
+            if (Test-Path $f) { throw "Left behind after uninstall: $f" }
+          }
+          try { Invoke-RestMethod "$base/api/health" -TimeoutSec 2 | Out-Null; throw "Server still running after uninstall" } catch { if ($_.Exception.Message -match 'still running') { throw } }
+          Write-Host "Uninstall removed the app and stopped the server."
+      - name: Generate checksum
+        shell: pwsh
+        run: |
+          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          $name = "Church-Lower-Thirds-Setup-$version.exe"
+          Move-Item installer\output\Church-Lower-Thirds-Setup.exe "installer\output\$name"
+          $hash = (Get-FileHash "installer\output\$name" -Algorithm SHA256).Hash.ToLower()
+          "$hash *$name" | Set-Content -Encoding ascii installer\output\SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Church-Lower-Thirds-Setup
+          path: |
+            installer/output/Church-Lower-Thirds-Setup-*.exe
+            installer/output/SHA256SUMS.txt
+          if-no-files-found: error
+
+  # main publishes a release in this repository; versions like 0.1.0-beta.1 are pre-releases.
+  publish:
+    if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
+    needs: windows
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/download-artifact@v4
+        with:
+          name: Church-Lower-Thirds-Setup
+          path: out
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(node -p "require('./package.json').version")
+          tag="v$version"
+          flags=()
+          title="Church Lower Thirds v$version"
+          case "$version" in *-*) flags+=(--prerelease); title="$title (beta)" ;; esac
+          (cd out && tr -d '\r' < SHA256SUMS.txt | sha256sum -c -)
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release edit "$tag" --title "$title" --notes-file installer/BETA-NOTES.md "${flags[@]}"
+          else
+            gh release create "$tag" --target "$GITHUB_SHA" --title "$title" --notes-file installer/BETA-NOTES.md "${flags[@]}"
+          fi
+          gh release upload "$tag" out/*.exe out/SHA256SUMS.txt --clobber

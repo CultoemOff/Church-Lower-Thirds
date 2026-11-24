@@ -1,0 +1,1849 @@
+/* Church Lower Thirds — overlay (OBS browser source). Stage: 1920x1080, scaled to the source. */
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent;
+}
+.stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: 0 0;
+  overflow: hidden;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img:not([src]) {
+  display: none;
+}
+
+/* ---------- Element shell: position → scale + shadow → animated box ---------- */
+.el {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  pointer-events: none;
+  visibility: hidden;
+  font-family: var(--font);
+}
+.el.in,
+.el.out {
+  visibility: visible;
+}
+.scaler {
+  transform: scale(var(--scale, 1));
+  filter: var(--shadow, none);
+  max-width: 100%;
+}
+.box {
+  position: relative;
+  --move: 120px;
+}
+
+/* ---------- Animations (data-anim on .el) ---------- */
+.el.in .box {
+  animation: var(--dur) cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.el.out .box {
+  animation: calc(var(--dur) * 0.75) cubic-bezier(0.6, 0, 0.8, 0.3) both reverse;
+}
+.el[data-anim='slide'] .box {
+  animation-name: a-slide;
+}
+.el[data-anim='rise'] .box {
+  animation-name: a-rise;
+}
+.el[data-anim='fade'] .box {
+  animation-name: a-fade;
+}
+.el[data-anim='wipe'] .box {
+  animation-name: a-wipe;
+}
+.el[data-anim='zoom'] .box {
+  animation-name: a-zoom;
+}
+.el[data-anim='blur'] .box {
+  animation-name: a-blur;
+}
+.el[data-anim='bounce'] .box {
+  animation-name: a-bounce;
+}
+.el[data-anim='bounce'].in .box {
+  animation-timing-function: linear;
+}
+.el[data-anim='flip'] .box {
+  animation-name: a-flip;
+  transform-origin: 50% 100%;
+}
+.el[data-anim='flip'] .scaler {
+  perspective: 1400px;
+}
+@keyframes a-slide {
+  from {
+    opacity: 0;
+    transform: translate(calc(var(--sx) * 110%), calc(var(--sy) * 140%));
+  }
+  30% {
+    opacity: 1;
+  }
+}
+@keyframes a-rise {
+  from {
+    opacity: 0;
+    transform: translateY(46px);
+  }
+}
+@keyframes a-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes a-wipe {
+  from {
+    clip-path: inset(-40px 100% -40px -40px);
+  }
+  to {
+    clip-path: inset(-40px -40px -40px -40px);
+  }
+}
+@keyframes a-zoom {
+  from {
+    opacity: 0;
+    transform: scale(0.72);
+  }
+}
+@keyframes a-blur {
+  from {
+    opacity: 0;
+    filter: blur(22px);
+    transform: scale(1.06);
+  }
+}
+@keyframes a-bounce {
+  0% {
+    opacity: 0;
+    transform: translate(calc(var(--sx) * 110%), calc(var(--sy) * 140%));
+  }
+  45% {
+    opacity: 1;
+    transform: translate(calc(var(--sx) * -5%), calc(var(--sy) * -9%));
+  }
+  68% {
+    transform: translate(calc(var(--sx) * 2.4%), calc(var(--sy) * 4%));
+  }
+  85% {
+    transform: translate(calc(var(--sx) * -1%), calc(var(--sy) * -1.6%));
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes a-flip {
+  from {
+    opacity: 0;
+    transform: rotateX(-88deg);
+  }
+}
+/* Text comes in a beat after its bar */
+.el.in .l1 span,
+.el.in .l2 span,
+.el.in .lower-pop {
+  animation: t-in calc(var(--dur) * 0.7) cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--dur) * 0.35);
+}
+.el.in .l2 span {
+  animation-delay: calc(var(--dur) * 0.5);
+}
+@keyframes t-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.45em);
+  }
+}
+
+/* =====================================================================
+   LOWER THIRD
+   ===================================================================== */
+.lower {
+  align-items: flex-end;
+  padding: 0 var(--mx) calc(var(--my) + var(--lift, 0px));
+  transition: padding 0.5s ease;
+}
+.lower[data-pos='left'] {
+  justify-content: flex-start;
+}
+.lower[data-pos='left'] .scaler {
+  transform-origin: 0 100%;
+}
+.lower[data-pos='center'] {
+  justify-content: center;
+}
+.lower[data-pos='center'] .scaler {
+  transform-origin: 50% 100%;
+}
+.lower[data-pos='right'] {
+  justify-content: flex-end;
+}
+.lower[data-pos='right'] .scaler {
+  transform-origin: 100% 100%;
+}
+.lower .box {
+  display: flex;
+  align-items: stretch;
+  color: var(--t1);
+}
+.lower .texts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+.lower .l1,
+.lower .l2 {
+  white-space: nowrap;
+  text-transform: var(--case);
+}
+.lower .l1 span,
+.lower .l2 span {
+  display: inline-block;
+}
+.lower .l1 {
+  font-size: 44px;
+  line-height: 1.12;
+  font-weight: var(--w1);
+  letter-spacing: -0.01em;
+  color: var(--t1);
+}
+.lower .l2 {
+  font-size: 25px;
+  line-height: 1.2;
+  font-weight: var(--w2);
+  color: var(--t2);
+}
+.lower .no-l1 .l1,
+.lower .no-l2 .l2 {
+  display: none;
+}
+.lower .logo {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+.lower .has-logo .logo {
+  display: flex;
+}
+.lower .logo img {
+  height: 84px;
+  max-width: 220px;
+  object-fit: contain;
+  display: block;
+}
+.lower .qr {
+  display: none;
+  flex: none;
+  align-self: center;
+  margin-left: 18px;
+  padding: 8px;
+  background: #fff;
+  border-radius: 12px;
+}
+.lower .has-qr .qr {
+  display: block;
+}
+.lower .qr img {
+  display: block;
+  width: 118px;
+  height: 118px;
+}
+.lower .side,
+.lower .deco {
+  display: none;
+}
+
+/* --- classic: accent stripe, name on the main color, title on the second --- */
+.lower[data-template='classic'] .deco {
+  display: block;
+  width: 12px;
+  background: var(--accent);
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+.lower[data-template='classic'] .logo {
+  background: var(--fill2);
+  padding: 12px 18px;
+}
+.lower[data-template='classic'] .texts {
+  justify-content: flex-start;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  overflow: hidden;
+}
+.lower[data-template='classic'] .l1 {
+  background: var(--fill);
+  padding: 14px 44px 12px 28px;
+}
+.lower[data-template='classic'] .l2 {
+  background: var(--fill2);
+  padding: 9px 44px 11px 28px;
+  flex: 1;
+}
+
+/* --- glass: translucent rounded panel with a soft highlight --- */
+.lower[data-template='glass'] .box {
+  background: var(--fill-soft);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: calc(var(--radius) + 8px);
+  padding: 18px 38px 18px 22px;
+  align-items: center;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -18px 30px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+.lower[data-template='glass'] .box::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 52% 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+.lower[data-template='glass'] .deco {
+  display: block;
+  align-self: stretch;
+  width: 7px;
+  border-radius: 7px;
+  background: var(--accent);
+  margin-right: 20px;
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+.lower[data-template='glass'] .logo {
+  margin-right: 18px;
+}
+.lower[data-template='glass'] .logo img {
+  height: 76px;
+}
+.lower[data-template='glass'] .l2 {
+  margin-top: 3px;
+}
+
+/* --- ribbon: slanted bars --- */
+.lower[data-template='ribbon'] .box {
+  align-items: flex-end;
+  padding-left: 22px;
+}
+.lower[data-template='ribbon'] .texts {
+  align-items: flex-start;
+}
+.lower[data-template='ribbon'] .l1,
+.lower[data-template='ribbon'] .l2 {
+  transform: skewX(-14deg);
+}
+.lower[data-template='ribbon'] .l1 span,
+.lower[data-template='ribbon'] .l2 span {
+  transform: skewX(14deg);
+}
+.lower[data-template='ribbon'] .l1 {
+  background: var(--fill);
+  padding: 12px 46px 12px 34px;
+  position: relative;
+}
+.lower[data-template='ribbon'] .l1::before {
+  content: '';
+  position: absolute;
+  left: -22px;
+  top: 0;
+  bottom: 0;
+  width: 14px;
+  background: var(--accent);
+}
+.lower[data-template='ribbon'] .l2 {
+  background: var(--fill2);
+  padding: 8px 38px 9px 30px;
+  margin-left: 30px;
+}
+.lower[data-template='ribbon'] .logo {
+  background: var(--fill2);
+  transform: skewX(-14deg);
+  padding: 10px 22px;
+  margin-right: 30px;
+  align-self: stretch;
+}
+.lower[data-template='ribbon'] .logo img {
+  transform: skewX(14deg);
+  height: 78px;
+}
+/* The text animation would undo the counter-skew: animate opacity only here. */
+.lower[data-template='ribbon'].in .l1 span,
+.lower[data-template='ribbon'].in .l2 span {
+  animation-name: t-fade;
+}
+@keyframes t-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* --- minimal: text only, with an accent line --- */
+.lower[data-template='minimal'] .box {
+  align-items: center;
+}
+.lower[data-template='minimal'] .deco {
+  display: block;
+  align-self: stretch;
+  width: 8px;
+  border-radius: 8px;
+  background: var(--accent);
+  margin-right: 22px;
+}
+.lower[data-template='minimal'] .logo {
+  margin-right: 22px;
+}
+.lower[data-template='minimal'] .l1 {
+  font-size: 54px;
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.55),
+    0 4px 22px rgba(0, 0, 0, 0.5);
+}
+.lower[data-template='minimal'] .l2 {
+  font-size: 28px;
+  margin-top: 2px;
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.6),
+    0 3px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* --- pill: rounded capsule with the logo in a ring --- */
+.lower[data-template='pill'] .box {
+  background: var(--fill);
+  border-radius: 999px;
+  padding: 12px 54px 12px 12px;
+  align-items: center;
+}
+.lower[data-template='pill'] .box:not(.has-logo) {
+  padding-left: 30px;
+}
+.lower[data-template='pill'] .deco {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-right: 20px;
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.18);
+}
+.lower[data-template='pill'] .has-logo .deco {
+  display: none;
+}
+.lower[data-template='pill'] .logo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--fill2);
+  border: 4px solid transparent;
+  background:
+    var(--fill2) padding-box,
+    var(--accent) border-box;
+  margin-right: 22px;
+  overflow: hidden;
+}
+.lower[data-template='pill'] .logo img {
+  height: 62px;
+  max-width: 66px;
+}
+.lower[data-template='pill'] .l1 {
+  font-size: 40px;
+}
+.lower[data-template='pill'] .l2 {
+  font-size: 24px;
+}
+.lower[data-template='pill'] .qr {
+  margin: -22px -26px -22px 26px;
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+/* --- split: angled accent block + text block --- */
+.lower[data-template='split'] .deco {
+  display: block;
+  width: 64px;
+  background: var(--accent);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 30px) 100%, 0 100%);
+}
+.lower[data-template='split'] .has-logo .deco {
+  display: none;
+}
+.lower[data-template='split'] .logo {
+  background: var(--accent);
+  padding: 14px 52px 14px 26px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 30px) 100%, 0 100%);
+}
+.lower[data-template='split'] .texts {
+  background: var(--fill);
+  margin-left: -31px;
+  padding: 16px 50px 16px 60px;
+  clip-path: polygon(30px 0, 100% 0, calc(100% - 30px) 100%, 0 100%);
+}
+.lower[data-template='split'] .l2 {
+  margin-top: 2px;
+}
+.lower[data-template='split'] .qr {
+  margin-left: -6px;
+}
+
+/* --- underline: big name, a line that draws itself, title on a chip --- */
+.lower[data-template='underline'] .box {
+  align-items: center;
+}
+.lower[data-template='underline'] .logo {
+  margin-right: 24px;
+}
+.lower[data-template='underline'] .logo img {
+  height: 104px;
+}
+.lower[data-template='underline'] .texts {
+  align-items: flex-start;
+}
+.lower[data-pos='right'][data-template='underline'] .texts {
+  align-items: flex-end;
+}
+.lower[data-pos='center'][data-template='underline'] .texts {
+  align-items: center;
+}
+.lower[data-template='underline'] .l1 {
+  font-size: 58px;
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.5),
+    0 6px 26px rgba(0, 0, 0, 0.5);
+  position: relative;
+  padding-bottom: 14px;
+  align-self: stretch;
+}
+.lower[data-template='underline'] .l1::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 7px;
+  border-radius: 7px;
+  background: var(--accent);
+  transform-origin: 0 50%;
+}
+.lower[data-template='underline'].in .l1::after {
+  animation: line-in calc(var(--dur) * 1.1) cubic-bezier(0.7, 0, 0.2, 1) both;
+  animation-delay: calc(var(--dur) * 0.3);
+}
+@keyframes line-in {
+  from {
+    transform: scaleX(0);
+  }
+}
+.lower[data-template='underline'] .l2 {
+  margin-top: 12px;
+  background: var(--fill);
+  padding: 7px 18px 8px;
+  border-radius: min(var(--radius), 22px);
+}
+
+/* --- neon: dark panel, glowing gradient outline --- */
+.lower[data-template='neon'] .box {
+  border: 3px solid transparent;
+  background:
+    var(--fill2-soft) padding-box,
+    var(--accent) border-box;
+  border-radius: var(--radius);
+  padding: 16px 40px 16px 26px;
+  align-items: center;
+  box-shadow:
+    0 0 26px var(--accent-glow),
+    inset 0 0 24px rgba(0, 0, 0, 0.35);
+}
+.lower[data-template='neon'] .box::before {
+  /* padding-box layer must be opaque enough to hide the border gradient */
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: calc(var(--radius) - 3px);
+  background: rgba(8, 10, 16, 0.55);
+  z-index: -1;
+}
+.lower[data-template='neon'] .logo {
+  margin-right: 20px;
+}
+.lower[data-template='neon'] .logo img {
+  height: 78px;
+}
+.lower[data-template='neon'] .l1 {
+  text-shadow: 0 0 18px var(--accent-glow);
+}
+.lower[data-template='neon'] .l2 {
+  margin-top: 5px;
+  font-size: 21px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* --- news: edge-to-edge bar with the church name on the right --- */
+.lower[data-template='news'] {
+  padding: 0 0 calc(var(--my) + var(--lift, 0px));
+}
+.lower[data-template='news'] .scaler {
+  width: 100%;
+  transform: none;
+}
+.lower[data-template='news'] .box {
+  width: 100%;
+  background: var(--fill);
+  padding: calc(16px * var(--scale)) calc(96px * var(--scale));
+  align-items: center;
+}
+.lower[data-template='news'] .box::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -7px;
+  height: 7px;
+  background: var(--accent);
+}
+.lower[data-template='news'] .logo {
+  margin-right: calc(26px * var(--scale));
+}
+.lower[data-template='news'] .logo img {
+  height: calc(84px * var(--scale));
+}
+.lower[data-template='news'] .l1 {
+  font-size: calc(46px * var(--scale));
+}
+.lower[data-template='news'] .l2 {
+  font-size: calc(26px * var(--scale));
+  margin-top: 2px;
+}
+.lower[data-template='news'] .side {
+  display: block;
+  margin-left: auto;
+  padding-left: 40px;
+  font-size: calc(24px * var(--scale));
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--t2);
+  white-space: nowrap;
+}
+.lower[data-template='news'] .qr {
+  margin: -40px 0 -4px 30px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* --- stack: two offset cards --- */
+.lower[data-template='stack'] .box {
+  align-items: center;
+}
+.lower[data-template='stack'] .logo {
+  background: var(--fill2);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-right: 14px;
+  align-self: stretch;
+}
+.lower[data-template='stack'] .texts {
+  align-items: flex-start;
+}
+.lower[data-template='stack'] .l1 {
+  background: var(--fill);
+  padding: 13px 36px;
+  border-radius: var(--radius);
+  position: relative;
+  z-index: 1;
+}
+.lower[data-template='stack'] .l2 {
+  background: var(--accent);
+  padding: 8px 26px 9px;
+  border-radius: min(var(--radius), 20px);
+  margin: -9px 0 0 34px;
+  color: var(--on-accent);
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* =====================================================================
+   CORNER BADGE: logo, name, message, "AO VIVO", time
+   ===================================================================== */
+.top .box {
+  display: flex;
+  align-items: center;
+  color: var(--t1);
+  --h: 62px;
+}
+.top .part {
+  display: none;
+  align-items: center;
+  height: var(--h);
+  flex: none;
+  white-space: nowrap;
+}
+.top .has-logo .logo,
+.top .has-name .name,
+.top .has-msg .msg,
+.top .has-live .live,
+.top .has-clock .clock {
+  display: flex;
+}
+.top .logo img {
+  display: block;
+  height: calc(var(--h) - 18px);
+  max-width: 200px;
+  object-fit: contain;
+}
+.top .name {
+  font-size: 25px;
+  font-weight: var(--w1);
+  letter-spacing: -0.01em;
+}
+.top .msg {
+  font-size: 23px;
+  font-weight: 500;
+  color: var(--t2);
+  max-width: 620px;
+  overflow: hidden;
+}
+.top .msg span {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  transition:
+    opacity 0.36s ease,
+    transform 0.36s ease;
+}
+.top .msg span.swap {
+  opacity: 0;
+  transform: translateY(-0.5em);
+}
+.top .live {
+  gap: 9px;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #fff;
+}
+.top .live i {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #fff;
+  animation: live-dot 1.6s ease-in-out infinite;
+}
+@keyframes live-dot {
+  50% {
+    opacity: 0.25;
+    transform: scale(0.8);
+  }
+}
+.top .clock {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  line-height: 1;
+}
+.top .time {
+  font-size: 28px;
+  font-weight: var(--w1);
+  font-variant-numeric: tabular-nums;
+}
+.top .date {
+  display: none;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--t2);
+  margin-top: 4px;
+}
+.top .has-date .date {
+  display: block;
+}
+/* --- bar: one rounded strip, parts divided by thin lines --- */
+.top[data-template='bar'] .box,
+.top[data-template='liquid'] .box {
+  background: var(--fill);
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1.5px solid rgba(255, 255, 255, 0.16);
+}
+.top[data-template='bar'] .box::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: var(--accent);
+}
+.top[data-template='bar'] .part,
+.top[data-template='liquid'] .part {
+  padding: 0 20px;
+}
+.top[data-template='bar'] .part + .part,
+.top[data-template='liquid'] .part + .part {
+  box-shadow: -1.5px 0 0 rgba(255, 255, 255, 0.16);
+}
+.top[data-template='bar'] .logo {
+  padding: 0 14px 0 16px;
+}
+.top[data-template='bar'] .logo + .name {
+  box-shadow: none;
+  padding-left: 2px;
+}
+.top[data-template='bar'] .live {
+  background: #e5383b;
+  box-shadow: none !important;
+}
+.top[data-template='bar'] .live + .part {
+  box-shadow: none;
+}
+/* --- pills: every part its own capsule --- */
+.top[data-template='pills'] .box {
+  gap: 10px;
+  --h: 54px;
+}
+.top[data-template='pills'] .part {
+  background: var(--fill);
+  border-radius: min(var(--radius), 27px);
+  padding: 0 22px;
+  border: 1.5px solid rgba(255, 255, 255, 0.16);
+}
+.top[data-template='pills'] .logo {
+  padding: 0 12px;
+}
+.top[data-template='pills'] .live {
+  background: #e5383b;
+  border-color: transparent;
+}
+.top[data-template='pills'] .clock {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: transparent;
+}
+.top[data-template='pills'] .clock .date {
+  color: var(--on-accent);
+}
+/* --- stack: a small card, logo and name on top, live and time under --- */
+.top[data-template='stack'] .box {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 4px 14px;
+  background: var(--fill);
+  border-radius: var(--radius);
+  padding: 12px 20px 14px 14px;
+  border-left: 7px solid transparent;
+  border-image: var(--accent) 1;
+  --h: 38px;
+}
+.top[data-template='stack'] .logo {
+  grid-row: span 2;
+  --h: 82px;
+}
+.top[data-template='stack'] .logo img {
+  height: 70px;
+}
+.top[data-template='stack'] .name {
+  grid-column: 2 / -1;
+  font-size: 27px;
+}
+.top[data-template='stack'] .msg {
+  grid-column: 2 / -1;
+  --h: 30px;
+  max-width: 460px;
+}
+.top[data-template='stack'] .live {
+  grid-column: 2;
+  justify-self: start;
+  background: #e5383b;
+  border-radius: 8px;
+  padding: 0 12px;
+  --h: 32px;
+  font-size: 16px;
+}
+.top[data-template='stack'] .clock {
+  grid-column: 3;
+  --h: 32px;
+}
+.top[data-template='stack'] .box:not(.has-live) .clock {
+  grid-column: 2;
+  justify-self: start;
+}
+/* --- liquid --- */
+.top[data-template='liquid'] .box {
+  border-radius: 999px;
+  padding: 0 8px;
+}
+.top[data-template='liquid'] .live {
+  background: #e5383b;
+  --h: 40px;
+  align-self: center;
+  border-radius: 999px;
+  padding: 0 16px;
+  margin: 0 12px;
+  box-shadow: inset 0 1.5px 1px rgba(255, 255, 255, 0.45) !important;
+  text-shadow: none;
+}
+.top[data-template='liquid'] .live + .part {
+  box-shadow: none;
+}
+
+/* =====================================================================
+   QR CARD
+   ===================================================================== */
+.card {
+  padding: var(--my) var(--mx);
+}
+.card[data-pos^='top'] {
+  align-items: flex-start;
+}
+.card[data-pos^='bottom'] {
+  align-items: flex-end;
+}
+.card[data-pos^='center'] {
+  align-items: center;
+}
+.card[data-pos$='left'] {
+  justify-content: flex-start;
+}
+.card[data-pos$='right'] {
+  justify-content: flex-end;
+}
+.card[data-pos='center'] {
+  justify-content: center;
+}
+.card[data-pos='top-left'] .scaler {
+  transform-origin: 0 0;
+}
+.card[data-pos='top-right'] .scaler {
+  transform-origin: 100% 0;
+}
+.card[data-pos='bottom-left'] .scaler {
+  transform-origin: 0 100%;
+}
+.card[data-pos='bottom-right'] .scaler {
+  transform-origin: 100% 100%;
+}
+.card[data-pos='center-left'] .scaler {
+  transform-origin: 0 50%;
+}
+.card[data-pos='center-right'] .scaler {
+  transform-origin: 100% 50%;
+}
+.card .box {
+  color: var(--t1);
+  background: var(--fill);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 340px;
+}
+.card .band {
+  align-self: stretch;
+  height: 12px;
+  background: var(--accent);
+  flex: none;
+}
+.card .head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 24px 0;
+}
+.card .logo {
+  display: none;
+}
+.card .has-logo .logo {
+  display: block;
+}
+.card .logo img {
+  display: block;
+  height: 58px;
+  max-width: 220px;
+  object-fit: contain;
+}
+.card .title,
+.card .title2 {
+  font-size: 29px;
+  line-height: 1.12;
+  font-weight: var(--w1);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.card .title2 {
+  display: none;
+}
+.card .qrw {
+  display: none;
+  margin: 18px 24px 0;
+  padding: 12px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+.card .has-qr .qrw {
+  display: block;
+}
+.card .qrw img {
+  display: block;
+  width: 252px;
+  height: 252px;
+}
+.card .info {
+  padding: 14px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+}
+.card .sub {
+  font-size: 20px;
+  line-height: 1.25;
+  color: var(--t2);
+  font-weight: 500;
+  text-wrap: balance;
+}
+.card .key {
+  display: none;
+  max-width: 100%;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 19px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 999px;
+  overflow-wrap: anywhere;
+  line-height: 1.2;
+}
+.card .has-key .key {
+  display: block;
+}
+.card .box:not(.has-sub) .sub,
+.card .box:not(.has-title) .title {
+  display: none;
+}
+
+/* --- horizontal: QR on the left, text on the right --- */
+.card[data-template='horizontal'] .box {
+  flex-direction: row;
+  align-items: stretch;
+  text-align: left;
+  width: auto;
+  max-width: 760px;
+}
+.card[data-template='horizontal'] .band {
+  width: 14px;
+  height: auto;
+}
+.card[data-template='horizontal'] .head {
+  display: none;
+}
+.card[data-template='horizontal'] .qrw {
+  margin: 18px 0 18px 20px;
+  align-self: center;
+  padding: 10px;
+}
+.card[data-template='horizontal'] .qrw img {
+  width: 190px;
+  height: 190px;
+}
+.card[data-template='horizontal'] .info {
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px 34px 20px 26px;
+  gap: 12px;
+  min-width: 300px;
+}
+.card[data-template='horizontal'] .title2 {
+  display: block;
+  font-size: 34px;
+}
+
+/* --- ticket: accent header, perforated line --- */
+.card[data-template='ticket'] .band {
+  display: none;
+}
+.card[data-template='ticket'] .head {
+  align-self: stretch;
+  background: var(--accent);
+  color: var(--on-accent);
+  padding: 22px 24px 24px;
+}
+.card[data-template='ticket'] .logo img {
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+}
+.card[data-template='ticket'] .box {
+  overflow: visible;
+  background: none;
+}
+.card[data-template='ticket'] .head {
+  border-radius: var(--radius) var(--radius) 0 0;
+  position: relative;
+}
+.card[data-template='ticket'] .qrw {
+  margin: 0;
+  align-self: stretch;
+  border-radius: 0;
+  box-shadow: none;
+  background:
+    radial-gradient(circle 13px at 0 0, transparent 12.5px, var(--card-solid, #fff) 13px) left top /
+      51% 100% no-repeat,
+    radial-gradient(circle 13px at 100% 0, transparent 12.5px, var(--card-solid, #fff) 13px) right
+      top / 51% 100% no-repeat;
+  padding: 26px 0 0;
+  display: none;
+  justify-content: center;
+  position: relative;
+}
+.card[data-template='ticket'] .has-qr .qrw {
+  display: flex;
+}
+.card[data-template='ticket'] .qrw::before {
+  content: '';
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  top: 0;
+  border-top: 3px dashed rgba(0, 0, 0, 0.22);
+}
+.card[data-template='ticket'] .qrw img {
+  background: #fff;
+  padding: 10px;
+  border-radius: 14px;
+  width: 262px;
+  height: 262px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+.card[data-template='ticket'] .info {
+  align-self: stretch;
+  background: var(--fill);
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+.card[data-template='ticket'] .qrw {
+  background-color: transparent;
+  --card-solid: var(--fill-solid);
+}
+
+/* --- frame: the QR in a thick gradient frame, label on top --- */
+.card[data-template='frame'] .box {
+  background: var(--accent);
+  padding: 16px;
+  width: auto;
+  overflow: visible;
+}
+.card[data-template='frame'] .band,
+.card[data-template='frame'] .logo {
+  display: none;
+}
+.card[data-template='frame'] .head {
+  padding: 2px 10px 14px;
+  color: var(--on-accent);
+}
+.card[data-template='frame'] .title {
+  font-size: 27px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+}
+.card[data-template='frame'] .qrw {
+  margin: 0;
+  border-radius: max(6px, calc(var(--radius) - 10px));
+}
+.card[data-template='frame'] .qrw img {
+  width: 264px;
+  height: 264px;
+}
+.card[data-template='frame'] .info {
+  padding: 12px 6px 2px;
+  gap: 8px;
+}
+.card[data-template='frame'] .sub {
+  color: var(--on-accent);
+}
+.card[data-template='frame'] .key {
+  background: var(--fill);
+  color: var(--t1);
+}
+
+/* =====================================================================
+   LOGO
+   ===================================================================== */
+.bug {
+  padding: var(--my) var(--mx);
+}
+.bug[data-pos^='top'] {
+  align-items: flex-start;
+}
+.bug[data-pos^='bottom'] {
+  align-items: flex-end;
+}
+.bug[data-pos$='left'] {
+  justify-content: flex-start;
+}
+.bug[data-pos$='right'] {
+  justify-content: flex-end;
+}
+.bug .scaler {
+  transform: none;
+}
+.bug img {
+  display: block;
+  width: var(--w);
+  max-height: 400px;
+  object-fit: contain;
+  opacity: var(--alpha);
+}
+
+/* =====================================================================
+   PLACED ELEMENTS (agenda, social): nine places on the screen
+   ===================================================================== */
+.placed {
+  padding: var(--my) var(--mx);
+  transition: padding 0.5s ease;
+}
+.placed[data-pos^='top'] {
+  align-items: flex-start;
+}
+.placed[data-pos^='bottom'],
+.card[data-pos^='bottom'] {
+  align-items: flex-end;
+  padding-bottom: calc(var(--my) + var(--lift, 0px));
+}
+.placed[data-pos^='center'] {
+  align-items: center;
+}
+.placed[data-pos$='left'] {
+  justify-content: flex-start;
+}
+.placed[data-pos$='right'] {
+  justify-content: flex-end;
+}
+.placed[data-pos$='center'],
+.placed[data-pos='center'],
+.card[data-pos$='-center'] {
+  justify-content: center;
+}
+.placed[data-pos='top-left'] .scaler {
+  transform-origin: 0 0;
+}
+.placed[data-pos='top-center'] .scaler,
+.card[data-pos='top-center'] .scaler {
+  transform-origin: 50% 0;
+}
+.placed[data-pos='top-right'] .scaler {
+  transform-origin: 100% 0;
+}
+.placed[data-pos='center-left'] .scaler {
+  transform-origin: 0 50%;
+}
+.placed[data-pos='center-right'] .scaler {
+  transform-origin: 100% 50%;
+}
+.placed[data-pos='bottom-left'] .scaler {
+  transform-origin: 0 100%;
+}
+.placed[data-pos='bottom-center'] .scaler,
+.card[data-pos='bottom-center'] .scaler {
+  transform-origin: 50% 100%;
+}
+.placed[data-pos='bottom-right'] .scaler {
+  transform-origin: 100% 100%;
+}
+
+/* =====================================================================
+   BOTTOM BAR (ticker)
+   ===================================================================== */
+.ticker {
+  align-items: flex-end;
+  justify-content: center;
+}
+.ticker .scaler {
+  transform-origin: 50% 100%;
+  width: calc(100% / var(--scale));
+  flex: none;
+}
+.ticker .box {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  color: var(--t1);
+  background: var(--fill);
+  overflow: hidden;
+}
+.ticker .logo,
+.ticker .label,
+.ticker .time {
+  display: none;
+  flex: none;
+}
+.ticker .has-logo .logo {
+  display: block;
+  padding: 0 6px 0 22px;
+}
+.ticker .logo img {
+  display: block;
+  height: 44px;
+  max-width: 160px;
+  object-fit: contain;
+}
+.ticker .has-label .label {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  padding: 0 30px 0 34px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
+  position: relative;
+  z-index: 1;
+}
+.ticker .track {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 40px,
+    #000 calc(100% - 40px),
+    transparent
+  );
+  mask-image: linear-gradient(90deg, transparent, #000 40px, #000 calc(100% - 40px), transparent);
+}
+.ticker .run {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 28px;
+  font-weight: var(--w1);
+  will-change: transform;
+}
+.ticker .run i {
+  font-style: normal;
+  margin: 0 30px;
+  background: var(--accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 900;
+}
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.ticker .has-clock .time {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  padding: 0 34px 0 26px;
+  font-size: 28px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  border-left: 2px solid rgba(255, 255, 255, 0.18);
+}
+.ticker[data-template='full'] .box::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  background: var(--accent);
+  z-index: 2;
+}
+.ticker[data-template='floating'],
+.ticker[data-template='liquid'] {
+  padding: var(--margin);
+}
+.ticker[data-template='floating'] .box {
+  border-radius: var(--radius);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+}
+.ticker[data-template='minimal'] {
+  padding-bottom: 14px;
+}
+.ticker[data-template='minimal'] .box {
+  background: none;
+}
+.ticker[data-template='minimal'] .run {
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.6),
+    0 3px 18px rgba(0, 0, 0, 0.55);
+}
+.ticker[data-template='minimal'] .has-label .label {
+  clip-path: none;
+  align-self: center;
+  padding: 8px 20px;
+  border-radius: 999px;
+  margin-left: 40px;
+}
+
+/* =====================================================================
+   AGENDA
+   ===================================================================== */
+.agenda .box {
+  width: 430px;
+  color: var(--t1);
+  background: var(--fill);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.agenda .head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 26px;
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.agenda .logo {
+  display: none;
+}
+.agenda .has-logo .logo {
+  display: block;
+}
+.agenda .logo img {
+  display: block;
+  height: 46px;
+  max-width: 130px;
+  object-fit: contain;
+}
+.agenda .title {
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.agenda .day {
+  padding: 24px 28px 14px;
+  min-height: 190px;
+  transition:
+    opacity 0.42s ease,
+    transform 0.42s ease;
+}
+.agenda .day.swap {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.agenda .dname {
+  font-size: 46px;
+  line-height: 1.05;
+  font-weight: var(--w1);
+  letter-spacing: -0.01em;
+}
+.agenda .dlines {
+  margin-top: 14px;
+  display: grid;
+  gap: 8px;
+  font-size: 26px;
+  line-height: 1.25;
+  font-weight: 500;
+  color: var(--t2);
+}
+.agenda .dots {
+  display: flex;
+  gap: 8px;
+  padding: 6px 28px 22px;
+}
+.agenda .dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 9px;
+  background: var(--t2);
+  opacity: 0.35;
+  transition: all 0.4s ease;
+}
+.agenda .dots i.on {
+  width: 30px;
+  opacity: 1;
+  background: var(--accent);
+}
+/* banner: a wide strip near the bottom, day on the left, services in a row */
+.agenda[data-template='banner'] .box {
+  width: auto;
+  min-width: 1100px;
+  max-width: 1700px;
+  flex-direction: row;
+  align-items: stretch;
+}
+.agenda[data-template='banner'] .head {
+  padding: 18px 40px 18px 28px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 24px) 100%, 0 100%);
+}
+.agenda[data-template='banner'] .day {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  padding: 18px 30px 18px 22px;
+}
+.agenda[data-template='banner'] .dname {
+  font-size: 40px;
+  white-space: nowrap;
+}
+.agenda[data-template='banner'] .dlines {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 30px;
+  font-size: 25px;
+}
+.agenda[data-template='banner'] .dots {
+  align-items: center;
+  padding: 0 30px 0 0;
+}
+/* center: a big panel in the middle of the screen */
+.agenda[data-template='center'] .box {
+  width: 900px;
+  text-align: center;
+}
+.agenda[data-template='center'] .head {
+  justify-content: center;
+  padding: 24px 30px;
+}
+.agenda[data-template='center'] .title {
+  font-size: 32px;
+}
+.agenda[data-template='center'] .logo img {
+  height: 60px;
+}
+.agenda[data-template='center'] .day {
+  padding: 44px 40px 24px;
+  min-height: 330px;
+}
+.agenda[data-template='center'] .dname {
+  font-size: 84px;
+}
+.agenda[data-template='center'] .dlines {
+  font-size: 38px;
+  gap: 12px;
+  margin-top: 24px;
+}
+.agenda[data-template='center'] .dots {
+  justify-content: center;
+  padding-bottom: 30px;
+}
+
+/* =====================================================================
+   SOCIAL NETWORKS
+   ===================================================================== */
+.social .box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: var(--t1);
+  background: var(--fill);
+  border-radius: 999px;
+  padding: 12px 44px 12px 12px;
+}
+.social .icon {
+  width: 92px;
+  height: 92px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.social .icon svg {
+  width: 52px;
+  height: 52px;
+}
+.social .icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.social .prefix {
+  font-size: 23px;
+  font-weight: 500;
+  color: var(--t2);
+  white-space: nowrap;
+}
+.social .handle {
+  font-size: 42px;
+  line-height: 1.1;
+  font-weight: var(--w1);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.social.in .icon {
+  animation: icon-pop calc(var(--dur) * 1.1) cubic-bezier(0.3, 1.6, 0.5, 1) both;
+  animation-delay: calc(var(--dur) * 0.3);
+}
+@keyframes icon-pop {
+  from {
+    transform: scale(0.4) rotate(-25deg);
+    opacity: 0;
+  }
+}
+.social[data-template='card'] .box {
+  flex-direction: column;
+  text-align: center;
+  gap: 12px;
+  border-radius: var(--radius);
+  padding: 0 34px 26px;
+  margin-top: 46px;
+}
+.social[data-template='card'] .icon {
+  margin-top: -46px;
+  border: 6px solid transparent;
+  background:
+    var(--accent) padding-box,
+    var(--fill) border-box;
+  width: 104px;
+  height: 104px;
+}
+
+/* =====================================================================
+   LIQUID GLASS (every element): clear, rounded, bright rim, soft depth
+   ===================================================================== */
+.el[data-template='liquid'] .scaler {
+  /* The glass draws its own shadow, so the blur behind it keeps working. */
+  filter: none;
+}
+.lower[data-template='liquid'] .box,
+.top[data-template='liquid'] .box,
+.card[data-template='liquid'] .box,
+.ticker[data-template='liquid'] .box,
+.agenda[data-template='liquid'] .box,
+.social[data-template='liquid'] .box {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(255, 255, 255, 0.1) 36%,
+      rgba(255, 255, 255, 0.05) 62%,
+      rgba(255, 255, 255, 0.24) 100%
+    ),
+    var(--fill-glass);
+  border: 1.5px solid rgba(255, 255, 255, 0.58);
+  box-shadow:
+    inset 0 2px 1px rgba(255, 255, 255, 0.85),
+    inset 0 -2px 2px rgba(255, 255, 255, 0.28),
+    inset 10px 0 20px -12px rgba(255, 255, 255, 0.5),
+    inset -10px 0 20px -12px rgba(255, 255, 255, 0.32),
+    inset 0 -20px 30px -14px rgba(0, 0, 0, 0.2),
+    0 18px 44px -8px rgba(0, 0, 0, 0.38),
+    0 2px 6px rgba(0, 0, 0, 0.18);
+  -webkit-backdrop-filter: blur(22px) saturate(1.7);
+  backdrop-filter: blur(22px) saturate(1.7);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.28);
+}
+.lower[data-template='liquid'] .box {
+  border-radius: 999px;
+  padding: 14px 52px 14px 14px;
+  align-items: center;
+}
+.lower[data-template='liquid'] .box:not(.has-logo) {
+  padding-left: 40px;
+}
+.lower[data-template='liquid'] .logo {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  margin-right: 22px;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    inset 0 2px 1px rgba(255, 255, 255, 0.8),
+    inset 0 -10px 16px -8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+.lower[data-template='liquid'] .logo img {
+  height: 60px;
+  max-width: 64px;
+}
+.lower[data-template='liquid'] .l1 {
+  font-size: 40px;
+}
+.lower[data-template='liquid'] .l2 {
+  font-size: 24px;
+  margin-top: 2px;
+}
+.lower[data-template='liquid'] .qr {
+  margin: -6px -30px -6px 26px;
+  border-radius: 22px;
+}
+.card[data-template='liquid'] .box {
+  border-radius: calc(var(--radius) + 18px);
+  overflow: hidden;
+}
+.card[data-template='liquid'] .band {
+  display: none;
+}
+.card[data-template='liquid'] .qrw {
+  border-radius: 26px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+}
+.card[data-template='liquid'] .key {
+  background: rgba(255, 255, 255, 0.24);
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  color: var(--t1);
+  box-shadow: inset 0 1.5px 1px rgba(255, 255, 255, 0.7);
+}
+.ticker[data-template='liquid'] .box {
+  border-radius: 999px;
+}
+.ticker[data-template='liquid'] .has-label .label {
+  clip-path: none;
+  align-self: center;
+  margin-left: 9px;
+  padding: 9px 22px;
+  border-radius: 999px;
+  box-shadow: inset 0 1.5px 1px rgba(255, 255, 255, 0.5);
+  text-shadow: none;
+}
+.agenda[data-template='liquid'] .box {
+  border-radius: calc(var(--radius) + 16px);
+}
+.agenda[data-template='liquid'] .head {
+  background: none;
+  color: var(--t1);
+  padding-bottom: 0;
+}
+.agenda[data-template='liquid'] .title {
+  font-size: 21px;
+  opacity: 0.85;
+}
+.social[data-template='liquid'] .icon {
+  background: rgba(255, 255, 255, 0.22);
+  color: var(--t1);
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    inset 0 2px 1px rgba(255, 255, 255, 0.8),
+    inset 0 -10px 16px -8px rgba(0, 0, 0, 0.2);
+}
+
+/* =====================================================================
+   FREE PLACEMENT (dragged in the layout editor) and the editor itself
+   ===================================================================== */
+.el[data-free] {
+  display: block;
+  padding: 0;
+}
+.el[data-free] > .scaler {
+  position: absolute;
+  left: var(--fx);
+  top: var(--fy);
+  transform-origin: 0 0 !important;
+  max-width: none;
+}
+.editHandle {
+  display: none;
+}
+.edit .el {
+  visibility: visible;
+}
+.edit .el *,
+.edit .el .box {
+  animation-name: none !important;
+}
+.edit .ticker .run {
+  animation: none !important;
+}
+.edit .el:not(.fixed) > .scaler {
+  pointer-events: auto;
+  cursor: move;
+  outline: 2px dashed rgba(255, 255, 255, 0.75);
+  outline-offset: 6px;
+  touch-action: none;
+}
+.edit .el.dragging > .scaler,
+.edit .el:not(.fixed) > .scaler:hover {
+  outline-color: #4f7cff;
+  outline-style: solid;
+}
+.edit .el:not(.fixed) .editHandle {
+  display: block;
+  position: absolute;
+  right: -16px;
+  bottom: -16px;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: #4f7cff;
+  border: 3px solid #fff;
+  cursor: nwse-resize;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* =====================================================================
+   VERTICAL LAYOUT (?layout=vertical): a 1080x1920 stage for Shorts, Reels, TikTok
+   ===================================================================== */
+.vertical .stage {
+  width: 1080px;
+  height: 1920px;
+}
+.vertical .top[data-template='pills'] .box {
+  flex-wrap: wrap;
+  max-width: 980px;
+}
+.vertical .top .msg {
+  max-width: 360px;
+}
+.vertical .agenda[data-template='banner'] .box {
+  min-width: 0;
+  max-width: 1000px;
+}
+.vertical .agenda[data-template='banner'] .day {
+  flex-wrap: wrap;
+  gap: 10px 26px;
+}
+.vertical .agenda[data-template='banner'] .dots {
+  display: none;
+}
+.vertical .agenda[data-template='center'] .box {
+  width: 940px;
+}
+.vertical .lower[data-template='news'] .box {
+  padding-left: calc(40px * var(--scale));
+  padding-right: calc(40px * var(--scale));
+}
+.vertical .lower[data-template='news'] .side {
+  display: none;
+}
+.vertical .lower .l1,
+.vertical .lower .l2 {
+  white-space: normal;
+  max-width: 760px;
+}
+.vertical .card[data-template='horizontal'] .box {
+  max-width: 940px;
+}
+
+/* Settings preview: a neutral "camera" background so transparency and shadows show */
+.preview body {
+  background:
+    radial-gradient(1200px 700px at 30% 30%, #5b6b85 0%, transparent 60%),
+    radial-gradient(1000px 700px at 80% 70%, #7a5a46 0%, transparent 55%),
+    linear-gradient(135deg, #2b3445, #1a1f2b);
+}
