@@ -579,6 +579,32 @@ input[type='color'] {
   color: var(--accent);
   white-space: nowrap;
 }
+/* Simple mode: the cards of fine adjustments are left out */
+body.simple .adv {
+  display: none !important;
+}
+.simpleNote {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 14px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+#mode button {
+  padding: 0 10px;
+}
+.shareRow {
+  margin-top: 10px;
+}
+.customItem .customActions a {
+  flex: 1;
+  display: flex;
+}
+p.hint.ok {
+  color: var(--ok, #22c55e);
+}
 /* Search in a long list, and the names read from a pasted list or a file */
 input.find {
   width: 100%;

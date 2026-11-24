@@ -29,6 +29,7 @@ import { installedFonts } from './fonts.js';
 import { pixPayload, validPixPayload } from './pix.js';
 import { sepaPayload } from './sepa.js';
 import { qrSvg } from './qr.js';
+import { createObsSources } from './obs.js';
 import { SOURCES, sourceFileName, writeSourceFiles } from './sources.js';
 import {
   addProfile,
@@ -37,6 +38,9 @@ import {
   type Config,
   countdownEnd,
   type ElementName,
+  exportProfile,
+  importModel,
+  importProfile,
   ELEMENTS,
   firstConfig,
   type Live,
@@ -585,6 +589,101 @@ app.post('/api/profile/add', (q, r) => profileChange(r, () => addProfile(config,
 app.post('/api/profile/remove', (q, r) =>
   profileChange(r, () => removeProfile(config, profileRef(q))),
 );
+
+// ---- Sharing: a custom model or a profile as a file ----
+// The file is small JSON, with the images the profile uses inside it (as in the backup).
+const shareName = (kind: string, name: string) =>
+  `${kind}-${
+    name
+      .normalize('NFD')
+      .replace(/[^\w -]/g, '')
+      .trim()
+      .replace(/\s+/g, '-')
+      .toLowerCase() || 'church-lower-thirds'
+  }.clt.json`;
+app.get('/api/share/model', (q, r) => {
+  const m = config.customModels.find((x) => x.id === String(q.query.id));
+  if (!m) return void r.status(404).json({ error: 'Model not found' });
+  r.set('Content-Disposition', `attachment; filename="${shareName('modelo', m.name)}"`).json({
+    app: 'church-lower-thirds',
+    kind: 'model',
+    version: appVersion,
+    name: m.name,
+    css: m.css,
+  });
+});
+app.get('/api/share/profile', async (q, r) => {
+  try {
+    const p = exportProfile(config, String(q.query.id ?? ''));
+    const media: Record<string, string> = {};
+    for (const f of await readdir(mediaDir).catch(() => []))
+      if (JSON.stringify(p.look).includes(`/media/${f}`))
+        media[f] = (await readFile(join(mediaDir, f))).toString('base64');
+    r.set('Content-Disposition', `attachment; filename="${shareName('perfil', p.name)}"`).json({
+      app: 'church-lower-thirds',
+      kind: 'profile',
+      version: appVersion,
+      ...p,
+      media,
+    });
+  } catch (e) {
+    fail(r, e);
+  }
+});
+app.post('/api/share/import', async (q, r) => {
+  try {
+    const file = q.body || {};
+    if (file.app !== 'church-lower-thirds' || !['model', 'profile'].includes(file.kind))
+      throw new Error('Not a Church Lower Thirds model or profile');
+    if (file.kind === 'model') config = importModel(config, file.name, file.css)[0];
+    else {
+      for (const [name, data] of Object.entries(file.media || {}))
+        if (/^[a-f0-9]{16}\.(png|jpe?g|webp|gif|svg)$/.test(name))
+          await writeFile(join(mediaDir, name), Buffer.from(String(data), 'base64'));
+      config = importProfile(config, file);
+    }
+    live = cleanLive(live, config);
+    await saveStore();
+    sendConfig();
+    r.json({ ok: true, kind: file.kind, config });
+  } catch (e) {
+    fail(r, e);
+  }
+});
+
+// ---- OBS: create the browser sources there ----
+app.post('/api/obs/sources', async (q, r) => {
+  const b = q.body || {},
+    vertical = b.layout === 'vertical',
+    [width, height] = (vertical ? config.output.vertical : config.output.horizontal)
+      .split('x')
+      .map(Number);
+  const source = (file: string, slug: string) => ({
+    name: `CLT - ${file}${vertical ? ' (Vertical)' : ''}`,
+    url: `${baseUrl}/source/${slug}${vertical ? '?layout=vertical' : ''}`,
+    width,
+    height,
+  });
+  // One source with everything, or one per category that is switched on.
+  const sources =
+    b.mode === 'each'
+      ? SOURCES.filter((s) => s.element && config.enabled[s.element]).map((s) =>
+          source(s.file, s.slug),
+        )
+      : [source('All Elements', 'all')];
+  try {
+    const port = Number(b.port);
+    r.json({
+      ok: true,
+      ...(await createObsSources(sources, {
+        port: Number.isInteger(port) && port > 0 && port < 65536 ? port : 4455,
+        password: typeof b.password === 'string' ? b.password : '',
+      })),
+    });
+  } catch (e) {
+    r.status(502).json({ error: (e as Error).message });
+  }
+});
 
 app.post('/api/reset', async (_q, r) => {
   try {

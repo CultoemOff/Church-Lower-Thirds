@@ -415,6 +415,50 @@ function themedFold(where) {
     () => modelGallery(where, true),
   );
 }
+// ---------- Sharing: a custom model or a profile as a file ----------
+/** A button that reads a model or profile file from another church and adds it here. */
+function importButton(label) {
+  const file = h('input', {
+    type: 'file',
+    class: 'hidden',
+    accept: '.json,application/json',
+    onchange: async (e) => {
+      const f = e.target.files[0];
+      e.target.value = '';
+      if (!f) return;
+      let body;
+      try {
+        body = JSON.parse(await f.text());
+      } catch {
+        return toast('Esse arquivo não é um modelo nem um perfil do Church Lower Thirds.');
+      }
+      const r = await api('/api/share/import', { method: 'POST', body });
+      if (r.error) return toast(friendly(r.error));
+      config = r.config;
+      renderProfiles();
+      renderForm();
+      toast(
+        r.kind === 'profile'
+          ? 'Perfil importado. Escolha-o no seletor de perfis para usar.'
+          : 'Modelo importado. Ele está em "Modelos próprios".',
+      );
+    },
+  });
+  return h(
+    'div',
+    { class: 'fillRow shareRow' },
+    file,
+    h(
+      'button',
+      {
+        type: 'button',
+        title: 'Aceita arquivos de modelo e de perfil exportados pelo Church Lower Thirds',
+        onclick: () => file.click(),
+      },
+      label,
+    ),
+  );
+}
 // ---------- The church's own models ----------
 // A look written as CSS, usually by an AI from the prompt this page hands out. The CSS is
 // read rule by rule (js/custom.js): what it may not do is left out, and the page says so.
@@ -595,6 +639,18 @@ function customCard() {
                 },
                 'Editar',
               ),
+              h(
+                'a',
+                { href: `/api/share/model?id=${m.id}`, download: '' },
+                h(
+                  'button',
+                  {
+                    type: 'button',
+                    title: 'Salva este modelo num arquivo, para levar a outra igreja',
+                  },
+                  'Exportar',
+                ),
+              ),
               h('button', { type: 'button', onclick: () => removeCustom(m) }, 'Excluir'),
             ),
           ),
@@ -760,6 +816,7 @@ function customCard() {
           ),
       ),
     ),
+    importButton('Importar modelo de um arquivo'),
   ]);
   return box;
 }
@@ -2969,6 +3026,7 @@ const pages = {
       );
     const label = (el) => PAGES.find(([id]) => id === el)?.[1] || 'Todos os elementos';
     return [
+      obsCard(),
       card(
         'Endereços para copiar',
         ...mainAddresses(),
@@ -3864,9 +3922,190 @@ function renderForm() {
           ),
         )
       : null;
-  refill($('#form'), [off, ...pages[page]()]);
+  const nodes = [off, ...pages[page]()].flat().filter(Boolean);
+  // Simple mode: the cards of fine adjustments are left out, and the page says so.
+  let hiddenCards = 0;
+  for (const node of nodes) {
+    const title = node.querySelector?.(':scope > h3, :scope > summary > h3')?.textContent;
+    const advanced = ADVANCED.includes(title);
+    node.classList?.toggle('adv', advanced);
+    if (advanced) hiddenCards++;
+  }
+  if (simpleMode && hiddenCards)
+    nodes.push(
+      h(
+        'section',
+        { class: 'card simpleNote' },
+        h(
+          'span',
+          { 'data-raw': '' },
+          t('Modo simples: {n} blocos de ajustes finos estão escondidos nesta página.', {
+            n: hiddenCards,
+          }),
+        ),
+        h('button', { onclick: () => setMode(false) }, 'Mostrar tudo'),
+      ),
+    );
+  refill($('#form'), nodes);
   if (page === 'brand') checkGiving();
 }
+// ---------- OBS: create the browser sources there ----------
+let obsAsk = { password: '', port: '4455', mode: 'all' },
+  obsBusy = false,
+  obsDone = null;
+function obsCard() {
+  const create = async () => {
+    obsBusy = true;
+    obsDone = null;
+    renderForm();
+    const r = await api('/api/obs/sources', {
+      method: 'POST',
+      body: { ...obsAsk, layout: obsVertical ? 'vertical' : 'horizontal' },
+    });
+    obsBusy = false;
+    obsDone = r;
+    renderForm();
+  };
+  const done = obsDone;
+  return card(
+    'Criar as fontes no OBS',
+    hint(
+      'O programa cria as fontes de navegador direto no OBS, na cena que está aberta, com o endereço e o tamanho certos. No OBS, abra Ferramentas → Configurações do servidor WebSocket, marque "Ativar servidor WebSocket" e clique em "Mostrar informações de conexão" para ver a senha.',
+    ),
+    grid(
+      field(
+        'Senha do servidor WebSocket do OBS',
+        h('input', {
+          type: 'password',
+          value: obsAsk.password,
+          autocomplete: 'off',
+          placeholder: 'Vazio se o OBS não pede senha',
+          'data-raw': '',
+          oninput: (e) => (obsAsk.password = e.target.value),
+        }),
+      ),
+      field(
+        'Porta',
+        h('input', {
+          type: 'number',
+          value: obsAsk.port,
+          min: 1,
+          max: 65535,
+          oninput: (e) => (obsAsk.port = e.target.value),
+        }),
+        { tip: 'A do OBS é 4455, a não ser que tenha sido trocada.' },
+      ),
+    ),
+    h(
+      'div',
+      { class: 'fillRow' },
+      h(
+        'div',
+        { class: 'seg' },
+        [
+          ['all', 'Uma fonte com tudo'],
+          ['each', 'Uma fonte por elemento'],
+        ].map(([id, label]) =>
+          h(
+            'button',
+            {
+              class: obsAsk.mode === id ? 'active' : '',
+              title:
+                id === 'all'
+                  ? 'O mais simples: uma fonte só, com todos os elementos'
+                  : 'Uma fonte para cada elemento ligado, para mostrar em cenas diferentes ou mudar a ordem das camadas',
+              onclick: () => {
+                obsAsk.mode = id;
+                renderForm();
+              },
+            },
+            label,
+          ),
+        ),
+      ),
+      h(
+        'button',
+        { class: 'primary', disabled: obsBusy, onclick: create },
+        obsBusy ? 'Criando…' : 'Criar no OBS',
+      ),
+    ),
+    done
+      ? h(
+          'p',
+          { class: 'hint ' + (done.error ? 'bad' : 'ok'), 'data-raw': '' },
+          done.error
+            ? friendly(done.error)
+            : [
+                done.created.length
+                  ? t('Criadas na cena "{scene}": {list}.', {
+                      scene: done.scene,
+                      list: done.created.join(', '),
+                    })
+                  : '',
+                done.skipped.length
+                  ? t('Já existiam no OBS (não foram alteradas): {list}.', {
+                      list: done.skipped.join(', '),
+                    })
+                  : '',
+              ]
+                .filter(Boolean)
+                .join(' '),
+        )
+      : null,
+    hint(
+      'O painel de controle (dock) ainda é adicionado à mão: o OBS não deixa um programa criar docks. O endereço está logo abaixo.',
+    ),
+  );
+}
+// ---------- Simple and advanced ----------
+// Simple shows what a volunteer needs to put a service on air; advanced adds the fine
+// adjustments. The choice belongs to this browser. The cards left out are named here by
+// their titles.
+const ADVANCED = [
+  'Aparência',
+  'Cores',
+  'Efeitos e animação',
+  'Personalizar as cores',
+  'Fonte e forma',
+  'Quem segue o tema',
+  'Modelos próprios',
+  'Perfis de culto',
+  'Tamanho das fontes no OBS',
+  'Stream Deck, Companion e outros',
+];
+let simpleMode = true;
+try {
+  simpleMode = localStorage.getItem('cltMode') !== 'advanced';
+} catch {
+  // No storage: simple.
+}
+function setMode(simple) {
+  simpleMode = simple;
+  try {
+    localStorage.setItem('cltMode', simple ? 'simple' : 'advanced');
+  } catch {
+    // Without storage it lasts until the page is closed.
+  }
+  renderMode();
+  if (config) renderForm();
+}
+function renderMode() {
+  document.body.classList.toggle('simple', simpleMode);
+  $('#mode').replaceChildren(
+    ...[
+      [true, 'Simples'],
+      [false, 'Avançado'],
+    ].map(([simple, label]) =>
+      h(
+        'button',
+        { class: simple === simpleMode ? 'active' : '', onclick: () => setMode(simple) },
+        label,
+      ),
+    ),
+  );
+}
+renderMode();
+
 /** Plays the entrance again in the big preview (and in the one of the assistant). */
 function replayPreview() {
   const all = ['top', 'lower', 'card', 'ticker'];
@@ -4077,6 +4316,18 @@ const profilesCard = () => {
                 'Usar',
               ),
           h(
+            'a',
+            { href: `/api/share/profile?id=${p.id}`, download: '' },
+            h(
+              'button',
+              {
+                title:
+                  'Salva a aparência deste perfil num arquivo (com o logo e o modelo próprio), para levar a outra igreja',
+              },
+              'Exportar',
+            ),
+          ),
+          h(
             'button',
             {
               disabled: config.profiles.length < 2,
@@ -4090,6 +4341,7 @@ const profilesCard = () => {
         ),
       ),
     ),
+    importButton('Importar perfil de um arquivo'),
     h(
       'div',
       { class: 'row profileRow' },

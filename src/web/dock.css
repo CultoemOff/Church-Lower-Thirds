@@ -612,3 +612,6 @@ footer {
   gap: 10px;
   font-size: 11px;
 }
+.rundownFoot a {
+  color: var(--muted);
+}

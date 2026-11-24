@@ -1208,3 +1208,71 @@ export function stepTarget(config: Config, step: RundownStep) {
     return step.ref === ALL ? { id: ALL } : config.social.items.find((i) => i.id === step.ref);
   return { id: '' };
 }
+
+// ---- Sharing: a custom model or a profile as a file, from one church to another ----
+/** A name no entry of the list has yet: "Natal", then "Natal 2", "Natal 3"… */
+function freeName(name: unknown, taken: string[], fallback: string) {
+  const base = text(name, 34).trim() || fallback;
+  const used = new Set(taken.map((n) => n.toLowerCase()));
+  if (!used.has(base.toLowerCase())) return base;
+  for (let n = 2; ; n++) if (!used.has(`${base} ${n}`.toLowerCase())) return `${base} ${n}`;
+}
+/** Adds a custom model that came in a file; says which id it got. */
+export function importModel(config: Config, name: unknown, css: unknown): [Config, string] {
+  if (typeof css !== 'string' || !customCovers(css).length)
+    throw new Error('This file has no model in it');
+  if (config.customModels.length >= 40) throw new Error('Too many custom models');
+  const next = structuredClone(config);
+  const id = newId();
+  next.customModels.push({
+    id,
+    name: freeName(
+      name,
+      next.customModels.map((m) => m.name),
+      'Modelo',
+    ),
+    css,
+  });
+  return [cleanConfig(next), id];
+}
+/**
+ * Adds a profile that came in a file, with the custom model it uses (if any). It does not
+ * become the one in use: the person chooses it when they want.
+ */
+export function importProfile(
+  config: Config,
+  file: { name?: unknown; look?: unknown; model?: { name?: unknown; css?: unknown } | null },
+): Config {
+  if (!file.look || typeof file.look !== 'object')
+    throw new Error('This file has no profile in it');
+  if (config.profiles.length >= 30) throw new Error('Too many profiles');
+  let next = structuredClone(config);
+  const look = structuredClone(file.look) as Profile['look'];
+  // Its custom model comes along under a new id; without one, the look points at none.
+  const theme = (look.theme ??= {});
+  theme.custom = '';
+  if (file.model?.css) {
+    const [withModel, id] = importModel(next, file.model.name, file.model.css);
+    next = withModel;
+    theme.custom = id;
+  }
+  next.profiles.push({
+    id: newId(),
+    name: freeName(
+      file.name,
+      next.profiles.map((p) => p.name),
+      'Perfil',
+    ),
+    look,
+  });
+  return cleanConfig(next);
+}
+/** What a shared profile carries: its look as it is now, and the custom model it uses. */
+export function exportProfile(config: Config, ref: string) {
+  const p = findProfile(config, ref);
+  if (!p) throw new Error('Profile not found');
+  const look = p.id === config.profile ? takeLook(config) : p.look;
+  const id = (look.theme as { custom?: string } | undefined)?.custom;
+  const model = config.customModels.find((m) => m.id === id);
+  return { name: p.name, look, model: model ? { name: model.name, css: model.css } : null };
+}
