@@ -942,4 +942,53 @@ export default {
   'Usar as cores do modelo ({colors})': 'Usar los colores del modelo ({colors})',
   'Enquanto ele estiver fixo, os recados da lista não se revezam.':
     'Mientras esté fijo, los avisos de la lista no se alternan.',
+  'Perfil 1': 'Perfil 1',
+  'Perfil {n}': 'Perfil {n}',
+  'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Aqui também se cria, renomeia e exclui.':
+    'Perfil de culto: cambia de una vez el modelo, los colores, las fuentes y el logo. Aquí también se crean, renombran y eliminan.',
+  'Perfil em uso': 'Perfil en uso',
+  'Usar este perfil': 'Usar este perfil',
+  Renomear: 'Renombrar',
+  Excluir: 'Eliminar',
+  'O último perfil não pode ser excluído': 'El último perfil no se puede eliminar',
+  'Excluir este perfil. Os nomes, avisos e contribuições não são apagados.':
+    'Elimina este perfil. Los nombres, avisos y contribuciones no se borran.',
+  'Excluir o perfil "{name}"?': '¿Eliminar el perfil "{name}"?',
+  'Novo perfil': 'Nuevo perfil',
+  'Cada perfil guarda uma aparência completa: modelo, cores, fontes e logo.':
+    'Cada perfil guarda una apariencia completa: modelo, colores, fuentes y logo.',
+  'Perfil criado com a aparência atual. Dê um nome a ele.':
+    'Perfil creado con la apariencia actual. Póngale un nombre.',
+  'Cada perfil guarda uma aparência completa: modelo, cores, fontes, logo, posições e o que o selo mostra. Troque, crie, renomeie e exclua perfis no seletor do alto desta página; a troca também está no painel do OBS. Os nomes, avisos, agenda e contribuições são os mesmos em todos.':
+    'Cada perfil guarda una apariencia completa: modelo, colores, fuentes, logo, posiciones y lo que muestra el sello. Cambie, cree, renombre y elimine perfiles en el selector de la parte superior de esta página; el cambio también está en el panel de OBS. Los nombres, avisos, agenda y contribuciones son los mismos en todos.',
+  Sobre: 'Acerca de',
+  'Quem faz o Church Lower Thirds e onde encontrar o Culto em Off.':
+    'Quién hace Church Lower Thirds y dónde encontrar Culto em Off.',
+  'Projeto criado por Jonas Silva, criador do Culto em Off: um projeto voltado a compartilhar conhecimento, ferramentas e soluções para áudio, vídeo, transmissão e tecnologia em igrejas.':
+    'Proyecto creado por Jonas Silva, creador de Culto em Off: un proyecto enfocado en compartir conocimientos, herramientas y soluciones de audio, video, transmisión y tecnología para iglesias.',
+  'Versão instalada:': 'Versión instalada:',
+  'Se o Church Lower Thirds foi útil, compartilhe o programa com outras pessoas e ajude o projeto a alcançar mais voluntários e equipes técnicas.':
+    'Si Church Lower Thirds le ayudó, comparta el programa con otras personas y ayude al proyecto a llegar a más voluntarios y equipos técnicos.',
+  'Curso de OBS Studio': 'Curso de OBS Studio',
+  'Compartilhar o programa': 'Compartir el programa',
+  'Link copiado.': 'Enlace copiado.',
+  'A atualização foi baixada. Abriu uma janela do Church Lower Thirds neste computador (pode estar atrás desta): clique em OK nela e depois autorize a instalação quando o Windows pedir.':
+    'La actualización se descargó. Se abrió una ventana de Church Lower Thirds en este ordenador (puede estar detrás de esta): haga clic en Aceptar y luego autorice la instalación cuando Windows lo pida.',
+  'A nova versão do Church Lower Thirds está pronta para instalar. Clique em OK e, em seguida, autorize a instalação quando o Windows pedir.':
+    'La nueva versión de Church Lower Thirds está lista para instalar. Haga clic en Aceptar y, a continuación, autorice la instalación cuando Windows lo pida.',
+  'Instalando: se o Windows pedir permissão, autorize. Esta página volta sozinha quando terminar.':
+    'Instalando: si Windows pide permiso, autorícelo. Esta página vuelve sola al terminar.',
+  'A instalação ainda não terminou. Veja se há um pedido de permissão do Windows piscando na barra de tarefas (o ícone de um escudo) e autorize.':
+    'La instalación aún no ha terminado. Compruebe si hay una solicitud de permiso de Windows parpadeando en la barra de tareas (el icono de un escudo) y autorícela.',
+  'Tentar de novo': 'Intentar de nuevo',
+  'Abre a pasta com o instalador que o programa já baixou e conferiu':
+    'Abre la carpeta con el instalador que el programa ya descargó y comprobó',
+  'Mostrar o instalador': 'Mostrar el instalador',
+  'O Windows deste computador não deixou o programa abrir o instalador sozinho. Ele já foi baixado e conferido: clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.':
+    'Windows en este ordenador no dejó que el programa abriera el instalador por sí solo. Ya se descargó y se comprobó: haga clic en "Mostrar el instalador" y abra el archivo con doble clic. Los ajustes se mantienen.',
+  'Se o pedido de permissão não aparecer, clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.':
+    'Si la solicitud de permiso no aparece, haga clic en "Mostrar el instalador" y abra el archivo con doble clic. Los ajustes se mantienen.',
+  'O Windows não deixou abrir o instalador. Ele já foi baixado: use "Mostrar o instalador".':
+    'Windows no dejó abrir el instalador. Ya se descargó: use "Mostrar el instalador".',
+  'Atualização cancelada.': 'Actualización cancelada.',
 };

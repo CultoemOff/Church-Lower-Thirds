@@ -1,12 +1,16 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { readFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { createServer } from 'node:http';
-import { resolve } from 'node:path';
+import { tmpdir } from 'node:os';
+import { join, resolve } from 'node:path';
 import type { AddressInfo } from 'node:net';
 import {
   downloadVerifiedSetup,
+  rememberSetup,
+  removeUsedSetup,
+  setupFolder,
   hashFromSums,
   newerThan,
   pickRelease,
@@ -107,14 +111,45 @@ test('the installer is only accepted when its SHA-256 matches the published list
     sumsUrl: `${at}/sums`,
   };
   try {
-    assert.deepEqual(readFileSync(await downloadVerifiedSetup(info)), setup);
+    // Into the person's Downloads folder when there is one, else the temp folder.
+    const home = mkdtempSync(join(tmpdir(), 'clt-home-'));
+    assert.equal(setupFolder(home), tmpdir());
+    mkdirSync(join(home, 'Downloads'));
+    const dir = setupFolder(home);
+    assert.equal(dir, join(home, 'Downloads'));
+    const file = await downloadVerifiedSetup(info, dir);
+    assert.equal(file, join(dir, info.setupName));
+    assert.deepEqual(readFileSync(file), setup);
+    // The program removes the installer it downloaded once that version is running; a
+    // newer one still to install stays, and so does any file it did not download.
+    const mine = join(dir, 'Church-Lower-Thirds-Setup-9.9.9.exe'),
+      theirs = join(dir, 'Church-Lower-Thirds-Setup-1.0.0.exe');
+    writeFileSync(theirs, 'x');
+    await removeUsedSetup(home, '9.9.9');
+    assert.ok(existsSync(mine), 'nothing noted, nothing removed');
+    await rememberSetup(home, mine, '9.9.9');
+    await removeUsedSetup(home, '9.9.8');
+    assert.ok(existsSync(mine), 'still to install');
+    await removeUsedSetup(home, '9.9.9');
+    assert.ok(!existsSync(mine) && existsSync(theirs) && !existsSync(join(home, 'update.json')));
+    // A note pointing at something else is not followed.
+    await rememberSetup(
+      home,
+      theirs.replace('Church-Lower-Thirds-Setup-1.0.0.exe', 'notes.txt'),
+      '1.0.0',
+    );
+    writeFileSync(join(dir, 'notes.txt'), 'x');
+    await removeUsedSetup(home, '9.9.9');
+    assert.ok(existsSync(join(dir, 'notes.txt')));
+
     sums = `${'0'.repeat(64)} *Church-Lower-Thirds-Setup-9.9.9.exe\n`;
-    await assert.rejects(downloadVerifiedSetup(info), /checksum mismatch/);
+    await assert.rejects(downloadVerifiedSetup(info, dir), /checksum mismatch/);
+    assert.ok(!existsSync(mine), 'a file that fails the check is not kept');
     await assert.rejects(downloadVerifiedSetup({ ...info, sumsUrl: undefined }), /not available/);
     // Outside the tests, an address that is not encrypted is refused, as is a file name
     // that could leave the temp folder.
     delete process.env.CLT_UPDATE_API;
-    await assert.rejects(downloadVerifiedSetup(info), /insecure address/);
+    await assert.rejects(downloadVerifiedSetup(info, dir), /insecure address/);
     await assert.rejects(
       downloadVerifiedSetup({ ...info, setupName: '..\\Church-Lower-Thirds-Setup.exe' }),
       /not available/,

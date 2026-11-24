@@ -34,10 +34,18 @@
           <div class="barActions">
             <span id="saved" class="saved"></span>
             <nav id="topNav" class="topNav"></nav>
-            <select
-              id="profile"
-              title="Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo"
-            ></select>
+            <div id="profileMenu" class="menu">
+              <button
+                id="profileBtn"
+                class="menuBtn"
+                aria-haspopup="true"
+                aria-expanded="false"
+                title="Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Aqui também se cria, renomeia e exclui."
+              >
+                <span id="profileName" data-raw></span><i class="caret"></i>
+              </button>
+              <div id="profileList" class="menuList hidden"></div>
+            </div>
             <select id="language" title="Idioma dos painéis"></select>
             <button id="themeToggle" class="iconBtn" title="Tema claro / escuro">
               <img src="/icons/sun.svg" alt="" />

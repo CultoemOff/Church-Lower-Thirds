@@ -10,7 +10,7 @@ on:
 jobs:
   windows:
     runs-on: windows-2022
-    timeout-minutes: 30
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
@@ -36,7 +36,7 @@ jobs:
           Copy-Item -Recurse -Force dist\* package\app\dist\
           Copy-Item -Recurse -Force src\web\* package\app\dist\web\
           Copy-Item package.json, package-lock.json package\app\
-          Copy-Item scripts\windows\start-server.vbs, scripts\windows\open-settings.vbs, scripts\windows\stop-server.ps1 package\
+          Copy-Item scripts\windows\start-server.vbs, scripts\windows\open-settings.vbs, scripts\windows\run-setup.vbs, scripts\windows\stop-server.ps1 package\
           Copy-Item "$env:ProgramFiles\nodejs\node.exe" package\runtime\node.exe
           Push-Location package\app
           npm ci --omit=dev
@@ -73,7 +73,7 @@ jobs:
           $code = Run-Setup '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART'
           if ($code -ne 0) { throw "Installer exited with $code" }
           $expected = "$dir\runtime\node.exe", "$dir\app\dist\server\index.js", "$dir\app\dist\web\overlay.html",
-            "$dir\start-server.vbs", "$dir\open-settings.vbs", "$dir\stop-server.ps1", "$dir\church-lower-thirds.ico"
+            "$dir\start-server.vbs", "$dir\open-settings.vbs", "$dir\run-setup.vbs", "$dir\stop-server.ps1", "$dir\church-lower-thirds.ico"
           $missing = @($expected | Where-Object { -not (Test-Path $_) })
           if ($missing) { throw "Missing after install: $($missing -join ', ')" }
           if (-not (Test-Path $userKey)) { throw "Uninstall entry missing" }
@@ -251,7 +251,7 @@ jobs:
           Write-Host "Update and folder change keep the settings."
       - name: Installer test 4 of 5 - the update button, end to end
         shell: pwsh
-        timeout-minutes: 12
+        timeout-minutes: 18
         run: |
           . .github\scripts\installer-test.ps1
           # The "Update now" button, end to end: the program finds a newer release (a local
@@ -275,17 +275,21 @@ jobs:
           }
           if (-not $listed) { throw "The stand-in release server did not start" }
           $log = Join-Path $env:RUNNER_TEMP 'server'
-          # Both ways of starting the installer: directly, and through the Windows shell with
-          # administrator rights (what the program falls back to where Windows refuses the first).
-          foreach ($launch in '', 'shell') {
+          # The three ways of starting the installer: by the program itself; through
+          # run-setup.vbs, what it does on a person's computer (here without the window that
+          # waits for a click); and through the Windows shell with administrator rights, what
+          # is left where that script cannot run.
+          foreach ($launch in 'direct', 'script', 'shell') {
           & powershell -NoProfile -ExecutionPolicy Bypass -File "$dir\stop-server.ps1" -AppDir $dir
           $env:CLT_UPDATE_API = 'http://127.0.0.1:8899/releases.json'
           $env:CLT_UPDATE_LAUNCH = $launch
+          $env:CLT_UPDATE_ASK = '0'
           # In a console of its own (cmd in a hidden window), as the installed program runs:
           # sharing the console of this step would let a Ctrl+C meant for it reach the runner.
           Start-Process cmd.exe -ArgumentList '/c', "`"`"$dir\runtime\node.exe`" `"$dir\app\dist\server\index.js`" > `"$log.out.txt`" 2> `"$log.err.txt`"`"" -WorkingDirectory "$dir\app" -WindowStyle Hidden
           $env:CLT_UPDATE_API = $null
           $env:CLT_UPDATE_LAUNCH = $null
+          $env:CLT_UPDATE_ASK = $null
           Wait-Server
           $node = Get-CimInstance Win32_Process -Filter "Name='node.exe'" | Where-Object { $_.ExecutablePath -eq "$dir\runtime\node.exe" } | Select-Object -First 1
           if (-not $node) { throw "The test server is not running from the installed folder" }
@@ -298,7 +302,7 @@ jobs:
             Get-Content "$log.out.txt", "$log.err.txt" -ErrorAction SilentlyContinue | ForEach-Object { Write-Host "  server: $_" }
             throw
           }
-          if (-not $r.ok) { throw "Update did not start: $($r | ConvertTo-Json -Compress)" }
+          if (-not $r.ok -or $r.how -ne $launch) { throw "Update did not start as '$launch': $($r | ConvertTo-Json -Compress)" }
           if (-not $old.WaitForExit(180000)) {
             Get-CimInstance Win32_Process | Where-Object { $_.Name -match 'Setup|powershell|wscript|_iu|\.tmp$' } |
               ForEach-Object { Write-Host "  running: $($_.Name) $($_.CommandLine)" }
@@ -312,7 +316,9 @@ jobs:
           Wait-Server
           if ((Invoke-RestMethod "$base/api/info").folder -ne $other) { throw "Folder changed by the in-app update" }
           if ((Invoke-RestMethod "$base/api/state").config.pix.name -ne 'Igreja Teste') { throw "Settings lost by the in-app update" }
-          Write-Host "In-app update ($(if ($launch) { $launch } else { 'direct' })): downloaded, verified, installed and back on air."
+          # The installer the program downloaded is its own to remove once the version runs.
+          $kept = Get-ChildItem (Join-Path $env:USERPROFILE 'Downloads'), $env:TEMP -Filter 'Church-Lower-Thirds-Setup-99.0.0.exe' -ErrorAction SilentlyContinue
+          Write-Host "In-app update ($launch): downloaded, verified, installed and back on air. Installer left behind: $(@($kept).Count)"
           }
           Stop-Process -Id $web.Id -Force -ErrorAction SilentlyContinue
       - name: Installer test 5 of 5 - uninstall

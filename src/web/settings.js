@@ -230,9 +230,16 @@ const PAGES = [
     'Salvar e restaurar tudo num arquivo, ou voltar às configurações iniciais.',
     svg('<path d="M12 4v11M7.500 10.500L12 15l4.500-4.500M5 19h14"/>'),
   ],
+  [
+    'about',
+    'Sobre',
+    'Instalação',
+    'Quem faz o Church Lower Thirds e onde encontrar o Culto em Off.',
+    svg('<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.500v.500"/>'),
+  ],
 ];
 /** Pages opened from the top right corner instead of the menu on the left. */
-const CORNER = ['obs', 'backup'];
+const CORNER = ['obs', 'backup', 'about'];
 const ELEMENTS = ['lower', 'top', 'ticker', 'card', 'agenda', 'social', 'comment', 'bug'];
 const WEIGHTS = [
   [300, 'Leve'],
@@ -1086,21 +1093,33 @@ const pages = {
           ? t('Procurando…')
           : updateState === 'downloading'
             ? t('Baixando a atualização…')
-            : updateState === 'installing'
+            : updateState === 'asking'
               ? t(
-                  'Instalando: confirme a permissão do Windows. Esta página volta sozinha quando terminar.',
+                  'A atualização foi baixada. Abriu uma janela do Church Lower Thirds neste computador (pode estar atrás desta): clique em OK nela e depois autorize a instalação quando o Windows pedir.',
                 )
-              : updateState === 'failed'
-                ? t('Não foi possível procurar atualizações agora.')
-                : !u
-                  ? ''
-                  : u.newer
-                    ? t('Nova versão disponível: v{latest} (instalada: v{current}).', {
-                        latest: u.latest,
-                        current: u.current,
-                      })
-                    : t('Você está na versão mais recente (v{current}).', { current: u.current });
-      const busy = ['checking', 'downloading', 'installing'].includes(updateState);
+              : updateState === 'installing'
+                ? t(
+                    'Instalando: se o Windows pedir permissão, autorize. Esta página volta sozinha quando terminar.',
+                  )
+                : updateState === 'stalled'
+                  ? t(
+                      'A instalação ainda não terminou. Veja se há um pedido de permissão do Windows piscando na barra de tarefas (o ícone de um escudo) e autorize.',
+                    )
+                  : updateState === 'failed'
+                    ? t('Não foi possível procurar atualizações agora.')
+                    : !u
+                      ? ''
+                      : u.newer
+                        ? t('Nova versão disponível: v{latest} (instalada: v{current}).', {
+                            latest: u.latest,
+                            current: u.current,
+                          })
+                        : t('Você está na versão mais recente (v{current}).', {
+                            current: u.current,
+                          });
+      const busy = ['checking', 'downloading', 'asking', 'installing'].includes(updateState),
+        // The installer is already on the computer: the person can open it themselves.
+        byHand = u?.newer && ['blocked', 'stalled'].includes(updateState);
       return card(
         'Atualizações',
         h(
@@ -1112,13 +1131,13 @@ const pages = {
             ? h(
                 'button',
                 {
-                  class: 'primary',
+                  class: byHand ? '' : 'primary',
                   disabled: busy,
                   title:
                     'Baixa a nova versão, confere o arquivo e instala. O Windows pede permissão e o programa volta sozinho.',
                   onclick: installUpdate,
                 },
-                'Atualizar agora',
+                byHand ? 'Tentar de novo' : 'Atualizar agora',
               )
             : null,
           u?.newer && !u.canInstall
@@ -1128,18 +1147,27 @@ const pages = {
                 h('button', {}, 'Abrir a página de downloads'),
               )
             : null,
-          u?.newer && updateState === 'blocked'
+          byHand
             ? h(
-                'a',
-                { href: u.setupUrl || u.page, target: '_blank', rel: 'noopener' },
-                h('button', { class: 'primary' }, 'Baixar o instalador'),
+                'button',
+                {
+                  class: 'primary',
+                  title: 'Abre a pasta com o instalador que o programa já baixou e conferiu',
+                  onclick: async () => {
+                    const r = await api('/api/update/reveal', { method: 'POST' });
+                    if (r.error) window.open(u.setupUrl || u.page, '_blank', 'noopener');
+                  },
+                },
+                'Mostrar o instalador',
               )
             : null,
           h('button', { disabled: busy, onclick: () => checkUpdate(true) }, 'Procurar atualização'),
         ),
-        updateState === 'blocked'
+        byHand
           ? hint(
-              'O Windows deste computador não deixou o programa abrir o instalador sozinho (é comum em computadores de empresa). Baixe o instalador e abra-o você mesmo: as configurações são mantidas.',
+              updateState === 'blocked'
+                ? 'O Windows deste computador não deixou o programa abrir o instalador sozinho. Ele já foi baixado e conferido: clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.'
+                : 'Se o pedido de permissão não aparecer, clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.',
             )
           : null,
         updateState === 'blocked' && updateBlocked
@@ -2410,6 +2438,69 @@ const pages = {
       ),
     ),
   ],
+  about: () => {
+    const link = (href, text, cls = '') =>
+      h('a', { href, target: '_blank', rel: 'noopener noreferrer', class: cls }, text);
+    const share = async () => {
+      const url = 'https://github.com/CultoemOff/Church-Lower-Thirds',
+        data = { title: 'Church Lower Thirds', text: 'Church Lower Thirds — by Culto em Off', url };
+      try {
+        if (navigator.share) await navigator.share(data);
+        else {
+          await navigator.clipboard.writeText(url);
+          toast(t('Link copiado.'));
+        }
+      } catch (e) {
+        if (e?.name !== 'AbortError') toast(url);
+      }
+    };
+    const version = $('#appVersion').textContent.trim().split(/\s/)[0];
+    return [
+      card(
+        'Sobre',
+        h(
+          'div',
+          { class: 'aboutHero' },
+          h('img', { src: '/icons/cultoemoff-logo.svg', alt: 'Culto em Off' }),
+          h(
+            'div',
+            {},
+            h('h2', { 'data-raw': '' }, 'Church Lower Thirds — by Culto em Off'),
+            h(
+              'p',
+              {},
+              'Projeto criado por Jonas Silva, criador do Culto em Off: um projeto voltado a compartilhar conhecimento, ferramentas e soluções para áudio, vídeo, transmissão e tecnologia em igrejas.',
+            ),
+            version
+              ? h('p', { class: 'hint', 'data-raw': '' }, t('Versão instalada:') + ' ' + version)
+              : null,
+          ),
+        ),
+      ),
+      card(
+        'Culto em Off',
+        h(
+          'p',
+          { class: 'aboutText' },
+          'Se o Church Lower Thirds foi útil, compartilhe o programa com outras pessoas e ajude o projeto a alcançar mais voluntários e equipes técnicas.',
+        ),
+        h(
+          'div',
+          { class: 'aboutLinks' },
+          link('https://www.cultoemoff.com.br', 'Site'),
+          link(
+            'https://cultoemoff.com.br/formacoes/culto-ao-vivo-com-excelencia',
+            'Curso de OBS Studio',
+            'course',
+          ),
+          link('https://www.instagram.com/cultoemoff/', 'Instagram'),
+          link('https://www.youtube.com/@CultoemOff', 'YouTube'),
+          link('https://github.com/CultoemOff/Church-Lower-Thirds', 'GitHub'),
+          h('button', { class: 'primary', onclick: share }, 'Compartilhar o programa'),
+        ),
+      ),
+    ];
+  },
 };
 
 // ---------- Shell ----------
@@ -2483,16 +2574,45 @@ async function checkUpdate(force = false) {
   $('#updatePill').classList.toggle('hidden', !update?.newer);
   if (page === 'home' && config) renderForm();
 }
+let stallTimer = 0;
 async function installUpdate() {
   updateState = 'downloading';
+  updateBlocked = '';
+  clearTimeout(stallTimer);
   renderForm();
-  const r = await api('/api/update/install', { method: 'POST' });
+  // The request only answers once the installer has started: meanwhile, what it is doing.
+  const watch = setInterval(async () => {
+    const p = await api('/api/update/progress');
+    if (!['downloading', 'asking'].includes(updateState) || !p.phase || p.phase === updateState)
+      return;
+    updateState = p.phase;
+    if (page === 'home') renderForm();
+  }, 1000);
+  const r = await api('/api/update/install', {
+    method: 'POST',
+    body: {
+      // The text of the window that opens on the computer, in the language in use.
+      note: t(
+        'A nova versão do Church Lower Thirds está pronta para instalar. Clique em OK e, em seguida, autorize a instalação quando o Windows pedir.',
+      ),
+    },
+  });
+  clearInterval(watch);
   if (r.error) {
-    // Windows refused to run the installer: the page then offers the download instead.
+    // Windows refused to run the installer: the page then shows where the file is.
     updateState = /did not start the installer/.test(r.error) ? 'blocked' : '';
     updateBlocked = updateState ? r.error.replace(/^.*?installer:\s*/, '') : '';
     toast(friendly(r.error));
-  } else updateState = 'installing';
+  } else {
+    updateState = 'installing';
+    // The page reloads by itself when the new version answers. Still here after a while:
+    // the permission request of Windows probably went unnoticed.
+    stallTimer = setTimeout(() => {
+      if (updateState !== 'installing') return;
+      updateState = 'stalled';
+      if (page === 'home') renderForm();
+    }, 90000);
+  }
   renderForm();
 }
 function go(id) {
@@ -2997,15 +3117,147 @@ function replayPreview() {
 $('#replay').onclick = replayPreview;
 
 // ---------- Service profiles ----------
+// The profile in use sits at the top of the page; its menu is also where profiles are
+// created, renamed and removed.
+const PENCIL = svg('<path d="M4 20h4L19 9l-4-4L4 16zM13.500 6.500l4 4"/>'),
+  TRASH = svg('<path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13M10 11v6M14 11v6"/>');
+/** A name the person typed is shown as typed; only the untouched first name is translated. */
+const profileLabel = (p) => (p?.name === 'Perfil 1' ? t(p.name) : p?.name || '');
+let profileOpen = false,
+  renaming = '';
 function renderProfiles() {
-  const box = $('#profile'),
-    key = JSON.stringify(config.profiles.map((p) => [p.id, p.name]));
-  if (box.dataset.key !== key) {
-    box.dataset.key = key;
-    box.replaceChildren(...config.profiles.map((p) => h('option', { value: p.id }, p.name)));
-  }
-  if (document.activeElement !== box) box.value = config.profile;
+  const list = $('#profileList'),
+    now = config.profiles.find((p) => p.id === config.profile);
+  $('#profileName').textContent = profileLabel(now);
+  $('#profileBtn').setAttribute('aria-expanded', String(profileOpen));
+  list.classList.toggle('hidden', !profileOpen);
+  // A name being typed is not redrawn under the person's hands.
+  const typing = document.activeElement;
+  if (!profileOpen || (typing?.tagName === 'INPUT' && list.contains(typing))) return;
+  const iconButton = (icon, attrs) => {
+    const b = h('button', { class: 'icon', ...attrs });
+    b.innerHTML = icon;
+    return b;
+  };
+  const rename = (p, value) => {
+    renaming = '';
+    const name = value.trim().slice(0, 40);
+    if (name && name !== p.name) {
+      p.name = name;
+      save();
+    }
+    renderProfiles();
+  };
+  list.replaceChildren(
+    ...config.profiles.map((p) => {
+      const current = p.id === config.profile;
+      if (renaming === p.id) {
+        const box = h('input', {
+          value: p.name,
+          maxlength: 40,
+          title: 'Nome do perfil',
+          'data-raw': '',
+          onkeydown: (e) => {
+            if (e.key === 'Enter') e.target.blur();
+            if (e.key === 'Escape') {
+              e.stopPropagation();
+              e.target.value = p.name;
+              e.target.blur();
+            }
+          },
+          onblur: (e) => rename(p, e.target.value),
+        });
+        setTimeout(() => {
+          box.focus();
+          box.select();
+        });
+        return h('div', { class: 'menuRow renaming' + (current ? ' current' : '') }, box);
+      }
+      return h(
+        'div',
+        { class: 'menuRow' + (current ? ' current' : '') },
+        h(
+          'button',
+          {
+            class: 'pick',
+            title: current ? 'Perfil em uso' : 'Usar este perfil',
+            onclick: () => {
+              closeProfiles();
+              if (!current) profileCommand('/api/profile/use', { id: p.id });
+            },
+          },
+          h('i', { class: 'dot' }),
+          h('span', { 'data-raw': '' }, profileLabel(p)),
+        ),
+        iconButton(PENCIL, {
+          title: 'Renomear',
+          onclick: () => {
+            renaming = p.id;
+            renderProfiles();
+          },
+        }),
+        iconButton(TRASH, {
+          disabled: config.profiles.length < 2,
+          title:
+            config.profiles.length < 2
+              ? 'O último perfil não pode ser excluído'
+              : 'Excluir este perfil. Os nomes, avisos e contribuições não são apagados.',
+          onclick: () =>
+            confirm(t('Excluir o perfil "{name}"?', { name: p.name })) &&
+            profileCommand('/api/profile/remove', { id: p.id }),
+        }),
+      );
+    }),
+    h(
+      'button',
+      {
+        class: 'menuAdd',
+        title: 'Cria um perfil com a aparência que está em uso agora e passa a usá-lo',
+        onclick: addProfile,
+      },
+      '+ ' + t('Novo perfil'),
+    ),
+    h(
+      'p',
+      { class: 'menuHint' },
+      'Cada perfil guarda uma aparência completa: modelo, cores, fontes e logo.',
+    ),
+  );
 }
+/** "Perfil 2", "Perfil 3"…: the first number no profile is using yet. */
+function nextProfileName() {
+  const taken = new Set(config.profiles.map((p) => p.name.trim().toLowerCase()));
+  for (let n = config.profiles.length + 1; ; n++) {
+    const name = t('Perfil {n}', { n });
+    if (!taken.has(name.toLowerCase())) return name;
+  }
+}
+/** A new profile, copy of the look in use, ready to be given its name. */
+async function addProfile() {
+  const r = await profileCommand('/api/profile/add', { name: nextProfileName() });
+  if (!r) return;
+  renaming = config.profile;
+  profileOpen = true;
+  renderProfiles();
+  toast(t('Perfil criado com a aparência atual. Dê um nome a ele.'));
+}
+function closeProfiles() {
+  profileOpen = false;
+  renaming = '';
+  $('#profileList').replaceChildren();
+  renderProfiles();
+}
+$('#profileBtn').onclick = () => {
+  if (profileOpen) return closeProfiles();
+  profileOpen = true;
+  renderProfiles();
+};
+document.addEventListener('pointerdown', (e) => {
+  if (profileOpen && !$('#profileMenu').contains(e.target)) closeProfiles();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && profileOpen) closeProfiles();
+});
 /** A change of profile made here: the answer brings the whole look of the other one. */
 async function profileCommand(path, body) {
   // What was just changed belongs to the profile in use: save it before leaving it.
@@ -3020,7 +3272,6 @@ async function profileCommand(path, body) {
   setTimeout(replayPreview, 350);
   return r;
 }
-$('#profile').onchange = (e) => profileCommand('/api/profile/use', { id: e.target.value });
 const profilesCard = () => {
   const name = h('input', {
     maxlength: 40,
@@ -3035,7 +3286,7 @@ const profilesCard = () => {
   return card(
     'Perfis de culto',
     hint(
-      'Cada perfil guarda uma aparência completa: modelo, cores, fontes, logo, posições e o que o selo mostra. Troque de perfil aqui, no alto desta página ou no painel do OBS. Os nomes, avisos, agenda e contribuições são os mesmos em todos.',
+      'Cada perfil guarda uma aparência completa: modelo, cores, fontes, logo, posições e o que o selo mostra. Troque, crie, renomeie e exclua perfis no seletor do alto desta página; a troca também está no painel do OBS. Os nomes, avisos, agenda e contribuições são os mesmos em todos.',
     ),
     h(
       'div',
@@ -3065,12 +3316,12 @@ const profilesCard = () => {
             'button',
             {
               disabled: config.profiles.length < 2,
-              title: 'Apaga este perfil. Os nomes, avisos e contribuições não são apagados.',
+              title: 'Excluir este perfil. Os nomes, avisos e contribuições não são apagados.',
               onclick: () =>
-                confirm(t('Apagar o perfil "{name}"?', { name: p.name })) &&
+                confirm(t('Excluir o perfil "{name}"?', { name: p.name })) &&
                 profileCommand('/api/profile/remove', { id: p.id }),
             },
-            'Apagar',
+            'Excluir',
           ),
         ),
       ),

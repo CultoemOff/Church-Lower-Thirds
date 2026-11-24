@@ -156,6 +156,10 @@ export default {
     'Cada oferta tem o seu título e o seu QR Code: dízimos e ofertas, missões, uma campanha, uma inscrição. No painel do OBS, no separador "Ofertas e Dízimos", um clique mostra a que escolher.',
   'O comentário é escrito no painel do OBS, na aba "Comentários": o nome de quem escreveu e o que disse. Ele sai sozinho depois do tempo escolhido no painel, a não ser que esteja fixado. Aqui, enquanto nada foi escrito, a prévia mostra um exemplo.':
     'O comentário é escrito no painel do OBS, no separador "Comentários": o nome de quem escreveu e o que disse. Ele sai sozinho depois do tempo escolhido no painel, a não ser que esteja fixado. Aqui, enquanto nada foi escrito, a prévia mostra um exemplo.',
+  'O Windows deste computador não deixou o programa abrir o instalador sozinho. Ele já foi baixado e conferido: clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.':
+    'O Windows deste computador não deixou o programa abrir o instalador sozinho. Já foi transferido e verificado: clique em "Mostrar o instalador" e abra o ficheiro com dois cliques. As definições são mantidas.',
+  'Se o pedido de permissão não aparecer, clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.':
+    'Se o pedido de permissão não aparecer, clique em "Mostrar o instalador" e abra o ficheiro com dois cliques. As definições são mantidas.',
   'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui você confere e ajusta a aparência.':
     'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui pode conferir e ajustar o aspeto.',
   'Use o mesmo tamanho do vídeo do seu OBS. Os gráficos se ajustam sozinhos: tudo o que você configurou fica igual em qualquer um deles.':
@@ -196,4 +200,24 @@ export default {
     'Faixa inclinada e letras altas, no estilo das transmissões desportivas',
   'Para um perfil novo: salve com um nome e depois escolha o modelo, as cores e o logo dele.':
     'Para um perfil novo: guarde com um nome e depois escolha o modelo, as cores e o logótipo.',
+  'A atualização foi baixada. Abriu uma janela do Church Lower Thirds neste computador (pode estar atrás desta): clique em OK nela e depois autorize a instalação quando o Windows pedir.':
+    'A atualização foi transferida. Abriu-se uma janela do Church Lower Thirds neste computador (pode estar atrás desta): clique em OK e depois autorize a instalação quando o Windows pedir.',
+  'Abre a pasta com o instalador que o programa já baixou e conferiu':
+    'Abre a pasta com o instalador que o programa já transferiu e verificou',
+  'O Windows não deixou abrir o instalador. Ele já foi baixado: use "Mostrar o instalador".':
+    'O Windows não deixou abrir o instalador. Já foi transferido: use "Mostrar o instalador".',
+  'A instalação ainda não terminou. Veja se há um pedido de permissão do Windows piscando na barra de tarefas (o ícone de um escudo) e autorize.':
+    'A instalação ainda não terminou. Veja se há um pedido de permissão do Windows a piscar na barra de tarefas (o ícone de um escudo) e autorize.',
+  'Se o Church Lower Thirds foi útil, compartilhe o programa com outras pessoas e ajude o projeto a alcançar mais voluntários e equipes técnicas.':
+    'Se o Church Lower Thirds foi útil, partilhe o programa com outras pessoas e ajude o projeto a chegar a mais voluntários e equipas técnicas.',
+  'Compartilhar o programa': 'Partilhar o programa',
+  'Projeto criado por Jonas Silva, criador do Culto em Off: um projeto voltado a compartilhar conhecimento, ferramentas e soluções para áudio, vídeo, transmissão e tecnologia em igrejas.':
+    'Projeto criado por Jonas Silva, criador do Culto em Off: um projeto dedicado a partilhar conhecimento, ferramentas e soluções para áudio, vídeo, transmissão e tecnologia em igrejas.',
+  Excluir: 'Eliminar',
+  'O último perfil não pode ser excluído': 'O último perfil não pode ser eliminado',
+  'Excluir este perfil. Os nomes, avisos e contribuições não são apagados.':
+    'Eliminar este perfil. Os nomes, avisos e contribuições não são apagados.',
+  'Excluir o perfil "{name}"?': 'Eliminar o perfil "{name}"?',
+  'Cada perfil guarda uma aparência completa: modelo, cores, fontes e logo.':
+    'Cada perfil guarda uma aparência completa: modelo, cores, tipos de letra e logótipo.',
 };

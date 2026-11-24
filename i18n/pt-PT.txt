@@ -135,3 +135,45 @@ Para um perfil novo: guarde com um nome e depois escolha o modelo, as cores e o 
 
 Cada oferta tem o seu título e o seu QR Code: dízimos e ofertas, missões, uma campanha, uma inscrição. No painel do OBS, na aba "Ofertas e Dízimos", um clique mostra a que você escolher.
 Cada oferta tem o seu título e o seu QR Code: dízimos e ofertas, missões, uma campanha, uma inscrição. No painel do OBS, no separador "Ofertas e Dízimos", um clique mostra a que escolher.
+
+A atualização foi baixada. Abriu uma janela do Church Lower Thirds neste computador (pode estar atrás desta): clique em OK nela e depois autorize a instalação quando o Windows pedir.
+A atualização foi transferida. Abriu-se uma janela do Church Lower Thirds neste computador (pode estar atrás desta): clique em OK e depois autorize a instalação quando o Windows pedir.
+
+Abre a pasta com o instalador que o programa já baixou e conferiu
+Abre a pasta com o instalador que o programa já transferiu e verificou
+
+O Windows deste computador não deixou o programa abrir o instalador sozinho. Ele já foi baixado e conferido: clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.
+O Windows deste computador não deixou o programa abrir o instalador sozinho. Já foi transferido e verificado: clique em "Mostrar o instalador" e abra o ficheiro com dois cliques. As definições são mantidas.
+
+Se o pedido de permissão não aparecer, clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.
+Se o pedido de permissão não aparecer, clique em "Mostrar o instalador" e abra o ficheiro com dois cliques. As definições são mantidas.
+
+O Windows não deixou abrir o instalador. Ele já foi baixado: use "Mostrar o instalador".
+O Windows não deixou abrir o instalador. Já foi transferido: use "Mostrar o instalador".
+
+A instalação ainda não terminou. Veja se há um pedido de permissão do Windows piscando na barra de tarefas (o ícone de um escudo) e autorize.
+A instalação ainda não terminou. Veja se há um pedido de permissão do Windows a piscar na barra de tarefas (o ícone de um escudo) e autorize.
+
+Se o Church Lower Thirds foi útil, compartilhe o programa com outras pessoas e ajude o projeto a alcançar mais voluntários e equipes técnicas.
+Se o Church Lower Thirds foi útil, partilhe o programa com outras pessoas e ajude o projeto a chegar a mais voluntários e equipas técnicas.
+
+Compartilhar o programa
+Partilhar o programa
+
+Projeto criado por Jonas Silva, criador do Culto em Off: um projeto voltado a compartilhar conhecimento, ferramentas e soluções para áudio, vídeo, transmissão e tecnologia em igrejas.
+Projeto criado por Jonas Silva, criador do Culto em Off: um projeto dedicado a partilhar conhecimento, ferramentas e soluções para áudio, vídeo, transmissão e tecnologia em igrejas.
+
+Excluir
+Eliminar
+
+O último perfil não pode ser excluído
+O último perfil não pode ser eliminado
+
+Excluir este perfil. Os nomes, avisos e contribuições não são apagados.
+Eliminar este perfil. Os nomes, avisos e contribuições não são apagados.
+
+Excluir o perfil "{name}"?
+Eliminar o perfil "{name}"?
+
+Cada perfil guarda uma aparência completa: modelo, cores, fontes e logo.
+Cada perfil guarda uma aparência completa: modelo, cores, tipos de letra e logótipo.

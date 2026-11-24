@@ -1,5 +1,11 @@
 **Versão beta para testes — somente Windows.** Programa novo, separado do PTZ Control Web.
 
+### Novidades da beta.13
+
+- **Atualização automática, nova tentativa de correção**: o programa trabalha escondido, e o Windows mostra um pedido de permissão feito por um programa escondido minimizado, piscando na barra de tarefas, onde passa despercebido. Agora, depois de baixar, abre uma **janela por cima de tudo** ("a nova versão está pronta: clique em OK e autorize"); com o clique, o pedido de permissão do Windows abre na frente, como depois de dois cliques no instalador. O instalador passa a ser salvo na pasta **Downloads** (computadores de empresa costumam recusar programas na pasta temporária) e o programa apaga o arquivo depois de instalado. A página mostra cada etapa e, se algo falhar ou demorar, o botão **Mostrar o instalador** abre a pasta com o arquivo já baixado e conferido.
+- **Perfis no seletor do alto das configurações**: o seletor virou um menu para trocar, **criar**, **renomear** e **excluir** perfis ali mesmo. O primeiro perfil passa a se chamar **Perfil 1** (quem ainda tinha "Culto padrão" sem renomear recebe o nome novo) e os novos nascem como "Perfil 2", "Perfil 3"…, já com o nome pronto para digitar.
+- **Sobre**: página nova com as informações do Culto em Off, os links (site, curso, Instagram, YouTube, GitHub) e o botão para compartilhar o programa.
+
 ### Novidades da beta.12
 
 - **Selo superior, correção**: com "Recados" desmarcado, um recado que tinha sido fixado pelo painel do OBS ("mostrar só este") continuava aparecendo ao lado do nome. Agora "Recados" desligado esconde todos, inclusive o fixo. No painel, mostrar um recado liga os recados sozinho; nas configurações, o cartão "Recados" avisa quando há um fixo e tem o botão "Voltar à lista".

@@ -481,7 +481,7 @@ export function defaults() {
       duration: 600,
     },
     /**
-     * Service profiles ("Culto padrão", "Natal"…): each one keeps a complete look (model,
+     * Service profiles ("Perfil 1", "Natal"…): each one keeps a complete look (model,
      * colors, fonts, logo, places, what the badge shows). `profile` is the one in use; its
      * look is the configuration itself, and is put away into the list when another one is
      * chosen. Names, notices, schedule and giving are the same in every profile.
@@ -741,8 +741,10 @@ export function cleanConfig(raw: unknown): Config {
     .slice(0, 30)
     .map((p): Profile | undefined => {
       if (!p || typeof p !== 'object') return;
-      const name = text(p.name, 40).trim();
+      let name = text(p.name, 40).trim();
       if (!name) return;
+      // The first profile used to be called "Culto padrão": untouched, it takes today's name.
+      if (p.id === 'padrao' && name === 'Culto padrão') name = FIRST_PROFILE;
       return {
         id: typeof p.id === 'string' && /^[a-z0-9]{4,20}$/i.test(p.id) ? p.id : newId(),
         name,
@@ -784,10 +786,12 @@ function putLook(config: Config, look: Profile['look']) {
   for (const [part, values] of Object.entries(structuredClone(look)))
     if (c[part] && values) Object.assign(c[part], values);
 }
+/** The name the first profile starts with; the person renames it as they like. */
+const FIRST_PROFILE = 'Perfil 1';
 /** There is always at least one profile, and the one in use is one of them. */
 function withProfiles(config: Config): Config {
   if (!config.profiles.length)
-    config.profiles = [{ id: 'padrao', name: 'Culto padrão', look: takeLook(config) }];
+    config.profiles = [{ id: 'padrao', name: FIRST_PROFILE, look: takeLook(config) }];
   if (!config.profiles.some((p) => p.id === config.profile)) config.profile = config.profiles[0].id;
   return config;
 }
