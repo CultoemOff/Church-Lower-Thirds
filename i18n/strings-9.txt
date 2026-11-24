@@ -969,3 +969,9 @@ Use the style's colors ({colors})
 Usar los colores del modelo ({colors})
 Usa i colori del modello ({colors})
 Farben der Vorlage verwenden ({colors})
+
+Enquanto ele estiver fixo, os recados da lista não se revezam.
+While it is fixed, the messages of the list do not take turns.
+Mientras esté fijo, los avisos de la lista no se alternan.
+Finché resta fisso, i messaggi dell’elenco non si alternano.
+Solange er fixiert ist, wechseln die Hinweise der Liste nicht.

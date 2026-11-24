@@ -201,9 +201,10 @@ function renderLower() {
 let messageIndex = -1,
   messageTimer = 0,
   messageKey = '';
+// "Messages" switched off hides them all, the one fixed from the dock included.
 const topMessages = () => {
   const c = themed(config, 'top');
-  return c.pinned ? [c.pinned] : c.showMessages ? c.messages : [];
+  return !c.showMessages ? [] : c.pinned ? [c.pinned] : c.messages;
 };
 function nextMessage(first = false) {
   const c = themed(config, 'top'),

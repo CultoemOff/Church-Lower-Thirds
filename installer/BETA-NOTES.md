@@ -1,5 +1,9 @@
 **Versão beta para testes — somente Windows.** Programa novo, separado do PTZ Control Web.
 
+### Novidades da beta.12
+
+- **Selo superior, correção**: com "Recados" desmarcado, um recado que tinha sido fixado pelo painel do OBS ("mostrar só este") continuava aparecendo ao lado do nome. Agora "Recados" desligado esconde todos, inclusive o fixo. No painel, mostrar um recado liga os recados sozinho; nas configurações, o cartão "Recados" avisa quando há um fixo e tem o botão "Voltar à lista".
+
 ### Novidades da beta.11
 
 - **Trocar de modelo mantém as cores escolhidas**: quem já escolheu as cores da igreja (outro conjunto pronto ou cada cor ajustada à mão) não precisa refazer: o modelo novo muda o formato, a fonte, a animação e as posições, e as cores ficam. O mesmo vale para um elemento com aparência própria. Enquanto as cores ainda são as sugeridas pelo modelo, o modelo seguinte traz as dele, como antes. As miniaturas mostram cada modelo já com as cores que vão ficar, e o botão **Usar as cores do modelo**, em "Cores prontas", volta às sugeridas.
