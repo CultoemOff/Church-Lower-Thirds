@@ -222,12 +222,18 @@ jobs:
           if (-not $listed) { throw "The stand-in release server did not start" }
           & powershell -NoProfile -ExecutionPolicy Bypass -File "$dir\stop-server.ps1" -AppDir $dir
           $env:CLT_UPDATE_API = 'http://127.0.0.1:8899/releases.json'
-          $old = Start-Process "$dir\runtime\node.exe" -ArgumentList "`"$dir\app\dist\server\index.js`"" -WorkingDirectory "$dir\app" -PassThru -WindowStyle Hidden
+          $log = Join-Path $env:RUNNER_TEMP 'server'
+          $old = Start-Process "$dir\runtime\node.exe" -ArgumentList "`"$dir\app\dist\server\index.js`"" -WorkingDirectory "$dir\app" -PassThru -WindowStyle Hidden -RedirectStandardOutput "$log.out.txt" -RedirectStandardError "$log.err.txt"
           $env:CLT_UPDATE_API = $null
           Wait-Server
           $u = Invoke-RestMethod "$base/api/update?force=1"
           if (-not $u.newer -or $u.latest -ne '99.0.0' -or -not $u.canInstall) { throw "Update not offered: $($u | ConvertTo-Json -Compress)" }
-          $r = Invoke-RestMethod "$base/api/update/install" -Method Post -TimeoutSec 120
+          try { $r = Invoke-RestMethod "$base/api/update/install" -Method Post -TimeoutSec 120 }
+          catch {
+            Start-Sleep -Seconds 2
+            Get-Content "$log.out.txt", "$log.err.txt" -ErrorAction SilentlyContinue | ForEach-Object { Write-Host "  server: $_" }
+            throw
+          }
           if (-not $r.ok) { throw "Update did not start: $($r | ConvertTo-Json -Compress)" }
           if (-not $old.WaitForExit(180000)) { throw "The installer never stopped the running program" }
           Wait-Server

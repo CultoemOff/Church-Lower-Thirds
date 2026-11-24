@@ -412,7 +412,7 @@ app.post('/api/update/install', async (_q, r) => {
     // Started through the Windows shell (Start-Process), which is what shows the permission
     // prompt. /SILENT: after that, only the progress window. The path travels in an
     // environment variable so no quoting can break on a profile name with spaces.
-    spawn(
+    const child = spawn(
       'powershell.exe',
       [
         '-NoProfile',
@@ -427,7 +427,14 @@ app.post('/api/update/install', async (_q, r) => {
         stdio: 'ignore',
         windowsHide: true,
       },
-    ).unref();
+    );
+    // Answer only once Windows has really started it; a failure here must reach the person
+    // as a message, not take the program down.
+    await new Promise<void>((ok, bad) => {
+      child.once('spawn', () => ok());
+      child.once('error', bad);
+    });
+    child.unref();
     r.json({ ok: true, version: info.latest });
   } catch (e) {
     fail(r, e, 502);
