@@ -112,7 +112,6 @@ export default {
     'Shows or hides the bottom bar, with the scrolling text',
   'Textos que rolam': 'Scrolling texts',
   'Texto para rolar agora': 'Text to scroll now',
-  Fica: 'Stays',
   Clássico: 'Classic',
   Vidro: 'Glass',
   'Faixa inclinada': 'Slanted ribbon',
@@ -657,8 +656,6 @@ export default {
     'Pin: what you show on this tab stays on screen until you hide it, even when the time ends',
   'Configurações avançadas: abre no navegador (modelos, cores, fontes, contribuições, logo)':
     'Advanced settings: opens in the browser (models, colors, fonts, giving, logo)',
-  'Mostra ou esconde uma prévia de como o elemento desta aba aparece na tela':
-    'Shows or hides a preview of how the element of this tab appears on screen',
   'Endereços para o OBS, tutorial, resoluções e atalhos.':
     'Addresses for OBS, tutorial, resolutions and shortcuts.',
   'Salvar e restaurar tudo num arquivo, ou voltar às configurações iniciais.':
@@ -807,8 +804,6 @@ export default {
   'Natal: manjedoura e estrela': 'Christmas: manger and star',
   'Páscoa: lírios e cruz': 'Easter: lilies and cross',
   'Páscoa: túmulo vazio': 'Easter: empty tomb',
-  'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; passe o mouse para ver a entrada.':
-    "Start with the style: it sets the shape, the font and the animation of every element and already brings the colors that suit it best. The pictures show each style with the church's name and logo; point at one to see it come in.",
   'Modelos temáticos': 'Themed styles',
   'Para ministérios e datas especiais: jovens, crianças, mulheres, coral, banda, Natal e Páscoa. O desenho pode ser trocado em "Fonte e forma".':
     'For ministries and special dates: youth, children, women, choir, band, Christmas and Easter. The drawing can be changed in "Font and shape".',
@@ -859,4 +854,39 @@ export default {
   'Baixar o instalador': 'Download the installer',
   'O Windows deste computador não deixou o programa abrir o instalador sozinho (é comum em computadores de empresa). Baixe o instalador e abra-o você mesmo: as configurações são mantidas.':
     'Windows on this computer did not let the program open the installer by itself (common on company computers). Download the installer and open it yourself: the settings are kept.',
+  'Culto padrão': 'Regular service',
+  Perfil: 'Profile',
+  'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Crie e ajuste os perfis nas configurações.':
+    'Service profile: changes the style, the colors, the fonts and the logo at once. Create and adjust the profiles in the settings.',
+  'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo':
+    'Service profile: changes the style, the colors, the fonts and the logo at once',
+  'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.':
+    "Start with the style: it sets the shape, the font and the animation of every element and already brings the colors that suit it best. The pictures show each style with the church's name and logo; the entrance animation is shown in the big preview.",
+  'Trocar de perfil de culto (pelo nome)': 'Change the service profile (by name)',
+  'Nome do novo perfil (ex.: Culto de mulheres, Natal)':
+    "Name of the new profile (e.g. Women's service, Christmas)",
+  'Perfil "{name}" criado com a aparência atual.':
+    'Profile "{name}" created with the current look.',
+  'Perfis de culto': 'Service profiles',
+  'Cada perfil guarda uma aparência completa: modelo, cores, fontes, logo, posições e o que o selo mostra. Troque de perfil aqui, no alto desta página ou no painel do OBS. Os nomes, avisos, agenda e contribuições são os mesmos em todos.':
+    'Each profile keeps a complete look: style, colors, fonts, logo, positions and what the badge shows. Change the profile here, at the top of this page or in the OBS dock. Names, notices, schedule and giving are the same in all of them.',
+  'Nome do perfil': 'Profile name',
+  'Em uso': 'In use',
+  Usar: 'Use',
+  'Apaga este perfil. Os nomes, avisos e contribuições não são apagados.':
+    'Deletes this profile. Names, notices and giving are not deleted.',
+  'Apagar o perfil "{name}"?': 'Delete the profile "{name}"?',
+  Apagar: 'Delete',
+  'Cria um perfil com a aparência que está em uso agora e passa a usá-lo':
+    'Creates a profile with the look in use now and changes to it',
+  'Salvar como novo perfil': 'Save as a new profile',
+  'Para um perfil novo: salve com um nome e depois escolha o modelo, as cores e o logo dele.':
+    'For a new profile: save it with a name and then choose its style, colors and logo.',
+  'Esse perfil não existe mais.': 'That profile no longer exists.',
+  'Escreva um nome para o perfil.': 'Type a name for the profile.',
+  'O último perfil não pode ser apagado.': 'The last profile cannot be deleted.',
+  'Há perfis demais: apague algum antes de criar outro.':
+    'There are too many profiles: delete one before creating another.',
+  Tempo: 'Time',
+  'sem limite': 'no limit',
 };

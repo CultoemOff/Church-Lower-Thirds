@@ -131,8 +131,6 @@ export default {
     'Fixar: o que mostrar neste separador fica no ecrã até esconder, mesmo quando o tempo acabar',
   'Configurações avançadas: abre no navegador (modelos, cores, fontes, contribuições, logo)':
     'Definições avançadas: abre no navegador (modelos, cores, fontes, contribuições, logo)',
-  'Mostra ou esconde uma prévia de como o elemento desta aba aparece na tela':
-    'Mostra ou esconde uma prévia de como o elemento desta separador aparece no ecrã',
   'Salvar e restaurar tudo num arquivo, ou voltar às configurações iniciais.':
     'Guardar e restaurar tudo num ficheiro, ou voltar às definições iniciais.',
   'Nome do aplicativo': 'Nome da aplicação',
@@ -149,6 +147,9 @@ export default {
   'Arquivo grande demais.': 'Ficheiro demasiado grande.',
   'O Windows deste computador não deixou o programa abrir o instalador sozinho (é comum em computadores de empresa). Baixe o instalador e abra-o você mesmo: as configurações são mantidas.':
     'O Windows deste computador não deixou o programa abrir o instalador sozinho (é comum em computadores de empresa). Transfira o instalador e abra-o: as configurações são mantidas.',
+  'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Crie e ajuste os perfis nas configurações.':
+    'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Crie e ajuste os perfis nas definições.',
+  'Salvar como novo perfil': 'Guardar como novo perfil',
   'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui você confere e ajusta a aparência.':
     'No dia a dia, quem mostra e esconde é o painel dentro do OBS. Aqui pode conferir e ajustar o aspeto.',
   'Use o mesmo tamanho do vídeo do seu OBS. Os gráficos se ajustam sozinhos: tudo o que você configurou fica igual em qualquer um deles.':
@@ -187,6 +188,6 @@ export default {
   Telefone: 'Telefone',
   'Faixa inclinada e letras altas, no estilo das transmissões esportivas':
     'Faixa inclinada e letras altas, no estilo das transmissões desportivas',
-  'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; passe o mouse para ver a entrada.':
-    'Comece pelo modelo: define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logótipo da igreja; passe o rato para ver a entrada.',
+  'Para um perfil novo: salve com um nome e depois escolha o modelo, as cores e o logo dele.':
+    'Para um perfil novo: guarde com um nome e depois escolha o modelo, as cores e o logótipo.',
 };

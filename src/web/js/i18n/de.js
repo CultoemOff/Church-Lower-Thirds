@@ -115,7 +115,6 @@ export default {
     'Blendet die untere Leiste mit dem Lauftext ein oder aus',
   'Textos que rolam': 'Lauftexte',
   'Texto para rolar agora': 'Text, der jetzt durchläuft',
-  Fica: 'Bleibt',
   Clássico: 'Klassisch',
   Vidro: 'Glas',
   'Faixa inclinada': 'Schräges Band',
@@ -668,8 +667,6 @@ export default {
     'Fixieren: Was auf diesem Reiter eingeblendet wird, bleibt bis zum Ausblenden sichtbar, auch nach Ablauf der Zeit',
   'Configurações avançadas: abre no navegador (modelos, cores, fontes, contribuições, logo)':
     'Erweiterte Einstellungen: öffnet sich im Browser (Vorlagen, Farben, Schriften, Spenden, Logo)',
-  'Mostra ou esconde uma prévia de como o elemento desta aba aparece na tela':
-    'Zeigt oder verbirgt eine Vorschau, wie das Element dieses Reiters auf dem Bildschirm aussieht',
   'Endereços para o OBS, tutorial, resoluções e atalhos.':
     'Adressen für OBS, Anleitung, Auflösungen und Kurzbefehle.',
   'Salvar e restaurar tudo num arquivo, ou voltar às configurações iniciais.':
@@ -819,8 +816,6 @@ export default {
   'Natal: manjedoura e estrela': 'Weihnachten: Krippe und Stern',
   'Páscoa: lírios e cruz': 'Ostern: Lilien und Kreuz',
   'Páscoa: túmulo vazio': 'Ostern: leeres Grab',
-  'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; passe o mouse para ver a entrada.':
-    'Beginnen Sie mit der Vorlage: Sie bestimmt Form, Schrift und Animation aller Elemente und bringt die passendsten Farben gleich mit. Die Bilder zeigen jede Vorlage mit Namen und Logo der Gemeinde; zeigen Sie mit der Maus darauf, um den Einstieg zu sehen.',
   'Modelos temáticos': 'Themenvorlagen',
   'Para ministérios e datas especiais: jovens, crianças, mulheres, coral, banda, Natal e Páscoa. O desenho pode ser trocado em "Fonte e forma".':
     'Für Dienste und besondere Anlässe: Jugend, Kinder, Frauen, Chor, Band, Weihnachten und Ostern. Die Zeichnung lässt sich unter „Schrift und Form“ ändern.',
@@ -871,4 +866,39 @@ export default {
   'Baixar o instalador': 'Installationsprogramm herunterladen',
   'O Windows deste computador não deixou o programa abrir o instalador sozinho (é comum em computadores de empresa). Baixe o instalador e abra-o você mesmo: as configurações são mantidas.':
     'Windows hat auf diesem Computer nicht zugelassen, dass das Programm das Installationsprogramm selbst öffnet (auf Firmencomputern üblich). Laden Sie es herunter und öffnen Sie es selbst: Die Einstellungen bleiben erhalten.',
+  'Culto padrão': 'Normaler Gottesdienst',
+  Perfil: 'Profil',
+  'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Crie e ajuste os perfis nas configurações.':
+    'Gottesdienst-Profil: wechselt Vorlage, Farben, Schriften und Logo auf einmal. Profile werden in den Einstellungen angelegt und angepasst.',
+  'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo':
+    'Gottesdienst-Profil: wechselt Vorlage, Farben, Schriften und Logo auf einmal',
+  'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.':
+    'Beginnen Sie mit der Vorlage: Sie bestimmt Form, Schrift und Animation aller Elemente und bringt die passendsten Farben gleich mit. Die Bilder zeigen jede Vorlage mit Namen und Logo der Gemeinde; die Einstiegsanimation zeigt die große Vorschau.',
+  'Trocar de perfil de culto (pelo nome)': 'Gottesdienst-Profil wechseln (nach Name)',
+  'Nome do novo perfil (ex.: Culto de mulheres, Natal)':
+    'Name des neuen Profils (z. B. Frauengottesdienst, Weihnachten)',
+  'Perfil "{name}" criado com a aparência atual.':
+    'Profil „{name}“ mit dem aktuellen Aussehen angelegt.',
+  'Perfis de culto': 'Gottesdienst-Profile',
+  'Cada perfil guarda uma aparência completa: modelo, cores, fontes, logo, posições e o que o selo mostra. Troque de perfil aqui, no alto desta página ou no painel do OBS. Os nomes, avisos, agenda e contribuições são os mesmos em todos.':
+    'Jedes Profil bewahrt ein vollständiges Aussehen: Vorlage, Farben, Schriften, Logo, Positionen und was das Eck-Emblem zeigt. Wechseln Sie das Profil hier, oben auf dieser Seite oder im OBS-Dock. Namen, Hinweise, Programm und Spenden sind in allen gleich.',
+  'Nome do perfil': 'Profilname',
+  'Em uso': 'In Verwendung',
+  Usar: 'Verwenden',
+  'Apaga este perfil. Os nomes, avisos e contribuições não são apagados.':
+    'Löscht dieses Profil. Namen, Hinweise und Spenden werden nicht gelöscht.',
+  'Apagar o perfil "{name}"?': 'Profil „{name}“ löschen?',
+  Apagar: 'Löschen',
+  'Cria um perfil com a aparência que está em uso agora e passa a usá-lo':
+    'Legt ein Profil mit dem jetzt verwendeten Aussehen an und wechselt dorthin',
+  'Salvar como novo perfil': 'Als neues Profil speichern',
+  'Para um perfil novo: salve com um nome e depois escolha o modelo, as cores e o logo dele.':
+    'Für ein neues Profil: mit einem Namen speichern und dann Vorlage, Farben und Logo dafür wählen.',
+  'Esse perfil não existe mais.': 'Dieses Profil gibt es nicht mehr.',
+  'Escreva um nome para o perfil.': 'Geben Sie einen Namen für das Profil ein.',
+  'O último perfil não pode ser apagado.': 'Das letzte Profil kann nicht gelöscht werden.',
+  'Há perfis demais: apague algum antes de criar outro.':
+    'Es gibt zu viele Profile: Löschen Sie eines, bevor Sie ein neues anlegen.',
+  Tempo: 'Zeit',
+  'sem limite': 'ohne Limit',
 };

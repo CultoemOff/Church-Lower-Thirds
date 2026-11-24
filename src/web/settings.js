@@ -54,7 +54,8 @@ let config = null,
   obsVertical = false,
   update = null,
   updateState = '',
-  updateBlocked = '';
+  updateBlocked = '',
+  afterSave = null;
 
 const NAMES = {
   classic: 'Clássico',
@@ -277,13 +278,9 @@ function refill(parent, nodes) {
 /**
  * The models as small live pictures: each one is the overlay itself (badge, name, card and
  * bottom bar) drawn with that model and the colors it suggests, with the church's own
- * name and logo. Pointing at one plays its entrance again.
+ * name and logo. They stand still: the entrance is shown by the big preview.
  */
 function modelGallery(where, themed) {
-  const replay = (frame) => {
-    for (const el of ['top', 'lower', 'card', 'ticker'])
-      frame.contentWindow?.postMessage({ type: 'replay', el }, location.origin);
-  };
   return keep(
     `${where}-${themed ? 'themed' : 'models'}`,
     () =>
@@ -304,7 +301,6 @@ function modelGallery(where, themed) {
               'data-model': k.id,
               title: k.hint,
               onclick: () => useModel(k),
-              onmouseenter: () => replay(frame),
             },
             h('span', { class: 'themeShot' }, frame),
             h('strong', {}, k.name),
@@ -357,6 +353,8 @@ const paletteGallery = () => {
 };
 function useModel(model) {
   applyModel(config, model);
+  // Once it is saved, the big preview shows how the model comes in.
+  afterSave = () => setTimeout(replayPreview, 350);
   save();
   renderForm();
   toast(
@@ -380,6 +378,9 @@ function save() {
   saveTimer = setTimeout(async () => {
     const r = await api('/api/config', { method: 'PUT', body: config });
     $('#saved').textContent = r.error ? '' : 'Salvo';
+    const then = afterSave;
+    afterSave = null;
+    if (!r.error) then?.();
     if (r.error) toast(friendly(r.error));
     else if (page === 'brand') checkGiving();
   }, 250);
@@ -1367,13 +1368,14 @@ const pages = {
   ],
 
   theme: () => [
+    profilesCard(),
     keep(
       'page-models-card',
       () =>
         card(
           'Modelos',
           hint(
-            'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; passe o mouse para ver a entrada.',
+            'Comece pelo modelo: ele define o formato, a fonte e a animação de todos os elementos e já traz as cores que mais combinam. As figuras mostram cada modelo com o nome e o logo da igreja; a animação de entrada aparece na prévia grande.',
           ),
           modelGallery('page', false),
         ),
@@ -2219,6 +2221,7 @@ const pages = {
           row('Agenda', '/api/live/agenda/toggle'),
           row('Rede social (1 = primeira)', '/api/live/social/toggle?item=1'),
           row('Logo', '/api/live/bug/toggle'),
+          row('Trocar de perfil de culto (pelo nome)', '/api/profile/use?name=Natal'),
           row('Tirar tudo do ar', '/api/live/all/hide'),
         ),
         hint('Troque "toggle" por "show" ou "hide" para só mostrar ou só esconder.'),
@@ -2850,9 +2853,116 @@ function renderForm() {
   refill($('#form'), [off, ...pages[page]()]);
   if (page === 'brand') checkGiving();
 }
-$('#replay').onclick = () => {
-  const el = ELEMENTS.includes(page) ? page : 'card';
-  $('#preview').contentWindow?.postMessage({ type: 'replay', el }, location.origin);
+/** Plays the entrance again in the big preview (and in the one of the assistant). */
+function replayPreview() {
+  const all = ['top', 'lower', 'card', 'ticker'];
+  const send = (frame, els) => {
+    for (const el of els)
+      frame?.contentWindow?.postMessage({ type: 'replay', el }, location.origin);
+  };
+  // A page of one element shows that one; the others show the main ones together.
+  send($('#preview'), ELEMENTS.includes(page) ? [page] : all);
+  send($('#wizard .wizardPreview iframe'), all);
+}
+$('#replay').onclick = replayPreview;
+
+// ---------- Service profiles ----------
+function renderProfiles() {
+  const box = $('#profile'),
+    key = JSON.stringify(config.profiles.map((p) => [p.id, p.name]));
+  if (box.dataset.key !== key) {
+    box.dataset.key = key;
+    box.replaceChildren(...config.profiles.map((p) => h('option', { value: p.id }, p.name)));
+  }
+  if (document.activeElement !== box) box.value = config.profile;
+}
+/** A change of profile made here: the answer brings the whole look of the other one. */
+async function profileCommand(path, body) {
+  // What was just changed belongs to the profile in use: save it before leaving it.
+  clearTimeout(saveTimer);
+  await api('/api/config', { method: 'PUT', body: config });
+  const r = await api(path, { method: 'POST', body });
+  if (r.error) return void toast(friendly(r.error));
+  config = r.config;
+  renderProfiles();
+  renderNav();
+  renderForm();
+  setTimeout(replayPreview, 350);
+  return r;
+}
+$('#profile').onchange = (e) => profileCommand('/api/profile/use', { id: e.target.value });
+const profilesCard = () => {
+  const name = h('input', {
+    maxlength: 40,
+    placeholder: 'Nome do novo perfil (ex.: Culto de mulheres, Natal)',
+  });
+  const add = async () => {
+    if (!name.value.trim()) return name.focus();
+    const r = await profileCommand('/api/profile/add', { name: name.value });
+    if (r) toast(t('Perfil "{name}" criado com a aparência atual.', { name: name.value.trim() }));
+  };
+  name.addEventListener('keydown', (e) => e.key === 'Enter' && add());
+  return card(
+    'Perfis de culto',
+    hint(
+      'Cada perfil guarda uma aparência completa: modelo, cores, fontes, logo, posições e o que o selo mostra. Troque de perfil aqui, no alto desta página ou no painel do OBS. Os nomes, avisos, agenda e contribuições são os mesmos em todos.',
+    ),
+    h(
+      'div',
+      { class: 'rows' },
+      config.profiles.map((p) =>
+        h(
+          'div',
+          { class: 'row profileRow' + (p.id === config.profile ? ' current' : '') },
+          h('input', {
+            value: p.name,
+            maxlength: 40,
+            title: 'Nome do perfil',
+            onchange: (e) => {
+              p.name = e.target.value.trim() || p.name;
+              save();
+              renderProfiles();
+            },
+          }),
+          p.id === config.profile
+            ? h('b', { class: 'tag' }, 'Em uso')
+            : h(
+                'button',
+                { onclick: () => profileCommand('/api/profile/use', { id: p.id }) },
+                'Usar',
+              ),
+          h(
+            'button',
+            {
+              disabled: config.profiles.length < 2,
+              title: 'Apaga este perfil. Os nomes, avisos e contribuições não são apagados.',
+              onclick: () =>
+                confirm(t('Apagar o perfil "{name}"?', { name: p.name })) &&
+                profileCommand('/api/profile/remove', { id: p.id }),
+            },
+            'Apagar',
+          ),
+        ),
+      ),
+    ),
+    h(
+      'div',
+      { class: 'row profileRow' },
+      name,
+      h(
+        'button',
+        {
+          class: 'primary',
+          title: 'Cria um perfil com a aparência que está em uso agora e passa a usá-lo',
+          onclick: add,
+        },
+        'Salvar como novo perfil',
+      ),
+    ),
+    hint(
+      'Para um perfil novo: salve com um nome e depois escolha o modelo, as cores e o logo dele.',
+    ),
+  );
 };
 $('#onAir').onclick = async () => {
   const r = await api(
@@ -2914,6 +3024,7 @@ connect(
     if (config) {
       useLanguage(config.language);
       $('#language').value = config.language;
+      renderProfiles();
     }
     if (liveChanged) renderNav();
     renderOnAir();

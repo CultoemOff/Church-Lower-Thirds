@@ -109,7 +109,7 @@ test('ready-made models: each one is complete, suggests existing colors and is s
     c.card.custom = true;
     applyModel(c, model);
     // Nothing a model sets is refused or changed by the server.
-    assert.deepEqual(cleanConfig(structuredClone(c)), c, model.id);
+    assert.deepEqual({ ...cleanConfig(structuredClone(c)), profiles: [] }, c, model.id);
     for (const el of THEMED_ELEMENTS) {
       assert.equal(c[el as 'lower'].template, model.templates[el], `${model.id}: ${el}`);
       assert.equal(c[el as 'lower'].custom, false);

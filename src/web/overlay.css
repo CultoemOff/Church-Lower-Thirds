@@ -1960,17 +1960,16 @@ img:not([src]) {
   max-width: 940px;
 }
 
-/* The small picture of a model (?preview=model): a smaller stage, and nothing that keeps
-   moving, since the settings page shows many of them at once. */
+/* The small picture of a model (?preview=model): a smaller stage, and nothing moves (no
+   entrance either): the settings page shows many of them at once, and the entrance is
+   shown by the big preview. */
 .compact .stage {
   width: 1440px;
   height: 810px;
 }
-.compact .ticker .run {
-  animation-play-state: paused !important;
-}
-.compact .top .live i {
-  animation: none;
+.compact .el *,
+.compact .el .box {
+  animation: none !important;
 }
 
 /* Settings preview: a neutral "camera" background so transparency and shadows show */

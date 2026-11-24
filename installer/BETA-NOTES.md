@@ -1,5 +1,13 @@
 **Versão beta para testes — somente Windows.** Programa novo, separado do PTZ Control Web.
 
+### Novidades da beta.9
+
+- **Perfis de culto**: cada perfil ("Culto padrão", "Culto de mulheres", "Natal"…) guarda uma aparência completa (modelo, cores, fontes, logo, posições, o que o selo mostra). Troca-se de perfil no alto das configurações, no cartão "Perfis de culto" do Tema global, no painel do OBS ou por endereço (`/api/profile/use?name=Natal`, para Stream Deck). Os nomes, avisos, agenda e contribuições são os mesmos em todos os perfis.
+- **Painel do OBS**: a prévia saiu; no lugar dela fica a escolha do perfil.
+- **Painel do OBS, correção**: não dava para digitar nos campos que aceitam Enter (nome e legenda, recado do selo e da barra, rede social): cada tecla era cancelada. Agora dá.
+- **Tempo na tela**: o seletor do painel mostra "Tempo: 10 s" (antes aparecia só "Fica") e as instalações novas começam com 10 segundos. Quem já usa o programa mantém o que estava escolhido.
+- **Modelos**: as miniaturas ficam paradas; a animação de entrada aparece na prévia grande quando um modelo é escolhido.
+
 ### Novidades da beta.8
 
 - **Atualizar agora**: em alguns computadores (principalmente os de empresa) o Windows recusava abrir o instalador e aparecia só "spawn UNKNOWN". Agora, se a primeira tentativa falha, o programa pede ao Windows para abrir o instalador com permissão de administrador; se nem assim der, mostra o motivo e o botão **Baixar o instalador**.
