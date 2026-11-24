@@ -18,7 +18,12 @@ import { fileURLToPath } from 'node:url';
 import { WebSocketServer } from 'ws';
 import { refusal } from './guard.js';
 import { appDataDir, installInfoFile, ownerId, userFilesFolder } from './paths.js';
-import { checkForUpdate, downloadVerifiedSetup } from './updater.js';
+import {
+  checkForUpdate,
+  downloadVerifiedSetup,
+  rememberSetup,
+  removeUsedSetup,
+} from './updater.js';
 import { startSetup } from './launch.js';
 import { installedFonts } from './fonts.js';
 import { pixPayload, validPixPayload } from './pix.js';
@@ -554,23 +559,48 @@ app.get('/api/update', async (q, r) => {
 // Downloads the installer, checks its SHA-256 and runs it. The installer stops this server,
 // replaces the files and starts the new version; the panels reconnect by themselves.
 let installing: Promise<string> | undefined;
-app.post('/api/update/install', async (_q, r) => {
+/** What the update is doing now, for the page that is waiting: '' | downloading | asking. */
+let updatePhase = '';
+/** The installer of the last attempt, so the person can be shown the file. */
+let lastSetup = '';
+void removeUsedSetup(dataDir, appVersion);
+app.get('/api/update/progress', (_q, r) => r.json({ phase: updatePhase, file: lastSetup }));
+app.post('/api/update/install', async (q, r) => {
   if (!canInstallUpdates)
     return void r.status(501).json({ error: 'Automatic install is only available on Windows' });
   try {
     const info = await checkForUpdate(appVersion, true);
     if (!info.newer) return void r.status(409).json({ error: 'Already up to date', ...info });
+    updatePhase = 'downloading';
     installing ??= downloadVerifiedSetup(info).finally(() => (installing = undefined));
-    const setup = await installing;
-    // /SILENT: after the permission prompt, only the progress window. /LOG leaves
-    // "Setup Log <date>.txt" in the temp folder, for when an update goes wrong. The answer
-    // goes out only once Windows has really started the setup: a failure must reach the
-    // person as a message, not take the program down.
-    await startSetup(setup, ['/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/LOG']);
-    r.json({ ok: true, version: info.latest });
+    lastSetup = await installing;
+    await rememberSetup(dataDir, lastSetup, info.latest || '');
+    // A small window on the computer says the update is ready; after the click the
+    // installer starts and Windows asks for permission in front of everything (a request
+    // made from this hidden program would only blink on the taskbar). /SILENT: after the
+    // permission, only the progress window. /LOG leaves "Setup Log <date>.txt" in the temp
+    // folder, for when an update goes wrong. The answer goes out only once Windows has
+    // really started the setup: a failure must reach the person as a message.
+    updatePhase = 'asking';
+    const how = await startSetup(
+      lastSetup,
+      ['/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/LOG'],
+      {
+        note: typeof q.body?.note === 'string' ? q.body.note.slice(0, 600) : '',
+      },
+    );
+    r.json({ ok: true, version: info.latest, how });
   } catch (e) {
-    fail(r, e, 502);
+    r.status(502).json({ error: (e as Error).message || String(e), file: lastSetup });
+  } finally {
+    updatePhase = '';
   }
+});
+// Shows the downloaded installer in its folder, for the person to open it themselves.
+app.post('/api/update/reveal', (_q, r) => {
+  if (!lastSetup || !canInstallUpdates) return void r.status(404).json({ error: 'No installer' });
+  execFile('explorer.exe', [`/select,${lastSetup}`], () => {});
+  r.json({ ok: true, file: lastSetup });
 });
 
 // Where the person's files are, for the settings page.

@@ -26,7 +26,7 @@ Na primeira vez, um assistente explica esses passos com ilustrações e deixa tu
 - **Agenda**: 4 modelos; mostra um dia por vez.
 - **Redes sociais e avisos**: 7 modelos; um item por vez ou todos em sequência, com contador e linha do tempo. Os ícones são genéricos (não os logotipos das redes); a igreja pode enviar os seus.
 - **Logo** no canto da tela.
-- **Perfis de culto**: aparências completas (modelo, cores, fontes, logo, posições) salvas com um nome, como "Culto padrão", "Culto de mulheres" ou "Natal", e trocadas num clique nas configurações, no painel do OBS ou por Stream Deck.
+- **Perfis de culto**: aparências completas (modelo, cores, fontes, logo, posições) salvas com um nome, como "Perfil 1", "Culto de mulheres" ou "Natal". Criam-se, renomeiam-se e excluem-se no seletor do alto das configurações, e trocam-se num clique ali, no painel do OBS ou por Stream Deck.
 - **Tema global**: cores com degradê, fonte, cantos, sombra e opacidade que todos os elementos seguem; cada elemento pode ter aparência própria. 24 modelos prontos, mostrados em miniaturas reais (com o nome e o logo da igreja), cada um com as cores sugeridas, e 29 conjuntos de cores prontas para trocar. As cores que a igreja escolhe continuam ao trocar de modelo. Dez são **temáticos**: Jovem, Kids, Feminino, Coral, Banda, Natal, Natal Kids, Natal no Egito, Páscoa e Páscoa Kids, com desenhos próprios (flores, estrelas, notas musicais, estrela de Belém e manjedoura, sol e pirâmides, lírios e cruz, túmulo vazio).
 - 19 fontes incluídas (`src/web/fonts`, licença SIL OFL 1.1) e todas as instaladas no computador; 11 animações de entrada e saída, entre elas gota d’água, linha que se abre e deslize com rastro.
 - **Painel do OBS** com abas, responsivo, com o tempo na tela, botão de fixar e prévia.
@@ -58,7 +58,7 @@ A pasta `Data`, ao lado de `OBS Sources`, guarda `config.json` e as imagens.
 - O programa fica em `C:\Program Files\Culto em Off\Church Lower Thirds`, ao lado dos outros programas do Culto em Off. Por isso o instalador pede permissão de administrador.
 - **Cada usuário do Windows tem os seus arquivos e configurações.** A pasta escolhida no instalador vale para quem está usando o computador naquele momento; os outros usuários recebem `Documentos\Church Lower Thirds` no próprio perfil. O que cada conta usa fica anotado em `%APPDATA%\Church Lower Thirds\location.json` (pasta e porta).
 - Com duas contas abertas ao mesmo tempo, a segunda usa a porta seguinte (8796…). Os arquivos de `OBS Sources` e o `Control Dock.html` de cada conta já apontam para a porta certa.
-- **Atualização:** o painel consulta as Releases deste repositório e mostra "Atualizar agora". O programa baixa o instalador, confere o SHA-256 com o `SHA256SUMS.txt` da release, executa em modo silencioso (o Windows pede permissão) e volta sozinho. Quem usa uma versão final só recebe versões finais; quem usa beta recebe também os betas.
+- **Atualização:** o painel consulta as Releases deste repositório e mostra "Atualizar agora". O programa baixa o instalador para a pasta Downloads, confere o SHA-256 com o `SHA256SUMS.txt` da release e abre uma janela por cima de tudo avisando que a versão está pronta; com o OK, o instalador roda em modo silencioso (o Windows pede permissão, na frente) e o programa volta sozinho. Se o Windows recusar, a página mostra onde está o instalador já baixado. Quem usa uma versão final só recebe versões finais; quem usa beta recebe também os betas.
 
 ## Segurança
 

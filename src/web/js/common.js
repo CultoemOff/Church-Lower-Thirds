@@ -80,8 +80,9 @@ const ERRORS = [
   [/Too many profiles/, 'Há perfis demais: apague algum antes de criar outro.'],
   [
     /Windows did not start the installer/,
-    'O Windows não deixou abrir o instalador. Baixe a nova versão pelo botão ao lado.',
+    'O Windows não deixou abrir o instalador. Ele já foi baixado: use "Mostrar o instalador".',
   ],
+  [/Update cancelled/, 'Atualização cancelada.'],
   [/category is disabled/, 'Esta categoria está desativada nas configurações.'],
   [/Agenda is empty/, 'A agenda está vazia: adicione um dia.'],
   [/Comment is empty/, 'Escreva o comentário antes de mostrar.'],

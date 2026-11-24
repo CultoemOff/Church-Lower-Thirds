@@ -21,7 +21,7 @@ test('an empty or broken file yields the defaults', () => {
   assert.deepEqual(first(cleanConfig({ lower: 'x', top: null, nope: 1 })), defaults());
   assert.deepEqual(
     cleanConfig(undefined).profiles.map((p) => [p.id, p.name]),
-    [['padrao', 'Culto padrão']],
+    [['padrao', 'Perfil 1']],
   );
 });
 
@@ -359,7 +359,7 @@ test('service profiles: each keeps a whole look; the texts are the same in all o
   c = addProfile(c, '  Natal  ');
   assert.deepEqual(
     c.profiles.map((p) => p.name),
-    ['Culto padrão', 'Natal'],
+    ['Perfil 1', 'Natal'],
   );
   assert.equal(c.profile, c.profiles[1].id);
   c.theme.radius = 40;
@@ -368,7 +368,7 @@ test('service profiles: each keeps a whole look; the texts are the same in all o
   c.top.showDate = true;
   c.lower.items[0].line1 = 'José';
   // Back to the first: its look returns, the names stay as they are now.
-  c = useProfile(c, 'culto padrão');
+  c = useProfile(c, 'perfil 1');
   assert.equal(c.profile, 'padrao');
   assert.equal(c.theme.radius, 3);
   assert.equal(c.brand.logo, '/media/aaaaaaaaaaaaaaaa.png');
@@ -436,5 +436,19 @@ test('comments: typed by hand, kept in a list, on air only while there is a text
   assert.deepEqual(
     o.card.saved.map((s) => s.qr),
     ['pixkey', 'giving'],
+  );
+});
+
+test('the first profile is called "Perfil 1"; the old default name is brought up to date', () => {
+  const old = JSON.parse(JSON.stringify(cleanConfig(undefined)));
+  old.profiles[0].name = 'Culto padrão';
+  assert.equal(cleanConfig(old).profiles[0].name, 'Perfil 1');
+  // A name the person gave stays, even on the first profile, and so does that old name on
+  // a profile they created.
+  old.profiles[0].name = 'Culto de domingo';
+  old.profiles.push({ id: 'abcd1234', name: 'Culto padrão', look: old.profiles[0].look });
+  assert.deepEqual(
+    cleanConfig(old).profiles.map((p) => p.name),
+    ['Culto de domingo', 'Culto padrão'],
   );
 });

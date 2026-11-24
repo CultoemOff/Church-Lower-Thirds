@@ -933,4 +933,53 @@ export default {
   'Usar as cores do modelo ({colors})': "Use the style's colors ({colors})",
   'Enquanto ele estiver fixo, os recados da lista não se revezam.':
     'While it is fixed, the messages of the list do not take turns.',
+  'Perfil 1': 'Profile 1',
+  'Perfil {n}': 'Profile {n}',
+  'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Aqui também se cria, renomeia e exclui.':
+    'Service profile: changes the style, colors, fonts and logo at once. This is also where profiles are created, renamed and deleted.',
+  'Perfil em uso': 'Profile in use',
+  'Usar este perfil': 'Use this profile',
+  Renomear: 'Rename',
+  Excluir: 'Delete',
+  'O último perfil não pode ser excluído': 'The last profile cannot be deleted',
+  'Excluir este perfil. Os nomes, avisos e contribuições não são apagados.':
+    'Deletes this profile. Names, notices and giving are not deleted.',
+  'Excluir o perfil "{name}"?': 'Delete the profile "{name}"?',
+  'Novo perfil': 'New profile',
+  'Cada perfil guarda uma aparência completa: modelo, cores, fontes e logo.':
+    'Each profile keeps a complete look: style, colors, fonts and logo.',
+  'Perfil criado com a aparência atual. Dê um nome a ele.':
+    'Profile created with the current look. Give it a name.',
+  'Cada perfil guarda uma aparência completa: modelo, cores, fontes, logo, posições e o que o selo mostra. Troque, crie, renomeie e exclua perfis no seletor do alto desta página; a troca também está no painel do OBS. Os nomes, avisos, agenda e contribuições são os mesmos em todos.':
+    'Each profile keeps a complete look: style, colors, fonts, logo, positions and what the badge shows. Change, create, rename and delete profiles in the selector at the top of this page; changing is also in the OBS panel. Names, notices, schedule and giving are the same in all of them.',
+  Sobre: 'About',
+  'Quem faz o Church Lower Thirds e onde encontrar o Culto em Off.':
+    'Who makes Church Lower Thirds and where to find Culto em Off.',
+  'Projeto criado por Jonas Silva, criador do Culto em Off: um projeto voltado a compartilhar conhecimento, ferramentas e soluções para áudio, vídeo, transmissão e tecnologia em igrejas.':
+    'A project created by Jonas Silva, creator of Culto em Off: a project focused on sharing knowledge, tools and solutions for audio, video, streaming and church technology.',
+  'Versão instalada:': 'Installed version:',
+  'Se o Church Lower Thirds foi útil, compartilhe o programa com outras pessoas e ajude o projeto a alcançar mais voluntários e equipes técnicas.':
+    'If Church Lower Thirds helped you, share the program with others and help the project reach more volunteers and technical teams.',
+  'Curso de OBS Studio': 'OBS Studio course',
+  'Compartilhar o programa': 'Share the program',
+  'Link copiado.': 'Link copied.',
+  'A atualização foi baixada. Abriu uma janela do Church Lower Thirds neste computador (pode estar atrás desta): clique em OK nela e depois autorize a instalação quando o Windows pedir.':
+    'The update has been downloaded. A Church Lower Thirds window has opened on this computer (it may be behind this one): click OK in it and then allow the installation when Windows asks.',
+  'A nova versão do Church Lower Thirds está pronta para instalar. Clique em OK e, em seguida, autorize a instalação quando o Windows pedir.':
+    'The new version of Church Lower Thirds is ready to install. Click OK and then allow the installation when Windows asks.',
+  'Instalando: se o Windows pedir permissão, autorize. Esta página volta sozinha quando terminar.':
+    'Installing: if Windows asks for permission, allow it. This page comes back by itself when it is done.',
+  'A instalação ainda não terminou. Veja se há um pedido de permissão do Windows piscando na barra de tarefas (o ícone de um escudo) e autorize.':
+    'The installation has not finished yet. Check whether a Windows permission request is blinking on the taskbar (a shield icon) and allow it.',
+  'Tentar de novo': 'Try again',
+  'Abre a pasta com o instalador que o programa já baixou e conferiu':
+    'Opens the folder with the installer the program has already downloaded and checked',
+  'Mostrar o instalador': 'Show the installer',
+  'O Windows deste computador não deixou o programa abrir o instalador sozinho. Ele já foi baixado e conferido: clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.':
+    'Windows on this computer did not let the program open the installer by itself. It has already been downloaded and checked: click "Show the installer" and open the file with a double click. Your settings are kept.',
+  'Se o pedido de permissão não aparecer, clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.':
+    'If the permission request does not appear, click "Show the installer" and open the file with a double click. Your settings are kept.',
+  'O Windows não deixou abrir o instalador. Ele já foi baixado: use "Mostrar o instalador".':
+    'Windows did not let the installer open. It has already been downloaded: use "Show the installer".',
+  'Atualização cancelada.': 'Update cancelled.',
 };

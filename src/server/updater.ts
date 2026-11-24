@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
-import { createWriteStream } from 'node:fs';
-import { tmpdir } from 'node:os';
+import { createWriteStream, statSync } from 'node:fs';
+import { readFile, rm, writeFile } from 'node:fs/promises';
+import { homedir, tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { get as httpGet, type IncomingMessage } from 'node:http';
 import { get as httpsGet } from 'node:https';
@@ -134,8 +135,49 @@ function openDownload(url: string, redirects = 5): Promise<IncomingMessage> {
   });
 }
 
-/** Downloads the installer to the temp folder, verifying SHA-256 against SHA256SUMS.txt. */
-export async function downloadVerifiedSetup(info: UpdateInfo): Promise<string> {
+/**
+ * Where the installer is saved: the person's Downloads folder, the place a browser would
+ * put it. Company computers often refuse to run programs kept in the temp folder, and in
+ * Downloads the person finds the file if they have to open it themselves.
+ */
+export function setupFolder(home = homedir()) {
+  const downloads = join(home, 'Downloads');
+  try {
+    if (statSync(downloads).isDirectory()) return downloads;
+  } catch {
+    // No such folder on this computer.
+  }
+  return tmpdir();
+}
+
+/**
+ * The installers this program downloads are its own to clean up: the note says which file
+ * it was, and once that version (or a newer one) is running the file is removed. Files the
+ * person downloaded themselves are never touched.
+ */
+const noteFile = (dataDir: string) => join(dataDir, 'update.json');
+export const rememberSetup = (dataDir: string, file: string, version: string) =>
+  writeFile(noteFile(dataDir), JSON.stringify({ file, version })).catch(() => {});
+export async function removeUsedSetup(dataDir: string, current: string) {
+  try {
+    const note = JSON.parse(await readFile(noteFile(dataDir), 'utf8')) as {
+      file?: unknown;
+      version?: unknown;
+    };
+    if (typeof note.file !== 'string' || typeof note.version !== 'string') return;
+    if (newerThan(note.version, current)) return;
+    if (SETUP_NAME.test(note.file.split(/[\\/]/).pop() || '')) await rm(note.file, { force: true });
+    await rm(noteFile(dataDir), { force: true });
+  } catch {
+    // No note: nothing was downloaded.
+  }
+}
+
+/** Downloads the installer, verifying its SHA-256 against SHA256SUMS.txt. */
+export async function downloadVerifiedSetup(
+  info: UpdateInfo,
+  dir = setupFolder(),
+): Promise<string> {
   if (!info.setupUrl || !info.sumsUrl || !info.setupName || !SETUP_NAME.test(info.setupName))
     throw new Error('Update download is not available');
   const sums = await fetch(info.sumsUrl, { signal: AbortSignal.timeout(15000) });
@@ -143,7 +185,7 @@ export async function downloadVerifiedSetup(info: UpdateInfo): Promise<string> {
   const expected = hashFromSums(await sums.text(), info.setupName);
   if (!expected) throw new Error('Update download failed (no checksum)');
   const res = await openDownload(info.setupUrl);
-  const file = join(tmpdir(), info.setupName);
+  const file = join(dir, info.setupName);
   const hash = createHash('sha256');
   const tap = new Transform({
     transform(chunk, _enc, cb) {
@@ -152,6 +194,10 @@ export async function downloadVerifiedSetup(info: UpdateInfo): Promise<string> {
     },
   });
   await pipeline(res, tap, createWriteStream(file));
-  if (hash.digest('hex') !== expected) throw new Error('Update checksum mismatch');
+  if (hash.digest('hex') !== expected) {
+    // A file that is not what was published does not stay within the person's reach.
+    await rm(file, { force: true });
+    throw new Error('Update checksum mismatch');
+  }
   return file;
 }

@@ -944,4 +944,53 @@ export default {
   'Usar as cores do modelo ({colors})': 'Farben der Vorlage verwenden ({colors})',
   'Enquanto ele estiver fixo, os recados da lista não se revezam.':
     'Solange er fixiert ist, wechseln die Hinweise der Liste nicht.',
+  'Perfil 1': 'Profil 1',
+  'Perfil {n}': 'Profil {n}',
+  'Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Aqui também se cria, renomeia e exclui.':
+    'Gottesdienstprofil: wechselt Vorlage, Farben, Schriften und Logo auf einmal. Hier werden Profile auch angelegt, umbenannt und gelöscht.',
+  'Perfil em uso': 'Profil in Verwendung',
+  'Usar este perfil': 'Dieses Profil verwenden',
+  Renomear: 'Umbenennen',
+  Excluir: 'Löschen',
+  'O último perfil não pode ser excluído': 'Das letzte Profil kann nicht gelöscht werden',
+  'Excluir este perfil. Os nomes, avisos e contribuições não são apagados.':
+    'Löscht dieses Profil. Namen, Hinweise und Spenden bleiben erhalten.',
+  'Excluir o perfil "{name}"?': 'Profil „{name}“ löschen?',
+  'Novo perfil': 'Neues Profil',
+  'Cada perfil guarda uma aparência completa: modelo, cores, fontes e logo.':
+    'Jedes Profil speichert ein komplettes Aussehen: Vorlage, Farben, Schriften und Logo.',
+  'Perfil criado com a aparência atual. Dê um nome a ele.':
+    'Profil mit dem aktuellen Aussehen angelegt. Geben Sie ihm einen Namen.',
+  'Cada perfil guarda uma aparência completa: modelo, cores, fontes, logo, posições e o que o selo mostra. Troque, crie, renomeie e exclua perfis no seletor do alto desta página; a troca também está no painel do OBS. Os nomes, avisos, agenda e contribuições são os mesmos em todos.':
+    'Jedes Profil speichert ein komplettes Aussehen: Vorlage, Farben, Schriften, Logo, Positionen und was das Emblem zeigt. Profile wechseln, anlegen, umbenennen und löschen Sie in der Auswahl oben auf dieser Seite; der Wechsel ist auch im OBS-Panel möglich. Namen, Hinweise, Termine und Spenden sind in allen gleich.',
+  Sobre: 'Über',
+  'Quem faz o Church Lower Thirds e onde encontrar o Culto em Off.':
+    'Wer Church Lower Thirds macht und wo Culto em Off zu finden ist.',
+  'Projeto criado por Jonas Silva, criador do Culto em Off: um projeto voltado a compartilhar conhecimento, ferramentas e soluções para áudio, vídeo, transmissão e tecnologia em igrejas.':
+    'Ein Projekt von Jonas Silva, dem Gründer von Culto em Off: einem Projekt zum Teilen von Wissen, Werkzeugen und Lösungen für Audio, Video, Streaming und Kirchentechnik.',
+  'Versão instalada:': 'Installierte Version:',
+  'Se o Church Lower Thirds foi útil, compartilhe o programa com outras pessoas e ajude o projeto a alcançar mais voluntários e equipes técnicas.':
+    'Wenn Church Lower Thirds hilfreich war, teilen Sie das Programm und helfen Sie dem Projekt, mehr Freiwillige und Technikteams zu erreichen.',
+  'Curso de OBS Studio': 'OBS-Studio-Kurs',
+  'Compartilhar o programa': 'Programm teilen',
+  'Link copiado.': 'Link kopiert.',
+  'A atualização foi baixada. Abriu uma janela do Church Lower Thirds neste computador (pode estar atrás desta): clique em OK nela e depois autorize a instalação quando o Windows pedir.':
+    'Die Aktualisierung wurde geladen. Auf diesem Computer hat sich ein Fenster von Church Lower Thirds geöffnet (es kann hinter diesem liegen): Klicken Sie dort auf OK und erlauben Sie dann die Installation, wenn Windows fragt.',
+  'A nova versão do Church Lower Thirds está pronta para instalar. Clique em OK e, em seguida, autorize a instalação quando o Windows pedir.':
+    'Die neue Version von Church Lower Thirds ist bereit zur Installation. Klicken Sie auf OK und erlauben Sie anschließend die Installation, wenn Windows fragt.',
+  'Instalando: se o Windows pedir permissão, autorize. Esta página volta sozinha quando terminar.':
+    'Installation läuft: Wenn Windows um Erlaubnis fragt, erlauben Sie sie. Diese Seite kommt von selbst zurück, wenn es fertig ist.',
+  'A instalação ainda não terminou. Veja se há um pedido de permissão do Windows piscando na barra de tarefas (o ícone de um escudo) e autorize.':
+    'Die Installation ist noch nicht fertig. Prüfen Sie, ob in der Taskleiste eine Berechtigungsanfrage von Windows blinkt (ein Schildsymbol), und erlauben Sie sie.',
+  'Tentar de novo': 'Erneut versuchen',
+  'Abre a pasta com o instalador que o programa já baixou e conferiu':
+    'Öffnet den Ordner mit dem Installationsprogramm, das das Programm bereits geladen und geprüft hat',
+  'Mostrar o instalador': 'Installationsprogramm anzeigen',
+  'O Windows deste computador não deixou o programa abrir o instalador sozinho. Ele já foi baixado e conferido: clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.':
+    'Windows hat auf diesem Computer nicht zugelassen, dass das Programm das Installationsprogramm selbst öffnet. Es wurde bereits geladen und geprüft: Klicken Sie auf „Installationsprogramm anzeigen“ und öffnen Sie die Datei per Doppelklick. Die Einstellungen bleiben erhalten.',
+  'Se o pedido de permissão não aparecer, clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.':
+    'Wenn die Berechtigungsanfrage nicht erscheint, klicken Sie auf „Installationsprogramm anzeigen“ und öffnen Sie die Datei per Doppelklick. Die Einstellungen bleiben erhalten.',
+  'O Windows não deixou abrir o instalador. Ele já foi baixado: use "Mostrar o instalador".':
+    'Windows hat das Öffnen des Installationsprogramms nicht zugelassen. Es wurde bereits geladen: Verwenden Sie „Installationsprogramm anzeigen“.',
+  'Atualização cancelada.': 'Aktualisierung abgebrochen.',
 };

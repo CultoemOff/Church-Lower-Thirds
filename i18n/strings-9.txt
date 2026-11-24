@@ -975,3 +975,201 @@ While it is fixed, the messages of the list do not take turns.
 Mientras esté fijo, los avisos de la lista no se alternan.
 Finché resta fisso, i messaggi dell’elenco non si alternano.
 Solange er fixiert ist, wechseln die Hinweise der Liste nicht.
+
+Perfil 1
+Profile 1
+Perfil 1
+Profilo 1
+Profil 1
+
+Perfil {n}
+Profile {n}
+Perfil {n}
+Profilo {n}
+Profil {n}
+
+Perfil de culto: troca de uma vez o modelo, as cores, as fontes e o logo. Aqui também se cria, renomeia e exclui.
+Service profile: changes the style, colors, fonts and logo at once. This is also where profiles are created, renamed and deleted.
+Perfil de culto: cambia de una vez el modelo, los colores, las fuentes y el logo. Aquí también se crean, renombran y eliminan.
+Profilo di culto: cambia in una volta modello, colori, caratteri e logo. Qui si creano, rinominano ed eliminano anche i profili.
+Gottesdienstprofil: wechselt Vorlage, Farben, Schriften und Logo auf einmal. Hier werden Profile auch angelegt, umbenannt und gelöscht.
+
+Perfil em uso
+Profile in use
+Perfil en uso
+Profilo in uso
+Profil in Verwendung
+
+Usar este perfil
+Use this profile
+Usar este perfil
+Usa questo profilo
+Dieses Profil verwenden
+
+Renomear
+Rename
+Renombrar
+Rinomina
+Umbenennen
+
+Excluir
+Delete
+Eliminar
+Elimina
+Löschen
+
+O último perfil não pode ser excluído
+The last profile cannot be deleted
+El último perfil no se puede eliminar
+L’ultimo profilo non può essere eliminato
+Das letzte Profil kann nicht gelöscht werden
+
+Excluir este perfil. Os nomes, avisos e contribuições não são apagados.
+Deletes this profile. Names, notices and giving are not deleted.
+Elimina este perfil. Los nombres, avisos y contribuciones no se borran.
+Elimina questo profilo. Nomi, avvisi e contributi non vengono cancellati.
+Löscht dieses Profil. Namen, Hinweise und Spenden bleiben erhalten.
+
+Excluir o perfil "{name}"?
+Delete the profile "{name}"?
+¿Eliminar el perfil "{name}"?
+Eliminare il profilo "{name}"?
+Profil „{name}“ löschen?
+
+Novo perfil
+New profile
+Nuevo perfil
+Nuovo profilo
+Neues Profil
+
+Cada perfil guarda uma aparência completa: modelo, cores, fontes e logo.
+Each profile keeps a complete look: style, colors, fonts and logo.
+Cada perfil guarda una apariencia completa: modelo, colores, fuentes y logo.
+Ogni profilo conserva un aspetto completo: modello, colori, caratteri e logo.
+Jedes Profil speichert ein komplettes Aussehen: Vorlage, Farben, Schriften und Logo.
+
+Perfil criado com a aparência atual. Dê um nome a ele.
+Profile created with the current look. Give it a name.
+Perfil creado con la apariencia actual. Póngale un nombre.
+Profilo creato con l’aspetto attuale. Dagli un nome.
+Profil mit dem aktuellen Aussehen angelegt. Geben Sie ihm einen Namen.
+
+Cada perfil guarda uma aparência completa: modelo, cores, fontes, logo, posições e o que o selo mostra. Troque, crie, renomeie e exclua perfis no seletor do alto desta página; a troca também está no painel do OBS. Os nomes, avisos, agenda e contribuições são os mesmos em todos.
+Each profile keeps a complete look: style, colors, fonts, logo, positions and what the badge shows. Change, create, rename and delete profiles in the selector at the top of this page; changing is also in the OBS panel. Names, notices, schedule and giving are the same in all of them.
+Cada perfil guarda una apariencia completa: modelo, colores, fuentes, logo, posiciones y lo que muestra el sello. Cambie, cree, renombre y elimine perfiles en el selector de la parte superior de esta página; el cambio también está en el panel de OBS. Los nombres, avisos, agenda y contribuciones son los mismos en todos.
+Ogni profilo conserva un aspetto completo: modello, colori, caratteri, logo, posizioni e ciò che mostra il badge. Cambia, crea, rinomina ed elimina i profili nel selettore in alto in questa pagina; il cambio è anche nel pannello di OBS. Nomi, avvisi, agenda e contributi sono gli stessi in tutti.
+Jedes Profil speichert ein komplettes Aussehen: Vorlage, Farben, Schriften, Logo, Positionen und was das Emblem zeigt. Profile wechseln, anlegen, umbenennen und löschen Sie in der Auswahl oben auf dieser Seite; der Wechsel ist auch im OBS-Panel möglich. Namen, Hinweise, Termine und Spenden sind in allen gleich.
+
+Sobre
+About
+Acerca de
+Informazioni
+Über
+
+Quem faz o Church Lower Thirds e onde encontrar o Culto em Off.
+Who makes Church Lower Thirds and where to find Culto em Off.
+Quién hace Church Lower Thirds y dónde encontrar Culto em Off.
+Chi realizza Church Lower Thirds e dove trovare Culto em Off.
+Wer Church Lower Thirds macht und wo Culto em Off zu finden ist.
+
+Projeto criado por Jonas Silva, criador do Culto em Off: um projeto voltado a compartilhar conhecimento, ferramentas e soluções para áudio, vídeo, transmissão e tecnologia em igrejas.
+A project created by Jonas Silva, creator of Culto em Off: a project focused on sharing knowledge, tools and solutions for audio, video, streaming and church technology.
+Proyecto creado por Jonas Silva, creador de Culto em Off: un proyecto enfocado en compartir conocimientos, herramientas y soluciones de audio, video, transmisión y tecnología para iglesias.
+Progetto creato da Jonas Silva, fondatore di Culto em Off: un progetto dedicato a condividere conoscenze, strumenti e soluzioni per audio, video, streaming e tecnologia nelle chiese.
+Ein Projekt von Jonas Silva, dem Gründer von Culto em Off: einem Projekt zum Teilen von Wissen, Werkzeugen und Lösungen für Audio, Video, Streaming und Kirchentechnik.
+
+Versão instalada:
+Installed version:
+Versión instalada:
+Versione installata:
+Installierte Version:
+
+Se o Church Lower Thirds foi útil, compartilhe o programa com outras pessoas e ajude o projeto a alcançar mais voluntários e equipes técnicas.
+If Church Lower Thirds helped you, share the program with others and help the project reach more volunteers and technical teams.
+Si Church Lower Thirds le ayudó, comparta el programa con otras personas y ayude al proyecto a llegar a más voluntarios y equipos técnicos.
+Se Church Lower Thirds ti è stato utile, condividi il programma con altre persone e aiuta il progetto a raggiungere più volontari e team tecnici.
+Wenn Church Lower Thirds hilfreich war, teilen Sie das Programm und helfen Sie dem Projekt, mehr Freiwillige und Technikteams zu erreichen.
+
+Curso de OBS Studio
+OBS Studio course
+Curso de OBS Studio
+Corso di OBS Studio
+OBS-Studio-Kurs
+
+Compartilhar o programa
+Share the program
+Compartir el programa
+Condividi il programma
+Programm teilen
+
+Link copiado.
+Link copied.
+Enlace copiado.
+Link copiato.
+Link kopiert.
+
+A atualização foi baixada. Abriu uma janela do Church Lower Thirds neste computador (pode estar atrás desta): clique em OK nela e depois autorize a instalação quando o Windows pedir.
+The update has been downloaded. A Church Lower Thirds window has opened on this computer (it may be behind this one): click OK in it and then allow the installation when Windows asks.
+La actualización se descargó. Se abrió una ventana de Church Lower Thirds en este ordenador (puede estar detrás de esta): haga clic en Aceptar y luego autorice la instalación cuando Windows lo pida.
+L’aggiornamento è stato scaricato. Su questo computer si è aperta una finestra di Church Lower Thirds (può essere dietro a questa): fai clic su OK e poi autorizza l’installazione quando Windows lo chiede.
+Die Aktualisierung wurde geladen. Auf diesem Computer hat sich ein Fenster von Church Lower Thirds geöffnet (es kann hinter diesem liegen): Klicken Sie dort auf OK und erlauben Sie dann die Installation, wenn Windows fragt.
+
+A nova versão do Church Lower Thirds está pronta para instalar. Clique em OK e, em seguida, autorize a instalação quando o Windows pedir.
+The new version of Church Lower Thirds is ready to install. Click OK and then allow the installation when Windows asks.
+La nueva versión de Church Lower Thirds está lista para instalar. Haga clic en Aceptar y, a continuación, autorice la instalación cuando Windows lo pida.
+La nuova versione di Church Lower Thirds è pronta per l’installazione. Fai clic su OK e poi autorizza l’installazione quando Windows lo chiede.
+Die neue Version von Church Lower Thirds ist bereit zur Installation. Klicken Sie auf OK und erlauben Sie anschließend die Installation, wenn Windows fragt.
+
+Instalando: se o Windows pedir permissão, autorize. Esta página volta sozinha quando terminar.
+Installing: if Windows asks for permission, allow it. This page comes back by itself when it is done.
+Instalando: si Windows pide permiso, autorícelo. Esta página vuelve sola al terminar.
+Installazione in corso: se Windows chiede l’autorizzazione, concedila. Questa pagina torna da sola al termine.
+Installation läuft: Wenn Windows um Erlaubnis fragt, erlauben Sie sie. Diese Seite kommt von selbst zurück, wenn es fertig ist.
+
+A instalação ainda não terminou. Veja se há um pedido de permissão do Windows piscando na barra de tarefas (o ícone de um escudo) e autorize.
+The installation has not finished yet. Check whether a Windows permission request is blinking on the taskbar (a shield icon) and allow it.
+La instalación aún no ha terminado. Compruebe si hay una solicitud de permiso de Windows parpadeando en la barra de tareas (el icono de un escudo) y autorícela.
+L’installazione non è ancora terminata. Controlla se c’è una richiesta di autorizzazione di Windows che lampeggia sulla barra delle applicazioni (l’icona di uno scudo) e autorizzala.
+Die Installation ist noch nicht fertig. Prüfen Sie, ob in der Taskleiste eine Berechtigungsanfrage von Windows blinkt (ein Schildsymbol), und erlauben Sie sie.
+
+Tentar de novo
+Try again
+Intentar de nuevo
+Riprova
+Erneut versuchen
+
+Abre a pasta com o instalador que o programa já baixou e conferiu
+Opens the folder with the installer the program has already downloaded and checked
+Abre la carpeta con el instalador que el programa ya descargó y comprobó
+Apre la cartella con il programma di installazione che il programma ha già scaricato e verificato
+Öffnet den Ordner mit dem Installationsprogramm, das das Programm bereits geladen und geprüft hat
+
+Mostrar o instalador
+Show the installer
+Mostrar el instalador
+Mostra il programma di installazione
+Installationsprogramm anzeigen
+
+O Windows deste computador não deixou o programa abrir o instalador sozinho. Ele já foi baixado e conferido: clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.
+Windows on this computer did not let the program open the installer by itself. It has already been downloaded and checked: click "Show the installer" and open the file with a double click. Your settings are kept.
+Windows en este ordenador no dejó que el programa abriera el instalador por sí solo. Ya se descargó y se comprobó: haga clic en "Mostrar el instalador" y abra el archivo con doble clic. Los ajustes se mantienen.
+Windows su questo computer non ha permesso al programma di aprire da solo il programma di installazione. È già stato scaricato e verificato: fai clic su "Mostra il programma di installazione" e apri il file con un doppio clic. Le impostazioni vengono mantenute.
+Windows hat auf diesem Computer nicht zugelassen, dass das Programm das Installationsprogramm selbst öffnet. Es wurde bereits geladen und geprüft: Klicken Sie auf „Installationsprogramm anzeigen“ und öffnen Sie die Datei per Doppelklick. Die Einstellungen bleiben erhalten.
+
+Se o pedido de permissão não aparecer, clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.
+If the permission request does not appear, click "Show the installer" and open the file with a double click. Your settings are kept.
+Si la solicitud de permiso no aparece, haga clic en "Mostrar el instalador" y abra el archivo con doble clic. Los ajustes se mantienen.
+Se la richiesta di autorizzazione non compare, fai clic su "Mostra il programma di installazione" e apri il file con un doppio clic. Le impostazioni vengono mantenute.
+Wenn die Berechtigungsanfrage nicht erscheint, klicken Sie auf „Installationsprogramm anzeigen“ und öffnen Sie die Datei per Doppelklick. Die Einstellungen bleiben erhalten.
+
+O Windows não deixou abrir o instalador. Ele já foi baixado: use "Mostrar o instalador".
+Windows did not let the installer open. It has already been downloaded: use "Show the installer".
+Windows no dejó abrir el instalador. Ya se descargó: use "Mostrar el instalador".
+Windows non ha permesso di aprire il programma di installazione. È già stato scaricato: usa "Mostra il programma di installazione".
+Windows hat das Öffnen des Installationsprogramms nicht zugelassen. Es wurde bereits geladen: Verwenden Sie „Installationsprogramm anzeigen“.
+
+Atualização cancelada.
+Update cancelled.
+Actualización cancelada.
+Aggiornamento annullato.
+Aktualisierung abgebrochen.

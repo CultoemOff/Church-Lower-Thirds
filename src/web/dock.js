@@ -901,7 +901,12 @@ function renderProfiles() {
     key = JSON.stringify(config.profiles.map((p) => [p.id, p.name]));
   if (box.dataset.key !== key) {
     box.dataset.key = key;
-    box.replaceChildren(...config.profiles.map((p) => h('option', { value: p.id }, p.name)));
+    // A name the person typed is shown as typed; only the untouched first name is translated.
+    box.replaceChildren(
+      ...config.profiles.map((p) =>
+        h('option', { value: p.id, 'data-raw': '' }, p.name === 'Perfil 1' ? t(p.name) : p.name),
+      ),
+    );
   }
   if (document.activeElement !== box) box.value = config.profile;
 }
