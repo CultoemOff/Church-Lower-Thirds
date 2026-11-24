@@ -865,10 +865,16 @@ function enableEdit() {
 }
 if (edit) enableEdit();
 
+let version = '';
 function connect() {
   const ws = new WebSocket(`ws://${location.host}/ws`);
   ws.onmessage = (m) => {
     const e = JSON.parse(m.data);
+    // After an update the program greets with another version: load the new overlay.
+    // OBS keeps a browser source open for days; without this it would go on drawing with
+    // the code of the version before (new settings, old looks).
+    if (e.version && version && e.version !== version) return location.reload();
+    version = e.version || version;
     if (e.config) {
       const giving = (c) => JSON.stringify([c.pix, c.giving]);
       if (config && giving(e.config) !== giving(config)) givingStamp = String(Date.now());

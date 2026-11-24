@@ -330,6 +330,22 @@ function modelGallery(where, themed) {
     },
   );
 }
+/** How a folding block was left ('' = never touched: `usual` decides). */
+function folded(key, usual) {
+  try {
+    const stored = localStorage.getItem(key);
+    return stored === '1' || (stored !== '0' && usual);
+  } catch {
+    return usual;
+  }
+}
+function remember(key, open) {
+  try {
+    localStorage.setItem(key, open ? '1' : '0');
+  } catch {
+    // Without storage it just does not remember.
+  }
+}
 /**
  * The themed models (ministries and special dates) stay folded until asked for: they are
  * many, and most weeks nobody needs them. Their pictures only load once the block opens.
@@ -355,21 +371,9 @@ function themedFold(where) {
         where === 'page' ? hint('O desenho pode ser trocado em "Fonte e forma".') : null,
         modelGallery(where, true),
       );
-      let stored = '';
-      try {
-        stored = localStorage.getItem('cltThemedOpen') || '';
-      } catch {
-        // No storage: it starts closed.
-      }
       // Open when that is how the person left it, or while one of them is in use.
-      box.open = stored === '1' || (stored !== '0' && !!currentModel()?.themed);
-      box.addEventListener('toggle', () => {
-        try {
-          localStorage.setItem('cltThemedOpen', box.open ? '1' : '0');
-        } catch {
-          // Without storage it just does not remember.
-        }
-      });
+      box.open = folded('cltThemedOpen', !!currentModel()?.themed);
+      box.addEventListener('toggle', () => remember('cltThemedOpen', box.open));
       return box;
     },
     () => modelGallery(where, true),
@@ -615,8 +619,26 @@ function customCard() {
         ),
       )
     : null;
-  return card(
-    'Modelos próprios',
+  // Folded like the themed models; it stays open while the person is working in it.
+  const box = keep('custom-fold', () => {
+    const d = h(
+      'details',
+      { class: 'fold card' },
+      h(
+        'summary',
+        { title: 'Clique para ver e criar modelos próprios' },
+        h('h3', {}, 'Modelos próprios'),
+        h('span', {}, 'Crie o seu próprio modelo com a ajuda de uma IA.'),
+        h('i', { class: 'caret' }),
+      ),
+      h('div', { class: 'foldBody' }),
+    );
+    d.open = folded('cltCustomOpen', config.theme.custom !== '');
+    d.addEventListener('toggle', () => remember('cltCustomOpen', d.open));
+    return d;
+  });
+  if (customEdit) box.open = true;
+  refill(box.lastElementChild, [
     hint(
       'Crie o seu próprio modelo com a ajuda de uma IA: formatos, bordas, transparências. O programa entrega um prompt com tudo o que a IA precisa saber; ela devolve um código, que é colado aqui. As cores continuam sendo as do tema, e os textos, posições e animações de entrada continuam por conta do programa.',
     ),
@@ -690,7 +712,8 @@ function customCard() {
           ),
       ),
     ),
-  );
+  ]);
+  return box;
 }
 /**
  * The ready-made colors, each as a small name bar. The one in use is marked, and so is the
@@ -2938,6 +2961,19 @@ function renderMoved() {
     row = $('#form .fillRow.moved');
   row?.replaceWith(fresh.querySelector('.fillRow.moved'));
 }
+// The layout editor is the overlay itself (?edit=1) inside this page: when an element is
+// dropped or resized there, it says where, and this page is the one that stores it. Each
+// format (horizontal, vertical) keeps its own place; the size is the same in both.
+addEventListener('message', (e) => {
+  const m = e.data;
+  if (e.origin !== location.origin || m?.source !== 'clt-edit' || m.type !== 'place') return;
+  const c = config?.[m.el];
+  if (!c || !('free' in c) || ![m.x, m.y].every(Number.isFinite)) return;
+  Object.assign(c, m.vertical ? { vfree: true, vx: m.x, vy: m.y } : { free: true, x: m.x, y: m.y });
+  if (Number.isFinite(m.size) && 'size' in c) c.size = m.size;
+  save();
+  renderForm();
+});
 // ---- Updates ----
 async function checkUpdate(force = false) {
   if (force) {

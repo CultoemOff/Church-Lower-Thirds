@@ -34,20 +34,17 @@
       <nav id="tabs" class="tabs"></nav>
       <section class="panel tabPanel">
         <div class="paneBar">
+          <button
+            id="tabPin"
+            class="iconBtn"
+            title="Fixar: o que for mostrado nesta aba fica na tela até esconder, mesmo quando o tempo acabar"
+          >
+            <img src="/icons/pin.svg" alt="" />
+          </button>
           <span id="paneState" class="paneState"><i></i><b></b></span>
-          <span class="paneActions">
-            <button
-              id="tabPin"
-              class="iconBtn"
-              title="Fixar: o que for mostrado nesta aba fica na tela até esconder, mesmo quando o tempo acabar"
-            >
-              <img src="/icons/pin.svg" alt="" /></button
-            ><button
-              id="tabEye"
-              class="iconBtn eyeBtn"
-              title="Mostra ou esconde na tela o elemento desta aba"
-            ></button>
-          </span>
+          <button id="tabEye" class="eyeBtn" title="Mostra ou esconde na tela o elemento desta aba">
+            <span class="eyeIcon"></span><b></b>
+          </button>
         </div>
         <div id="pane" class="pane"></div>
       </section>

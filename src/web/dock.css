@@ -102,15 +102,22 @@ header {
   gap: 7px;
 }
 /* The bar of the tab: on air or not, the pin and the eye of this element. */
+/* The bar of the tab: the pin on the left, the state in the middle, the eye on the right. */
 .paneBar {
   flex: none;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
   gap: 8px;
-  padding: 1px 1px 0 4px;
+  padding: 1px 1px 0;
+}
+.paneBar #tabPin {
+  justify-self: start;
+  width: 30px;
+  height: 28px;
 }
 .paneState {
+  grid-column: 2;
   display: flex;
   align-items: center;
   gap: 7px;
@@ -127,17 +134,24 @@ header {
 .paneState.on > i {
   background: var(--live);
 }
-.paneActions {
+.eyeBtn {
+  grid-column: 3;
+  justify-self: end;
   display: flex;
-  gap: 5px;
-}
-.paneActions .iconBtn {
-  width: 30px;
+  align-items: center;
+  gap: 6px;
   height: 28px;
+  padding: 0 10px 0 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.eyeBtn .eyeIcon {
+  display: flex;
 }
 .eyeBtn svg {
-  width: 18px;
-  height: 18px;
+  width: 17px;
+  height: 17px;
   display: block;
 }
 .eyeBtn.on {

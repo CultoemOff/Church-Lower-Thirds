@@ -1044,4 +1044,7 @@ export default {
   'Efeito de vidro (liquid glass)': 'Efecto de vidrio (liquid glass)',
   'As placas ficam transparentes, desfocam a imagem atrás e ganham um brilho na borda. Funciona em qualquer modelo; fica melhor com cores claras e texto branco.':
     'Las placas quedan transparentes, desenfocan la imagen de atrás y ganan un brillo en el borde. Funciona en cualquier modelo; queda mejor con colores claros y texto blanco.',
+  'Clique para ver e criar modelos próprios': 'Haga clic para ver y crear modelos propios',
+  'Crie o seu próprio modelo com a ajuda de uma IA.':
+    'Cree su propio modelo con la ayuda de una IA.',
 };
