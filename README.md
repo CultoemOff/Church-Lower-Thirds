@@ -30,7 +30,7 @@ Na primeira vez, um assistente explica esses passos com ilustrações e deixa tu
 - **Tema global**: cores com degradê, fonte, cantos, sombra e opacidade que todos os elementos seguem; cada elemento pode ter aparência própria. 24 modelos prontos, mostrados em miniaturas reais (com o nome e o logo da igreja), cada um com as cores sugeridas, e 29 conjuntos de cores prontas para trocar. As cores que a igreja escolhe continuam ao trocar de modelo. A cor pronta "Vidro líquido" (ou a caixa "Efeito de vidro") aplica o liquid glass em qualquer modelo. **Modelos próprios**: o programa entrega um prompt para qualquer IA escrever o CSS de um modelo novo; o código colado é conferido regra a regra (`src/web/js/custom.js`), só alcança os elementos e não busca nada na internet. Dez são **temáticos**: Jovem, Kids, Feminino, Coral, Banda, Natal, Natal Kids, Natal no Egito, Páscoa e Páscoa Kids, com desenhos próprios (flores, estrelas, notas musicais, estrela de Belém e manjedoura, sol e pirâmides, lírios e cruz, túmulo vazio).
 - 19 fontes incluídas (`src/web/fonts`, licença SIL OFL 1.1) e todas as instaladas no computador; 11 animações de entrada e saída, entre elas gota d’água, linha que se abre e deslize com rastro.
 - **Painel do OBS** com abas, responsivo, com o tempo na tela, botão de fixar e prévia.
-- Posições na tela arrastando; layout horizontal e vertical; cada elemento como fonte separada ou todos numa só.
+- Posições na tela arrastando (ou pelos números, na mesma página); layout horizontal e vertical; cada elemento como fonte separada ou todos numa só.
 - Endereços HTTP para Stream Deck e Companion, sem plugin. Backup num arquivo.
 - Atualização com um clique.
 

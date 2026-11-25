@@ -1,5 +1,11 @@
 **Versão beta para testes — somente Windows.** Programa novo, separado do PTZ Control Web.
 
+### Novidades da beta.18
+
+- **Animação ao esconder (e ao mostrar de novo)**: os elementos saem da tela com a animação escolhida, de trás para frente. Antes, só a primeira entrada depois de abrir o OBS era animada: esconder cortava na hora, e as entradas seguintes também apareciam sem animação. Vale para as onze animações.
+- **Painel do OBS: chave liga/desliga** no lugar do botão "Mostrar / Esconder". Desligada fica cinza e meio transparente; ligada fica vermelha forte, com a bolinha deslizando, um anel que se abre ao ligar e um brilho que pulsa enquanto o elemento está no ar.
+- **Posição só em "Posições na tela"**: lugar na tela, tamanho e distâncias saíram das páginas de cada elemento. Na página "Posições na tela", abaixo do editor de arrastar, há uma linha por elemento com os mesmos ajustes (lugar padrão, tamanho, distância da lateral e de cima/de baixo) para quem prefere acertar pelos números. A opacidade do logo continua na página do Logo.
+
 ### Novidades da beta.17
 
 - **Perfis com todos os dados separados**: ao trocar de perfil, troca tudo o que é da igreja ou do evento, e não só a aparência: nome da igreja, logo, modelo e cores, nomes, ofertas salvas, recados, agenda, redes, comentários, contagem, contribuição (PIX), roteiro e quais elementos estão ligados. Um perfil novo nasce como cópia do que está em uso. O idioma, o tamanho das fontes do OBS e os modelos próprios continuam valendo para todos.

@@ -663,3 +663,39 @@ All networks
 Todas las redes
 Tutti i social
 Alle Netzwerke
+
+Liga ou desliga na tela o elemento desta aba
+Turns the element of this tab on or off on screen
+Enciende o apaga en pantalla el elemento de esta pestaña
+Accende o spegne sullo schermo l’elemento di questa scheda
+Schaltet das Element dieses Tabs auf dem Bildschirm ein oder aus
+
+Lugar padrão, tamanho e distâncias
+Default place, size and distances
+Lugar predeterminado, tamaño y distancias
+Posizione predefinita, dimensione e distanze
+Standardplatz, Größe und Abstände
+
+Para acertar com precisão: o lugar padrão de cada elemento, o tamanho e a distância das bordas. Um elemento arrastado fica onde foi solto até voltar ao lugar padrão.
+For fine adjustment: the default place of each element, its size and its distance from the edges. A dragged element stays where it was dropped until it is sent back to the default place.
+Para ajustar con precisión: el lugar predeterminado de cada elemento, el tamaño y la distancia a los bordes. Un elemento arrastrado se queda donde se soltó hasta volver al lugar predeterminado.
+Per regolare con precisione: la posizione predefinita di ogni elemento, la dimensione e la distanza dai bordi. Un elemento trascinato resta dove è stato rilasciato finché non torna alla posizione predefinita.
+Für die Feineinstellung: Standardplatz jedes Elements, Größe und Abstand zu den Rändern. Ein gezogenes Element bleibt, wo es abgelegt wurde, bis es an den Standardplatz zurückgesetzt wird.
+
+Largura total
+Full width
+Ancho completo
+Larghezza intera
+Volle Breite
+
+Arrastado para um lugar próprio
+Dragged to a place of its own
+Arrastrado a un lugar propio
+Trascinato in una posizione propria
+An einen eigenen Platz gezogen
+
+Este elemento foi arrastado para um lugar próprio neste formato. O lugar e as distâncias abaixo voltam a valer ao voltar ao lugar padrão.
+This element was dragged to a place of its own in this format. The place and distances below apply again once it goes back to the default place.
+Este elemento fue arrastrado a un lugar propio en este formato. El lugar y las distancias de abajo vuelven a valer al volver al lugar predeterminado.
+Questo elemento è stato trascinato in una posizione propria in questo formato. La posizione e le distanze qui sotto tornano valide quando torna alla posizione predefinita.
+Dieses Element wurde in diesem Format an einen eigenen Platz gezogen. Platz und Abstände unten gelten wieder, sobald es an den Standardplatz zurückkehrt.

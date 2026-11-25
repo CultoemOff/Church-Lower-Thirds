@@ -736,12 +736,6 @@ Fijar: lo que se muestre en esta pestaña queda en pantalla hasta ocultarlo, aun
 Blocca: ciò che viene mostrato da questa scheda resta sullo schermo finché non lo nascondi, anche a tempo scaduto
 Fixieren: Was in diesem Tab gezeigt wird, bleibt bis zum Ausblenden auf dem Bildschirm, auch wenn die Zeit abläuft
 
-Mostra ou esconde na tela o elemento desta aba
-Shows or hides the element of this tab on screen
-Muestra u oculta en pantalla el elemento de esta pestaña
-Mostra o nasconde sullo schermo l’elemento di questa scheda
-Zeigt oder verbirgt das Element dieses Tabs auf dem Bildschirm
-
 Ofertas e Dízimos
 Offerings & Tithes
 Ofrendas y Diezmos

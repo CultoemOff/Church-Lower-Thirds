@@ -206,9 +206,6 @@ export default {
   'No meio, à esquerda': 'Mitte links',
   'No meio, à direita': 'Mitte rechts',
   'No centro da tela': 'In der Bildmitte',
-  'Posição e tamanho': 'Position und Größe',
-  'Este elemento foi arrastado para um lugar próprio na aba "Posições na tela".':
-    'Dieses Element wurde unter „Positionen im Bild“ an einen eigenen Platz gezogen.',
   'Voltar ao lugar padrão': 'Zurück zum Standardplatz',
   'Lugar na tela': 'Platz im Bild',
   Tamanho: 'Größe',
@@ -386,6 +383,15 @@ export default {
   'Este passo aponta para algo que foi apagado. Corrija o roteiro nas configurações.':
     'Dieser Schritt verweist auf etwas Gelöschtes. Korrigieren Sie den Ablauf in den Einstellungen.',
   'Todas as redes': 'Alle Netzwerke',
+  'Liga ou desliga na tela o elemento desta aba':
+    'Schaltet das Element dieses Tabs auf dem Bildschirm ein oder aus',
+  'Lugar padrão, tamanho e distâncias': 'Standardplatz, Größe und Abstände',
+  'Para acertar com precisão: o lugar padrão de cada elemento, o tamanho e a distância das bordas. Um elemento arrastado fica onde foi solto até voltar ao lugar padrão.':
+    'Für die Feineinstellung: Standardplatz jedes Elements, Größe und Abstand zu den Rändern. Ein gezogenes Element bleibt, wo es abgelegt wurde, bis es an den Standardplatz zurückgesetzt wird.',
+  'Largura total': 'Volle Breite',
+  'Arrastado para um lugar próprio': 'An einen eigenen Platz gezogen',
+  'Este elemento foi arrastado para um lugar próprio neste formato. O lugar e as distâncias abaixo voltam a valer ao voltar ao lugar padrão.':
+    'Dieses Element wurde in diesem Format an einen eigenen Platz gezogen. Platz und Abstände unten gelten wieder, sobald es an den Standardplatz zurückkehrt.',
   'No ar agora': 'Jetzt im Bild',
   'No ar': 'Im Bild',
   'Fora do ar': 'Nicht im Bild',
@@ -1035,8 +1041,6 @@ export default {
   'sem limite': 'ohne Limit',
   'Fixar: o que for mostrado nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
     'Fixieren: Was in diesem Tab gezeigt wird, bleibt bis zum Ausblenden auf dem Bildschirm, auch wenn die Zeit abläuft',
-  'Mostra ou esconde na tela o elemento desta aba':
-    'Zeigt oder verbirgt das Element dieses Tabs auf dem Bildschirm',
   'Ofertas e Dízimos': 'Opfer und Zehnten',
   'Cartão com QR Code: ofertas, dízimos, missões, um link…':
     'Karte mit QR-Code: Opfer, Zehnten, Mission, ein Link…',

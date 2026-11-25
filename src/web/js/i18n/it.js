@@ -204,9 +204,6 @@ export default {
   'No meio, à esquerda': 'A metà a sinistra',
   'No meio, à direita': 'A metà a destra',
   'No centro da tela': 'Al centro dello schermo',
-  'Posição e tamanho': 'Posizione e dimensione',
-  'Este elemento foi arrastado para um lugar próprio na aba "Posições na tela".':
-    'Questo elemento è stato trascinato in una posizione propria in "Posizioni a schermo".',
   'Voltar ao lugar padrão': 'Torna alla posizione predefinita',
   'Lugar na tela': 'Posizione a schermo',
   Tamanho: 'Dimensione',
@@ -383,6 +380,15 @@ export default {
   'Este passo aponta para algo que foi apagado. Corrija o roteiro nas configurações.':
     'Questo passo punta a qualcosa che è stato eliminato. Correggi la scaletta nelle impostazioni.',
   'Todas as redes': 'Tutti i social',
+  'Liga ou desliga na tela o elemento desta aba':
+    'Accende o spegne sullo schermo l’elemento di questa scheda',
+  'Lugar padrão, tamanho e distâncias': 'Posizione predefinita, dimensione e distanze',
+  'Para acertar com precisão: o lugar padrão de cada elemento, o tamanho e a distância das bordas. Um elemento arrastado fica onde foi solto até voltar ao lugar padrão.':
+    'Per regolare con precisione: la posizione predefinita di ogni elemento, la dimensione e la distanza dai bordi. Un elemento trascinato resta dove è stato rilasciato finché non torna alla posizione predefinita.',
+  'Largura total': 'Larghezza intera',
+  'Arrastado para um lugar próprio': 'Trascinato in una posizione propria',
+  'Este elemento foi arrastado para um lugar próprio neste formato. O lugar e as distâncias abaixo voltam a valer ao voltar ao lugar padrão.':
+    'Questo elemento è stato trascinato in una posizione propria in questo formato. La posizione e le distanze qui sotto tornano valide quando torna alla posizione predefinita.',
   'No ar agora': 'In onda ora',
   'No ar': 'In onda',
   'Fora do ar': 'Non in onda',
@@ -1030,8 +1036,6 @@ export default {
   'sem limite': 'senza limite',
   'Fixar: o que for mostrado nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
     'Blocca: ciò che viene mostrato da questa scheda resta sullo schermo finché non lo nascondi, anche a tempo scaduto',
-  'Mostra ou esconde na tela o elemento desta aba':
-    'Mostra o nasconde sullo schermo l’elemento di questa scheda',
   'Ofertas e Dízimos': 'Offerte e Decime',
   'Cartão com QR Code: ofertas, dízimos, missões, um link…':
     'Scheda con codice QR: offerte, decime, missioni, un link…',

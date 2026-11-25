@@ -42,8 +42,14 @@
             <img src="/icons/pin.svg" alt="" />
           </button>
           <span id="paneState" class="paneState"><i></i><b></b></span>
-          <button id="tabEye" class="eyeBtn" title="Mostra ou esconde na tela o elemento desta aba">
-            <span class="eyeIcon"></span><b></b>
+          <button
+            id="tabEye"
+            class="switch"
+            role="switch"
+            aria-checked="false"
+            title="Liga ou desliga na tela o elemento desta aba"
+          >
+            <i></i>
           </button>
         </div>
         <div id="pane" class="pane"></div>
