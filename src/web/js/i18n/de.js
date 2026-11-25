@@ -392,6 +392,11 @@ export default {
   'Arrastado para um lugar próprio': 'An einen eigenen Platz gezogen',
   'Este elemento foi arrastado para um lugar próprio neste formato. O lugar e as distâncias abaixo voltam a valer ao voltar ao lugar padrão.':
     'Dieses Element wurde in diesem Format an einen eigenen Platz gezogen. Platz und Abstände unten gelten wieder, sobald es an den Standardplatz zurückkehrt.',
+  Casais: 'Ehepaare',
+  'Placas suaves com moldura fina, alianças e coração: para o ministério de casais':
+    'Sanfte Tafeln mit feinem Rahmen, Eheringen und Herz: für die Ehepaararbeit',
+  'Vinho e rosé': 'Wein und Rosé',
+  'Alianças e coração': 'Eheringe und Herz',
   'No ar agora': 'Jetzt im Bild',
   'No ar': 'Im Bild',
   'Fora do ar': 'Nicht im Bild',
@@ -1148,8 +1153,8 @@ export default {
   'Atualização cancelada.': 'Aktualisierung abgebrochen.',
   Próprio: 'Eigene',
   'Clique para ver os modelos temáticos': 'Klicken, um die Themenvorlagen zu sehen',
-  'Para ministérios e datas especiais: jovens, crianças, mulheres, coral, banda, Natal e Páscoa.':
-    'Für Dienste und besondere Anlässe: Jugend, Kinder, Frauen, Chor, Band, Weihnachten und Ostern.',
+  'Para ministérios e datas especiais: jovens, crianças, mulheres, casais, coral, banda, Natal e Páscoa.':
+    'Für Dienste und besondere Anlässe: Jugend, Kinder, Frauen, Ehepaare, Chor, Band, Weihnachten und Ostern.',
   'O desenho pode ser trocado em "Fonte e forma".':
     'Die Zeichnung lässt sich unter „Schrift und Form“ ändern.',
   'Cole aqui o código que a IA escreveu: o programa confere na hora.':

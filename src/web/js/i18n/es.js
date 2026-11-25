@@ -389,6 +389,11 @@ export default {
   'Arrastado para um lugar próprio': 'Arrastrado a un lugar propio',
   'Este elemento foi arrastado para um lugar próprio neste formato. O lugar e as distâncias abaixo voltam a valer ao voltar ao lugar padrão.':
     'Este elemento fue arrastrado a un lugar propio en este formato. El lugar y las distancias de abajo vuelven a valer al volver al lugar predeterminado.',
+  Casais: 'Matrimonios',
+  'Placas suaves com moldura fina, alianças e coração: para o ministério de casais':
+    'Placas suaves con marco fino, alianzas y corazón: para el ministerio de matrimonios',
+  'Vinho e rosé': 'Vino y rosado',
+  'Alianças e coração': 'Alianzas y corazón',
   'No ar agora': 'Al aire ahora',
   'No ar': 'Al aire',
   'Fora do ar': 'Fuera del aire',
@@ -1142,8 +1147,8 @@ export default {
   'Atualização cancelada.': 'Actualización cancelada.',
   Próprio: 'Propio',
   'Clique para ver os modelos temáticos': 'Haga clic para ver los modelos temáticos',
-  'Para ministérios e datas especiais: jovens, crianças, mulheres, coral, banda, Natal e Páscoa.':
-    'Para ministerios y fechas especiales: jóvenes, niños, mujeres, coro, banda, Navidad y Pascua.',
+  'Para ministérios e datas especiais: jovens, crianças, mulheres, casais, coral, banda, Natal e Páscoa.':
+    'Para ministerios y fechas especiales: jóvenes, niños, mujeres, matrimonios, coro, banda, Navidad y Pascua.',
   'O desenho pode ser trocado em "Fonte e forma".':
     'El dibujo se puede cambiar en "Fuente y forma".',
   'Cole aqui o código que a IA escreveu: o programa confere na hora.':

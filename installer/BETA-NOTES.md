@@ -1,5 +1,10 @@
 **Versão beta para testes — somente Windows.** Programa novo, separado do PTZ Control Web.
 
+### Novidades da beta.19
+
+- **Novo modelo temático "Casais"**, para o ministério de casais: placas suaves com moldura fina em vinho e rosé, com **duas alianças entrelaçadas e um coração** no canto dos nomes, do selo, das ofertas, das redes e dos comentários. Fica em Tema global > Modelos temáticos, ao lado do Feminino.
+  - Vem com a cor pronta nova **"Vinho e rosé"** e o desenho **"Alianças e coração"**, que também pode ser escolhido em "Fonte e forma" para os outros modelos de placa suave, adesivo ou bloco.
+
 ### Novidades da beta.18
 
 - **Animação ao esconder (e ao mostrar de novo)**: os elementos saem da tela com a animação escolhida, de trás para frente. Antes, só a primeira entrada depois de abrir o OBS era animada: esconder cortava na hora, e as entradas seguintes também apareciam sem animação. Vale para as onze animações.

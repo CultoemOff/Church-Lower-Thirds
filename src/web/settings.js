@@ -97,6 +97,7 @@ const NAMES = {
   kids: 'Adesivo',
   floral: 'Delicado',
   flowers: 'Flores',
+  rings: 'Alianças e coração',
   stars: 'Estrelas',
   spark: 'Faísca',
   notes: 'Notas musicais',
@@ -400,7 +401,7 @@ function themedFold(where) {
           h(
             'span',
             {},
-            'Para ministérios e datas especiais: jovens, crianças, mulheres, coral, banda, Natal e Páscoa.',
+            'Para ministérios e datas especiais: jovens, crianças, mulheres, casais, coral, banda, Natal e Páscoa.',
           ),
           h('i', { class: 'caret' }),
         ),

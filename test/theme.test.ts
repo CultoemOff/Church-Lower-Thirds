@@ -166,6 +166,28 @@ test('drawings of the themed models: the usual one, the one picked in the theme,
     assert.equal(cleanConfig({ theme: { decor: name } }).theme.decor, name);
 });
 
+test('the couples model: soft plates with the two rings and the heart, in wine and rosé', () => {
+  const c = defaults();
+  const couples = MODELS.find((m: { id: string }) => m.id === 'couples');
+  assert.equal(couples.themed, true);
+  assert.ok(PALETTES.some(([name]: [string]) => name === couples.palette));
+  applyModel(c, couples, { reset: true });
+  assert.equal(c.theme.decor, 'rings');
+  assert.deepEqual([c.lower.template, c.top.template, c.card.template], Array(3).fill('floral'));
+  // The settings survive a save as they are.
+  assert.equal(cleanConfig(c).theme.decor, 'rings');
+  // On the name plate: two whole rings, the piece that links them, two hearts and a sparkle.
+  const art = decorFor(c, 'lower', 'floral');
+  assert.equal(art.match(/fill-rule="evenodd"/g)?.length, 2);
+  assert.equal(art.match(/class="yd"/g)?.length, 1);
+  assert.equal(art.match(/class="a pt"/g)?.length, 2);
+  // The small one (corner badge, social, comments) keeps the rings and one heart.
+  const mark = decorFor(c, 'top', 'floral');
+  assert.match(mark, /^<svg[^>]*viewBox="0 0 100 100"/);
+  assert.equal(mark.match(/fill-rule="evenodd"/g)?.length, 2);
+  assert.equal(mark.match(/class="a pt"/g)?.length, 1);
+});
+
 test('date of the corner badge: day of the week, date or both, in three styles', () => {
   const day = new Date(2026, 10, 24, 12);
   const both = { showDate: true, showWeekday: true };

@@ -389,6 +389,11 @@ export default {
   'Arrastado para um lugar próprio': 'Trascinato in una posizione propria',
   'Este elemento foi arrastado para um lugar próprio neste formato. O lugar e as distâncias abaixo voltam a valer ao voltar ao lugar padrão.':
     'Questo elemento è stato trascinato in una posizione propria in questo formato. La posizione e le distanze qui sotto tornano valide quando torna alla posizione predefinita.',
+  Casais: 'Coppie',
+  'Placas suaves com moldura fina, alianças e coração: para o ministério de casais':
+    'Targhe delicate con cornice sottile, fedi e cuore: per il ministero delle coppie',
+  'Vinho e rosé': 'Vino e rosé',
+  'Alianças e coração': 'Fedi e cuore',
   'No ar agora': 'In onda ora',
   'No ar': 'In onda',
   'Fora do ar': 'Non in onda',
@@ -1143,8 +1148,8 @@ export default {
   'Atualização cancelada.': 'Aggiornamento annullato.',
   Próprio: 'Personale',
   'Clique para ver os modelos temáticos': 'Fai clic per vedere i modelli tematici',
-  'Para ministérios e datas especiais: jovens, crianças, mulheres, coral, banda, Natal e Páscoa.':
-    'Per ministeri e date speciali: giovani, bambini, donne, coro, band, Natale e Pasqua.',
+  'Para ministérios e datas especiais: jovens, crianças, mulheres, casais, coral, banda, Natal e Páscoa.':
+    'Per ministeri e date speciali: giovani, bambini, donne, coppie, coro, band, Natale e Pasqua.',
   'O desenho pode ser trocado em "Fonte e forma".':
     'Il disegno si può cambiare in "Carattere e forma".',
   'Cole aqui o código que a IA escreveu: o programa confere na hora.':

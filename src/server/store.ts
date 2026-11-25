@@ -140,6 +140,7 @@ const DECORS = [
   '',
   'none',
   'flowers',
+  'rings',
   'stars',
   'spark',
   'notes',
