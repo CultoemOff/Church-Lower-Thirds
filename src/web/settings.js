@@ -1430,34 +1430,111 @@ const PLACES = [
   ['center-right', 'No meio, à direita'],
   ['center', 'No centro da tela'],
 ];
-const place = (el) =>
-  card(
-    'Posição e tamanho',
-    config[el].free || config[el].vfree
-      ? h(
-          'p',
-          { class: 'hint' },
-          'Este elemento foi arrastado para um lugar próprio na aba "Posições na tela". ',
-          h(
-            'button',
-            {
-              onclick: () => {
-                config[el].vfree = false;
-                set(`${el}.free`, false);
-                renderForm();
-              },
-            },
-            'Voltar ao lugar padrão',
-          ),
-        )
-      : null,
-    grid(
-      select(`${el}.position`, 'Lugar na tela', PLACES),
-      range(`${el}.size`, 'Tamanho', 50, 200, '%'),
-      range(`${el}.marginX`, 'Distância da lateral', 0, 400, ' px'),
-      range(`${el}.marginY`, 'Distância de cima / de baixo', 0, 400, ' px'),
+// Where each element sits, how big it is and how far from the edges: all of it is set in
+// "Posições na tela" (by dragging, or with these controls), and nowhere else.
+const PLACE_NAMES = {
+  lower: 'Nomes',
+  top: 'Selo superior',
+  card: 'Ofertas e Dízimos',
+  agenda: 'Agenda',
+  social: 'Redes sociais',
+  comment: 'Comentários',
+  countdown: 'Contagem regressiva',
+  bug: 'Logo',
+};
+const SIDES = [
+  ['left', 'Esquerda'],
+  ['center', 'Centro'],
+  ['right', 'Direita'],
+];
+/** The models that take the whole width have no corner to choose. */
+const wideAgenda = () => ['banner', 'center'].includes(config.agenda.template);
+function placeFields(el) {
+  if (el === 'lower')
+    return [
+      select('lower.position', 'Lado da tela', SIDES, { rerender: true }),
+      range('lower.size', 'Tamanho', 50, 200, '%'),
+      range('lower.marginX', 'Distância da lateral', 0, 400, ' px'),
+      range('lower.marginY', 'Distância de baixo', 0, 400, ' px'),
+    ];
+  if (el === 'bug')
+    return [
+      select('bug.position', 'Canto', POSITIONS, { rerender: true }),
+      range('bug.size', 'Largura', 40, 500, ' px'),
+      range('bug.marginX', 'Distância da lateral', 0, 300, ' px'),
+      range('bug.marginY', 'Distância de cima / de baixo', 0, 300, ' px'),
+    ];
+  if (el === 'agenda' && wideAgenda())
+    return [
+      range('agenda.size', 'Tamanho', 50, 200, '%'),
+      range('agenda.marginY', 'Distância de baixo', 0, 400, ' px'),
+    ];
+  return [
+    select(`${el}.position`, 'Lugar na tela', PLACES, { rerender: true }),
+    range(`${el}.size`, 'Tamanho', 50, 200, '%'),
+    range(`${el}.marginX`, 'Distância da lateral', 0, 400, ' px'),
+    range(`${el}.marginY`, 'Distância de cima / de baixo', 0, 400, ' px'),
+  ];
+}
+let tuneOpen = '';
+/** One folded row per element, under the editor, for placing by numbers instead of by hand. */
+function tuneCard() {
+  const key = vertical ? 'vfree' : 'free';
+  return h(
+    'section',
+    { class: 'card tune' },
+    h('h3', {}, 'Lugar padrão, tamanho e distâncias'),
+    hint(
+      'Para acertar com precisão: o lugar padrão de cada elemento, o tamanho e a distância das bordas. Um elemento arrastado fica onde foi solto até voltar ao lugar padrão.',
     ),
+    ...Object.entries(PLACE_NAMES).map(([el, name]) => {
+      const c = config[el],
+        moved = c[key],
+        where =
+          el === 'agenda' && wideAgenda()
+            ? 'Largura total'
+            : (el === 'lower' ? SIDES : PLACES).find(([v]) => v === c.position)?.[1] || '';
+      const box = h(
+        'details',
+        { class: 'fold' },
+        h(
+          'summary',
+          {},
+          h('h3', {}, name),
+          h('span', {}, moved ? 'Arrastado para um lugar próprio' : where),
+          h('i', { class: 'caret' }),
+        ),
+        moved
+          ? h(
+              'p',
+              { class: 'hint' },
+              'Este elemento foi arrastado para um lugar próprio neste formato. O lugar e as distâncias abaixo voltam a valer ao voltar ao lugar padrão. ',
+              h(
+                'button',
+                {
+                  onclick: () => {
+                    set(`${el}.${key}`, false);
+                    renderForm();
+                  },
+                },
+                'Voltar ao lugar padrão',
+              ),
+            )
+          : null,
+        grid(...placeFields(el)),
+      );
+      box.open = tuneOpen === el;
+      // One at a time, so the editor above stays in sight.
+      box.addEventListener('toggle', () => {
+        if (!box.open) return void (tuneOpen === el && (tuneOpen = ''));
+        tuneOpen = el;
+        for (const other of box.parentElement.querySelectorAll('details[open]'))
+          if (other !== box) other.open = false;
+      });
+      return box;
+    }),
   );
+}
 /** First card of each element: follow the global theme, or use an appearance of its own. */
 const appearance = (el) =>
   card(
@@ -2499,19 +2576,6 @@ const pages = {
         check('lower.uppercase', 'Tudo em maiúsculas'),
       ),
     ),
-    card(
-      'Posição e tamanho',
-      grid(
-        select('lower.position', 'Lado da tela', [
-          ['left', 'Esquerda'],
-          ['center', 'Centro'],
-          ['right', 'Direita'],
-        ]),
-        range('lower.size', 'Tamanho', 50, 200, '%'),
-        range('lower.marginX', 'Distância da lateral', 0, 400, ' px'),
-        range('lower.marginY', 'Distância de baixo', 0, 400, ' px'),
-      ),
-    ),
     effects('lower'),
   ],
 
@@ -2611,7 +2675,6 @@ const pages = {
         )
       : null,
     colors('top', { fill: 'Cor do selo', text: 'Nome e horário', text2: 'Recados e data' }),
-    place('top'),
     effects('top'),
   ],
 
@@ -2642,15 +2705,6 @@ const pages = {
         color('card.text2', 'Texto de apoio'),
         font('card.font', 'Fonte'),
         select('card.weight', 'Peso do título', WEIGHTS),
-      ),
-    ),
-    card(
-      'Posição e tamanho',
-      grid(
-        select('card.position', 'Lugar na tela', PLACES),
-        range('card.size', 'Tamanho', 50, 200, '%'),
-        range('card.marginX', 'Distância da lateral', 0, 400, ' px'),
-        range('card.marginY', 'Distância de cima / de baixo', 0, 400, ' px'),
       ),
     ),
     effects('card'),
@@ -2735,15 +2789,6 @@ const pages = {
       ),
     ),
     colors('agenda', { text: 'Dia', text2: 'Horários' }),
-    ['banner', 'center'].includes(config.agenda.template)
-      ? card(
-          'Tamanho',
-          grid(
-            range('agenda.size', 'Tamanho', 50, 200, '%'),
-            range('agenda.marginY', 'Distância de baixo', 0, 400, ' px'),
-          ),
-        )
-      : place('agenda'),
     effects('agenda'),
   ],
 
@@ -2847,7 +2892,6 @@ const pages = {
       ),
     ),
     colors('social', { text: 'O @', text2: 'Texto de cima' }),
-    place('social'),
     effects('social'),
   ],
 
@@ -2862,7 +2906,6 @@ const pages = {
       grid(check('comment.showIcon', 'Mostrar o balão ao lado do texto')),
     ),
     colors('comment', { text: 'Comentário', text2: 'Texto de apoio' }),
-    place('comment'),
     effects('comment'),
   ],
 
@@ -2904,7 +2947,6 @@ const pages = {
       ),
     ),
     colors('countdown', { text: 'Números', text2: 'Texto' }),
-    place('countdown'),
     effects('countdown'),
   ],
 
@@ -2928,30 +2970,12 @@ const pages = {
             'bad',
           ),
         ),
-    card(
-      'Logo no canto da tela',
-      grid(
-        select('bug.position', 'Canto', POSITIONS),
-        range('bug.size', 'Largura', 40, 500, ' px'),
-        range('bug.opacity', 'Opacidade', 10, 100, '%'),
-        range('bug.marginX', 'Distância da lateral', 0, 300, ' px'),
-        range('bug.marginY', 'Distância de cima / de baixo', 0, 300, ' px'),
-      ),
-    ),
+    card('Logo no canto da tela', grid(range('bug.opacity', 'Opacidade', 10, 100, '%'))),
     effects('bug', { radius: false }),
   ],
 
   layout: () => {
-    const LABELS = {
-      lower: 'Nomes',
-      top: 'Selo superior',
-      card: 'Ofertas e Dízimos',
-      agenda: 'Agenda',
-      social: 'Redes sociais',
-      comment: 'Comentários',
-      countdown: 'Contagem regressiva',
-      bug: 'Logo',
-    };
+    const LABELS = PLACE_NAMES;
     const key = vertical ? 'vfree' : 'free';
     const moved = Object.keys(LABELS).filter((el) => config[el][key]);
     return [
@@ -3008,6 +3032,7 @@ const pages = {
           ),
         ),
       ),
+      tuneCard(),
     ];
   },
 
@@ -3369,9 +3394,17 @@ function renderOnAir() {
   b.textContent = on ? 'No ar: esconder' : 'Mostrar no OBS';
 }
 function renderMoved() {
-  const fresh = pages.layout()[0],
-    row = $('#form .fillRow.moved');
+  const [fresh, tune] = pages.layout(),
+    row = $('#form .fillRow.moved'),
+    old = $('#form .card.tune');
   row?.replaceWith(fresh.querySelector('.fillRow.moved'));
+  if (!old) return;
+  // The controls under the editor follow what was dragged there (place, size). Whoever
+  // was using one of them with the keyboard stays on it.
+  const controls = (box) => [...box.querySelectorAll('summary, select, input, button')],
+    at = controls(old).indexOf(document.activeElement);
+  old.replaceWith(tune);
+  if (at >= 0) controls(tune)[at]?.focus();
 }
 // The layout editor is the overlay itself (?edit=1) inside this page: when an element is
 // dropped or resized there, it says where, and this page is the one that stores it. Each

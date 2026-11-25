@@ -1108,18 +1108,6 @@ En el centro de la pantalla
 Al centro dello schermo
 In der Bildmitte
 
-Posição e tamanho
-Position and size
-Posición y tamaño
-Posizione e dimensione
-Position und Größe
-
-Este elemento foi arrastado para um lugar próprio na aba "Posições na tela".
-This element was dragged to its own place in the "Positions on screen" page.
-Este elemento fue arrastrado a un lugar propio en "Posiciones en pantalla".
-Questo elemento è stato trascinato in una posizione propria in "Posizioni a schermo".
-Dieses Element wurde unter „Positionen im Bild“ an einen eigenen Platz gezogen.
-
 Voltar ao lugar padrão
 Back to the default place
 Volver al lugar predeterminado

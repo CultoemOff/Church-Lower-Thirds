@@ -35,8 +35,6 @@ export default {
   'Salvando…': 'A guardar…',
   Salvo: 'Guardado',
   'No centro da tela': 'No centro do ecrã',
-  'Este elemento foi arrastado para um lugar próprio na aba "Posições na tela".':
-    'Este elemento foi arrastado para um lugar próprio no separador "Posições no ecrã".',
   'Lugar na tela': 'Lugar no ecrã',
   'Menos de 100% deixa a imagem da câmera aparecer por trás.':
     'Menos de 100% deixa a imagem da câmara aparecer por trás.',
@@ -74,6 +72,8 @@ export default {
     'O roteiro está vazio. Monte-o nas definições.',
   'Este passo aponta para algo que foi apagado. Corrija o roteiro nas configurações.':
     'Este passo aponta para algo que foi apagado. Corrija o roteiro nas definições.',
+  'Liga ou desliga na tela o elemento desta aba':
+    'Liga ou desliga no ecrã o elemento deste separador',
   'Seus arquivos': 'Os seus ficheiros',
   'Esta pasta guarda as configurações, os nomes, as imagens e os arquivos das fontes do OBS. Copie a pasta inteira para fazer backup.':
     'Esta pasta guarda as definições, os nomes, as imagens e os ficheiros das fontes do OBS. Copie a pasta inteira para fazer backup.',
@@ -175,8 +175,6 @@ export default {
   'Salvar como novo perfil': 'Guardar como novo perfil',
   'Fixar: o que for mostrado nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
     'Fixar: o que for mostrado nesta separador fica no ecrã até esconder, mesmo quando o tempo acabar',
-  'Mostra ou esconde na tela o elemento desta aba':
-    'Mostra ou esconde no ecrã o elemento desta separador',
   'QR Code da contribuição principal da igreja: PIX, transferência, link ou imagem (escolha nas configurações)':
     'QR Code da contribuição principal da igreja: PIX, transferência, link ou imagem (escolha nas definições)',
   'Salve aqui cada oferta: dízimos, missões, uma campanha, um link…':

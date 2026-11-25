@@ -811,6 +811,17 @@ const wanted = (el) => {
   return preview ? preview === el : !!live[el].on;
 };
 
+/**
+ * Makes the next "in" or "out" play from its start. The animation has the same name coming
+ * in and going out, and a browser does not start again one that is already there and only
+ * changed its time or direction: it would sit at its end, and the element would appear or
+ * vanish at once. So it is dropped for an instant (.reset: no animation) and then started.
+ */
+function restart(root) {
+  root.classList.add('reset');
+  void root.offsetWidth;
+  root.classList.remove('reset');
+}
 /** Brings one element to the state asked: in, out, or out-and-in when its content changed. */
 function sync(el) {
   const s = shown[el],
@@ -821,7 +832,9 @@ function sync(el) {
   // and only a different name leaves and comes back.
   const key = want || s.on ? render[el]() : '';
   if (s.on && (!want || !key || key !== s.key)) {
+    // Going out is the entrance played backwards.
     root.classList.remove('in');
+    restart(root);
     root.classList.add('out');
     s.busy = true;
     setTimeout(
@@ -835,7 +848,7 @@ function sync(el) {
     );
   } else if (!s.on && want && key) {
     s.key = key;
-    void root.offsetWidth; // restart the animation
+    restart(root);
     root.classList.add('in');
     s.on = true;
     onShow[el]?.();

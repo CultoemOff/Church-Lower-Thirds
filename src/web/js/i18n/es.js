@@ -206,9 +206,6 @@ export default {
   'No meio, à esquerda': 'En medio a la izquierda',
   'No meio, à direita': 'En medio a la derecha',
   'No centro da tela': 'En el centro de la pantalla',
-  'Posição e tamanho': 'Posición y tamaño',
-  'Este elemento foi arrastado para um lugar próprio na aba "Posições na tela".':
-    'Este elemento fue arrastrado a un lugar propio en "Posiciones en pantalla".',
   'Voltar ao lugar padrão': 'Volver al lugar predeterminado',
   'Lugar na tela': 'Lugar en pantalla',
   Tamanho: 'Tamaño',
@@ -383,6 +380,15 @@ export default {
   'Este passo aponta para algo que foi apagado. Corrija o roteiro nas configurações.':
     'Este paso apunta a algo que fue borrado. Corrija el guion en los ajustes.',
   'Todas as redes': 'Todas las redes',
+  'Liga ou desliga na tela o elemento desta aba':
+    'Enciende o apaga en pantalla el elemento de esta pestaña',
+  'Lugar padrão, tamanho e distâncias': 'Lugar predeterminado, tamaño y distancias',
+  'Para acertar com precisão: o lugar padrão de cada elemento, o tamanho e a distância das bordas. Um elemento arrastado fica onde foi solto até voltar ao lugar padrão.':
+    'Para ajustar con precisión: el lugar predeterminado de cada elemento, el tamaño y la distancia a los bordes. Un elemento arrastrado se queda donde se soltó hasta volver al lugar predeterminado.',
+  'Largura total': 'Ancho completo',
+  'Arrastado para um lugar próprio': 'Arrastrado a un lugar propio',
+  'Este elemento foi arrastado para um lugar próprio neste formato. O lugar e as distâncias abaixo voltam a valer ao voltar ao lugar padrão.':
+    'Este elemento fue arrastrado a un lugar propio en este formato. El lugar y las distancias de abajo vuelven a valer al volver al lugar predeterminado.',
   'No ar agora': 'Al aire ahora',
   'No ar': 'Al aire',
   'Fora do ar': 'Fuera del aire',
@@ -1029,8 +1035,6 @@ export default {
   'sem limite': 'sin límite',
   'Fixar: o que for mostrado nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
     'Fijar: lo que se muestre en esta pestaña queda en pantalla hasta ocultarlo, aunque el tiempo termine',
-  'Mostra ou esconde na tela o elemento desta aba':
-    'Muestra u oculta en pantalla el elemento de esta pestaña',
   'Ofertas e Dízimos': 'Ofrendas y Diezmos',
   'Cartão com QR Code: ofertas, dízimos, missões, um link…':
     'Tarjeta con código QR: ofrendas, diezmos, misiones, un enlace…',

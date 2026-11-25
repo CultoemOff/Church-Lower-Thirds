@@ -10,7 +10,7 @@ import {
   toggleTheme,
 } from './js/common.js';
 import { plain, STEP_NAMES, stepText } from './js/lists.js';
-import { EYE, EYE_OFF, givingTag, NETWORKS, SOCIAL_ICONS } from './js/look.js';
+import { givingTag, NETWORKS, SOCIAL_ICONS } from './js/look.js';
 import { autoLocalize, t, useLanguage } from './js/i18n.js';
 
 // The panel that lives in an OBS dock. Each tab has the text fields on top (or on the left
@@ -1063,7 +1063,7 @@ function refresh() {
   for (const b of pane.querySelectorAll('[data-toggle]'))
     b.classList.toggle('on', !!live[b.dataset.toggle].on);
   renderProfiles();
-  // The bar of the tab: is it on air, the eye to show or hide it, and the pin for what
+  // The bar of the tab: is it on air, the switch that shows or hides it, and the pin for what
   // leaves by itself (names, offerings, schedule, social, comments).
   const on = element && !!live[tab].on,
     state = $('#paneState'),
@@ -1072,14 +1072,10 @@ function refresh() {
     timed = PINNABLE.includes(tab);
   state.classList.toggle('on', on);
   state.lastChild.textContent = t(on ? 'No ar' : 'Fora do ar');
+  // An on/off switch: grey and faded while the element is off the air, red while on.
   eye.classList.toggle('on', on);
+  eye.setAttribute('aria-checked', String(on));
   eye.disabled = !element || !config.enabled[tab];
-  // The button says what a click does: show it, or hide what is on air.
-  if (eye.dataset.on !== String(on)) {
-    eye.dataset.on = String(on);
-    eye.firstElementChild.innerHTML = on ? EYE_OFF : EYE;
-  }
-  eye.lastElementChild.textContent = t(on ? 'Esconder' : 'Mostrar');
   pin.classList.toggle('hidden', !timed);
   pin.classList.toggle('active', timed && !!live[tab].pin);
   const time = $('#autoHide'),

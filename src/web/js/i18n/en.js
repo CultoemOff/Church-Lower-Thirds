@@ -202,9 +202,6 @@ export default {
   'No meio, à esquerda': 'Middle left',
   'No meio, à direita': 'Middle right',
   'No centro da tela': 'Center of the screen',
-  'Posição e tamanho': 'Position and size',
-  'Este elemento foi arrastado para um lugar próprio na aba "Posições na tela".':
-    'This element was dragged to its own place in the "Positions on screen" page.',
   'Voltar ao lugar padrão': 'Back to the default place',
   'Lugar na tela': 'Place on screen',
   Tamanho: 'Size',
@@ -376,6 +373,15 @@ export default {
   'Este passo aponta para algo que foi apagado. Corrija o roteiro nas configurações.':
     'This step points at something that was deleted. Fix the rundown in the settings.',
   'Todas as redes': 'All networks',
+  'Liga ou desliga na tela o elemento desta aba':
+    'Turns the element of this tab on or off on screen',
+  'Lugar padrão, tamanho e distâncias': 'Default place, size and distances',
+  'Para acertar com precisão: o lugar padrão de cada elemento, o tamanho e a distância das bordas. Um elemento arrastado fica onde foi solto até voltar ao lugar padrão.':
+    'For fine adjustment: the default place of each element, its size and its distance from the edges. A dragged element stays where it was dropped until it is sent back to the default place.',
+  'Largura total': 'Full width',
+  'Arrastado para um lugar próprio': 'Dragged to a place of its own',
+  'Este elemento foi arrastado para um lugar próprio neste formato. O lugar e as distâncias abaixo voltam a valer ao voltar ao lugar padrão.':
+    'This element was dragged to a place of its own in this format. The place and distances below apply again once it goes back to the default place.',
   'No ar agora': 'On air now',
   'No ar': 'On air',
   'Fora do ar': 'Off air',
@@ -1018,8 +1024,6 @@ export default {
   'sem limite': 'no limit',
   'Fixar: o que for mostrado nesta aba fica na tela até esconder, mesmo quando o tempo acabar':
     'Pin: what is shown from this tab stays on screen until hidden, even when the time ends',
-  'Mostra ou esconde na tela o elemento desta aba':
-    'Shows or hides the element of this tab on screen',
   'Ofertas e Dízimos': 'Offerings & Tithes',
   'Cartão com QR Code: ofertas, dízimos, missões, um link…':
     'Card with a QR code: offerings, tithes, missions, a link…',

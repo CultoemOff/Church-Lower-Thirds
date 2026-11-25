@@ -56,6 +56,10 @@ img:not([src]) {
 .el.out .box {
   animation: calc(var(--dur) * 0.75) cubic-bezier(0.6, 0, 0.8, 0.3) both reverse;
 }
+/* For one instant before "in" and before "out": lets the animation start over (see restart()). */
+.el.reset .box {
+  animation: none !important;
+}
 .el[data-anim='slide'] .box {
   animation-name: a-slide;
 }

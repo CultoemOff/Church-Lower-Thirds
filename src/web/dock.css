@@ -134,30 +134,92 @@ header {
 .paneState.on > i {
   background: var(--live);
 }
-.eyeBtn {
+/* On/off switch of the tab's element: grey and faded when off, strong red when on air. */
+.switch {
   grid-column: 3;
   justify-self: end;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  height: 28px;
-  padding: 0 10px 0 8px;
-  font-size: 11.5px;
-  font-weight: 700;
-  white-space: nowrap;
+  position: relative;
+  width: 46px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #8a909c;
+  opacity: 0.5;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    opacity 0.25s ease,
+    box-shadow 0.25s ease;
 }
-.eyeBtn .eyeIcon {
-  display: flex;
+.switch:hover {
+  background: #8a909c;
+  opacity: 0.75;
 }
-.eyeBtn svg {
-  width: 17px;
-  height: 17px;
-  display: block;
+.switch > i {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+  transition:
+    transform 0.32s cubic-bezier(0.3, 1.6, 0.5, 1),
+    width 0.2s ease;
 }
-.eyeBtn.on {
-  background: var(--live);
-  border-color: var(--live);
-  color: #fff;
+/* While pressed the knob stretches towards the other side, like a real switch. */
+.switch:active > i {
+  width: 23px;
+}
+.switch.on:active > i {
+  transform: translateX(17px);
+}
+.switch.on {
+  background: #e3122c;
+  opacity: 1;
+  animation:
+    switch-on 0.5s ease-out,
+    switch-live 2s ease-in-out 0.5s infinite;
+}
+.switch.on:hover {
+  background: #f01f39;
+  opacity: 1;
+}
+.switch.on > i {
+  transform: translateX(22px);
+}
+.switch:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+.switch:focus-visible {
+  outline: 2px solid var(--accent, #6aa8ff);
+  outline-offset: 2px;
+}
+/* Turning on: a ring opens out of the switch; then it breathes while the element is on air. */
+@keyframes switch-on {
+  from {
+    box-shadow: 0 0 0 0 rgba(227, 18, 44, 0.75);
+  }
+  to {
+    box-shadow: 0 0 0 9px rgba(227, 18, 44, 0);
+  }
+}
+@keyframes switch-live {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(227, 18, 44, 0);
+  }
+  50% {
+    box-shadow: 0 0 9px 1px rgba(227, 18, 44, 0.7);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .switch.on {
+    animation: none;
+  }
 }
 .pane {
   flex: 1 1 auto;

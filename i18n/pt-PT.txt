@@ -252,3 +252,6 @@ Guarda a aparência deste perfil num ficheiro (com o logótipo e o modelo própr
 
 Perfil: troca de uma vez tudo o que é de uma igreja ou de um evento (nome, logo, aparência, nomes e textos). Crie e ajuste os perfis nas configurações.
 Perfil: troca de uma vez tudo o que é de uma igreja ou de um evento (nome, logótipo, aparência, nomes e textos). Crie e ajuste os perfis nas definições.
+
+Liga ou desliga na tela o elemento desta aba
+Liga ou desliga no ecrã o elemento deste separador
