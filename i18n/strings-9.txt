@@ -1180,11 +1180,11 @@ Haga clic para ver los modelos temáticos
 Fai clic per vedere i modelli tematici
 Klicken, um die Themenvorlagen zu sehen
 
-Para ministérios e datas especiais: jovens, crianças, mulheres, coral, banda, Natal e Páscoa.
-For ministries and special dates: youth, kids, women, choir, band, Christmas and Easter.
-Para ministerios y fechas especiales: jóvenes, niños, mujeres, coro, banda, Navidad y Pascua.
-Per ministeri e date speciali: giovani, bambini, donne, coro, band, Natale e Pasqua.
-Für Dienste und besondere Anlässe: Jugend, Kinder, Frauen, Chor, Band, Weihnachten und Ostern.
+Para ministérios e datas especiais: jovens, crianças, mulheres, casais, coral, banda, Natal e Páscoa.
+For ministries and special dates: youth, kids, women, couples, choir, band, Christmas and Easter.
+Para ministerios y fechas especiales: jóvenes, niños, mujeres, matrimonios, coro, banda, Navidad y Pascua.
+Per ministeri e date speciali: giovani, bambini, donne, coppie, coro, band, Natale e Pasqua.
+Für Dienste und besondere Anlässe: Jugend, Kinder, Frauen, Ehepaare, Chor, Band, Weihnachten und Ostern.
 
 O desenho pode ser trocado em "Fonte e forma".
 The drawing can be changed in "Font and shape".

@@ -247,6 +247,47 @@ const star = (x, y, r, turn = 0, cls = 'a', points = 5, inner = 0.46) =>
       return `${n2(Math.cos(a) * d)},${n2(Math.sin(a) * d)}`;
     },
   ).join(' ')}"/>`;
+/** A heart; `s` is half its width. */
+const heart = (x, y, s, turn = 0, cls = 'a pt') => {
+  const d =
+    'M0 .9C-.25 .65-1 .2-1-.35C-1-.75-.7-.95-.45-.95C-.2-.95-.05-.8 0-.6' +
+    'C.05-.8 .2-.95 .45-.95C.7-.95 1-.75 1-.35C1 .2 .25 .65 0 .9Z';
+  return `<path class="${cls}" transform="translate(${x} ${y}) rotate(${turn})" d="${d.replace(
+    /-?\.?\d+(?:\.\d+)?/g,
+    (v) => n2(Number(v) * s),
+  )}"/>`;
+};
+const onCircle = (cx, cy, r, deg) =>
+  `${n2(cx + r * Math.cos((deg * Math.PI) / 180))} ${n2(cy + r * Math.sin((deg * Math.PI) / 180))}`;
+/** A flat band (a ring seen from the front), whole or only from angle a0 to a1. */
+const band = (cx, cy, R, r, cls, a0 = 0, a1 = 360) => {
+  const circle = (q) =>
+    `M${n2(cx - q)} ${cy}a${q} ${q} 0 1 0 ${n2(2 * q)} 0a${q} ${q} 0 1 0 ${n2(-2 * q)} 0z`;
+  if (a1 - a0 >= 360)
+    return `<path class="${cls}" fill-rule="evenodd" d="${circle(R)}${circle(r)}"/>`;
+  return (
+    `<path class="${cls}" d="M${onCircle(cx, cy, R, a0)}A${R} ${R} 0 0 1 ${onCircle(cx, cy, R, a1)}` +
+    `L${onCircle(cx, cy, r, a1)}A${r} ${r} 0 0 0 ${onCircle(cx, cy, r, a0)}Z"/>`
+  );
+};
+/**
+ * Two wedding rings linked to each other: the second passes under the first at the bottom
+ * and over it at the top.
+ */
+const rings = (x, y, R, turn = -8) => {
+  const r = n2(R * 0.77),
+    half = n2(R * 0.56),
+    mid = (R + r) / 2,
+    // Where the two bands cross at the top, seen from the center of the second ring.
+    cross = (Math.atan2(-Math.sqrt(mid * mid - half * half), -half) * 180) / Math.PI + 360;
+  return (
+    `<g transform="rotate(${turn} ${x} ${y})">` +
+    band(x + half, y, R, r, 'yd pt') +
+    band(x - half, y, R, r, 'y pt') +
+    band(x + half, y, R, r, 'yd', cross - 24, cross + 24) +
+    '</g>'
+  );
+};
 const lily = (x, y, r, turn = 0) =>
   `<g transform="translate(${x} ${y}) rotate(${turn})">` +
   [0, 60, 120, 180, 240, 300].map((a) => leaf(0, 0, r, a - 90, 'w pt')).join('') +
@@ -314,6 +355,7 @@ const EGYPT_LOGO = art(
 );
 export const DECORS = [
   'flowers',
+  'rings',
   'stars',
   'spark',
   'notes',
@@ -338,6 +380,16 @@ export const DECOR = {
         flower(146, 126, 22, -12),
     ),
     small: small(leaf(46, 58, 46, -160) + leaf(52, 60, 42, 40) + flower(50, 50, 34, 10)),
+  },
+  // Couples: the two rings on the corner of the plate, a heart above them.
+  rings: {
+    big: big(
+      rings(84, 108, 40) +
+        heart(150, 40, 23, 14) +
+        heart(30, 44, 10, -18) +
+        star(112, 30, 9, 0, 'w', 4, 0.26),
+    ),
+    small: small(rings(50, 62, 27) + heart(50, 17, 13)),
   },
   stars: {
     big: big(

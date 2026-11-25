@@ -382,6 +382,11 @@ export default {
   'Arrastado para um lugar próprio': 'Dragged to a place of its own',
   'Este elemento foi arrastado para um lugar próprio neste formato. O lugar e as distâncias abaixo voltam a valer ao voltar ao lugar padrão.':
     'This element was dragged to a place of its own in this format. The place and distances below apply again once it goes back to the default place.',
+  Casais: 'Couples',
+  'Placas suaves com moldura fina, alianças e coração: para o ministério de casais':
+    'Soft plaques with a fine frame, wedding rings and a heart: for the couples’ ministry',
+  'Vinho e rosé': 'Wine and rosé',
+  'Alianças e coração': 'Wedding rings and heart',
   'No ar agora': 'On air now',
   'No ar': 'On air',
   'Fora do ar': 'Off air',
@@ -1131,8 +1136,8 @@ export default {
   'Atualização cancelada.': 'Update cancelled.',
   Próprio: 'Custom',
   'Clique para ver os modelos temáticos': 'Click to see the themed styles',
-  'Para ministérios e datas especiais: jovens, crianças, mulheres, coral, banda, Natal e Páscoa.':
-    'For ministries and special dates: youth, kids, women, choir, band, Christmas and Easter.',
+  'Para ministérios e datas especiais: jovens, crianças, mulheres, casais, coral, banda, Natal e Páscoa.':
+    'For ministries and special dates: youth, kids, women, couples, choir, band, Christmas and Easter.',
   'O desenho pode ser trocado em "Fonte e forma".':
     'The drawing can be changed in "Font and shape".',
   'Cole aqui o código que a IA escreveu: o programa confere na hora.':
