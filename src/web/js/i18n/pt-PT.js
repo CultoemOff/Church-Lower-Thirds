@@ -74,6 +74,12 @@ export default {
     'Este passo aponta para algo que foi apagado. Corrija o roteiro nas definições.',
   'Liga ou desliga na tela o elemento desta aba':
     'Liga ou desliga no ecrã o elemento deste separador',
+  'Baixa a nova versão, confere o arquivo e abre o Instalador do macOS. O programa volta sozinho.':
+    'Baixa a nova versão, confere o ficheiro e abre o Instalador do macOS. O programa volta sozinho.',
+  'O macOS não deixou o programa abrir o instalador sozinho. Ele já foi baixado e conferido: clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.':
+    'O macOS não deixou o programa abrir o instalador sozinho. Ele já foi baixado e conferido: clique em "Mostrar o instalador" e abra o ficheiro com dois cliques. As definições são mantidas.',
+  'Se o Instalador não aparecer, clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.':
+    'Se o Instalador não aparecer, clique em "Mostrar o instalador" e abra o ficheiro com dois cliques. As definições são mantidas.',
   'Seus arquivos': 'Os seus ficheiros',
   'Esta pasta guarda as configurações, os nomes, as imagens e os arquivos das fontes do OBS. Copie a pasta inteira para fazer backup.':
     'Esta pasta guarda as definições, os nomes, as imagens e os ficheiros das fontes do OBS. Copie a pasta inteira para fazer backup.',
@@ -144,8 +150,8 @@ export default {
   'Nome, logo, idioma, tempo na tela e a forma de contribuir: PIX, transferência, link ou dados bancários.':
     'Nome, logo, idioma, tempo no ecrã e a forma de contribuir: PIX, transferência, link ou dados bancários.',
   'Abre as configurações deste elemento': 'Abre as definições deste elemento',
-  'Fica rodando no computador, sem janela, e inicia com o Windows. É ele que guarda as configurações.':
-    'Fica a correr no computador, sem janela, e inicia com o Windows. É ele que guarda as definições.',
+  'Fica rodando no computador, sem janela, e inicia quando o computador liga. É ele que guarda as configurações.':
+    'Fica a funcionar no computador, sem janela, e inicia quando o computador liga. É ele que guarda as definições.',
   'Esta página de configurações serve para preparar tudo com calma. Durante o culto você usa só o painel do OBS.':
     'Esta página de definições serve para preparar tudo com calma. Durante o culto usa apenas o painel do OBS.',
   'A engrenagem do painel abre esta página de configurações.':

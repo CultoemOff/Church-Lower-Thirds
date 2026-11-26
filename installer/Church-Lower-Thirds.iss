@@ -10,6 +10,10 @@ AppId={{13D055BB-63D1-484E-820B-004089D86007}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
+AppCopyright=(c) 2026 Jonas Silva (Culto em Off)
+; The license of the program (LICENSE.txt, saved with a UTF-8 mark by the workflow so its
+; accented letters show right). Silent runs, as the update button does, skip this page.
+LicenseFile=output\LICENSE-setup.txt
 ; Every Culto em Off program lives in its own subfolder of Program Files\Culto em Off.
 DefaultDirName={autopf}\Culto em Off\Church Lower Thirds
 DefaultGroupName=Culto em Off

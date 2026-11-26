@@ -1904,7 +1904,10 @@ async function checkGiving() {
 const pages = {
   home: () => {
     const updates = () => {
-      const u = update;
+      const u = update,
+        // A Mac installs through the system's own Installer; Windows, through a setup that
+        // asks for permission.
+        mac = info?.platform === 'darwin';
       const text =
         updateState === 'checking'
           ? t('Procurando…')
@@ -1912,15 +1915,21 @@ const pages = {
             ? t('Baixando a atualização…')
             : updateState === 'asking'
               ? t(
-                  'A atualização foi baixada. Abriu uma janela do Church Lower Thirds neste computador (pode estar atrás desta): clique em OK nela e depois autorize a instalação quando o Windows pedir.',
+                  mac
+                    ? 'A atualização foi baixada e o Instalador do macOS abriu (pode estar atrás desta janela): siga os passos dele e digite a senha do Mac quando pedir.'
+                    : 'A atualização foi baixada. Abriu uma janela do Church Lower Thirds neste computador (pode estar atrás desta): clique em OK nela e depois autorize a instalação quando o Windows pedir.',
                 )
               : updateState === 'installing'
                 ? t(
-                    'Instalando: se o Windows pedir permissão, autorize. Esta página volta sozinha quando terminar.',
+                    mac
+                      ? 'Instalando: siga os passos do Instalador do macOS. Esta página volta sozinha quando terminar.'
+                      : 'Instalando: se o Windows pedir permissão, autorize. Esta página volta sozinha quando terminar.',
                   )
                 : updateState === 'stalled'
                   ? t(
-                      'A instalação ainda não terminou. Veja se há um pedido de permissão do Windows piscando na barra de tarefas (o ícone de um escudo) e autorize.',
+                      mac
+                        ? 'A instalação ainda não terminou. Veja se o Instalador do macOS está aberto no Dock e conclua os passos dele.'
+                        : 'A instalação ainda não terminou. Veja se há um pedido de permissão do Windows piscando na barra de tarefas (o ícone de um escudo) e autorize.',
                     )
                   : updateState === 'failed'
                     ? t('Não foi possível procurar atualizações agora.')
@@ -1950,8 +1959,9 @@ const pages = {
                 {
                   class: byHand ? '' : 'primary',
                   disabled: busy,
-                  title:
-                    'Baixa a nova versão, confere o arquivo e instala. O Windows pede permissão e o programa volta sozinho.',
+                  title: mac
+                    ? 'Baixa a nova versão, confere o arquivo e abre o Instalador do macOS. O programa volta sozinho.'
+                    : 'Baixa a nova versão, confere o arquivo e instala. O Windows pede permissão e o programa volta sozinho.',
                   onclick: installUpdate,
                 },
                 byHand ? 'Tentar de novo' : 'Atualizar agora',
@@ -1983,8 +1993,12 @@ const pages = {
         byHand
           ? hint(
               updateState === 'blocked'
-                ? 'O Windows deste computador não deixou o programa abrir o instalador sozinho. Ele já foi baixado e conferido: clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.'
-                : 'Se o pedido de permissão não aparecer, clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.',
+                ? mac
+                  ? 'O macOS não deixou o programa abrir o instalador sozinho. Ele já foi baixado e conferido: clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.'
+                  : 'O Windows deste computador não deixou o programa abrir o instalador sozinho. Ele já foi baixado e conferido: clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.'
+                : mac
+                  ? 'Se o Instalador não aparecer, clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.'
+                  : 'Se o pedido de permissão não aparecer, clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.',
             )
           : null,
         updateState === 'blocked' && updateBlocked
@@ -3279,7 +3293,7 @@ const pages = {
     const link = (href, text, cls = '') =>
       h('a', { href, target: '_blank', rel: 'noopener noreferrer', class: cls }, text);
     const share = async () => {
-      const url = 'https://github.com/CultoemOff/Church-Lower-Thirds',
+      const url = 'https://github.com/CultoemOff/Church-Lower-Thirds-Releases',
         data = { title: 'Church Lower Thirds', text: 'Church Lower Thirds — by Culto em Off', url };
       try {
         if (navigator.share) await navigator.share(data);
@@ -3332,8 +3346,22 @@ const pages = {
           ),
           link('https://www.instagram.com/cultoemoff/', 'Instagram'),
           link('https://www.youtube.com/@CultoemOff', 'YouTube'),
-          link('https://github.com/CultoemOff/Church-Lower-Thirds', 'GitHub'),
+          link('https://github.com/CultoemOff/Church-Lower-Thirds-Releases', 'GitHub'),
           h('button', { class: 'primary', onclick: share }, 'Compartilhar o programa'),
+        ),
+      ),
+      card(
+        'Licença',
+        h(
+          'p',
+          { class: 'aboutText' },
+          'O Church Lower Thirds é gratuito: pode ser baixado e usado à vontade, também em trabalhos comerciais. O código é fechado e não pode ser modificado, descompilado nem vendido.',
+        ),
+        h(
+          'div',
+          { class: 'aboutLinks' },
+          link('/license.txt', 'Ler a licença'),
+          link('/third-party-notices.txt', 'Componentes de terceiros'),
         ),
       ),
     ];
@@ -3458,7 +3486,7 @@ async function installUpdate() {
   clearInterval(watch);
   if (r.error) {
     // Windows refused to run the installer: the page then shows where the file is.
-    updateState = /did not start the installer/.test(r.error) ? 'blocked' : '';
+    updateState = /did not (start|open) the installer/.test(r.error) ? 'blocked' : '';
     updateBlocked = updateState ? r.error.replace(/^.*?installer:\s*/, '') : '';
     toast(friendly(r.error));
   } else {
@@ -3620,7 +3648,7 @@ const WIZARD = [
           [
             '1',
             'O programa',
-            'Fica rodando no computador, sem janela, e inicia com o Windows. É ele que guarda as configurações.',
+            'Fica rodando no computador, sem janela, e inicia quando o computador liga. É ele que guarda as configurações.',
           ],
           [
             '2',

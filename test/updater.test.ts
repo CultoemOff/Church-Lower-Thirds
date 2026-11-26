@@ -14,6 +14,8 @@ import {
   hashFromSums,
   newerThan,
   pickRelease,
+  RELEASES_REPO,
+  setupName,
   type Release,
 } from '../src/server/updater.js';
 import { installInfoFile, ownerId, userFilesFolder } from '../src/server/paths.js';
@@ -50,12 +52,37 @@ test('the release offered depends on what is installed', () => {
     rel('nightly'),
   ];
   // On a final version: only final versions, never drafts.
-  assert.equal(pickRelease(list, '0.0.9')?.version, '0.1.0');
+  assert.equal(pickRelease(list, '0.0.9', 'win32')?.version, '0.1.0');
   // Testing a beta: newer betas too.
-  assert.equal(pickRelease(list, '0.1.0-beta.1')?.version, '0.2.0-beta.1');
+  assert.equal(pickRelease(list, '0.1.0-beta.1', 'win32')?.version, '0.2.0-beta.1');
   // A release without the installer is not offered.
-  assert.equal(pickRelease([rel('v9.0.0', { assets: [] })], '0.1.0'), undefined);
-  assert.equal(pickRelease([], '0.1.0'), undefined);
+  assert.equal(pickRelease([rel('v9.0.0', { assets: [] })], '0.1.0', 'win32'), undefined);
+  assert.equal(pickRelease([], '0.1.0', 'win32'), undefined);
+});
+
+test('each system is offered its own installer, and only a release that has it', () => {
+  const pkg = (v: string) => ({
+    name: `Church-Lower-Thirds-macOS-${v}.pkg`,
+    browser_download_url: `https://example/${v}.pkg`,
+  });
+  const both = rel('v1.0.0');
+  both.assets.push(pkg('1.0.0'));
+  // 1.1.0 came out for Windows only: a Mac stays on 1.0.0 until its package is there.
+  const list = [both, rel('v1.1.0')];
+  assert.equal(pickRelease(list, '0.9.0', 'win32')?.version, '1.1.0');
+  assert.equal(pickRelease(list, '0.9.0', 'darwin')?.version, '1.0.0');
+  // No installer for other systems.
+  assert.equal(pickRelease(list, '0.9.0', 'linux'), undefined);
+  assert.ok(setupName('win32')?.test('Church-Lower-Thirds-Setup-1.0.0.exe'));
+  assert.ok(setupName('darwin')?.test('Church-Lower-Thirds-macOS-1.0.0.pkg'));
+  // A name can never point outside the folder the file is saved in.
+  for (const bad of [
+    '../Church-Lower-Thirds-macOS-1.pkg',
+    'Church-Lower-Thirds-macOS-1.pkg/x',
+    'x.pkg',
+  ])
+    assert.equal(setupName('darwin')?.test(bad), false, bad);
+  assert.equal(RELEASES_REPO, 'CultoemOff/Church-Lower-Thirds-Releases');
 });
 
 test('checksum list: finds the installer by name', () => {
@@ -71,12 +98,17 @@ test('each account of the computer has its own files folder', () => {
   // or "Church Lower Thirds" in this account's own Documents the first time.
   assert.equal(userFilesFolder(undefined, '/home/joao/x', '/home/joao'), '/home/joao/x');
   assert.match(
-    userFilesFolder(undefined, undefined, '/home/joao'),
+    userFilesFolder(undefined, undefined, '/home/joao', 'win32'),
     /joao.Documents.Church Lower Thirds$/,
   );
   assert.match(
-    userFilesFolder('not/absolute', '', '/home/ana'),
+    userFilesFolder('not/absolute', '', '/home/ana', 'win32'),
     /ana.Documents.Church Lower Thirds$/,
+  );
+  // A Mac guards Documents against programs running in the background: Movies instead.
+  assert.match(
+    userFilesFolder(undefined, undefined, '/Users/ana', 'darwin'),
+    /ana.Movies.Church Lower Thirds$/,
   );
   assert.match(
     installInfoFile('win32', { ProgramData: 'C:\\ProgramData' }),
@@ -113,10 +145,15 @@ test('the installer is only accepted when its SHA-256 matches the published list
   try {
     // Into the person's Downloads folder when there is one, else the temp folder.
     const home = mkdtempSync(join(tmpdir(), 'clt-home-'));
-    assert.equal(setupFolder(home), tmpdir());
+    assert.equal(setupFolder(home, 'win32'), tmpdir());
     mkdirSync(join(home, 'Downloads'));
-    const dir = setupFolder(home);
+    const dir = setupFolder(home, 'win32');
     assert.equal(dir, join(home, 'Downloads'));
+    // On a Mac: the program's own cache folder, never the guarded Downloads.
+    assert.equal(
+      setupFolder(home, 'darwin'),
+      join(home, 'Library', 'Caches', 'Church Lower Thirds'),
+    );
     const file = await downloadVerifiedSetup(info, dir);
     assert.equal(file, join(dir, info.setupName));
     assert.deepEqual(readFileSync(file), setup);

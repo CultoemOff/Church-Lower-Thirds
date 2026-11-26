@@ -100,6 +100,10 @@ const ERRORS = [
     /Windows did not start the installer/,
     'O Windows não deixou abrir o instalador. Ele já foi baixado: use "Mostrar o instalador".',
   ],
+  [
+    /macOS did not open the installer/,
+    'O macOS não deixou abrir o instalador. Ele já foi baixado: use "Mostrar o instalador".',
+  ],
   [/Update cancelled/, 'Atualização cancelada.'],
   [
     /OBS is not answering/,

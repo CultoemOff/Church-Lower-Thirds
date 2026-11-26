@@ -1,8 +1,10 @@
 {
   "name": "church-lower-thirds",
-  "version": "0.1.0-beta.19",
+  "version": "1.0.0",
   "private": true,
   "description": "Church Lower Thirds by Culto em Off | Free lower thirds & overlays for church live streams in OBS Studio",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "author": "Jonas Silva (Culto em Off)",
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/server/index.ts",

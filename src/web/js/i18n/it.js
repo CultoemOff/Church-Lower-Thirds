@@ -394,6 +394,25 @@ export default {
     'Targhe delicate con cornice sottile, fedi e cuore: per il ministero delle coppie',
   'Vinho e rosé': 'Vino e rosé',
   'Alianças e coração': 'Fedi e cuore',
+  'A atualização foi baixada e o Instalador do macOS abriu (pode estar atrás desta janela): siga os passos dele e digite a senha do Mac quando pedir.':
+    'L’aggiornamento è stato scaricato e si è aperto l’Installer di macOS (può essere dietro questa finestra): segui i passaggi e digita la password del Mac quando richiesta.',
+  'Instalando: siga os passos do Instalador do macOS. Esta página volta sozinha quando terminar.':
+    'Installazione: segui i passaggi dell’Installer di macOS. Questa pagina torna da sola al termine.',
+  'A instalação ainda não terminou. Veja se o Instalador do macOS está aberto no Dock e conclua os passos dele.':
+    'L’installazione non è ancora terminata. Controlla se l’Installer di macOS è aperto nel Dock e completa i passaggi.',
+  'Baixa a nova versão, confere o arquivo e abre o Instalador do macOS. O programa volta sozinho.':
+    'Scarica la nuova versione, verifica il file e apre l’Installer di macOS. Il programma torna da solo.',
+  'O macOS não deixou o programa abrir o instalador sozinho. Ele já foi baixado e conferido: clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.':
+    'macOS non ha permesso al programma di aprire l’installer da solo. È già scaricato e verificato: fai clic su "Mostra l’installer" e apri il file con un doppio clic. Le impostazioni vengono mantenute.',
+  'Se o Instalador não aparecer, clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.':
+    'Se l’Installer non compare, fai clic su "Mostra l’installer" e apri il file con un doppio clic. Le impostazioni vengono mantenute.',
+  'O macOS não deixou abrir o instalador. Ele já foi baixado: use "Mostrar o instalador".':
+    'macOS non ha permesso di aprire l’installer. È già scaricato: usa "Mostra l’installer".',
+  Licença: 'Licenza',
+  'O Church Lower Thirds é gratuito: pode ser baixado e usado à vontade, também em trabalhos comerciais. O código é fechado e não pode ser modificado, descompilado nem vendido.':
+    'Church Lower Thirds è gratuito: può essere scaricato e usato liberamente, anche in lavori commerciali. Il codice è chiuso e non può essere modificato, decompilato né venduto.',
+  'Ler a licença': 'Leggi la licenza',
+  'Componentes de terceiros': 'Componenti di terze parti',
   'No ar agora': 'In onda ora',
   'No ar': 'In onda',
   'Fora do ar': 'Non in onda',
@@ -756,8 +775,8 @@ export default {
   'O Church Lower Thirds coloca nomes, avisos, QR Code e o logo da igreja por cima do vídeo no OBS Studio. São três partes:':
     'Church Lower Thirds mette nomi, avvisi, codice QR e il logo della chiesa sopra il video in OBS Studio. Le parti sono tre:',
   'O programa': 'Il programma',
-  'Fica rodando no computador, sem janela, e inicia com o Windows. É ele que guarda as configurações.':
-    'Resta in esecuzione sul computer, senza finestra, e si avvia con Windows. È lui a conservare le impostazioni.',
+  'Fica rodando no computador, sem janela, e inicia quando o computador liga. É ele que guarda as configurações.':
+    'Resta in esecuzione sul computer, senza finestra, e si avvia all’accensione del computer. È lui a conservare le impostazioni.',
   'Os gráficos': 'La grafica',
   'Uma fonte de navegador no OBS. É o que aparece na transmissão, com fundo transparente.':
     'Una sorgente browser in OBS. È ciò che appare nella diretta, con sfondo trasparente.',

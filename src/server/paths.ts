@@ -26,15 +26,20 @@ export function installInfoFile(
  * so one person never changes another's. `chosen` is the folder picked in the installer,
  * handed to the server it starts for the person at the computer; `remembered` is the folder
  * this account already uses. An account that never chose gets "Church Lower Thirds" in its own
- * Documents.
+ * Documents. On a Mac it is the Movies folder instead (where OBS keeps its recordings): macOS
+ * guards Documents, Desktop and Downloads, and a program that runs in the background, as
+ * this one does, would be stopped there by a permission question nobody is looking at.
  */
 export function userFilesFolder(
   chosen: string | undefined,
   remembered: string | undefined,
   home: string,
+  platform: NodeJS.Platform = process.platform,
 ) {
   if (chosen && isAbsolute(chosen)) return resolve(chosen);
-  return remembered || join(home, 'Documents', 'Church Lower Thirds');
+  return (
+    remembered || join(home, platform === 'darwin' ? 'Movies' : 'Documents', 'Church Lower Thirds')
+  );
 }
 
 /** Tells one account's server from another's without exposing the account name. */

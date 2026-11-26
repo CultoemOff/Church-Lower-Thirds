@@ -1,0 +1,59 @@
+#!/bin/bash
+# Per-user setup for the person at the Mac (the package itself installs into /Applications):
+#  1. the language of the Mac, for the sample texts of a first run;
+#  2. a launchd agent that starts the server at login and restarts it if it crashes;
+#  3. the server started now, and the settings opened in the browser.
+LABEL=com.cultoemoff.churchlowerthirds
+APP="/Applications/Church Lower Thirds.app"
+RES="$APP/Contents/Resources"
+
+user=$(/usr/bin/stat -f%Su /dev/console)
+if [ -z "$user" ] || [ "$user" = root ] || [ "$user" = loginwindow ]; then
+  echo "No user logged in at the console: skipping the per-user setup."
+  exit 0
+fi
+uid=$(id -u "$user")
+group=$(id -gn "$user")
+home=$(/usr/bin/dscl . -read "/Users/$user" NFSHomeDirectory | /usr/bin/awk '{print $2}')
+as_user() { /usr/bin/sudo -u "$user" "$@"; }
+
+agents="$home/Library/LaunchAgents"
+data="$home/Library/Application Support/Church Lower Thirds"
+as_user /bin/mkdir -p "$agents" "$data"
+
+# 1) Language: the first language of the Mac that the program speaks (else English).
+if [ ! -f "$data/install.json" ]; then
+  language=en
+  for l in $(as_user /usr/bin/defaults read -g AppleLanguages 2>/dev/null | /usr/bin/tr -d '()", ' | /usr/bin/grep .); do
+    case "$l" in
+      pt-PT*) language=pt-PT; break ;;
+      pt*) language=pt-BR; break ;;
+      es*) language=es; break ;;
+      en*) language=en; break ;;
+      it*) language=it; break ;;
+      de*) language=de; break ;;
+    esac
+  done
+  printf '{"language":"%s"}\n' "$language" > "$data/install.json"
+  /usr/sbin/chown "$user:$group" "$data/install.json"
+fi
+
+# 2) Start at login
+plist="$agents/$LABEL.plist"
+/bin/cp "$RES/launchagent.plist" "$plist"
+/usr/sbin/chown "$user:$group" "$plist"
+/bin/chmod 644 "$plist"
+
+# 3) Start now
+/bin/launchctl bootout "gui/$uid/$LABEL" 2>/dev/null || true
+/bin/launchctl bootstrap "gui/$uid" "$plist" || echo "launchctl bootstrap failed ($?)"
+
+# Open the settings like the Windows installer does, except in unattended installs.
+if [ -z "${COMMAND_LINE_INSTALL:-}" ]; then
+  for _ in $(seq 1 40); do
+    /usr/bin/curl -fs -m 1 http://127.0.0.1:8795/api/health >/dev/null 2>&1 && break
+    sleep 0.25
+  done
+  /bin/launchctl asuser "$uid" /usr/bin/sudo -u "$user" /usr/bin/open "$APP" || true
+fi
+exit 0

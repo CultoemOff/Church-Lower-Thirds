@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { createWriteStream, statSync } from 'node:fs';
+import { createWriteStream, mkdirSync, statSync } from 'node:fs';
 import { readFile, rm, writeFile } from 'node:fs/promises';
 import { homedir, tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -10,18 +10,25 @@ import { pipeline } from 'node:stream/promises';
 
 /**
  * In-app updates. CI publishes every version as a GitHub release tagged "v<version>" with
- * the Windows installer (Church-Lower-Thirds-Setup-<version>.exe) and SHA256SUMS.txt; betas are
- * pre-releases. The program lists the releases, picks the newest one that applies and, on
- * request, downloads the installer, checks its SHA-256 and runs it.
+ * the Windows installer (Church-Lower-Thirds-Setup-<version>.exe), the macOS package
+ * (Church-Lower-Thirds-macOS-<version>.pkg) and SHA256SUMS.txt; betas are pre-releases. The
+ * program lists the releases, picks the newest one that has the installer of this system
+ * and, on request, downloads it, checks its SHA-256 and opens it.
  *
- * The releases must be public for this to work: GitHub answers 404 for a private repository.
+ * The releases live in a repository of their own, public and with the installers only: the
+ * source code is private, and GitHub answers 404 for the releases of a private repository.
  */
-const RELEASES_API =
-  'https://api.github.com/repos/CultoemOff/Church-Lower-Thirds/releases?per_page=30';
-const RELEASES_PAGE = 'https://github.com/CultoemOff/Church-Lower-Thirds/releases';
+export const RELEASES_REPO = 'CultoemOff/Church-Lower-Thirds-Releases';
+const RELEASES_API = `https://api.github.com/repos/${RELEASES_REPO}/releases?per_page=30`;
+const RELEASES_PAGE = `https://github.com/${RELEASES_REPO}/releases`;
 
-/** The installer's file name: nothing in it can point outside the temp folder. */
-const SETUP_NAME = /^Church-Lower-Thirds-Setup[\w.-]*\.exe$/;
+/** The installer's file name: nothing in it can point outside the folder it is saved in. */
+const WINDOWS_SETUP = /^Church-Lower-Thirds-Setup[\w.-]*\.exe$/;
+const MAC_PACKAGE = /^Church-Lower-Thirds-macOS[\w.-]*\.pkg$/;
+/** The file each system installs from; none for the systems the program has no installer for. */
+export const setupName = (platform: NodeJS.Platform = process.platform) =>
+  platform === 'darwin' ? MAC_PACKAGE : platform === 'win32' ? WINDOWS_SETUP : undefined;
+const isSetup = (name: string) => WINDOWS_SETUP.test(name) || MAC_PACKAGE.test(name);
 
 export interface UpdateInfo {
   current: string;
@@ -58,15 +65,22 @@ export interface Release {
 
 /**
  * The newest release for someone on `current`. People on a final version are only offered
- * final versions; people testing a beta also get newer betas.
+ * final versions; people testing a beta also get newer betas. A release without the
+ * installer of this system is not an update for it.
  */
-export function pickRelease(releases: Release[], current: string) {
-  const beta = current.includes('-');
+export function pickRelease(
+  releases: Release[],
+  current: string,
+  platform: NodeJS.Platform = process.platform,
+) {
+  const beta = current.includes('-'),
+    wanted = setupName(platform);
+  if (!wanted) return undefined;
   let best: (Release & { version: string }) | undefined;
   for (const r of releases) {
     const version = String(r.tag_name ?? '').match(/^v?(\d+\.\d+\.\d+(?:-[0-9A-Za-z.]+)?)$/)?.[1];
     if (!version || r.draft || (!beta && (r.prerelease || version.includes('-')))) continue;
-    if (!r.assets?.some((a) => SETUP_NAME.test(a.name))) continue;
+    if (!r.assets?.some((a) => wanted.test(a.name))) continue;
     if (!best || newerThan(version, best.version)) best = { ...r, version };
   }
   return best;
@@ -95,7 +109,8 @@ export async function checkForUpdate(current: string, force = false): Promise<Up
   if (!r.ok) throw new Error(`Update check failed (HTTP ${r.status})`);
   const list = (await r.json()) as Release[];
   const best = pickRelease(Array.isArray(list) ? list : [], current);
-  const setup = best?.assets?.find((a) => SETUP_NAME.test(a.name));
+  const wanted = setupName();
+  const setup = best?.assets?.find((a) => wanted?.test(a.name));
   const info: UpdateInfo = {
     current,
     latest: best?.version,
@@ -140,7 +155,18 @@ function openDownload(url: string, redirects = 5): Promise<IncomingMessage> {
  * put it. Company computers often refuse to run programs kept in the temp folder, and in
  * Downloads the person finds the file if they have to open it themselves.
  */
-export function setupFolder(home = homedir()) {
+export function setupFolder(home = homedir(), platform: NodeJS.Platform = process.platform) {
+  // A Mac guards Downloads against programs that run in the background: its own cache
+  // folder is where a program keeps what it downloads for itself.
+  if (platform === 'darwin') {
+    const cache = join(home, 'Library', 'Caches', 'Church Lower Thirds');
+    try {
+      mkdirSync(cache, { recursive: true });
+      return cache;
+    } catch {
+      return tmpdir();
+    }
+  }
   const downloads = join(home, 'Downloads');
   try {
     if (statSync(downloads).isDirectory()) return downloads;
@@ -166,7 +192,7 @@ export async function removeUsedSetup(dataDir: string, current: string) {
     };
     if (typeof note.file !== 'string' || typeof note.version !== 'string') return;
     if (newerThan(note.version, current)) return;
-    if (SETUP_NAME.test(note.file.split(/[\\/]/).pop() || '')) await rm(note.file, { force: true });
+    if (isSetup(note.file.split(/[\\/]/).pop() || '')) await rm(note.file, { force: true });
     await rm(noteFile(dataDir), { force: true });
   } catch {
     // No note: nothing was downloaded.
@@ -178,7 +204,7 @@ export async function downloadVerifiedSetup(
   info: UpdateInfo,
   dir = setupFolder(),
 ): Promise<string> {
-  if (!info.setupUrl || !info.sumsUrl || !info.setupName || !SETUP_NAME.test(info.setupName))
+  if (!info.setupUrl || !info.sumsUrl || !info.setupName || !isSetup(info.setupName))
     throw new Error('Update download is not available');
   const sums = await fetch(info.sumsUrl, { signal: AbortSignal.timeout(15000) });
   if (!sums.ok) throw new Error(`Update download failed (HTTP ${sums.status})`);

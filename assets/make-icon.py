@@ -1,5 +1,6 @@
 # Renders assets/church-lower-thirds.svg into the Windows icon (installer, shortcuts, uninstall
-# entry) and the browser favicon. Dev-only (Python + Playwright); the outputs are committed.
+# entry), the macOS icon (.icns, for the app in /Applications) and the browser favicon.
+# Dev-only (Python + Playwright); the outputs are committed.
 #   python assets/make-icon.py
 import io, os, struct
 from PIL import Image
@@ -64,3 +65,11 @@ for s in found:
     ico.load()
     assert ico.size == s, s
 print('ico sizes:', [s[0] for s in found], os.path.getsize(os.path.join(HERE, 'church-lower-thirds.ico')), 'bytes')
+
+# macOS: the app icon, from 16 px up to 1024 px (512 px on a Retina screen).
+with sync_playwright() as p:
+    browser = p.chromium.launch(executable_path=os.environ.get('CHROME', '/usr/bin/google-chrome'), args=['--no-sandbox'])
+    page = browser.new_page()
+    big = render(page, 1024)
+    browser.close()
+big.save(os.path.join(HERE, 'church-lower-thirds.icns'), format='ICNS', sizes=[(n, n) for n in (16, 32, 64, 128, 256, 512, 1024)])
