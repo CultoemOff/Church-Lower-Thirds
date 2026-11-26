@@ -451,16 +451,16 @@ jobs:
           for f in "Data/config.json" "OBS Sources/All Elements.html" "OBS Sources/Names.html" "OBS Sources/Names (Vertical).html" "OBS Sources/Control Dock.html" "OBS Sources/Read me.txt"; do
             [ -f "$files/$f" ] || { echo "Missing in the files folder: $f"; exit 1; }
           done
-          grep -q '/source/names' "$files/OBS Sources/Names.html"
-          grep -q '"port":8795' "$data/location.json"
+          grep -q '/source/names' "$files/OBS Sources/Names.html" || { echo "Names.html does not open the names source"; exit 1; }
+          grep -q '"port":8795' "$data/location.json" || { echo "location.json: $(cat "$data/location.json")"; exit 1; }
           for page in /dock /settings /overlay /source/all "/source/badge?layout=vertical"; do
             curl -fs "$base$page" | grep -q 'Church Lower Thirds' || { echo "$page did not load"; exit 1; }
           done
           for js in /dock.js /settings.js /overlay.js /js/common.js /js/i18n/en.js; do
             curl -fsI "$base$js" | grep -qi '^content-type: .*javascript' || { echo "$js not served as JavaScript"; exit 1; }
           done
-          curl -fs $base/license.txt | grep -q 'reverse engineer'
-          curl -fs $base/third-party-notices.txt | grep -q 'express@'
+          curl -fs $base/license.txt | grep -q 'reverse engineer' || { echo "The license is not served"; exit 1; }
+          curl -fs $base/third-party-notices.txt | grep -q 'express@' || { echo "The third-party notices are not served"; exit 1; }
           curl -fs "$base/fonts/outfit-latin-wght-normal.woff2" -o "$RUNNER_TEMP/font.woff2"
           [ "$(stat -f%z "$RUNNER_TEMP/font.woff2")" -gt 5000 ]
           # The fonts installed on the Mac (CoreText, through osascript).
@@ -469,8 +469,8 @@ jobs:
           # On air and off again; a QR code; a page from another site is refused.
           shown=$(curl -fs -X POST "$base/api/live/lower/show?item=1")
           node -e "if (!JSON.parse(process.argv[1]).live.lower.on) { console.error('The name did not go on air'); process.exit(1) }" "$shown"
-          curl -fs -X POST "$base/api/live/all/hide" > /dev/null
-          curl -fsI "$base/api/qr.svg?kind=giving" | grep -qi '^content-type: .*svg'
+          curl -fs -X POST "$base/api/live/all/hide" > /dev/null || { echo "Hide all failed"; exit 1; }
+          curl -fs -D - -o /dev/null "$base/api/qr.svg?text=https%3A%2F%2Fexample.org%2Foferta" | grep -qi '^content-type: .*svg' || { echo "The QR code was not drawn"; exit 1; }
           if curl -fs -X POST -H 'Origin: https://example.com' "$base/api/live/top/show" > /dev/null; then echo "A foreign origin was accepted"; exit 1; fi
           echo "Installed server v$version OK on macOS."
       - name: Package test 2 of 3 - the update check and download
