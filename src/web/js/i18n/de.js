@@ -397,6 +397,25 @@ export default {
     'Sanfte Tafeln mit feinem Rahmen, Eheringen und Herz: für die Ehepaararbeit',
   'Vinho e rosé': 'Wein und Rosé',
   'Alianças e coração': 'Eheringe und Herz',
+  'A atualização foi baixada e o Instalador do macOS abriu (pode estar atrás desta janela): siga os passos dele e digite a senha do Mac quando pedir.':
+    'Das Update wurde geladen und das macOS-Installationsprogramm geöffnet (eventuell hinter diesem Fenster): Folgen Sie den Schritten und geben Sie das Mac-Passwort ein, wenn es verlangt wird.',
+  'Instalando: siga os passos do Instalador do macOS. Esta página volta sozinha quando terminar.':
+    'Installation läuft: Folgen Sie den Schritten des macOS-Installationsprogramms. Diese Seite kehrt danach von selbst zurück.',
+  'A instalação ainda não terminou. Veja se o Instalador do macOS está aberto no Dock e conclua os passos dele.':
+    'Die Installation ist noch nicht abgeschlossen. Prüfen Sie, ob das macOS-Installationsprogramm im Dock geöffnet ist, und schließen Sie die Schritte ab.',
+  'Baixa a nova versão, confere o arquivo e abre o Instalador do macOS. O programa volta sozinho.':
+    'Lädt die neue Version, prüft die Datei und öffnet das macOS-Installationsprogramm. Das Programm kehrt von selbst zurück.',
+  'O macOS não deixou o programa abrir o instalador sozinho. Ele já foi baixado e conferido: clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.':
+    'macOS hat dem Programm nicht erlaubt, das Installationsprogramm selbst zu öffnen. Es ist bereits geladen und geprüft: Klicken Sie auf „Installationsprogramm anzeigen“ und öffnen Sie die Datei per Doppelklick. Die Einstellungen bleiben erhalten.',
+  'Se o Instalador não aparecer, clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.':
+    'Wenn das Installationsprogramm nicht erscheint, klicken Sie auf „Installationsprogramm anzeigen“ und öffnen Sie die Datei per Doppelklick. Die Einstellungen bleiben erhalten.',
+  'O macOS não deixou abrir o instalador. Ele já foi baixado: use "Mostrar o instalador".':
+    'macOS hat das Öffnen des Installationsprogramms nicht erlaubt. Es ist bereits geladen: Verwenden Sie „Installationsprogramm anzeigen“.',
+  Licença: 'Lizenz',
+  'O Church Lower Thirds é gratuito: pode ser baixado e usado à vontade, também em trabalhos comerciais. O código é fechado e não pode ser modificado, descompilado nem vendido.':
+    'Church Lower Thirds ist kostenlos: Es darf frei heruntergeladen und verwendet werden, auch für kommerzielle Arbeiten. Der Code ist geschlossen und darf nicht verändert, dekompiliert oder verkauft werden.',
+  'Ler a licença': 'Lizenz lesen',
+  'Componentes de terceiros': 'Komponenten Dritter',
   'No ar agora': 'Jetzt im Bild',
   'No ar': 'Im Bild',
   'Fora do ar': 'Nicht im Bild',
@@ -761,8 +780,8 @@ export default {
   'O Church Lower Thirds coloca nomes, avisos, QR Code e o logo da igreja por cima do vídeo no OBS Studio. São três partes:':
     'Church Lower Thirds legt Namen, Hinweise, QR-Code und das Gemeindelogo über das Video in OBS Studio. Es besteht aus drei Teilen:',
   'O programa': 'Das Programm',
-  'Fica rodando no computador, sem janela, e inicia com o Windows. É ele que guarda as configurações.':
-    'Es läuft ohne Fenster auf dem Computer und startet mit Windows. Es speichert die Einstellungen.',
+  'Fica rodando no computador, sem janela, e inicia quando o computador liga. É ele que guarda as configurações.':
+    'Es läuft ohne Fenster auf dem Computer und startet mit ihm. Es speichert die Einstellungen.',
   'Os gráficos': 'Die Grafiken',
   'Uma fonte de navegador no OBS. É o que aparece na transmissão, com fundo transparente.':
     'Eine Browserquelle in OBS. Sie erscheint im Stream, mit transparentem Hintergrund.',

@@ -728,7 +728,7 @@ app.post('/api/open-settings', (q, r) => {
 });
 
 // ---- In-app update ----
-const canInstallUpdates = process.platform === 'win32';
+const canInstallUpdates = process.platform === 'win32' || process.platform === 'darwin';
 app.get('/api/update', async (q, r) => {
   try {
     r.json({
@@ -750,7 +750,9 @@ void removeUsedSetup(dataDir, appVersion);
 app.get('/api/update/progress', (_q, r) => r.json({ phase: updatePhase, file: lastSetup }));
 app.post('/api/update/install', async (q, r) => {
   if (!canInstallUpdates)
-    return void r.status(501).json({ error: 'Automatic install is only available on Windows' });
+    return void r
+      .status(501)
+      .json({ error: 'Automatic install is only available on Windows and macOS' });
   try {
     const info = await checkForUpdate(appVersion, true);
     if (!info.newer) return void r.status(409).json({ error: 'Already up to date', ...info });
@@ -765,6 +767,19 @@ app.post('/api/update/install', async (q, r) => {
     // folder, for when an update goes wrong. The answer goes out only once Windows has
     // really started the setup: a failure must reach the person as a message.
     updatePhase = 'asking';
+    // On a Mac the package opens in the system's own Installer, in front of everything: it
+    // asks for the password, stops this server (preinstall) and starts the new version.
+    if (process.platform === 'darwin') {
+      // CLT_UPDATE_LAUNCH=none exists for tests only: everything but the Installer window.
+      if (process.env.CLT_UPDATE_LAUNCH === 'none')
+        return void r.json({ ok: true, version: info.latest, how: 'none' });
+      await new Promise<void>((ok, bad) =>
+        execFile('/usr/bin/open', [lastSetup], (e) =>
+          e ? bad(new Error(`macOS did not open the installer: ${e.message}`)) : ok(),
+        ),
+      );
+      return void r.json({ ok: true, version: info.latest, how: 'open' });
+    }
     const how = await startSetup(
       lastSetup,
       ['/SILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/LOG'],
@@ -782,7 +797,8 @@ app.post('/api/update/install', async (q, r) => {
 // Shows the downloaded installer in its folder, for the person to open it themselves.
 app.post('/api/update/reveal', (_q, r) => {
   if (!lastSetup || !canInstallUpdates) return void r.status(404).json({ error: 'No installer' });
-  execFile('explorer.exe', [`/select,${lastSetup}`], () => {});
+  if (process.platform === 'darwin') execFile('/usr/bin/open', ['-R', lastSetup], () => {});
+  else execFile('explorer.exe', [`/select,${lastSetup}`], () => {});
   r.json({ ok: true, file: lastSetup });
 });
 
@@ -790,6 +806,7 @@ app.post('/api/update/reveal', (_q, r) => {
 app.get('/api/info', (_q, r) =>
   r.json({
     version: appVersion,
+    platform: process.platform,
     baseUrl,
     folder: userFolder,
     sourcesDir,
@@ -817,6 +834,17 @@ app.get('/source/:slug', (q, r) =>
 for (const page of ['dock', 'settings', 'overlay'])
   app.get(`/${page}`, (_q, r) => r.sendFile(join(webDir, `${page}.html`)));
 app.get('/', (_q, r) => r.redirect('/settings'));
+// The license of the program and the notices of what it is built with, as plain text. They
+// sit beside package.json: in the source tree and in the installed app.
+for (const [address, name] of [
+  ['/license.txt', 'LICENSE.txt'],
+  ['/third-party-notices.txt', 'THIRD-PARTY-NOTICES.txt'],
+])
+  app.get(address, (_q, r) => {
+    const file = [join(here, '..', '..', name), join(here, '..', name)].find((f) => existsSync(f));
+    if (!file) return void r.status(404).type('text/plain').send('Not found');
+    r.type('text/plain; charset=utf-8').sendFile(file);
+  });
 app.use(express.static(webDir, { extensions: ['html'] }));
 // What is left: an address that does not exist, and anything a route let slip (a body that
 // is not JSON, a file too large). Always a short JSON answer, never a stack trace.

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Starts the Church Lower Thirds server when the person logs in and restarts it if it
+     crashes. One copy per account, in ~/Library/LaunchAgents; nothing in it depends on the
+     account, so the installer and the app use this same file. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.cultoemoff.churchlowerthirds</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Applications/Church Lower Thirds.app/Contents/Resources/run-server.sh</string>
+  </array>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><dict><key>SuccessfulExit</key><false/></dict>
+  <key>ProcessType</key><string>Interactive</string>
+</dict>
+</plist>

@@ -387,6 +387,25 @@ export default {
     'Soft plaques with a fine frame, wedding rings and a heart: for the couples’ ministry',
   'Vinho e rosé': 'Wine and rosé',
   'Alianças e coração': 'Wedding rings and heart',
+  'A atualização foi baixada e o Instalador do macOS abriu (pode estar atrás desta janela): siga os passos dele e digite a senha do Mac quando pedir.':
+    "The update was downloaded and the macOS Installer opened (it may be behind this window): follow its steps and type the Mac's password when asked.",
+  'Instalando: siga os passos do Instalador do macOS. Esta página volta sozinha quando terminar.':
+    'Installing: follow the steps of the macOS Installer. This page comes back by itself when it finishes.',
+  'A instalação ainda não terminou. Veja se o Instalador do macOS está aberto no Dock e conclua os passos dele.':
+    'The installation has not finished yet. See whether the macOS Installer is open in the Dock and complete its steps.',
+  'Baixa a nova versão, confere o arquivo e abre o Instalador do macOS. O programa volta sozinho.':
+    'Downloads the new version, checks the file and opens the macOS Installer. The program comes back by itself.',
+  'O macOS não deixou o programa abrir o instalador sozinho. Ele já foi baixado e conferido: clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.':
+    'macOS did not let the program open the installer by itself. It is already downloaded and checked: click "Show the installer" and open the file with a double click. The settings are kept.',
+  'Se o Instalador não aparecer, clique em "Mostrar o instalador" e abra o arquivo com dois cliques. As configurações são mantidas.':
+    'If the Installer does not appear, click "Show the installer" and open the file with a double click. The settings are kept.',
+  'O macOS não deixou abrir o instalador. Ele já foi baixado: use "Mostrar o instalador".':
+    'macOS did not let the installer open. It is already downloaded: use "Show the installer".',
+  Licença: 'License',
+  'O Church Lower Thirds é gratuito: pode ser baixado e usado à vontade, também em trabalhos comerciais. O código é fechado e não pode ser modificado, descompilado nem vendido.':
+    'Church Lower Thirds is free: it may be downloaded and used freely, in commercial work too. The code is closed and may not be modified, decompiled or sold.',
+  'Ler a licença': 'Read the license',
+  'Componentes de terceiros': 'Third-party components',
   'No ar agora': 'On air now',
   'No ar': 'On air',
   'Fora do ar': 'Off air',
@@ -745,8 +764,8 @@ export default {
   'O Church Lower Thirds coloca nomes, avisos, QR Code e o logo da igreja por cima do vídeo no OBS Studio. São três partes:':
     'Church Lower Thirds puts names, notices, QR codes and the church logo over the video in OBS Studio. There are three parts:',
   'O programa': 'The program',
-  'Fica rodando no computador, sem janela, e inicia com o Windows. É ele que guarda as configurações.':
-    'It runs on the computer, without a window, and starts with Windows. It is what keeps the settings.',
+  'Fica rodando no computador, sem janela, e inicia quando o computador liga. É ele que guarda as configurações.':
+    'It runs on the computer, without a window, and starts when the computer does. It is what keeps the settings.',
   'Os gráficos': 'The graphics',
   'Uma fonte de navegador no OBS. É o que aparece na transmissão, com fundo transparente.':
     'A browser source in OBS. It is what appears on the stream, with a transparent background.',

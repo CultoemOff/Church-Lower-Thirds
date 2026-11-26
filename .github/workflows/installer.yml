@@ -35,13 +35,16 @@ jobs:
           New-Item -ItemType Directory -Force package\runtime | Out-Null
           Copy-Item -Recurse -Force dist\* package\app\dist\
           Copy-Item -Recurse -Force src\web\* package\app\dist\web\
-          Copy-Item package.json, package-lock.json package\app\
+          Copy-Item package.json, package-lock.json, LICENSE.txt package\app\
           Copy-Item scripts\windows\start-server.vbs, scripts\windows\open-settings.vbs, scripts\windows\run-setup.vbs, scripts\windows\stop-server.ps1 package\
           Copy-Item "$env:ProgramFiles\nodejs\node.exe" package\runtime\node.exe
           Push-Location package\app
           npm ci --omit=dev
           if ($LASTEXITCODE -ne 0) { throw "npm ci failed in the package." }
           Pop-Location
+          # The licenses of what the program is built with travel with it.
+          node scripts\build-notices.mjs package\app package\app\THIRD-PARTY-NOTICES.txt
+          if ($LASTEXITCODE -ne 0) { throw "Third-party notices were not written." }
       - name: Build installer
         shell: pwsh
         run: |
@@ -54,6 +57,11 @@ jobs:
             $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
           }
           $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          # The license page of the setup: the same text, with the mark that makes Inno
+          # Setup read it as UTF-8 (without it the accented letters come out wrong).
+          New-Item -ItemType Directory -Force installer\output | Out-Null
+          $license = [IO.File]::ReadAllText("$PWD\LICENSE.txt", [Text.Encoding]::UTF8)
+          [IO.File]::WriteAllText("$PWD\installer\output\LICENSE-setup.txt", $license, (New-Object Text.UTF8Encoding $true))
           & $iscc "/DMyAppVersion=$version" installer\Church-Lower-Thirds.iss
           if ($LASTEXITCODE -ne 0) { throw "Inno Setup failed." }
       - name: Setup can be started by the program itself
@@ -73,6 +81,7 @@ jobs:
           $code = Run-Setup '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART'
           if ($code -ne 0) { throw "Installer exited with $code" }
           $expected = "$dir\runtime\node.exe", "$dir\app\dist\server\index.js", "$dir\app\dist\web\overlay.html",
+            "$dir\app\LICENSE.txt", "$dir\app\THIRD-PARTY-NOTICES.txt",
             "$dir\start-server.vbs", "$dir\open-settings.vbs", "$dir\run-setup.vbs", "$dir\stop-server.ps1", "$dir\church-lower-thirds.ico"
           $missing = @($expected | Where-Object { -not (Test-Path $_) })
           if ($missing) { throw "Missing after install: $($missing -join ', ')" }
@@ -129,6 +138,12 @@ jobs:
             $res = Invoke-WebRequest "$base$js" -UseBasicParsing
             if ($res.Headers['Content-Type'] -notmatch 'javascript') { throw "$js served as $($res.Headers['Content-Type'])" }
           }
+          # The license and the notices of the components, as the About page links them.
+          $lic = Invoke-WebRequest "$base/license.txt" -UseBasicParsing
+          if ($lic.Content -notmatch 'Culto em Off' -or $lic.Content -notmatch 'reverse engineer') { throw "The license is not served" }
+          $notices = Invoke-WebRequest "$base/third-party-notices.txt" -UseBasicParsing
+          if ($notices.Content -notmatch 'express@' -or $notices.Content -notmatch 'SIL OPEN FONT LICENSE') { throw "The third-party notices are not served" }
+          if ($info.platform -ne 'win32') { throw "The program says it runs on '$($info.platform)'" }
           # The small pictures of the ready-made models are the overlay itself.
           $res = Invoke-WebRequest "$base/overlay?preview=model&model=easter" -UseBasicParsing
           if ($res.StatusCode -ne 200) { throw "Model picture did not load" }
@@ -343,26 +358,200 @@ jobs:
           }
           try { Invoke-RestMethod "$base/api/health" -TimeoutSec 2 | Out-Null; throw "Server still running after uninstall" } catch { if ($_.Exception.Message -match 'still running') { throw } }
           Write-Host "Uninstall removed the app and stopped the server."
-      - name: Generate checksum
+      - name: Name the installer after its version
         shell: pwsh
         run: |
           $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
-          $name = "Church-Lower-Thirds-Setup-$version.exe"
-          Move-Item installer\output\Church-Lower-Thirds-Setup.exe "installer\output\$name"
-          $hash = (Get-FileHash "installer\output\$name" -Algorithm SHA256).Hash.ToLower()
-          "$hash *$name" | Set-Content -Encoding ascii installer\output\SHA256SUMS.txt
+          Move-Item installer\output\Church-Lower-Thirds-Setup.exe "installer\output\Church-Lower-Thirds-Setup-$version.exe"
       - uses: actions/upload-artifact@v4
         with:
           name: Church-Lower-Thirds-Setup
-          path: |
-            installer/output/Church-Lower-Thirds-Setup-*.exe
-            installer/output/SHA256SUMS.txt
+          path: installer/output/Church-Lower-Thirds-Setup-*.exe
           if-no-files-found: error
 
-  # main publishes a release in this repository; versions like 0.1.0-beta.1 are pre-releases.
+  macos:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+      - name: Install dependencies
+        run: npm ci
+      - name: Unit tests
+        run: npm test
+      - name: Build TypeScript
+        run: npm run build
+      - name: Universal Node.js runtime
+        run: |
+          v=$(node -p process.version)
+          dl="$RUNNER_TEMP/node"
+          mkdir -p "$dl" stage/runtime
+          curl -fsSL "https://nodejs.org/dist/$v/SHASUMS256.txt" -o "$dl/SHASUMS256.txt"
+          for a in arm64 x64; do
+            f="node-$v-darwin-$a.tar.gz"
+            curl -fsSL "https://nodejs.org/dist/$v/$f" -o "$dl/$f"
+            (cd "$dl" && grep " $f\$" SHASUMS256.txt | shasum -a 256 -c -)
+            tar -xzf "$dl/$f" -C "$dl"
+          done
+          lipo -create "$dl/node-$v-darwin-arm64/bin/node" "$dl/node-$v-darwin-x64/bin/node" -output stage/runtime/node
+          lipo -archs stage/runtime/node
+          # Each slice keeps the Node.js project's own signature.
+          codesign --verify --verbose stage/runtime/node
+          stage/runtime/node -v
+          if /usr/bin/arch -x86_64 /usr/bin/true 2>/dev/null; then
+            /usr/bin/arch -x86_64 stage/runtime/node -p "process.arch + ' ' + process.version"
+          else
+            echo "Rosetta is not available on this runner; skipping the x86_64 run."
+          fi
+      - name: Prepare application
+        run: |
+          mkdir -p stage/app/dist/web
+          cp -R dist/* stage/app/dist/
+          cp -R src/web/* stage/app/dist/web/
+          cp package.json package-lock.json LICENSE.txt stage/app/
+          (cd stage/app && npm ci --omit=dev)
+          node scripts/build-notices.mjs stage/app stage/app/THIRD-PARTY-NOTICES.txt
+      - name: Build package
+        run: |
+          version=$(node -p "require('./package.json').version")
+          installer/macos/build-pkg.sh "$version" stage "installer/output/Church-Lower-Thirds-macOS-$version.pkg"
+      - name: Package test 1 of 3 - install, pages and files
+        run: |
+          version=$(node -p "require('./package.json').version")
+          app="/Applications/Church Lower Thirds.app"
+          res="$app/Contents/Resources"
+          agent="$HOME/Library/LaunchAgents/com.cultoemoff.churchlowerthirds.plist"
+          data="$HOME/Library/Application Support/Church Lower Thirds"
+          base=http://127.0.0.1:8795
+          sudo installer -pkg "installer/output/Church-Lower-Thirds-macOS-$version.pkg" -target /
+          for f in "$res/runtime/node" "$res/app/dist/server/index.js" "$res/app/dist/web/overlay.html" \
+            "$res/app/LICENSE.txt" "$res/app/THIRD-PARTY-NOTICES.txt" "$app/Contents/MacOS/Church Lower Thirds" \
+            "$res/church-lower-thirds.icns" "$res/run-server.sh" "$res/uninstall.sh" "$res/launchagent.plist" \
+            "$agent" "$data/install.json"; do
+            [ -e "$f" ] || { echo "Missing after install: $f"; exit 1; }
+          done
+          plutil -lint "$agent" "$app/Contents/Info.plist"
+          bash -n "$app/Contents/MacOS/Church Lower Thirds"
+          bash -n "$res/run-server.sh"
+          echo "install.json: $(cat "$data/install.json")"
+          grep -Eq '"language":"(pt-BR|pt-PT|es|en|it|de)"' "$data/install.json"
+          # launchd starts the server right after the install.
+          health=""
+          for _ in $(seq 1 60); do health=$(curl -fs $base/api/health) && break; sleep 0.5; done
+          echo "health: $health"
+          [[ "$health" == *"\"version\":\"$version\""* ]] || { launchctl print "gui/$(id -u)/com.cultoemoff.churchlowerthirds" || true; cat "$HOME/Library/Logs/Church Lower Thirds/server.log" || true; exit 1; }
+          # The person's files: in Movies (Documents is guarded on a Mac), with the OBS sources.
+          info=""
+          for _ in $(seq 1 40); do info=$(curl -fs $base/api/info); [[ "$info" == *'"sourcesDir":"/'* ]] && break; sleep 0.5; done
+          echo "info: $info"
+          files="$HOME/Movies/Church Lower Thirds"
+          node -e "const i = JSON.parse(process.argv[1]); if (i.platform !== 'darwin' || i.folder !== process.argv[2]) { console.error('Unexpected platform or folder', i.platform, i.folder); process.exit(1) }" "$info" "$files"
+          for f in "Data/config.json" "OBS Sources/All Elements.html" "OBS Sources/Names.html" "OBS Sources/Names (Vertical).html" "OBS Sources/Control Dock.html" "OBS Sources/Read me.txt"; do
+            [ -f "$files/$f" ] || { echo "Missing in the files folder: $f"; exit 1; }
+          done
+          grep -q '/source/names' "$files/OBS Sources/Names.html" || { echo "Names.html does not open the names source"; exit 1; }
+          grep -q '"port":8795' "$data/location.json" || { echo "location.json: $(cat "$data/location.json")"; exit 1; }
+          for page in /dock /settings /overlay /source/all "/source/badge?layout=vertical"; do
+            curl -fs "$base$page" | grep -q 'Church Lower Thirds' || { echo "$page did not load"; exit 1; }
+          done
+          for js in /dock.js /settings.js /overlay.js /js/common.js /js/i18n/en.js; do
+            curl -fsI "$base$js" | grep -qi '^content-type: .*javascript' || { echo "$js not served as JavaScript"; exit 1; }
+          done
+          curl -fs $base/license.txt | grep -q 'reverse engineer' || { echo "The license is not served"; exit 1; }
+          curl -fs $base/third-party-notices.txt | grep -q 'express@' || { echo "The third-party notices are not served"; exit 1; }
+          curl -fs "$base/fonts/outfit-latin-wght-normal.woff2" -o "$RUNNER_TEMP/font.woff2"
+          [ "$(stat -f%z "$RUNNER_TEMP/font.woff2")" -gt 5000 ]
+          # The fonts installed on the Mac (CoreText, through osascript).
+          fonts=$(curl -fs $base/api/fonts)
+          node -e "const f = JSON.parse(process.argv[1]); console.log('fonts:', f.length); if (f.length < 5 || !f.includes('Helvetica')) { console.error(f.slice(0, 20)); process.exit(1) }" "$fonts"
+          # On air and off again; a QR code; a page from another site is refused.
+          shown=$(curl -fs -X POST "$base/api/live/lower/show?item=1")
+          node -e "if (!JSON.parse(process.argv[1]).live.lower.on) { console.error('The name did not go on air'); process.exit(1) }" "$shown"
+          curl -fs -X POST "$base/api/live/all/hide" > /dev/null || { echo "Hide all failed"; exit 1; }
+          curl -fs -D - -o /dev/null "$base/api/qr.svg?text=https%3A%2F%2Fexample.org%2Foferta" | grep -qi '^content-type: .*svg' || { echo "The QR code was not drawn"; exit 1; }
+          if curl -fs -X POST -H 'Origin: https://example.com' "$base/api/live/top/show" > /dev/null; then echo "A foreign origin was accepted"; exit 1; fi
+          echo "Installed server v$version OK on macOS."
+      - name: Package test 2 of 3 - the update check and download
+        run: |
+          version=$(node -p "require('./package.json').version")
+          res="/Applications/Church Lower Thirds.app/Contents/Resources"
+          # A local stand-in for GitHub offers this same package as v99: the program must
+          # pick the macOS package (not the Windows setup), download it and check its SHA-256.
+          rel="$RUNNER_TEMP/fake-release"
+          mkdir -p "$rel"
+          cp "installer/output/Church-Lower-Thirds-macOS-$version.pkg" "$rel/Church-Lower-Thirds-macOS-99.0.0.pkg"
+          echo "not the installer of this system" > "$rel/Church-Lower-Thirds-Setup-99.0.0.exe"
+          (cd "$rel" && shasum -a 256 Church-Lower-Thirds-macOS-99.0.0.pkg Church-Lower-Thirds-Setup-99.0.0.exe | sed 's/  / */' > SHA256SUMS.txt)
+          cat > "$rel/releases.json" <<JSON
+          [{"tag_name":"v99.0.0","html_url":"http://127.0.0.1:8899/","assets":[
+            {"name":"Church-Lower-Thirds-Setup-99.0.0.exe","browser_download_url":"http://127.0.0.1:8899/Church-Lower-Thirds-Setup-99.0.0.exe"},
+            {"name":"Church-Lower-Thirds-macOS-99.0.0.pkg","browser_download_url":"http://127.0.0.1:8899/Church-Lower-Thirds-macOS-99.0.0.pkg"},
+            {"name":"SHA256SUMS.txt","browser_download_url":"http://127.0.0.1:8899/SHA256SUMS.txt"}]}]
+          JSON
+          (cd "$rel" && python3 -m http.server 8899 --bind 127.0.0.1 > /dev/null 2>&1 &)
+          for _ in $(seq 1 40); do curl -fs http://127.0.0.1:8899/releases.json > /dev/null && break; sleep 0.25; done
+          # A second copy of the installed program, on its own port and folder, told where
+          # the releases are; "none" keeps it from opening the Installer window on the runner.
+          (cd "$res/app" && CLT_UPDATE_API=http://127.0.0.1:8899/releases.json CLT_UPDATE_LAUNCH=none \
+            CLT_DATA_DIR="$RUNNER_TEMP/clt-data" PORT=8797 "$res/runtime/node" dist/server/index.js > "$RUNNER_TEMP/second.log" 2>&1 &)
+          base=http://127.0.0.1:8797
+          for _ in $(seq 1 60); do curl -fs $base/api/health > /dev/null && break; sleep 0.5; done
+          u=$(curl -fs "$base/api/update?force=1")
+          echo "update: $u"
+          node -e "const u = JSON.parse(process.argv[1]); if (!u.newer || u.latest !== '99.0.0' || !u.canInstall || u.setupName !== 'Church-Lower-Thirds-macOS-99.0.0.pkg') process.exit(1)" "$u"
+          r=$(curl -fs -X POST -H 'content-type: application/json' -d '{}' "$base/api/update/install") || { cat "$RUNNER_TEMP/second.log"; exit 1; }
+          echo "install: $r"
+          [[ "$r" == *'"ok":true'* && "$r" == *'"how":"none"'* ]]
+          got="$HOME/Library/Caches/Church Lower Thirds/Church-Lower-Thirds-macOS-99.0.0.pkg"
+          cmp "$got" "$rel/Church-Lower-Thirds-macOS-99.0.0.pkg"
+          pkgutil --check-signature "$got" || true
+          pkill -f "http.server 8899" || true
+          pkill -f "PORT=8797" || true
+          kill "$(lsof -ti tcp:8797)" 2>/dev/null || true
+          rm -f "$got"
+          echo "Update on macOS: the right package offered, downloaded and verified."
+      - name: Package test 3 of 3 - restart after a crash, uninstall
+        run: |
+          app="/Applications/Church Lower Thirds.app"
+          res="$app/Contents/Resources"
+          agent="$HOME/Library/LaunchAgents/com.cultoemoff.churchlowerthirds.plist"
+          base=http://127.0.0.1:8795
+          # launchd restarts the server if it crashes.
+          pid=$(pgrep -f "$res/app/dist/server/index.js" | head -1)
+          kill -9 "$pid"
+          health=""
+          for _ in $(seq 1 60); do sleep 0.5; health=$(curl -fs $base/api/health) && break; done
+          [ -n "$health" ] || { echo "Server was not restarted by launchd"; exit 1; }
+          # Installing over itself (what an update does) keeps the settings.
+          curl -fs -X POST -H 'content-type: application/json' -d '{"brand.name":"Igreja Teste"}' $base/api/patch > /dev/null
+          version=$(node -p "require('./package.json').version")
+          sudo installer -pkg "installer/output/Church-Lower-Thirds-macOS-$version.pkg" -target /
+          health=""
+          for _ in $(seq 1 60); do sleep 0.5; health=$(curl -fs $base/api/health) && break; done
+          [ -n "$health" ] || { echo "Server did not come back after installing over itself"; exit 1; }
+          curl -fs $base/api/state | grep -q '"name":"Igreja Teste"' || { echo "Settings lost by installing over itself"; exit 1; }
+          sudo "$res/uninstall.sh"
+          sleep 2
+          if curl -fs $base/api/health; then echo "Server still running after uninstall"; exit 1; fi
+          for f in "$app" "$agent"; do
+            [ ! -e "$f" ] || { echo "Left behind after uninstall: $f"; exit 1; }
+          done
+          [ -f "$HOME/Movies/Church Lower Thirds/Data/config.json" ] || { echo "The person's settings were removed by the uninstall"; exit 1; }
+          echo "Restarted by launchd after a crash; update keeps the settings; uninstall removes the app and leaves the person's files."
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Church-Lower-Thirds-macOS
+          path: installer/output/Church-Lower-Thirds-macOS-*.pkg
+          if-no-files-found: error
+
+  # main publishes every version twice: in this repository, and in the public downloads
+  # repository (installers only), which is where the program looks for updates. Versions
+  # like 1.1.0-beta.1 are pre-releases.
   publish:
     if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
-    needs: windows
+    needs: [windows, macos]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -372,7 +561,18 @@ jobs:
         with:
           name: Church-Lower-Thirds-Setup
           path: out
-      - name: Publish release
+      - uses: actions/download-artifact@v4
+        with:
+          name: Church-Lower-Thirds-macOS
+          path: out
+      - name: Checksums for both installers
+        run: |
+          cd out
+          # One line per installer; the program looks up its own file by name.
+          sha256sum -b Church-Lower-Thirds-Setup-*.exe Church-Lower-Thirds-macOS-*.pkg > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+          [ "$(wc -l < SHA256SUMS.txt)" -eq 2 ]
+      - name: Publish release in this repository
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -381,10 +581,55 @@ jobs:
           flags=()
           title="Church Lower Thirds v$version"
           case "$version" in *-*) flags+=(--prerelease); title="$title (beta)" ;; esac
-          (cd out && tr -d '\r' < SHA256SUMS.txt | sha256sum -c -)
           if gh release view "$tag" >/dev/null 2>&1; then
-            gh release edit "$tag" --title "$title" --notes-file installer/BETA-NOTES.md "${flags[@]}"
+            gh release edit "$tag" --title "$title" --notes-file installer/RELEASE-NOTES.md "${flags[@]}"
           else
-            gh release create "$tag" --target "$GITHUB_SHA" --title "$title" --notes-file installer/BETA-NOTES.md "${flags[@]}"
+            gh release create "$tag" --target "$GITHUB_SHA" --title "$title" --notes-file installer/RELEASE-NOTES.md "${flags[@]}"
           fi
-          gh release upload "$tag" out/*.exe out/SHA256SUMS.txt --clobber
+          gh release upload "$tag" out/*.exe out/*.pkg out/SHA256SUMS.txt --clobber
+      - name: Keep the page of the downloads repository up to date
+        env:
+          GH_TOKEN: ${{ secrets.RELEASES_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::warning::RELEASES_TOKEN is not configured: the downloads repository was not updated."
+            exit 0
+          fi
+          # Its README, the license and the pictures are the ones kept here. First, so that
+          # a repository still empty has a commit for the release to point at.
+          repo="CultoemOff/Church-Lower-Thirds-Releases"
+          version=$(node -p "require('./package.json').version")
+          src="$PWD"
+          git clone --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/$repo.git" "$RUNNER_TEMP/pub"
+          cd "$RUNNER_TEMP/pub"
+          mkdir -p docs/media
+          cp "$src/README.md" "$src/README.en.md" "$src/LICENSE.txt" .
+          rsync -a --delete "$src/docs/media/" docs/media/
+          git add -A
+          if git diff --cached --quiet; then
+            echo "The page is already up to date."
+            exit 0
+          fi
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "Church Lower Thirds v$version"
+          git push -q origin HEAD:main
+      - name: Publish release in the public downloads repository
+        env:
+          GH_TOKEN: ${{ secrets.RELEASES_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::warning::RELEASES_TOKEN is not configured: nothing was published in the downloads repository."
+            exit 0
+          fi
+          repo="CultoemOff/Church-Lower-Thirds-Releases"
+          version=$(node -p "require('./package.json').version")
+          tag="v$version"
+          flags=()
+          title="Church Lower Thirds v$version"
+          case "$version" in *-*) flags+=(--prerelease); title="$title (beta)" ;; esac
+          if gh release view "$tag" --repo "$repo" >/dev/null 2>&1; then
+            gh release edit "$tag" --repo "$repo" --title "$title" --notes-file installer/RELEASE-NOTES.md "${flags[@]}"
+          else
+            gh release create "$tag" --repo "$repo" --title "$title" --notes-file installer/RELEASE-NOTES.md "${flags[@]}"
+          fi
+          gh release upload "$tag" out/*.exe out/*.pkg out/SHA256SUMS.txt --repo "$repo" --clobber

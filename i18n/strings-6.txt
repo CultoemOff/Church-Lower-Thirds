@@ -208,11 +208,11 @@ El programa
 Il programma
 Das Programm
 
-Fica rodando no computador, sem janela, e inicia com o Windows. É ele que guarda as configurações.
-It runs on the computer, without a window, and starts with Windows. It is what keeps the settings.
-Queda funcionando en el equipo, sin ventana, y se inicia con Windows. Es el que guarda los ajustes.
-Resta in esecuzione sul computer, senza finestra, e si avvia con Windows. È lui a conservare le impostazioni.
-Es läuft ohne Fenster auf dem Computer und startet mit Windows. Es speichert die Einstellungen.
+Fica rodando no computador, sem janela, e inicia quando o computador liga. É ele que guarda as configurações.
+It runs on the computer, without a window, and starts when the computer does. It is what keeps the settings.
+Queda funcionando en el equipo, sin ventana, y se inicia al encender el equipo. Es el que guarda los ajustes.
+Resta in esecuzione sul computer, senza finestra, e si avvia all’accensione del computer. È lui a conservare le impostazioni.
+Es läuft ohne Fenster auf dem Computer und startet mit ihm. Es speichert die Einstellungen.
 
 Os gráficos
 The graphics

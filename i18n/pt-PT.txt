@@ -70,8 +70,8 @@ Contribuições: dízimos e ofertas
 Link: página de doações ou serviço de pagamentos
 Ligação: página de donativos ou serviço de pagamentos
 
-Fica rodando no computador, sem janela, e inicia com o Windows. É ele que guarda as configurações.
-Fica a correr no computador, sem janela, e inicia com o Windows. É ele que guarda as definições.
+Fica rodando no computador, sem janela, e inicia quando o computador liga. É ele que guarda as configurações.
+Fica a funcionar no computador, sem janela, e inicia quando o computador liga. É ele que guarda as definições.
 
 Um dock dentro do OBS. É onde você clica para mostrar e esconder cada coisa durante o culto.
 Uma dock dentro do OBS. É onde clica para mostrar e esconder cada coisa durante o culto.
