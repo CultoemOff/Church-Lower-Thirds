@@ -363,11 +363,15 @@ jobs:
         run: |
           $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
           Move-Item installer\output\Church-Lower-Thirds-Setup.exe "installer\output\Church-Lower-Thirds-Setup-$version.exe"
+      # Only handed to the publish job: kept for a few days instead of 90 (the artifact
+      # storage of the account filled up). Outside main a full storage fails nothing.
       - uses: actions/upload-artifact@v4
+        continue-on-error: ${{ github.ref != 'refs/heads/main' }}
         with:
           name: Church-Lower-Thirds-Setup
           path: installer/output/Church-Lower-Thirds-Setup-*.exe
           if-no-files-found: error
+          retention-days: 3
 
   macos:
     runs-on: macos-15
@@ -541,10 +545,12 @@ jobs:
           [ -f "$HOME/Movies/Church Lower Thirds/Data/config.json" ] || { echo "The person's settings were removed by the uninstall"; exit 1; }
           echo "Restarted by launchd after a crash; update keeps the settings; uninstall removes the app and leaves the person's files."
       - uses: actions/upload-artifact@v4
+        continue-on-error: ${{ github.ref != 'refs/heads/main' }}
         with:
           name: Church-Lower-Thirds-macOS
           path: installer/output/Church-Lower-Thirds-macOS-*.pkg
           if-no-files-found: error
+          retention-days: 3
 
   # main publishes every version twice: in this repository, and in the public downloads
   # repository (installers only), which is where the program looks for updates. Versions
