@@ -22,6 +22,13 @@ export interface LowerItem {
   /** 'giving' = the church's contribution QR, whatever method is configured; 'url' = any link */
   qr: 'none' | 'giving' | 'url';
   qrText: string;
+  /** The group of names it is filed under in the dock ('' = none): an id of lower.groups */
+  group: string;
+}
+/** A group of saved names ("Pastores", "Louvor"…): the dock lists and folds them by group. */
+export interface NameGroup {
+  id: string;
+  name: string;
 }
 
 export const LOWER_TEMPLATES = [
@@ -96,6 +103,12 @@ export interface SavedCard {
   qr: 'giving' | 'pixkey' | 'url';
   qrText: string;
 }
+export interface CardDraft {
+  title: string;
+  subtitle: string;
+  qrText: string;
+}
+export type CardDrafts = Record<SavedCard['qr'], CardDraft>;
 export interface SavedComment {
   id: string;
   user: string;
@@ -209,9 +222,13 @@ export function defaults() {
       comment: true,
       countdown: true,
       bug: true,
+      /** The order of service is not an element: switched off, only its tab leaves the dock. */
+      rundown: true,
     },
-    /** How long names and the QR card stay on screen, in seconds (0 = until hidden). */
-    /** Seconds names, QR card, schedule and social stay on screen (0 = until hidden). */
+    /**
+     * Seconds names, social networks and comments stay on screen (0 = until hidden). The QR
+     * card does not follow it: people need time to scan, so it stays until it is hidden.
+     */
     timing: { autoHide: 10 },
     /** The setup assistant opens by itself until the person finishes or closes it. */
     setupDone: false,
@@ -295,7 +312,16 @@ export function defaults() {
       marginY: 90,
       ...free(),
       /** Name typed in the dock and shown at once, without saving it to the list */
-      quick: { id: 'quick', line1: '', line2: '', logo: true, qr: 'none', qrText: '' } as LowerItem,
+      quick: {
+        id: 'quick',
+        line1: '',
+        line2: '',
+        logo: true,
+        qr: 'none',
+        qrText: '',
+        group: '',
+      } as LowerItem,
+      groups: [] as NameGroup[],
       items: [
         {
           id: 'exemplo1',
@@ -304,6 +330,7 @@ export function defaults() {
           logo: true,
           qr: 'none',
           qrText: '',
+          group: '',
         },
         {
           id: 'exemplo2',
@@ -312,6 +339,7 @@ export function defaults() {
           logo: false,
           qr: 'giving',
           qrText: '',
+          group: '',
         },
       ] as LowerItem[],
     },
@@ -384,6 +412,16 @@ export function defaults() {
       qrText: '',
       qrRound: false,
       saved: [] as SavedCard[],
+      /**
+       * What the dock has written for each kind of QR (main contribution, another PIX key,
+       * a link): each keeps its own title and text, so that choosing another kind does not
+       * carry the texts of the one before.
+       */
+      drafts: {
+        giving: { title: 'Dízimos e ofertas', subtitle: 'Aponte a câmera do celular', qrText: '' },
+        pixkey: { title: '', subtitle: '', qrText: '' },
+        url: { title: '', subtitle: '', qrText: '' },
+      } as CardDrafts,
     },
     ticker: {
       /** false = follows the global theme; true = uses the colors, font and effects below */
@@ -612,7 +650,8 @@ export interface Live {
   /** pin: stays on screen when the global time ends, until hidden by hand */
   lower: { on: boolean; item: string; pin: boolean };
   top: { on: boolean };
-  card: { on: boolean; pin: boolean };
+  /** The QR card has no time: it stays until it is hidden. */
+  card: { on: boolean };
   bug: { on: boolean };
   ticker: { on: boolean };
   agenda: { on: boolean; pin: boolean };
@@ -624,11 +663,11 @@ export interface Live {
   step: string;
 }
 /** Elements that leave by themselves, and so can be pinned. */
-export const TIMED = ['lower', 'card', 'agenda', 'social', 'comment'] as const;
+export const TIMED = ['lower', 'agenda', 'social', 'comment'] as const;
 export const liveDefaults = (): Live => ({
   lower: { on: false, item: '', pin: false },
   top: { on: false },
-  card: { on: false, pin: false },
+  card: { on: false },
   bug: { on: false },
   ticker: { on: false },
   agenda: { on: false, pin: false },
@@ -730,6 +769,7 @@ function cleanItem(raw: unknown, allowEmpty = false): LowerItem | undefined {
     logo: r.logo !== false,
     qr: qrKind(r.qr) === 'giving' ? 'giving' : r.qr === 'url' ? 'url' : 'none',
     qrText: text(r.qrText, 600).trim(),
+    group: typeof r.group === 'string' && /^[a-z0-9]{4,20}$/i.test(r.group) ? r.group : '',
   };
 }
 
@@ -743,7 +783,22 @@ function clean(def: unknown, raw: unknown, path: string, key: string): unknown {
       .filter((i): i is LowerItem => !!i && !seen.has(i.id) && !!seen.add(i.id));
   }
   if (path === 'lower.quick')
-    return { ...(cleanItem(raw, true) ?? (def as LowerItem)), id: 'quick' };
+    return { ...(cleanItem(raw, true) ?? (def as LowerItem)), id: 'quick', group: '' };
+  if (path === 'lower.groups')
+    return list<NameGroup>(raw, def, 30, (r) => {
+      const name = text(r.name, 40).trim();
+      return name ? { id: id(r.id), name } : undefined;
+    });
+  if (path === 'card.drafts') {
+    if (!raw || typeof raw !== 'object') return def;
+    const r = raw as Record<string, Record<string, unknown> | undefined>,
+      one = (kind: string): CardDraft => ({
+        title: text(r[kind]?.title, 60).trim(),
+        subtitle: text(r[kind]?.subtitle, 90).trim(),
+        qrText: kind === 'giving' ? '' : text(r[kind]?.qrText, 600).trim(),
+      });
+    return { giving: one('giving'), pixkey: one('pixkey'), url: one('url') };
+  }
   if (path === 'card.saved') {
     const seen = new Set<string>();
     return (Array.isArray(raw) ? raw : [])
@@ -843,8 +898,28 @@ function clean(def: unknown, raw: unknown, path: string, key: string): unknown {
   return typeof raw === 'string' ? text(raw, max) : def;
 }
 
+/** Things in one part of the settings that depend on another part, or on what was saved. */
+function settle(config: Config, raw: unknown) {
+  // A name filed under a group that is gone goes back to the names without a group.
+  const groups = new Set(config.lower.groups.map((g) => g.id));
+  for (const item of config.lower.items) if (!groups.has(item.group)) item.group = '';
+  // The texts of each kind of QR in the dock. Before they existed there was one title and
+  // one text for every kind: settings saved then give them to the kind that was in use
+  // (the main contribution keeps the usual ones when it was not the one).
+  const before = (raw as { card?: { drafts?: unknown } } | null)?.card;
+  if (before && typeof before === 'object' && typeof before.drafts !== 'object') {
+    const c = config.card;
+    c.drafts[c.qr as SavedCard['qr']] = {
+      title: c.title,
+      subtitle: c.subtitle,
+      qrText: c.qr === 'giving' ? '' : c.qrText,
+    };
+  }
+  return config;
+}
+
 export function cleanConfig(raw: unknown): Config {
-  const config = clean(defaults(), raw, '', '') as Config;
+  const config = settle(clean(defaults(), raw, '', '') as Config, raw);
   // Versions that only knew PIX kept the text shown beside the QR in pix.display.
   const old = (raw as { pix?: { display?: unknown }; giving?: unknown } | null) ?? {};
   if (!old.giving && typeof old.pix?.display === 'string')
@@ -899,9 +974,9 @@ export function cleanConfig(raw: unknown): Config {
 // The look is one part of a profile; these are the texts and lists of each element, which
 // a shared file leaves out (they are the church's own).
 const CONTENT: Record<ElementName, string[]> = {
-  lower: ['items', 'quick'],
+  lower: ['items', 'quick', 'groups'],
   top: ['messages', 'pinned', 'liveText', 'order', 'interval'],
-  card: ['title', 'subtitle', 'qr', 'qrText', 'saved'],
+  card: ['title', 'subtitle', 'qr', 'qrText', 'saved', 'drafts'],
   ticker: ['messages', 'pinned', 'label'],
   agenda: ['title', 'days'],
   social: ['items', 'prefix'],
@@ -1015,7 +1090,7 @@ export function cleanLive(raw: unknown, config: Config): Live {
       pin: !!r.lower?.pin,
     },
     top: { on: ok.top && !!r.top?.on },
-    card: { on: ok.card && !!r.card?.on, pin: !!r.card?.pin },
+    card: { on: ok.card && !!r.card?.on },
     bug: { on: ok.bug && !!r.bug?.on },
     ticker: { on: ok.ticker && !!r.ticker?.on },
     agenda: {
@@ -1208,6 +1283,7 @@ function sampleConfig(language: string): Config {
   c.top.messages = t.top;
   c.top.liveText = t.live;
   [c.card.title, c.card.subtitle] = pair(t.card);
+  [c.card.drafts.giving.title, c.card.drafts.giving.subtitle] = pair(t.card);
   c.ticker.messages = t.ticker;
   c.ticker.label = t.label;
   c.agenda.title = t.agenda;

@@ -1,6 +1,6 @@
-**Church Lower Thirds 1.0** — lower thirds e overlays para transmissões de igrejas no OBS Studio, agora para **Windows e macOS**. Gratuito.
+**Church Lower Thirds 1.1** — lower thirds e overlays para transmissões de igrejas no OBS Studio, para **Windows e macOS**. Gratuito.
 
-Free lower thirds & overlays for church live streams in OBS Studio, now for **Windows and macOS**.
+Free lower thirds & overlays for church live streams in OBS Studio, for **Windows and macOS**. New in 1.1: the offering card stays on air until it is switched off and has a live miniature in the OBS panel, saved names can be kept in folding groups, each kind of QR keeps its own texts, and the order-of-service tab can be hidden.
 
 ### Download
 
@@ -14,13 +14,16 @@ Free lower thirds & overlays for church live streams in OBS Studio, now for **Wi
 - **Windows:** se o SmartScreen avisar, clique em **Mais informações › Executar assim mesmo**.
 - **macOS:** o pacote ainda não é assinado pela Apple. No macOS 15 ou mais novo, abra **Ajustes do Sistema › Privacidade e Segurança** e clique em **Abrir Mesmo Assim**; no 13 e no 14, clique no arquivo com o botão direito e escolha **Abrir**.
 
-### Novidades da 1.0
+### Novidades da 1.1
 
-- **Versão para macOS**: instalador `.pkg` universal (Apple Silicon e Intel). O programa fica em Aplicativos, inicia com o Mac e guarda os seus arquivos em **Filmes › Church Lower Thirds**. A atualização com um clique também funciona no Mac. É a primeira versão para macOS: foi instalada e testada de forma automática, e relatos de uso real são bem-vindos.
-- **Licença**: o programa é gratuito e de código fechado. Pode ser baixado e usado à vontade, também em trabalhos comerciais; o código não pode ser modificado, descompilado nem vendido. A licença aparece nos instaladores e em **Sobre › Licença**.
-- **Novo endereço de downloads**: os instaladores e as atualizações passam a sair neste repositório público.
-- Tudo o que veio nas versões beta: nove elementos (nomes, ofertas e dízimos, selo, barra de avisos, agenda, redes, comentários, contagem regressiva e logo), 25 modelos e 30 conjuntos de cores, modelos temáticos, vidro líquido, modelos próprios, perfis com todos os dados separados, roteiro do culto, lista de nomes por CSV, criação das fontes no OBS com um clique, layout vertical e seis idiomas.
+- **Ofertas e dízimos ficam no ar até serem desligados.** O cartão com o QR Code não segue mais o tempo na tela (as pessoas precisam de tempo para apontar a câmera). Por isso a aba não tem mais o botão de fixar. Nomes, redes, comentários e agenda continuam como antes.
+- **Miniatura do cartão no painel do OBS.** A aba de ofertas mostra o cartão como ele vai aparecer: a imagem do QR Code, o título, o texto de apoio, os dados e as cores do modelo. A miniatura acompanha o que é digitado, antes de clicar em "Mostrar".
+- **Ofertas salvas com mais detalhe:** cada uma mostra o seu QR Code, o título, o texto de apoio e a chave ou o link.
+- **Trocar a imagem do QR pelo painel:** o botão abaixo da miniatura abre as configurações no navegador, já na parte da contribuição.
+- **Corrigido:** o título e o texto de apoio apareciam iguais em "Principal", "Outra chave PIX" e "Link". Agora cada um guarda os seus.
+- **Grupos de nomes.** O botão "+ Grupo" cria grupos (Pastores, Louvor, Convidados…). Cada grupo pode ser minimizado, renomeado e removido (os nomes continuam na lista). A busca procura em todos os grupos de uma vez. Nas configurações, cada nome ganhou o campo do grupo.
+- **Esconder o roteiro.** Quem não usa o roteiro do culto pode tirar a aba do painel: "Esconder esta aba" no próprio roteiro, ou o olho de "Roteiro do culto" nas configurações. O roteiro continua guardado.
 
-### Quem vem de uma versão beta
+### Quem atualiza da 1.0
 
-A atualização para a 1.0 é feita pelo botão **Atualizar agora**, e as configurações são mantidas. Depois de atualizar, se o OBS ainda mostrar o visual antigo, use **Atualizar cache da página atual** nas propriedades de cada fonte de navegador.
+A atualização é feita pelo botão **Atualizar agora**, e as configurações são mantidas. O título e o texto do cartão que estavam em uso ficam com o tipo de QR que estava selecionado. Depois de atualizar, se o OBS ainda mostrar o visual antigo, use **Atualizar cache da página atual** nas propriedades de cada fonte de navegador e do painel.

@@ -291,11 +291,11 @@ function setOn(el: ElementName, on: boolean, item?: string) {
   clearTimeout(timers.get(el));
   live[el].on = on;
   if (el === 'lower' || el === 'social') live[el].item = item ?? live[el].item;
-  // Names, the QR card and social networks come and go: one time on screen for all of
-  // them. The agenda leaves after its last day, unless it is set to repeat.
+  // Names, social networks and comments come and go: one time on screen for all of them.
+  // The agenda leaves after its last day, unless it is set to repeat. The QR card has no
+  // time: it stays until somebody hides it (people need time to scan it).
   let seconds = 0;
-  if (el === 'lower' || el === 'card' || el === 'social' || el === 'comment')
-    seconds = config.timing.autoHide;
+  if (el === 'lower' || el === 'social' || el === 'comment') seconds = config.timing.autoHide;
   else if (el === 'agenda' && !config.agenda.loop)
     seconds = config.agenda.days.length * config.agenda.seconds;
   // The countdown leaves a moment after zero, when it is set to.

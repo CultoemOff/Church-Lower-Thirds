@@ -64,8 +64,11 @@ import { autoLocalize, lang, LANGUAGES, t, useLanguage } from './js/i18n.js';
 // Every change is saved at once and shows in the preview and in OBS.
 let config = null,
   live = null,
-  // #rundown in the address opens that page (the dock's "Editar o roteiro").
-  page = location.hash.slice(1) || localStorage.cltPage || 'home',
+  // #rundown in the address opens that page (the dock's "Editar o roteiro"); #giving opens
+  // the page of the church at the way of contributing (the dock's "Trocar imagem do QR").
+  wantGiving = location.hash === '#giving',
+  spotUntil = 0,
+  page = wantGiving ? 'brand' : location.hash.slice(1) || localStorage.cltPage || 'home',
   info = null,
   vertical = false,
   viewItem = '',
@@ -2196,116 +2199,130 @@ const pages = {
     card(
       'Tempo na tela',
       grid(
-        range('timing.autoHide', 'Nomes, QR Code e redes saem sozinhos depois de', 0, 120, ' s', {
-          tip: '0 = ficam na tela até você esconder. O mesmo tempo pode ser trocado no painel do OBS.',
-        }),
-      ),
-    ),
-    card(
-      'Contribuições: dízimos e ofertas',
-      hint(
-        'Escolha como a sua igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão e nos nomes marcados com "Contribuição da igreja".',
-      ),
-      grid(
-        select('giving.method', 'Como as pessoas contribuem', givingMethods(), {
-          rerender: true,
-          wide: true,
-        }),
-        ...(config.giving.method === 'pix'
-          ? [
-              select(
-                'pix.mode',
-                'Como gerar o QR Code',
-                [
-                  ['key', 'Pela chave PIX'],
-                  ['payload', 'Colar o "PIX copia e cola" do banco'],
-                ],
-                { rerender: true },
-              ),
-              ...(config.pix.mode === 'key'
-                ? [
-                    textInput('pix.key', 'Chave PIX', {
-                      placeholder: 'CNPJ, e-mail, telefone ou chave aleatória',
-                      max: 80,
-                    }),
-                    textInput('pix.name', 'Nome do recebedor', {
-                      max: 25,
-                      tip: 'Como está na conta do banco, até 25 letras.',
-                    }),
-                    textInput('pix.city', 'Cidade', { max: 15 }),
-                    textInput('pix.amount', 'Valor fixo (opcional)', {
-                      placeholder: 'Vazio: quem doa escolhe',
-                      max: 14,
-                    }),
-                    textInput('pix.txid', 'Identificador (opcional)', {
-                      placeholder: 'Ex.: OFERTA',
-                      max: 25,
-                    }),
-                  ]
-                : [
-                    field(
-                      'PIX copia e cola',
-                      h('textarea', {
-                        rows: 3,
-                        value: config.pix.payload,
-                        oninput: (e) => set('pix.payload', e.target.value),
-                      }),
-                      { wide: true },
-                    ),
-                  ]),
-            ]
-          : []),
-        ...(config.giving.method === 'sepa'
-          ? [
-              textInput('giving.sepa.name', 'Titular da conta', {
-                max: 70,
-                tip: 'Como está na conta do banco.',
-              }),
-              textInput('giving.sepa.iban', 'IBAN', {
-                placeholder: 'PT50 0000 0000 0000 0000 0000 0',
-                max: 42,
-              }),
-              textInput('giving.sepa.bic', 'BIC / SWIFT (opcional)', { max: 11 }),
-              textInput('giving.sepa.amount', 'Valor fixo em euros (opcional)', {
-                placeholder: 'Vazio: quem doa escolhe',
-                max: 14,
-              }),
-              textInput('giving.sepa.reference', 'Descrição da transferência (opcional)', {
-                placeholder: 'Ex.: Oferta',
-                max: 140,
-              }),
-            ]
-          : []),
-        ...(config.giving.method === 'link'
-          ? [
-              textInput('giving.link', 'Link da contribuição', {
-                placeholder: 'https://…',
-                max: 1000,
-                wide: true,
-                tip: 'Qualquer endereço serve: a página de doações da igreja ou o link de um serviço de pagamentos do seu país.',
-              }),
-            ]
-          : []),
-        ...(config.giving.method === 'image' ? [qrImageField('Imagem do QR Code')] : []),
-        ...(config.giving.method === 'app' ? appFields() : []),
-        field(
-          config.giving.method === 'text'
-            ? 'Dados bancários mostrados no cartão'
-            : 'Dados mostrados ao lado do QR Code',
-          h('textarea', {
-            rows: 4,
-            maxlength: 400,
-            placeholder: 'Uma informação por linha: banco, conta, titular…',
-            value: config.giving.details,
-            oninput: (e) => set('giving.details', e.target.value),
-          }),
+        range(
+          'timing.autoHide',
+          'Nomes, redes e comentários saem sozinhos depois de',
+          0,
+          120,
+          ' s',
           {
-            wide: true,
-            tip: 'Uma informação por linha, até 6 linhas. Vazio: mostra a chave PIX, o IBAN ou o link.',
+            tip: '0 = ficam na tela até você esconder. O mesmo tempo pode ser trocado no painel do OBS.',
           },
         ),
       ),
-      h('div', { id: 'givingCheck' }),
+      hint(
+        'O cartão de ofertas (QR Code) não segue este tempo: fica na tela até ser desligado, para dar tempo de apontar a câmera.',
+      ),
+    ),
+    // (An id: the dock's "Trocar imagem do QR" opens the page here.)
+    Object.assign(
+      card(
+        'Contribuições: dízimos e ofertas',
+        hint(
+          'Escolha como a sua igreja recebe dízimos e ofertas. O QR Code e os dados aparecem no cartão e nos nomes marcados com "Contribuição da igreja".',
+        ),
+        grid(
+          select('giving.method', 'Como as pessoas contribuem', givingMethods(), {
+            rerender: true,
+            wide: true,
+          }),
+          ...(config.giving.method === 'pix'
+            ? [
+                select(
+                  'pix.mode',
+                  'Como gerar o QR Code',
+                  [
+                    ['key', 'Pela chave PIX'],
+                    ['payload', 'Colar o "PIX copia e cola" do banco'],
+                  ],
+                  { rerender: true },
+                ),
+                ...(config.pix.mode === 'key'
+                  ? [
+                      textInput('pix.key', 'Chave PIX', {
+                        placeholder: 'CNPJ, e-mail, telefone ou chave aleatória',
+                        max: 80,
+                      }),
+                      textInput('pix.name', 'Nome do recebedor', {
+                        max: 25,
+                        tip: 'Como está na conta do banco, até 25 letras.',
+                      }),
+                      textInput('pix.city', 'Cidade', { max: 15 }),
+                      textInput('pix.amount', 'Valor fixo (opcional)', {
+                        placeholder: 'Vazio: quem doa escolhe',
+                        max: 14,
+                      }),
+                      textInput('pix.txid', 'Identificador (opcional)', {
+                        placeholder: 'Ex.: OFERTA',
+                        max: 25,
+                      }),
+                    ]
+                  : [
+                      field(
+                        'PIX copia e cola',
+                        h('textarea', {
+                          rows: 3,
+                          value: config.pix.payload,
+                          oninput: (e) => set('pix.payload', e.target.value),
+                        }),
+                        { wide: true },
+                      ),
+                    ]),
+              ]
+            : []),
+          ...(config.giving.method === 'sepa'
+            ? [
+                textInput('giving.sepa.name', 'Titular da conta', {
+                  max: 70,
+                  tip: 'Como está na conta do banco.',
+                }),
+                textInput('giving.sepa.iban', 'IBAN', {
+                  placeholder: 'PT50 0000 0000 0000 0000 0000 0',
+                  max: 42,
+                }),
+                textInput('giving.sepa.bic', 'BIC / SWIFT (opcional)', { max: 11 }),
+                textInput('giving.sepa.amount', 'Valor fixo em euros (opcional)', {
+                  placeholder: 'Vazio: quem doa escolhe',
+                  max: 14,
+                }),
+                textInput('giving.sepa.reference', 'Descrição da transferência (opcional)', {
+                  placeholder: 'Ex.: Oferta',
+                  max: 140,
+                }),
+              ]
+            : []),
+          ...(config.giving.method === 'link'
+            ? [
+                textInput('giving.link', 'Link da contribuição', {
+                  placeholder: 'https://…',
+                  max: 1000,
+                  wide: true,
+                  tip: 'Qualquer endereço serve: a página de doações da igreja ou o link de um serviço de pagamentos do seu país.',
+                }),
+              ]
+            : []),
+          ...(config.giving.method === 'image' ? [qrImageField('Imagem do QR Code')] : []),
+          ...(config.giving.method === 'app' ? appFields() : []),
+          field(
+            config.giving.method === 'text'
+              ? 'Dados bancários mostrados no cartão'
+              : 'Dados mostrados ao lado do QR Code',
+            h('textarea', {
+              rows: 4,
+              maxlength: 400,
+              placeholder: 'Uma informação por linha: banco, conta, titular…',
+              value: config.giving.details,
+              oninput: (e) => set('giving.details', e.target.value),
+            }),
+            {
+              wide: true,
+              tip: 'Uma informação por linha, até 6 linhas. Vazio: mostra a chave PIX, o IBAN ou o link.',
+            },
+          ),
+        ),
+        h('div', { id: 'givingCheck' }),
+      ),
+      { id: 'givingCard' },
     ),
   ],
 
@@ -2430,7 +2447,7 @@ const pages = {
         : null,
       h(
         'div',
-        { class: 'rows' },
+        { class: 'rows' + (config.lower.groups.length ? ' grouped' : '') },
         config.lower.items.map((item, i) => {
           const change = (patch) => {
             Object.assign(item, patch);
@@ -2466,6 +2483,24 @@ const pages = {
               maxlength: 160,
               oninput: (e) => change({ line2: e.target.value }),
             }),
+            // The groups are made in the OBS dock ("+ Grupo"); here a name changes group.
+            config.lower.groups.length
+              ? h(
+                  'select',
+                  {
+                    title: 'Grupo em que o nome fica guardado na lista',
+                    onchange: (e) => change({ group: e.target.value }),
+                  },
+                  h('option', { value: '', selected: !item.group }, 'Sem grupo'),
+                  config.lower.groups.map((g) =>
+                    h(
+                      'option',
+                      { value: g.id, selected: item.group === g.id, 'data-raw': '' },
+                      g.name,
+                    ),
+                  ),
+                )
+              : null,
             h(
               'label',
               { class: 'check', title: 'Mostra o logo da igreja neste lower third' },
@@ -3501,13 +3536,25 @@ async function installUpdate() {
   }
   renderForm();
 }
+addEventListener('hashchange', () => {
+  if (location.hash !== '#giving') return;
+  wantGiving = true;
+  page = 'brand';
+  renderNav();
+  renderForm();
+  setPreview();
+});
 function go(id) {
+  wantGiving = false;
   page = localStorage.cltPage = id;
   renderNav();
   renderForm();
   setPreview();
   scrollTo(0, 0);
 }
+// What can be switched off with the eye: every element, and the order of service (which is
+// not an element: only its tab leaves the OBS dock).
+const SWITCHED = [...ELEMENTS, 'rundown'];
 /** The OBS-style eye: switches a whole category on or off. */
 function eye(el) {
   const on = config.enabled[el];
@@ -3515,9 +3562,14 @@ function eye(el) {
     class: 'eye' + (on ? '' : ' closed'),
     role: 'button',
     tabindex: '0',
-    title: on
-      ? 'Categoria ativa. Clique para desativar: ela sai do painel do OBS e da tela.'
-      : 'Categoria desativada. Clique para ativar e voltar a aparecer no painel do OBS.',
+    title:
+      el === 'rundown'
+        ? on
+          ? 'A aba Roteiro aparece no painel do OBS. Clique para esconder, se não usa o roteiro.'
+          : 'A aba Roteiro está escondida. Clique para voltar a aparecer no painel do OBS.'
+        : on
+          ? 'Categoria ativa. Clique para desativar: ela sai do painel do OBS e da tela.'
+          : 'Categoria desativada. Clique para ativar e voltar a aparecer no painel do OBS.',
     onclick: (e) => {
       e.stopPropagation();
       set(`enabled.${el}`, !on);
@@ -3543,7 +3595,7 @@ function renderNav() {
     b.innerHTML = icon;
     b.append(h('span', {}, label));
     if (live?.[id]?.on) b.append(h('i', { class: 'liveDot', title: 'No ar' }));
-    if (ELEMENTS.includes(id)) {
+    if (SWITCHED.includes(id)) {
       b.classList.toggle('off', !config.enabled[id]);
       b.append(eye(id));
     }
@@ -3960,7 +4012,7 @@ function renderForm() {
   // The layout editor keeps its iframe while elements are being dragged.
   if (page === 'layout' && $('#form .editor iframe')) return renderMoved();
   const off =
-    ELEMENTS.includes(page) && !config.enabled[page]
+    SWITCHED.includes(page) && !config.enabled[page]
       ? h(
           'section',
           { class: 'card offNote' },
@@ -3968,7 +4020,9 @@ function renderForm() {
           h(
             'span',
             {},
-            'Esta categoria está desativada: não aparece no painel do OBS nem vai ao ar.',
+            page === 'rundown'
+              ? 'A aba Roteiro está escondida no painel do OBS. O roteiro continua guardado.'
+              : 'Esta categoria está desativada: não aparece no painel do OBS nem vai ao ar.',
           ),
           h(
             'button',
@@ -4010,6 +4064,16 @@ function renderForm() {
     );
   refill($('#form'), nodes);
   if (page === 'brand') checkGiving();
+  // Opened from the dock to change the QR of the contribution: straight to that block, lit
+  // for a moment so that it is found at a glance.
+  if (wantGiving && page === 'brand') {
+    wantGiving = false;
+    spotUntil = Date.now() + 2600;
+    $('#givingCard')?.scrollIntoView({ block: 'start' });
+    setTimeout(() => $('#givingCard')?.classList.remove('spot'), 2600);
+  }
+  // (The page is drawn again at every change: the light is put back while its time lasts.)
+  if (Date.now() < spotUntil) $('#givingCard')?.classList.add('spot');
 }
 // ---------- OBS: create the browser sources there ----------
 let obsAsk = { password: '', port: '4455', mode: 'all' },

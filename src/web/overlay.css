@@ -2215,7 +2215,9 @@ img:not([src]) {
   height: 810px;
 }
 .compact .el *,
-.compact .el .box {
+.compact .el .box,
+.thumb .el *,
+.thumb .el .box {
   animation: none !important;
 }
 
@@ -2225,6 +2227,16 @@ img:not([src]) {
     radial-gradient(1200px 700px at 30% 30%, #5b6b85 0%, transparent 60%),
     radial-gradient(1000px 700px at 80% 70%, #7a5a46 0%, transparent 55%),
     linear-gradient(135deg, #2b3445, #1a1f2b);
+}
+
+/* The miniature of the card in the OBS dock (?thumb=1): the dock's own background shows.
+   Nothing glides there: the card is measured to fill the frame, and must be in its place. */
+.thumb body {
+  background: transparent;
+}
+.thumb .el,
+.thumb .el * {
+  transition: none !important;
 }
 
 /* =====================================================================
