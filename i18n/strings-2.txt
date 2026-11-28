@@ -130,11 +130,11 @@ Tiempo en pantalla
 Tempo a schermo
 Zeit im Bild
 
-Nomes, QR Code e redes saem sozinhos depois de
-Names, QR code and social networks leave by themselves after
-Nombres, código QR y redes salen solos después de
-Nomi, codice QR e social escono da soli dopo
-Namen, QR-Code und Netzwerke verschwinden von selbst nach
+Nomes, redes e comentários saem sozinhos depois de
+Names, social networks and comments leave by themselves after
+Nombres, redes y comentarios salen solos después de
+Nomi, social e commenti escono da soli dopo
+Namen, Netzwerke und Kommentare verschwinden von selbst nach
 
 0 = ficam na tela até você esconder. O mesmo tempo pode ser trocado no painel do OBS.
 0 = they stay on screen until you hide them. The same time can be changed in the OBS dock.

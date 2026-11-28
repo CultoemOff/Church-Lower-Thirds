@@ -10,7 +10,7 @@ import {
   toggleTheme,
 } from './js/common.js';
 import { plain, STEP_NAMES, stepText } from './js/lists.js';
-import { givingTag, NETWORKS, SOCIAL_ICONS } from './js/look.js';
+import { givingQr, givingTag, NETWORKS, qrUrl, SOCIAL_ICONS } from './js/look.js';
 import { autoLocalize, t, useLanguage } from './js/i18n.js';
 
 // The panel that lives in an OBS dock. Each tab has the text fields on top (or on the left
@@ -20,6 +20,7 @@ let config = null,
   live = null,
   tab = localStorage.cltTab || 'lower';
 const built = {}; // panes are built once, so typing is never interrupted by an update
+let builtFor = null; // the profile the panes were built for
 const editing = { lower: '', agenda: '' };
 document.documentElement.classList.toggle('inObs', !!window.obsstudio);
 
@@ -40,7 +41,9 @@ const TABS = [
   ['comment', 'Comentários', 'Um comentário digitado na hora: quem escreveu e o que disse'],
   ['countdown', 'Contagem', 'Contagem regressiva: "O culto começa em 05:00"'],
 ];
-const PINNABLE = ['lower', 'card', 'agenda', 'social', 'comment'];
+// What leaves by itself when the time ends, and so can be pinned. The QR card is not one of
+// them: it stays on air until it is switched off.
+const PINNABLE = ['lower', 'agenda', 'social', 'comment'];
 const TIMES = [0, 5, 8, 10, 15, 20, 30, 45, 60, 120];
 
 async function command(path, options = { method: 'POST' }) {
@@ -108,9 +111,19 @@ async function drop(path, item, index) {
 }
 
 // ---------- Names ----------
+// Saved names can be filed in groups ("Pastores", "Louvor"…). Each group folds to its title;
+// which ones are folded is remembered by this dock. The search looks in every group.
+const NO_GROUP = 'none';
+const folded = new Set(JSON.parse(localStorage.cltFolded || '[]'));
+function fold(id, closed) {
+  closed ? folded.add(id) : folded.delete(id);
+  localStorage.cltFolded = JSON.stringify([...folded]);
+}
 function buildLower() {
   const l1 = input('Nome', 120),
-    l2 = input('Legenda (cargo, texto)', 160);
+    l2 = input('Legenda (cargo, texto)', 160),
+    // Which group the name is saved in (shown once there is a group).
+    group = h('select', { class: 'hidden', title: 'Grupo em que o nome fica guardado na lista' });
   const show = h(
     'button',
     { class: 'primary', title: 'Mostra na tela o que está escrito, sem precisar salvar (Enter)' },
@@ -143,22 +156,120 @@ function buildLower() {
     if (!v.line1 && !v.line2) return l1.focus();
     const items = structuredClone(config.lower.items),
       current = items.find((i) => i.id === editing.lower);
-    if (current) Object.assign(current, v);
-    else items.push({ id: newId(), ...v, logo: true, qr: 'none', qrText: '' });
+    if (current) Object.assign(current, v, { group: group.value });
+    else items.push({ id: newId(), ...v, logo: true, qr: 'none', qrText: '', group: group.value });
     const r = await patch({ 'lower.items': items });
-    if (!r.error) stop();
+    // A name saved into a folded group opens it, so that it is seen.
+    if (!r.error) (fold(group.value || NO_GROUP, false), stop());
   };
   cancel.onclick = stop;
+
+  // The name of a group, new or being renamed: a field of its own that stays in place while
+  // the list is redrawn (the list is redrawn at every change, and would take the typing away).
+  let naming = null; // null = closed, '' = a new group, or the id of the one being renamed
+  const groupName = input('Nome do grupo', 40),
+    groupRow = h(
+      'div',
+      { class: 'groupRow hidden' },
+      groupName,
+      h(
+        'button',
+        { class: 'primary', title: 'Guarda o nome do grupo (Enter)', onclick: () => keep() },
+        'OK',
+      ),
+      h('button', { title: 'Fecha sem alterar (Esc)', onclick: () => name(null) }, 'Cancelar'),
+    );
+  function name(id) {
+    naming = id;
+    groupRow.classList.toggle('hidden', id === null);
+    if (id === null) return;
+    groupName.value = config.lower.groups.find((g) => g.id === id)?.name || '';
+    groupName.focus();
+    groupName.select();
+  }
+  async function keep() {
+    const text = groupName.value.trim();
+    if (!text) return groupName.focus();
+    const groups = structuredClone(config.lower.groups),
+      current = groups.find((g) => g.id === naming),
+      id = current?.id || newId();
+    if (current) current.name = text;
+    else groups.push({ id, name: text });
+    const r = await patch({ 'lower.groups': groups });
+    if (r.error) return;
+    // A new group is the one the next name goes into.
+    if (!current) group.dataset.pick = id;
+    name(null);
+  }
+  groupName.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') keep();
+    if (e.key === 'Escape') name(null);
+  });
+  /** Removes a group; its names stay, without a group. "Desfazer" puts all back. */
+  async function dropGroup(g) {
+    const before = { groups: config.lower.groups, items: config.lower.items };
+    const r = await patch({ 'lower.groups': before.groups.filter((x) => x.id !== g.id) });
+    if (r?.error) return;
+    toast('Grupo removido. Os nomes dele continuam na lista.', () =>
+      patch({ 'lower.groups': before.groups, 'lower.items': before.items }),
+    );
+  }
+
+  const wrap = listWrap('Lista', 'clique: mostrar ou esconder', true);
+  wrap.querySelector('.sectionTitle').append(
+    h(
+      'button',
+      {
+        class: 'addGroup',
+        title:
+          'Cria um grupo de nomes (Pastores, Louvor, Convidados…). Os grupos podem ser minimizados.',
+        onclick: () => name(''),
+      },
+      '+ Grupo',
+    ),
+  );
+  wrap.querySelector('[data-list]').before(groupRow);
   const pane = [
     h(
       'div',
       { class: 'editor' },
       h('div', { class: 'pair' }, l1, l2),
+      group,
       h('div', { class: 'actions' }, show, save, cancel),
       h('div', { class: 'note', 'data-note': '' }),
     ),
-    listWrap('Lista', 'clique: mostrar ou esconder', true),
+    wrap,
   ];
+  const row = (item) => {
+    const on = live.lower.on && live.lower.item === item.id;
+    return h(
+      'button',
+      {
+        class: 'item' + (on ? ' on' : '') + (editing.lower === item.id ? ' editing' : ''),
+        title: on ? 'No ar: clique para esconder' : 'Clique para mostrar na tela',
+        onclick: () => command(`/api/live/lower/toggle?item=${item.id}`),
+      },
+      h('i'),
+      h(
+        'span',
+        { class: 'txt', 'data-raw': '' },
+        h('b', {}, item.line1 || item.line2),
+        item.line1 && item.line2 ? h('small', {}, item.line2) : null,
+      ),
+      item.qr !== 'none'
+        ? h('span', { class: 'tag' }, item.qr === 'giving' ? givingTag(config) : 'QR')
+        : null,
+      mini('✎', 'Editar o texto e o grupo', () => {
+        editing.lower = item.id;
+        l1.value = item.line1;
+        l2.value = item.line2;
+        group.dataset.pick = item.group;
+        refresh();
+        l1.focus();
+      }),
+      mini('×', 'Remover da lista', () => drop('lower.items', item), 'del'),
+    );
+  };
   return {
     pane,
     refresh(root) {
@@ -186,61 +297,157 @@ function buildLower() {
             )
           : '',
       );
-      // With many names saved, a search field narrows the list.
+      const groups = config.lower.groups;
+      // The group of the next name saved: kept while the groups stay the same.
+      const key = JSON.stringify(groups);
+      if (group.dataset.key !== key || group.dataset.pick !== undefined) {
+        const picked = group.dataset.pick ?? group.value;
+        group.dataset.key = key;
+        delete group.dataset.pick;
+        group.replaceChildren(
+          h('option', { value: '' }, 'Sem grupo'),
+          ...groups.map((g) => h('option', { value: g.id, 'data-raw': '' }, g.name)),
+        );
+        group.value = groups.some((g) => g.id === picked) ? picked : '';
+      }
+      group.classList.toggle('hidden', !groups.length);
+      // With many names saved, a search field narrows the list: in every group at once.
       const find = root.querySelector('[data-find]'),
         q = plain(find.value).trim();
       find.classList.toggle('hidden', config.lower.items.length < 6 && !q);
       const items = config.lower.items.filter(
         (i) => !q || plain(`${i.line1} ${i.line2}`).includes(q),
       );
-      root.querySelector('[data-list]').replaceChildren(
-        ...(q && !items.length ? [empty('Nenhum nome com esse texto.')] : []),
-        ...items.map((item) => {
-          const on = live.lower.on && live.lower.item === item.id;
-          return h(
-            'button',
-            {
-              class: 'item' + (on ? ' on' : '') + (editing.lower === item.id ? ' editing' : ''),
-              title: on ? 'No ar: clique para esconder' : 'Clique para mostrar na tela',
-              onclick: () => command(`/api/live/lower/toggle?item=${item.id}`),
-            },
-            h('i'),
+      const nodes = [];
+      if (!groups.length) nodes.push(...items.map(row));
+      else
+        for (const g of [...groups, { id: NO_GROUP, name: t('Sem grupo') }]) {
+          const own = g.id === NO_GROUP,
+            members = items.filter((i) => (own ? !i.group : i.group === g.id));
+          // Names without a group only get a title when there are some; while searching,
+          // only the groups with a name found are shown.
+          if (!members.length && (own || q)) continue;
+          // Searching opens every group: what was found must be in sight.
+          const closed = !q && folded.has(g.id),
+            live1 = live.lower.on && members.some((i) => i.id === live.lower.item);
+          nodes.push(
             h(
-              'span',
-              { class: 'txt', 'data-raw': '' },
-              h('b', {}, item.line1 || item.line2),
-              item.line1 && item.line2 ? h('small', {}, item.line2) : null,
+              'div',
+              {
+                class: 'groupHead' + (closed ? ' closed' : '') + (live1 ? ' on' : ''),
+                role: 'button',
+                tabindex: '0',
+                'aria-expanded': String(!closed),
+                title: closed ? 'Clique para abrir o grupo' : 'Clique para minimizar o grupo',
+                onclick: () => (fold(g.id, !closed), refresh()),
+                onkeydown: (e) =>
+                  (e.key === 'Enter' || e.key === ' ') &&
+                  (e.preventDefault(), fold(g.id, !closed), refresh()),
+              },
+              h('i', { class: 'chev' }),
+              h('b', { 'data-raw': '' }, g.name),
+              h('small', { 'data-raw': '' }, String(members.length)),
+              own ? null : mini('✎', 'Mudar o nome do grupo', () => name(g.id)),
+              own
+                ? null
+                : mini(
+                    '×',
+                    'Remover o grupo (os nomes dele ficam na lista, sem grupo)',
+                    () => dropGroup(g),
+                    'del',
+                  ),
             ),
-            item.qr !== 'none'
-              ? h('span', { class: 'tag' }, item.qr === 'giving' ? givingTag(config) : 'QR')
-              : null,
-            mini('✎', 'Editar o texto', () => {
-              editing.lower = item.id;
-              l1.value = item.line1;
-              l2.value = item.line2;
-              refresh();
-              l1.focus();
-            }),
-            mini('×', 'Remover da lista', () => drop('lower.items', item), 'del'),
+            ...(closed ? [] : members.map(row)),
+            ...(!closed && !members.length ? [empty('Nenhum nome neste grupo ainda.')] : []),
           );
-        }),
-        ...(config.lower.items.length
-          ? []
-          : [empty('Nada salvo ainda. Escreva acima e clique em "Salvar na lista".')]),
-      );
+        }
+      root
+        .querySelector('[data-list]')
+        .replaceChildren(
+          ...(q && !items.length ? [empty('Nenhum nome com esse texto.')] : []),
+          ...nodes,
+          ...(config.lower.items.length
+            ? []
+            : [empty('Nada salvo ainda. Escreva acima e clique em "Salvar na lista".')]),
+        );
     },
   };
 }
 
 // ---------- QR / PIX ----------
 const MISSING = { url: 'Escreva o link do QR Code.', pixkey: 'Escreva a chave PIX desta oferta.' };
+/** The QR picture of an offering, for the lists ('' when it has none). */
+const offeringQr = (kind, text) =>
+  kind === 'giving'
+    ? givingQr(config)
+    : text
+      ? qrUrl(kind === 'pixkey' ? 'pixkey' : 'url', text)
+      : '';
 function buildCard() {
   let kind = config.card.qr;
-  const url = input('', 600, { value: config.card.qrText }),
-    title = input('Título', 60, { value: config.card.title }),
-    sub = input('Texto de apoio', 90, { value: config.card.subtitle });
+  // Each kind of QR has its own title, text and key or link: choosing another kind shows
+  // what was written for it, not the texts of the one before.
+  const drafts = structuredClone(config.card.drafts);
+  const url = input('', 600),
+    title = input('Título', 60),
+    sub = input('Texto de apoio', 90);
   const seg = h('div', { class: 'seg' });
+  const values = () => ({ ...drafts[kind], qr: kind });
+  // The miniature: the card itself, drawn by the same page OBS shows, with what is written
+  // here (before "Mostrar" too).
+  const frame = h('iframe', {
+    src: '/overlay?preview=card&thumb=1',
+    title: 'Miniatura do cartão',
+    tabindex: '-1',
+    scrolling: 'no',
+  });
+  let sent = '';
+  const send = (force) => {
+    const card = values(),
+      key = JSON.stringify(card);
+    if (key === sent && !force) return;
+    sent = key;
+    frame.contentWindow?.postMessage({ type: 'card', card }, location.origin);
+  };
+  frame.addEventListener('load', () => send(true));
+  addEventListener('message', (e) => {
+    if (e.source !== frame.contentWindow || e.data?.source !== 'clt-thumb') return;
+    // The frame takes the shape of the card: a tall one, a wide one.
+    thumb.style.setProperty('--shape', `${e.data.width} / ${e.data.height}`);
+    thumb.classList.toggle('tall', e.data.height > e.data.width);
+  });
+  const change = h('button', {
+    class: 'changeQr',
+    onclick: () => command('/api/open-settings?page=giving'),
+  });
+  const thumb = h(
+    'div',
+    { class: 'cardThumb', title: 'Miniatura: o cartão como vai aparecer na tela' },
+    frame,
+  );
+  const fill = () => {
+    const d = drafts[kind];
+    title.value = d.title;
+    sub.value = d.subtitle;
+    url.value = d.qrText;
+    url.classList.toggle('hidden', kind === 'giving');
+    url.placeholder = t(
+      kind === 'pixkey' ? 'Chave PIX desta oferta' : 'Link do QR Code: https://…',
+    );
+    send();
+  };
+  for (const [field, name] of [
+    [title, 'title'],
+    [sub, 'subtitle'],
+    [url, 'qrText'],
+  ])
+    field.addEventListener('input', () => {
+      drafts[kind][name] = field.value.trim();
+      send();
+    });
   const drawSeg = () => {
+    // "Another PIX key" only exists while the church receives by PIX.
+    if (kind === 'pixkey' && config.giving.method !== 'pix') kind = 'giving';
     seg.replaceChildren(
       ...[
         [
@@ -269,31 +476,25 @@ function buildCard() {
             onclick: () => {
               kind = v;
               drawSeg();
+              refresh();
             },
           },
           l,
         ),
       ),
     );
-    url.classList.toggle('hidden', kind === 'giving');
-    url.placeholder = t(
-      kind === 'pixkey' ? 'Chave PIX desta oferta' : 'Link do QR Code: https://…',
-    );
+    fill();
   };
   drawSeg();
-  const values = () => ({
-    title: title.value.trim(),
-    subtitle: sub.value.trim(),
-    qr: kind,
-    qrText: url.value.trim(),
-  });
+  const ready = (v) => v.qr === 'giving' || v.qrText || (toast(MISSING[v.qr]), url.focus(), false);
   const apply = async (v) => {
-    if (v.qr !== 'giving' && !v.qrText) return void (toast(MISSING[v.qr]), url.focus());
+    if (!ready(v)) return;
     const r = await patch({
       'card.title': v.title,
       'card.subtitle': v.subtitle,
       'card.qr': v.qr,
       'card.qrText': v.qrText,
+      'card.drafts': drafts,
     });
     if (!r.error) command('/api/live/card/show');
   };
@@ -301,7 +502,7 @@ function buildCard() {
     'button',
     {
       class: 'primary',
-      title: 'Mostra o cartão com o que está escrito acima',
+      title: 'Mostra o cartão com o que está escrito acima. Ele fica na tela até ser desligado.',
       onclick: () => apply(values()),
     },
     'Mostrar',
@@ -321,8 +522,11 @@ function buildCard() {
       title: 'Guarda este QR Code na lista',
       onclick: () => {
         const v = values();
-        if (v.qr !== 'giving' && !v.qrText) return void (toast(MISSING[v.qr]), url.focus());
-        patch({ 'card.saved': [...config.card.saved, { id: newId(), ...v }] });
+        if (!ready(v)) return;
+        patch({
+          'card.saved': [...config.card.saved, { id: newId(), ...v }],
+          'card.drafts': drafts,
+        });
       },
     },
     'Salvar na lista',
@@ -333,15 +537,36 @@ function buildCard() {
         'div',
         { class: 'editor' },
         seg,
+        thumb,
+        change,
         url,
         h('div', { class: 'pair' }, title, sub),
         h('div', { class: 'actions' }, show, hide, save),
+        h(
+          'div',
+          { class: 'note stays' },
+          'O cartão fica na tela até ser desligado: não segue o tempo dos outros elementos.',
+        ),
       ),
       listWrap('Ofertas salvas', 'clique: mostrar'),
     ],
     refresh(root) {
       show.textContent = live.card.on ? 'Atualizar no ar' : 'Mostrar';
       hide.classList.toggle('hidden', !live.card.on);
+      // The way of receiving changed in the settings: "another PIX key" comes or goes.
+      if (seg.dataset.method !== config.giving.method) {
+        seg.dataset.method = config.giving.method;
+        drawSeg();
+      }
+      // The picture of the main QR is chosen in the settings: this opens them in the browser.
+      const picture = ['image', 'app'].includes(config.giving.method);
+      change.classList.toggle('hidden', kind !== 'giving');
+      change.textContent = t(picture ? 'Trocar imagem do QR' : 'Mudar o QR principal');
+      change.title = t(
+        picture
+          ? 'Abre as configurações no navegador, na parte da contribuição, para trocar a imagem do QR Code'
+          : 'Abre as configurações no navegador, na parte da contribuição: chave PIX, transferência, link ou imagem do QR Code',
+      );
       const c = config.card;
       root.querySelector('[data-list]').replaceChildren(
         ...c.saved.map((s) => {
@@ -351,27 +576,31 @@ function buildCard() {
             c.qr === s.qr &&
             c.qrText === s.qrText &&
             c.subtitle === s.subtitle;
+          const picture = offeringQr(s.qr, s.qrText),
+            holds = s.qr === 'giving' ? t('Contribuição principal') : s.qrText;
           return h(
             'button',
             {
-              class: 'item' + (on ? ' on' : ''),
+              class: 'item offering' + (on ? ' on' : ''),
               title: on ? 'No ar: clique para esconder' : 'Clique para mostrar este QR Code',
               onclick: () => {
                 if (on) return command('/api/live/card/hide');
                 kind = s.qr;
-                url.value = s.qrText;
-                title.value = s.title;
-                sub.value = s.subtitle;
+                drafts[kind] = { title: s.title, subtitle: s.subtitle, qrText: s.qrText };
                 drawSeg();
                 apply(s);
               },
             },
             h('i'),
+            picture
+              ? h('img', { class: 'qrMini', src: picture, alt: '', loading: 'lazy' })
+              : h('span', { class: 'qrMini none' }),
             h(
               'span',
               { class: 'txt', 'data-raw': '' },
               h('b', {}, s.title || s.qrText),
-              h('small', {}, s.qr === 'giving' ? t('Contribuição principal') : s.qrText),
+              s.subtitle ? h('small', {}, s.subtitle) : null,
+              h('small', { class: 'holds' }, holds),
             ),
             h(
               'span',
@@ -928,6 +1157,24 @@ function buildRundown() {
           },
           'Editar o roteiro',
         ),
+        h(
+          'a',
+          {
+            href: '#',
+            title:
+              'Tira a aba Roteiro deste painel, para quem não usa. Para voltar: configurações, página "Roteiro do culto".',
+            onclick: async (e) => {
+              e.preventDefault();
+              const r = await patch({ 'enabled.rundown': false });
+              if (!r.error)
+                toast(
+                  'Aba Roteiro escondida. Ela volta nas configurações, em "Roteiro do culto".',
+                  () => patch({ 'enabled.rundown': true }),
+                );
+            },
+          },
+          'Esconder esta aba',
+        ),
       ),
     ],
     refresh(root) {
@@ -1017,9 +1264,7 @@ const BUILD = {
 function refresh() {
   if (!config || !live) return;
   // Categories switched off in the settings (the eye) are not offered here.
-  const tabs = TABS.filter(
-    ([id]) => id === 'rundown' || config.enabled[id] || (id === 'top' && config.enabled.bug),
-  );
+  const tabs = TABS.filter(([id]) => config.enabled[id] || (id === 'top' && config.enabled.bug));
   // The order of service is a tab of its own kind: it runs the others, it is not on air.
   const element = tab !== 'rundown';
   if (!tabs.some(([id]) => id === tab)) tab = tabs[0]?.[0] || '';
@@ -1050,6 +1295,12 @@ function refresh() {
     );
     return;
   }
+  // Another profile is another church or event: the fields start again from its texts.
+  if (builtFor !== config.profile) {
+    builtFor = config.profile;
+    for (const id of Object.keys(built)) delete built[id];
+    pane.dataset.tab = '';
+  }
   built[tab] ??= BUILD[tab]();
   if (pane.dataset.tab !== tab) {
     pane.dataset.tab = tab;
@@ -1064,7 +1315,7 @@ function refresh() {
     b.classList.toggle('on', !!live[b.dataset.toggle].on);
   renderProfiles();
   // The bar of the tab: is it on air, the switch that shows or hides it, and the pin for what
-  // leaves by itself (names, offerings, schedule, social, comments).
+  // leaves by itself (names, schedule, social, comments).
   const on = element && !!live[tab].on,
     state = $('#paneState'),
     eye = $('#tabEye'),

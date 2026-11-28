@@ -677,3 +677,191 @@ footer {
 .rundownFoot a {
   color: var(--muted);
 }
+
+/* ---------- Names: groups that fold ---------- */
+.sectionTitle .addGroup {
+  margin-left: 8px;
+  padding: 2px 7px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  background: transparent;
+  flex: none;
+}
+.sectionTitle .addGroup:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+.groupRow {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 6px;
+}
+.groupRow input {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 8px;
+  font-size: 12px;
+}
+.groupRow button {
+  flex: none;
+  padding: 6px 9px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.groupHead {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 28px;
+  padding: 3px 5px 3px 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  color: var(--muted);
+}
+.groupHead:not(:first-child) {
+  margin-top: 3px;
+}
+.groupHead:hover,
+.groupHead:focus-visible {
+  background: var(--soft);
+  color: var(--text);
+}
+.groupHead b {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.groupHead small {
+  flex: 1;
+  font-size: 10px;
+  opacity: 0.75;
+}
+/* The arrow: down while the group is open, to the right while it is folded. */
+.groupHead .chev {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-1px) rotate(45deg);
+  transition: transform 0.15s ease;
+}
+.groupHead.closed .chev {
+  transform: rotate(-45deg);
+}
+/* A folded group with one of its names on air says so. */
+.groupHead.on small::after {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-left: 7px;
+  border-radius: 50%;
+  background: var(--live);
+  vertical-align: middle;
+}
+.groupHead:hover .mini,
+.groupHead:focus-within .mini {
+  opacity: 1;
+}
+
+/* ---------- Offerings: the miniature of the card, and richer rows ---------- */
+.cardThumb {
+  position: relative;
+  width: 100%;
+  /* The shape comes from the card itself (the overlay tells it); capped so that a tall
+     card does not take the whole dock. */
+  aspect-ratio: var(--shape, 16 / 9);
+  max-height: clamp(84px, 24vh, 210px);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  overflow: hidden;
+  /* A quiet "camera" behind the card, so that light and dark cards both show. */
+  background:
+    radial-gradient(120% 90% at 25% 20%, #4d5b73 0%, transparent 60%),
+    linear-gradient(135deg, #2b3445, #1a1f2b);
+}
+.cardThumb.tall {
+  aspect-ratio: auto;
+  /* A tall card gets more of a tall dock, and less of a short one (the list needs room). */
+  height: clamp(84px, 24vh, 300px);
+  max-height: none;
+}
+.cardThumb iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  pointer-events: none;
+}
+/* Under the miniature: opens the settings in the browser to change the QR of the church. */
+.editor .changeQr {
+  justify-self: end;
+  padding: 4px 9px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  background: transparent;
+}
+.editor .changeQr::after {
+  content: ' ↗';
+}
+.editor .changeQr:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+.item.offering {
+  min-height: 50px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.qrMini {
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 5px;
+  background: #fff;
+  object-fit: contain;
+  padding: 2px;
+}
+.qrMini.none {
+  background: transparent;
+  border: 1px dashed var(--border);
+}
+.item.offering .holds {
+  opacity: 0.8;
+}
+@media (prefers-reduced-motion: reduce) {
+  .groupHead .chev {
+    transition: none;
+  }
+}
+
+/* In a short dock the editor scrolls: its rows keep their own height instead of being
+   squeezed (the segment of the offerings tab would shrink to a line). */
+.editor {
+  grid-auto-rows: max-content;
+}
+
+/* A narrow and short dock: the saved list keeps some room, and the tab scrolls as a whole
+   when the fields and the list do not fit together. */
+@media (max-width: 559px) {
+  .pane {
+    grid-template-rows: auto minmax(96px, 1fr);
+    overflow-y: auto;
+  }
+}
+@media (max-height: 620px) {
+  .note.stays {
+    display: none;
+  }
+}

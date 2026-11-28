@@ -563,6 +563,10 @@ input[type='color'] {
   border-radius: 10px;
   padding: 6px;
 }
+/* With groups of names, each row has one more field: the group. */
+.rows.grouped > .row {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr) minmax(0, 0.7fr) auto auto auto;
+}
 .row.viewing {
   border-color: var(--accent);
 }
@@ -1611,4 +1615,11 @@ button.danger:hover {
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* The block the dock sent the person to ("Trocar imagem do QR"): lit for a moment */
+.card.spot {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent);
+  transition: box-shadow 0.4s ease;
 }

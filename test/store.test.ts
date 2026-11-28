@@ -13,6 +13,7 @@ import {
   resolveItem,
   resolveSocial,
   stepTarget,
+  TIMED,
   useProfile,
 } from '../src/server/store.js';
 
@@ -85,6 +86,7 @@ test('names: empty ones are dropped, ids are unique, QR kind is checked', () => 
     // 'pix' is how versions that only knew PIX stored the church's contribution QR.
     qr: 'giving',
     qrText: '',
+    group: '',
   });
   assert.match(c.lower.items[1].id, /^[a-f0-9]{10}$/);
   assert.equal(c.lower.items[1].qr, 'none');
@@ -122,7 +124,9 @@ test('a name that no longer exists is not left on air', () => {
       {
         lower: { on: true, item: 'zzzz' },
         top: { on: 1 },
+        // The QR card used to be pinned to ignore the time: it has no time any more.
         card: { pin: 'yes' },
+        agenda: { pin: 'yes' },
         social: { on: true, item: 'nope' },
       },
       c,
@@ -130,11 +134,11 @@ test('a name that no longer exists is not left on air', () => {
     {
       lower: { on: false, item: '', pin: false },
       top: { on: true },
-      // Pinned in the dock: it ignores the global time. The pin survives a restart.
-      card: { on: false, pin: true },
+      card: { on: false },
       bug: { on: false },
       ticker: { on: false },
-      agenda: { on: false, pin: false },
+      // Pinned in the dock: it ignores the global time. The pin survives a restart.
+      agenda: { on: false, pin: true },
       social: { on: false, item: '', pin: false },
       comment: { on: false, pin: false },
       countdown: { on: false, until: 0 },
@@ -160,6 +164,7 @@ test('a name typed in the dock ("quick") is on air only while it has text', () =
     logo: true,
     qr: 'none',
     qrText: '',
+    group: '',
   });
   assert.equal(resolveItem(c, liveDefaults(), 'quick')?.line1, 'Visitante');
   assert.equal(cleanLive({ lower: { on: true, item: 'quick' } }, c).lower.on, true);
@@ -575,4 +580,121 @@ test('a profile from before, with only a look, takes the data in use the first t
   assert.equal(c.lower.items[0].line1, 'Maria');
   assert.equal(c.profiles[1].full, true);
   assert.equal(useProfile(c, 'Natal').lower.items[0].line1, 'José');
+});
+
+test('names in groups: a group that is gone leaves its names in the list, without a group', () => {
+  const c = cleanConfig({
+    lower: {
+      groups: [
+        { id: 'past', name: ' Pastores ' },
+        { id: 'past', name: 'Repetido' },
+        { id: 'louv', name: 'Louvor' },
+        { name: '' },
+        'lixo',
+      ],
+      items: [
+        { id: 'aaaa', line1: 'Ana', group: 'louv' },
+        { id: 'bbbb', line1: 'Beto', group: 'apagado' },
+        { id: 'cccc', line1: 'Caio', group: 7 },
+        { id: 'dddd', line1: 'Davi' },
+      ],
+      // The name typed in the dock belongs to no group.
+      quick: { line1: 'Agora', group: 'louv' },
+    },
+  });
+  assert.deepEqual(c.lower.groups, [
+    { id: 'past', name: 'Pastores' },
+    { id: 'louv', name: 'Louvor' },
+  ]);
+  assert.deepEqual(
+    c.lower.items.map((i) => [i.line1, i.group]),
+    [
+      ['Ana', 'louv'],
+      ['Beto', ''],
+      ['Caio', ''],
+      ['Davi', ''],
+    ],
+  );
+  assert.equal(c.lower.quick.group, '');
+  // Removing the group (as the dock does): its names stay.
+  const less = cleanConfig({ ...c, lower: { ...c.lower, groups: [c.lower.groups[0]] } });
+  assert.deepEqual(
+    less.lower.items.map((i) => [i.line1, i.group]),
+    [
+      ['Ana', ''],
+      ['Beto', ''],
+      ['Caio', ''],
+      ['Davi', ''],
+    ],
+  );
+  // Groups are part of what a profile holds, like the names themselves.
+  assert.deepEqual(defaults().lower.groups, []);
+});
+
+test('the QR card: each kind of QR keeps its own texts', () => {
+  // New settings: the main contribution has the usual texts, the other kinds are empty.
+  assert.deepEqual(defaults().card.drafts, {
+    giving: { title: 'Dízimos e ofertas', subtitle: 'Aponte a câmera do celular', qrText: '' },
+    pixkey: { title: '', subtitle: '', qrText: '' },
+    url: { title: '', subtitle: '', qrText: '' },
+  });
+  // Settings saved before: one title and one text for every kind. They stay with the kind
+  // that was in use, and no longer show in the others.
+  const old = cleanConfig({
+    card: {
+      title: 'Missões 2026',
+      subtitle: 'Mais info: igreja.com',
+      qr: 'url',
+      qrText: 'https://igreja.com/missoes',
+    },
+  });
+  assert.deepEqual(old.card.drafts, {
+    giving: { title: 'Dízimos e ofertas', subtitle: 'Aponte a câmera do celular', qrText: '' },
+    pixkey: { title: '', subtitle: '', qrText: '' },
+    url: {
+      title: 'Missões 2026',
+      subtitle: 'Mais info: igreja.com',
+      qrText: 'https://igreja.com/missoes',
+    },
+  });
+  const main = cleanConfig({ card: { title: 'Ofertas', subtitle: 'Deus abençoe', qr: 'giving' } });
+  assert.deepEqual(main.card.drafts.giving, {
+    title: 'Ofertas',
+    subtitle: 'Deus abençoe',
+    qrText: '',
+  });
+  assert.deepEqual(main.card.drafts.url, { title: '', subtitle: '', qrText: '' });
+  // Once they exist they are the dock's own: showing a link does not rewrite the others.
+  const next = cleanConfig({
+    ...main,
+    card: {
+      ...main.card,
+      title: 'Inscrições',
+      qr: 'url',
+      qrText: 'https://x.org',
+      drafts: {
+        giving: {
+          title: 'Ofertas',
+          subtitle: 'Deus abençoe',
+          qrText: 'ignored: the main QR has no text',
+        },
+        url: { title: ' Inscrições ', subtitle: 7, qrText: 'https://x.org' },
+        other: { title: 'nope' },
+      },
+    },
+  });
+  assert.deepEqual(next.card.drafts, {
+    giving: { title: 'Ofertas', subtitle: 'Deus abençoe', qrText: '' },
+    pixkey: { title: '', subtitle: '', qrText: '' },
+    url: { title: 'Inscrições', subtitle: '7', qrText: 'https://x.org' },
+  });
+});
+
+test('the order of service can leave the dock; the QR card is not among what leaves by itself', () => {
+  assert.equal(defaults().enabled.rundown, true);
+  assert.equal(cleanConfig({ enabled: { rundown: false } }).enabled.rundown, false);
+  // Settings from before the switch existed keep the tab.
+  assert.equal(cleanConfig({ enabled: { lower: false } }).enabled.rundown, true);
+  assert.deepEqual([...TIMED], ['lower', 'agenda', 'social', 'comment']);
+  assert.deepEqual(liveDefaults().card, { on: false });
 });

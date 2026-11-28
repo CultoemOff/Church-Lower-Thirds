@@ -56,6 +56,11 @@ const W = small ? 1440 : vertical ? 1080 : 1920,
   H = small ? 810 : vertical ? 1920 : 1080;
 // Several elements shown together, to judge a whole look.
 const together = preview === 'theme' || small;
+// ?preview=card&thumb=1: the miniature of the QR card in the OBS dock. Only the card, as it
+// will go on air, filling the frame; the dock sends what is being typed (a "card" message)
+// so that it shows before "Mostrar" is clicked.
+const thumb = preview === 'card' && params.get('thumb') === '1';
+let cardDraft = null;
 // ?edit=1: the settings page's layout editor. Everything is shown, still, and can be
 // dragged to a new place or resized by its corner.
 const edit = params.get('edit') === '1';
@@ -91,7 +96,8 @@ function dress() {
   if (!saved) return;
   config = saved;
   const tried = draft || (shotCustom && saved.customModels.find((m) => m.id === shotCustom));
-  if (shot || tried) config = structuredClone(saved);
+  if (shot || tried || cardDraft) config = structuredClone(saved);
+  if (cardDraft) Object.assign(config.card, cardDraft);
   if (shot) applyModel(config, shot);
   if (tried) {
     if (!config.customModels.some((m) => m.id === tried.id)) config.customModels.push(tried);
@@ -117,12 +123,57 @@ addEventListener('message', (e) => {
 });
 
 function fit() {
+  if (thumb) return fitThumb();
   const s = Math.min(innerWidth / W, innerHeight / H) || 1;
   stage.style.transform = `scale(${s})`;
+}
+/** The miniature: the stage is moved and scaled so that the card alone fills the frame. */
+let thumbShape = '';
+function fitThumb() {
+  const box = roots.card.querySelector('.box');
+  stage.style.transform = 'none';
+  const r = box.getBoundingClientRect();
+  if (!r.width || !r.height) return;
+  // Room for the shadow around the card.
+  const pad = 26,
+    s = Math.min(innerWidth / (r.width + pad * 2), innerHeight / (r.height + pad * 2), 1),
+    x = innerWidth / 2 - s * (r.left + r.width / 2),
+    y = innerHeight / 2 - s * (r.top + r.height / 2);
+  stage.style.transform = `translate(${x}px, ${y}px) scale(${s})`;
+  // The dock gives the frame the shape of the card (a tall card, a wide one).
+  const shape = `${Math.round(r.width + pad * 2)}x${Math.round(r.height + pad * 2)}`;
+  if (shape !== thumbShape) {
+    thumbShape = shape;
+    parent.postMessage(
+      { source: 'clt-thumb', width: r.width + pad * 2, height: r.height + pad * 2 },
+      location.origin,
+    );
+  }
 }
 addEventListener('resize', fit);
 fit();
 if (preview) document.documentElement.classList.add('preview');
+if (thumb) {
+  document.documentElement.classList.add('thumb');
+  // The card changes size with its texts and when the QR or the logo arrives.
+  new ResizeObserver(fitThumb).observe(roots.card.querySelector('.box'));
+  for (const img of roots.card.querySelectorAll('img')) img.addEventListener('load', fitThumb);
+  document.fonts?.ready.then(fitThumb);
+  addEventListener('message', (e) => {
+    if (e.origin !== location.origin || e.data?.type !== 'card') return;
+    const { title, subtitle, qr, qrText } = e.data.card || {};
+    cardDraft = e.data.card
+      ? {
+          title: String(title ?? ''),
+          subtitle: String(subtitle ?? ''),
+          qr: ['giving', 'pixkey', 'url'].includes(qr) ? qr : 'giving',
+          qrText: String(qrText ?? ''),
+        }
+      : null;
+    dress();
+    apply();
+  });
+}
 if (small) document.documentElement.classList.add('compact');
 if (edit) document.documentElement.classList.add('edit');
 if (vertical) document.documentElement.classList.add('vertical');
@@ -138,7 +189,8 @@ function setImage(img, src) {
 // in how it receives) shows a sample one, so the layout can still be judged. On air an
 // incomplete QR stays empty: nothing wrong is ever broadcast.
 const SAMPLE_QR = qrUrl('url', 'https://example.org');
-if (preview)
+// (Not in the dock's miniature: it shows what would really go on air.)
+if (preview && !thumb)
   for (const img of document.querySelectorAll('.card .qrw img, .lower .qr img'))
     img.addEventListener('error', () => {
       if (img.getAttribute('src') !== SAMPLE_QR) img.setAttribute('src', SAMPLE_QR);
@@ -864,6 +916,12 @@ function apply() {
   for (const el of Object.keys(roots)) {
     sync(el);
     if (edit) roots[el].classList.toggle('fixed', !canMove(el));
+  }
+  // The miniature follows the card wherever the settings put it (its place and margins
+  // change without changing its size).
+  if (thumb) {
+    fitThumb();
+    requestAnimationFrame(fitThumb);
   }
 }
 function replay(el) {

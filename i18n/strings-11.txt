@@ -1,0 +1,173 @@
+Grupo em que o nome fica guardado na lista
+Group the name is kept under in the list
+Grupo en el que el nombre queda guardado en la lista
+Gruppo in cui il nome resta salvato nell'elenco
+Gruppe, unter der der Name in der Liste abgelegt ist
+
+Nome do grupo
+Group name
+Nombre del grupo
+Nome del gruppo
+Name der Gruppe
+
+Guarda o nome do grupo (Enter)
+Keeps the group name (Enter)
+Guarda el nombre del grupo (Enter)
+Salva il nome del gruppo (Invio)
+Speichert den Gruppennamen (Enter)
+
+Fecha sem alterar (Esc)
+Closes without changing (Esc)
+Cierra sin cambiar (Esc)
+Chiude senza modificare (Esc)
+Schließt ohne Änderung (Esc)
+
+Grupo removido. Os nomes dele continuam na lista.
+Group removed. Its names are still in the list.
+Grupo eliminado. Sus nombres siguen en la lista.
+Gruppo rimosso. I suoi nomi restano nell'elenco.
+Gruppe entfernt. Ihre Namen bleiben in der Liste.
+
+Cria um grupo de nomes (Pastores, Louvor, Convidados…). Os grupos podem ser minimizados.
+Creates a group of names (Pastors, Worship, Guests…). Groups can be folded.
+Crea un grupo de nombres (Pastores, Alabanza, Invitados…). Los grupos se pueden minimizar.
+Crea un gruppo di nomi (Pastori, Lode, Ospiti…). I gruppi si possono ridurre.
+Erstellt eine Namensgruppe (Pastoren, Lobpreis, Gäste…). Gruppen lassen sich einklappen.
+
++ Grupo
++ Group
++ Grupo
++ Gruppo
++ Gruppe
+
+Editar o texto e o grupo
+Edit the text and the group
+Editar el texto y el grupo
+Modifica il testo e il gruppo
+Text und Gruppe bearbeiten
+
+Sem grupo
+No group
+Sin grupo
+Senza gruppo
+Ohne Gruppe
+
+Clique para abrir o grupo
+Click to open the group
+Haz clic para abrir el grupo
+Clicca per aprire il gruppo
+Klicken, um die Gruppe zu öffnen
+
+Clique para minimizar o grupo
+Click to fold the group
+Haz clic para minimizar el grupo
+Clicca per ridurre il gruppo
+Klicken, um die Gruppe einzuklappen
+
+Mudar o nome do grupo
+Rename the group
+Cambiar el nombre del grupo
+Rinomina il gruppo
+Gruppe umbenennen
+
+Remover o grupo (os nomes dele ficam na lista, sem grupo)
+Remove the group (its names stay in the list, without a group)
+Eliminar el grupo (sus nombres quedan en la lista, sin grupo)
+Rimuovi il gruppo (i suoi nomi restano nell'elenco, senza gruppo)
+Gruppe entfernen (ihre Namen bleiben in der Liste, ohne Gruppe)
+
+Nenhum nome neste grupo ainda.
+No names in this group yet.
+Todavía no hay nombres en este grupo.
+Ancora nessun nome in questo gruppo.
+Noch keine Namen in dieser Gruppe.
+
+Miniatura do cartão
+Miniature of the card
+Miniatura de la tarjeta
+Miniatura della scheda
+Miniatur der Karte
+
+Miniatura: o cartão como vai aparecer na tela
+Miniature: the card as it will appear on screen
+Miniatura: la tarjeta como aparecerá en pantalla
+Miniatura: la scheda come apparirà a schermo
+Miniatur: die Karte, wie sie im Bild erscheinen wird
+
+O cartão fica na tela até ser desligado: não segue o tempo dos outros elementos.
+The card stays on screen until it is switched off: it does not follow the time of the other elements.
+La tarjeta se queda en pantalla hasta que se apague: no sigue el tiempo de los otros elementos.
+La scheda resta a schermo finché non viene spenta: non segue il tempo degli altri elementi.
+Die Karte bleibt im Bild, bis sie ausgeschaltet wird: Sie folgt nicht der Zeit der anderen Elemente.
+
+Trocar imagem do QR
+Change QR image
+Cambiar imagen del QR
+Cambia immagine del QR
+QR-Bild ändern
+
+Mudar o QR principal
+Change the main QR
+Cambiar el QR principal
+Cambia il QR principale
+Haupt-QR ändern
+
+Abre as configurações no navegador, na parte da contribuição, para trocar a imagem do QR Code
+Opens the settings in the browser, at the contribution part, to change the QR code image
+Abre la configuración en el navegador, en la parte de la contribución, para cambiar la imagen del código QR
+Apre le impostazioni nel browser, nella parte del contributo, per cambiare l'immagine del codice QR
+Öffnet die Einstellungen im Browser, beim Abschnitt Spenden, um das QR-Code-Bild zu ändern
+
+Abre as configurações no navegador, na parte da contribuição: chave PIX, transferência, link ou imagem do QR Code
+Opens the settings in the browser, at the contribution part: PIX key, transfer, link or QR code image
+Abre la configuración en el navegador, en la parte de la contribución: clave PIX, transferencia, enlace o imagen del código QR
+Apre le impostazioni nel browser, nella parte del contributo: chiave PIX, bonifico, link o immagine del codice QR
+Öffnet die Einstellungen im Browser, beim Abschnitt Spenden: PIX-Schlüssel, Überweisung, Link oder QR-Code-Bild
+
+Tira a aba Roteiro deste painel, para quem não usa. Para voltar: configurações, página "Roteiro do culto".
+Takes the Rundown tab off this panel, for those who do not use it. To bring it back: settings, "Order of service" page.
+Quita la pestaña Guion de este panel, para quien no la usa. Para volver: configuración, página "Guion del culto".
+Toglie la scheda Scaletta da questo pannello, per chi non la usa. Per riaverla: impostazioni, pagina "Scaletta del culto".
+Entfernt den Tab Ablauf aus diesem Panel, für alle, die ihn nicht nutzen. Zurück: Einstellungen, Seite „Gottesdienstablauf“.
+
+Aba Roteiro escondida. Ela volta nas configurações, em "Roteiro do culto".
+Rundown tab hidden. It comes back in the settings, under "Order of service".
+Pestaña Guion oculta. Vuelve en la configuración, en "Guion del culto".
+Scheda Scaletta nascosta. Torna dalle impostazioni, in "Scaletta del culto".
+Tab Ablauf ausgeblendet. Er kommt in den Einstellungen unter „Gottesdienstablauf“ zurück.
+
+Esconder esta aba
+Hide this tab
+Ocultar esta pestaña
+Nascondi questa scheda
+Diesen Tab ausblenden
+
+O cartão de ofertas (QR Code) não segue este tempo: fica na tela até ser desligado, para dar tempo de apontar a câmera.
+The offering card (QR code) does not follow this time: it stays on screen until it is switched off, so that people have time to point their camera.
+La tarjeta de ofrendas (código QR) no sigue este tiempo: se queda en pantalla hasta que se apague, para dar tiempo a apuntar la cámara.
+La scheda delle offerte (codice QR) non segue questo tempo: resta a schermo finché non viene spenta, per dare il tempo di inquadrare.
+Die Spendenkarte (QR-Code) folgt dieser Zeit nicht: Sie bleibt im Bild, bis sie ausgeschaltet wird, damit Zeit bleibt, die Kamera darauf zu richten.
+
+A aba Roteiro aparece no painel do OBS. Clique para esconder, se não usa o roteiro.
+The Rundown tab shows in the OBS panel. Click to hide it, if you do not use the order of service.
+La pestaña Guion aparece en el panel de OBS. Haz clic para ocultarla, si no usas el guion.
+La scheda Scaletta appare nel pannello di OBS. Clicca per nasconderla, se non usi la scaletta.
+Der Tab Ablauf erscheint im OBS-Panel. Klicken, um ihn auszublenden, wenn der Ablauf nicht genutzt wird.
+
+A aba Roteiro está escondida. Clique para voltar a aparecer no painel do OBS.
+The Rundown tab is hidden. Click to show it in the OBS panel again.
+La pestaña Guion está oculta. Haz clic para que vuelva a aparecer en el panel de OBS.
+La scheda Scaletta è nascosta. Clicca per farla riapparire nel pannello di OBS.
+Der Tab Ablauf ist ausgeblendet. Klicken, um ihn wieder im OBS-Panel zu zeigen.
+
+A aba Roteiro está escondida no painel do OBS. O roteiro continua guardado.
+The Rundown tab is hidden in the OBS panel. The order of service is still saved.
+La pestaña Guion está oculta en el panel de OBS. El guion sigue guardado.
+La scheda Scaletta è nascosta nel pannello di OBS. La scaletta resta salvata.
+Der Tab Ablauf ist im OBS-Panel ausgeblendet. Der Ablauf bleibt gespeichert.
+
+clique: ir para o passo
+click: go to the step
+clic: ir al paso
+clic: vai al passo
+Klick: zum Schritt gehen

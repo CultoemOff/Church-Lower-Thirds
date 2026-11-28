@@ -4,11 +4,11 @@ Desarrollado por
 Sviluppato da
 Entwickelt von
 
-Tempo na tela: quanto tempo nomes, QR Code e redes sociais ficam antes de sair sozinhos
-Time on screen: how long names, QR code and social networks stay before leaving by themselves
-Tiempo en pantalla: cuánto permanecen los nombres, el código QR y las redes antes de salir solos
-Tempo a schermo: quanto restano nomi, codice QR e social prima di uscire da soli
-Zeit im Bild: wie lange Namen, QR-Code und soziale Netzwerke bleiben, bevor sie von selbst verschwinden
+Tempo na tela: quanto tempo nomes, redes sociais e comentários ficam antes de sair sozinhos. O cartão de ofertas não segue o tempo: fica até ser desligado.
+Time on screen: how long names, social networks and comments stay before leaving by themselves. The offering card does not follow the time: it stays until it is switched off.
+Tiempo en pantalla: cuánto permanecen los nombres, las redes y los comentarios antes de salir solos. La tarjeta de ofrendas no sigue el tiempo: se queda hasta que se apague.
+Tempo a schermo: quanto restano nomi, social e commenti prima di uscire da soli. La scheda delle offerte non segue il tempo: resta finché non viene spenta.
+Zeit im Bild: wie lange Namen, soziale Netzwerke und Kommentare bleiben, bevor sie von selbst verschwinden. Die Spendenkarte folgt der Zeit nicht: Sie bleibt, bis sie ausgeschaltet wird.
 
 Tirar tudo do ar
 Take everything off air
@@ -256,11 +256,11 @@ Escriba el enlace del código QR.
 Scrivi il link del codice QR.
 Bitte den Link für den QR-Code eingeben.
 
-Mostra o cartão com o que está escrito acima
-Shows the card with what is typed above
-Muestra la tarjeta con lo escrito arriba
-Mostra la scheda con quello che è scritto sopra
-Zeigt die Karte mit dem oben Geschriebenen
+Mostra o cartão com o que está escrito acima. Ele fica na tela até ser desligado.
+Shows the card with what is typed above. It stays on screen until it is switched off.
+Muestra la tarjeta con lo escrito arriba. Se queda en pantalla hasta que se apague.
+Mostra la scheda con quello che è scritto sopra. Resta a schermo finché non viene spenta.
+Zeigt die Karte mit dem oben Geschriebenen. Sie bleibt im Bild, bis sie ausgeschaltet wird.
 
 Tira o cartão da tela
 Takes the card off the screen
